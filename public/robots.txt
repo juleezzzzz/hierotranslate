@@ -1,0 +1,8 @@
+# Robots.txt for hierotranslate.com
+# Allow all search engines to index all pages
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://hierotranslate.com/sitemap.xml
