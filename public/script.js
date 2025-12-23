@@ -467,7 +467,7 @@ function loadGardinerSigns() {
         filterGardinerSigns(query);
     });
 
-    fetch('/static/gardiner_signs.json')
+    fetch('/gardiner_signs.json')
         .then(response => {
             if (!response.ok) throw new Error("Fichier introuvable");
             return response.json();
