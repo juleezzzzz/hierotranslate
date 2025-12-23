@@ -1,0 +1,1959 @@
+// === GESTION DU THÈME ===
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+}
+
+function updateThemeIcon(theme) {
+    const icon = document.querySelector('.theme-icon');
+    if (icon) {
+        icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+    }
+}
+
+// Initialiser le thème au chargement
+initTheme();
+
+// === ONBOARDING SYSTÈME ===
+const onboardingOverlay = document.getElementById('onboarding-overlay');
+
+function checkFirstVisit() {
+    const hasVisited = localStorage.getItem('hierotranslate_visited');
+    if (!hasVisited) {
+        showOnboarding();
+    }
+}
+
+function showOnboarding() {
+    if (onboardingOverlay) {
+        onboardingOverlay.classList.remove('hidden');
+        onboardingOverlay.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeOnboarding() {
+    if (onboardingOverlay) {
+        onboardingOverlay.classList.remove('visible');
+        onboardingOverlay.classList.add('hidden');
+        document.body.style.overflow = '';
+        localStorage.setItem('hierotranslate_visited', 'true');
+    }
+}
+
+// Close onboarding on outside click
+if (onboardingOverlay) {
+    onboardingOverlay.addEventListener('click', function (e) {
+        if (e.target === onboardingOverlay) {
+            closeOnboarding();
+        }
+    });
+}
+
+// === SCREEN READER ANNOUNCEMENTS ===
+function announceToScreenReader(message) {
+    const announcer = document.getElementById('sr-announcements');
+    if (announcer) {
+        announcer.textContent = message;
+        setTimeout(() => { announcer.textContent = ''; }, 1000);
+    }
+}
+
+// === SEARCH LOADER ===
+function showSearchLoader() {
+    const loader = document.getElementById('search-loader');
+    if (loader) loader.classList.remove('hidden');
+}
+
+function hideSearchLoader() {
+    const loader = document.getElementById('search-loader');
+    if (loader) loader.classList.add('hidden');
+}
+
+// === SHARE URL ===
+function shareResult() {
+    const term = document.getElementById('main-input').value.trim();
+    if (!term) return;
+
+    const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(term)}`;
+
+    navigator.clipboard.writeText(url).then(() => {
+        const btn = document.querySelector('.share-btn');
+        if (btn) {
+            btn.classList.add('copied');
+            const textEl = btn.querySelector('.share-text');
+            const originalText = textEl.textContent;
+            textEl.textContent = 'Lien copié !';
+
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                textEl.textContent = originalText;
+            }, 2000);
+        }
+        announceToScreenReader('Lien copié dans le presse-papiers');
+    });
+}
+
+// Handle URL parameter on load
+function handleUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('q');
+    if (query) {
+        const mainInput = document.getElementById('main-input');
+        if (mainInput) {
+            mainInput.value = query;
+            // Slight delay to ensure DOM is ready
+            setTimeout(() => {
+                performTranslation();
+            }, 100);
+        }
+    }
+}
+
+// === WORD OF THE DAY ===
+let wordOfDayData = null;
+
+async function loadWordOfDay() {
+    try {
+        const response = await fetch('/api/suggest?term=');
+        const data = await response.json();
+
+        if (data.success && data.data.length > 0) {
+            // Pick a random word based on today's date (consistent per day)
+            const today = new Date();
+            const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+            const index = seed % data.data.length;
+            wordOfDayData = data.data[index];
+
+            document.getElementById('wod-hiero').textContent = wordOfDayData.hieroglyphes || '';
+            document.getElementById('wod-translit').textContent = wordOfDayData.translitteration || '';
+            document.getElementById('wod-french').textContent = wordOfDayData.francais || '';
+        }
+    } catch (err) {
+        console.error('Erreur chargement mot du jour:', err);
+        // Hide word of day card on error
+        const wodCard = document.getElementById('word-of-day');
+        if (wodCard) wodCard.style.display = 'none';
+    }
+}
+
+function searchWordOfDay() {
+    if (wordOfDayData) {
+        document.getElementById('main-input').value = wordOfDayData.translitteration;
+        performTranslation();
+    }
+}
+
+// === GARDINER VIEW & SORT ===
+let gardinerViewMode = 'grid'; // 'grid' or 'table'
+let gardinerSortBy = 'code'; // 'code', 'translit', 'description'
+
+function setGardinerView(mode) {
+    gardinerViewMode = mode;
+
+    // Update buttons
+    document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`.view-btn[onclick="setGardinerView('${mode}')"]`)?.classList.add('active');
+
+    // Update container class
+    const container = document.getElementById('gardiner-list-container');
+    if (container) {
+        if (mode === 'table') {
+            container.classList.add('table-view');
+        } else {
+            container.classList.remove('table-view');
+        }
+    }
+}
+
+function sortGardinerSigns() {
+    const select = document.getElementById('gardiner-sort');
+    if (select) {
+        gardinerSortBy = select.value;
+        renderAllSigns();
+    }
+}
+
+// === COPIER DANS LE PRESSE-PAPIERS ===
+function copyToClipboard(elementId, button) {
+    const element = document.getElementById(elementId);
+    const text = element.textContent;
+
+    if (!text || text.trim() === '') return;
+
+    navigator.clipboard.writeText(text).then(() => {
+        // Feedback visuel
+        button.classList.add('copied');
+        const icon = button.querySelector('.copy-icon');
+        const originalText = icon.textContent;
+        icon.textContent = '✓';
+
+        setTimeout(() => {
+            button.classList.remove('copied');
+            icon.textContent = originalText;
+        }, 1500);
+    }).catch(err => {
+        console.error('Erreur de copie:', err);
+    });
+}
+
+// Définition des touches du clavier (avec la bonne translittération pour une meilleure compatibilité)
+const transliterationKeys = [
+    { value: 'ꜣ', code: 'ꜣ', tooltip: 'Aleph - coup de glotte' },
+    { value: 'j', code: 'j', tooltip: 'Yod - semi-voyelle' },
+    { value: 'y', code: 'y', tooltip: 'Double roseau' },
+    { value: 'ꜥ', code: 'ꜥ', tooltip: 'Ayin - gutturale' },
+    { value: 'w', code: 'w', tooltip: 'Caille - semi-voyelle' },
+    { value: 'b', code: 'b', tooltip: 'Jambe' },
+    { value: 'p', code: 'p', tooltip: 'Natte' },
+    { value: 'f', code: 'f', tooltip: 'Vipère à cornes' },
+    { value: 'm', code: 'm', tooltip: 'Hibou' },
+    { value: 'n', code: 'n', tooltip: 'Eau' },
+    { value: 'r', code: 'r', tooltip: 'Bouche' },
+    { value: 'h', code: 'h', tooltip: 'Cabane' },
+    { value: 'ḥ', code: 'ḥ', tooltip: 'Mèche de lin' },
+    { value: 'ḫ', code: 'ḫ', tooltip: 'Placenta/crible' },
+    { value: 'h̬', code: 'h̬', tooltip: 'Ventre animal' },
+    { value: 's', code: 's', tooltip: 'Verrou' },
+    { value: 'š', code: 'š', tooltip: 'Bassin/jardin' },
+    { value: 'q', code: 'q', tooltip: 'Pente de colline' },
+    { value: 'k', code: 'k', tooltip: 'Corbeille à anse' },
+    { value: 'g', code: 'g', tooltip: 'Support de jarre' },
+    { value: 't', code: 't', tooltip: 'Pain' },
+    { value: 'ṯ', code: 'ṯ', tooltip: 'Corde à piquet' },
+    { value: 'd', code: 'd', tooltip: 'Main' },
+    { value: 'ḏ', code: 'ḏ', tooltip: 'Serpent' },
+    // Touche Entrée (pour lancer la recherche)
+    { value: '↵', code: 'enter', tooltip: 'Rechercher' }
+];
+
+const keyboard = document.getElementById('hieroglyph-keyboard');
+const mainInput = document.getElementById('main-input');
+const resultHiero = document.getElementById('result-hiero');
+const resultFrench = document.getElementById('result-french');
+const mainContainer = document.querySelector('.main-container');
+
+// --- Logique d'Affichage/Masquage du Clavier ---
+
+// Afficher le clavier au focus sur la barre de recherche
+mainInput.addEventListener('focus', () => {
+    keyboard.classList.remove('hidden');
+    keyboard.classList.add('visible');
+});
+
+// Masquer le clavier au clic n'importe où ailleurs
+document.addEventListener('click', (event) => {
+    const isClickInsideMainInput = mainInput.contains(event.target);
+    const isClickInsideKeyboard = keyboard.contains(event.target);
+
+    if (!isClickInsideMainInput && !isClickInsideKeyboard) {
+        if (keyboard.classList.contains('visible')) {
+            keyboard.classList.remove('visible');
+            keyboard.classList.add('hidden');
+        }
+    }
+});
+
+
+// 1. Création des boutons du clavier avec tooltips
+transliterationKeys.forEach(key => {
+    const button = document.createElement('button');
+    button.textContent = key.value;
+    button.classList.add('hiero-key');
+
+    // Ajouter tooltip
+    if (key.tooltip) {
+        button.setAttribute('data-tooltip', key.tooltip);
+    }
+
+    button.addEventListener('click', (event) => {
+        event.stopPropagation(); // Empêche le masquage immédiat
+
+        if (key.code === 'backspace') {
+            mainInput.value = mainInput.value.slice(0, -1);
+        } else if (key.code === 'enter') {
+            performTranslation();
+        } else {
+            // Insère le caractère de translittération dans la barre de recherche
+            mainInput.value += key.code;
+        }
+        mainInput.focus();
+    });
+
+    keyboard.appendChild(button);
+});
+
+
+// 2. Fonction de recherche et de Traduction
+function performTranslation() {
+    const searchTerm = mainInput.value.trim().toLowerCase();
+
+    // Masquer le clavier après la recherche
+    keyboard.classList.remove('visible');
+    keyboard.classList.add('hidden');
+
+    if (!searchTerm) {
+        resultHiero.textContent = "";
+        resultFrench.textContent = "Veuillez entrer un terme à traduire.";
+        return;
+    }
+
+    // Afficher le loader
+    showSearchLoader();
+    resultHiero.textContent = "";
+    resultFrench.textContent = "";
+
+    // Requête AJAX vers l'adresse /api/translate
+    fetch(`/api/translate?term=${encodeURIComponent(searchTerm)}`)
+        .then(response => response.json())
+        .then(data => {
+            hideSearchLoader();
+            if (data.success) {
+                // Succès : affiche les données reçues
+                resultHiero.textContent = `Hiéroglyphes: ${data.data.hieroglyphes} (${data.data.translitteration})`;
+                resultFrench.textContent = `Traduction: ${data.data.francais} `;
+
+                // Ajouter à l'historique
+                addToHistory(data.data.francais, data.data.translitteration, data.data.hieroglyphes);
+
+                // Vérifier si c'est un favori
+                checkIfFavorite(`Hiéroglyphes: ${data.data.hieroglyphes} (${data.data.translitteration})`);
+
+                // Annoncer aux lecteurs d'écran
+                announceToScreenReader(`Traduction trouvée: ${data.data.francais}`);
+            } else {
+                // Échec : affiche un message "non trouvé"
+                resultHiero.textContent = "Aucune traduction trouvée dans la base de données.";
+                resultFrench.textContent = `Terme recherché: ${searchTerm} `;
+                announceToScreenReader('Aucune traduction trouvée');
+            }
+        })
+        .catch(error => {
+            hideSearchLoader();
+            console.error('Erreur de connexion:', error);
+            resultHiero.textContent = "Erreur de connexion au serveur.";
+            resultFrench.textContent = "Le script app.py est-il démarré dans le Terminal ?";
+        });
+}
+
+// 3. Permettre la recherche en appuyant sur Entrée
+mainInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        performTranslation();
+        document.getElementById('propositions-list').classList.add('hidden');
+    }
+});
+
+// === PROPOSITIONS (LIVE SEARCH) ===
+
+const propositionsContainer = document.getElementById('propositions-list');
+let debounceTimeout = null;
+
+mainInput.addEventListener('input', function () {
+    const term = this.value.trim();
+
+    // Clear previous timeout
+    if (debounceTimeout) clearTimeout(debounceTimeout);
+
+    // Hide if empty
+    if (term.length === 0) {
+        propositionsContainer.classList.add('hidden');
+        return;
+    }
+
+    // Debounce
+    debounceTimeout = setTimeout(() => {
+        fetchPropositions(term);
+    }, 300);
+});
+
+function fetchPropositions(term) {
+    fetch(`/api/suggest?term=${encodeURIComponent(term)}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.data.length > 0) {
+                renderPropositions(data.data);
+            } else {
+                propositionsContainer.classList.add('hidden');
+            }
+        })
+        .catch(err => console.error(err));
+}
+
+function renderPropositions(items) {
+    propositionsContainer.innerHTML = '';
+    propositionsContainer.classList.remove('hidden');
+
+    items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'proposition-item';
+        // Affichage : Translittération (Gras) - Français ... Hiéroglyphes (Droite)
+        div.innerHTML = `
+            <div class="p-info-col">
+                <span class="p-translit">${item.translitteration}</span>
+                <span class="p-french">${item.francais}</span>
+            </div>
+            <span class="p-hiero">${item.hieroglyphes || ''}</span>
+        `;
+
+        div.onclick = () => {
+            // Au clic, on remplit la barre et on lance la recherche
+            mainInput.value = item.translitteration;
+            performTranslation();
+            propositionsContainer.classList.add('hidden');
+        };
+
+        propositionsContainer.appendChild(div);
+    });
+}
+
+// Close propositions only when clicking OUTSIDE the search card entirely (optional)
+// For now we keep it simple: it stays open until a choice is made or input cleared.
+
+function getMainInput() { return document.getElementById('main-input'); }
+
+// === NAVIGATION VERS LES SECTIONS ===
+
+// Gérer les clics sur les liens de navigation
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1); // Enlever le #
+        showSection(targetId);
+    });
+});
+
+// Afficher une section et masquer le traducteur
+function showSection(sectionId) {
+    // Masquer le traducteur
+    mainContainer.style.display = 'none';
+
+    // Masquer toutes les sections
+    document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.add('hidden');
+    });
+
+    // Afficher la section demandée
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.remove('hidden');
+        if (sectionId === 'liste-signes') {
+            loadGardinerSigns();
+        }
+    }
+}
+
+// === LISTE DES SIGNES (GARDINER) ===
+let signsLoaded = false;
+
+function loadGardinerSigns() {
+    if (signsLoaded) return;
+
+    const container = document.getElementById('gardiner-list-container');
+    const searchInput = document.getElementById('gardiner-search');
+
+    // Add search listener
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        filterGardinerSigns(query);
+    });
+
+    fetch('/static/gardiner_signs.json')
+        .then(response => {
+            if (!response.ok) throw new Error("Fichier introuvable");
+            return response.json();
+        })
+        .then(data => {
+            renderGardinerSigns(data);
+            signsLoaded = true;
+        })
+        .catch(err => {
+            console.error(err);
+            container.innerHTML = '<p class="error">Impossible de charger la liste des signes.</p>';
+        });
+}
+// Pagination variables (disabled - all signs on one page)
+let allGardinerSigns = [];
+
+function renderGardinerSigns(signs) {
+    allGardinerSigns = signs;
+    renderAllSigns();
+}
+
+function renderAllSigns() {
+    const container = document.getElementById('gardiner-list-container');
+    container.innerHTML = '';
+
+    // Get visible signs after filters
+    const visibleSigns = getVisibleSigns();
+
+    if (visibleSigns.length === 0) {
+        container.innerHTML = '<p>Aucun signe trouvé.</p>';
+        document.getElementById('gardiner-count').textContent = '0';
+        return;
+    }
+
+    document.getElementById('gardiner-count').textContent = visibleSigns.length;
+
+    visibleSigns.forEach(sign => {
+        const div = document.createElement('div');
+        div.className = 'sign-item';
+        div.dataset.search = (sign.code + " " + (sign.description || "") + " " + (sign.transliteration || "")).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        div.dataset.code = sign.code;
+
+        div.innerHTML = `
+            <span class="sign-char">${sign.sign}</span>
+            <div class="sign-info" style="display: flex; flex-direction: column; width: 100%;">
+                <span class="sign-code" style="margin-bottom: 2px;">${sign.code}</span>
+                <div style="display: flex; justify-content: space-between; align-items: baseline; width: 100%;">
+                     <span class="sign-desc" style="text-align: left;">${sign.description || ''}</span>
+                     <span class="sign-translit" style="text-align: right; color: #888; font-family: 'Gentium Plus', serif; margin-left: 10px;">${sign.transliteration || ''}</span>
+                </div>
+            </div>
+        `;
+
+        div.onclick = () => openSignDetailModal(sign);
+        container.appendChild(div);
+    });
+}
+
+function getVisibleSigns() {
+    const query = document.getElementById('gardiner-search')?.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") || '';
+    const category = document.getElementById('gardiner-category')?.value || '';
+
+    let filtered = allGardinerSigns.filter(sign => {
+        const searchText = (sign.code + " " + (sign.description || "") + " " + (sign.transliteration || "")).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const matchesQuery = !query || searchText.includes(query);
+
+        let matchesCategory = true;
+        if (category) {
+            if (category === 'Aa') {
+                matchesCategory = sign.code.startsWith('Aa');
+            } else {
+                matchesCategory = sign.code.startsWith(category) && !sign.code.startsWith('Aa');
+            }
+        }
+
+        return matchesQuery && matchesCategory;
+    });
+
+    // Tri selon gardinerSortBy
+    filtered.sort((a, b) => {
+        if (gardinerSortBy === 'translit') {
+            const aVal = (a.transliteration || '').toLowerCase();
+            const bVal = (b.transliteration || '').toLowerCase();
+            return aVal.localeCompare(bVal);
+        } else if (gardinerSortBy === 'description') {
+            const aVal = (a.description || '').toLowerCase();
+            const bVal = (b.description || '').toLowerCase();
+            return aVal.localeCompare(bVal);
+        } else {
+            // Tri par code (défaut) - tri naturel pour gérer A1, A2, A10
+            return a.code.localeCompare(b.code, undefined, { numeric: true, sensitivity: 'base' });
+        }
+    });
+
+    return filtered;
+}
+
+function filterGardinerSigns(query) {
+    renderAllSigns();
+}
+
+function filterByCategory() {
+    renderAllSigns();
+}
+
+// === MODAL DÉTAIL D'UN SIGNE ===
+
+const signDetailModal = document.getElementById('sign-detail-modal');
+
+function openSignDetailModal(sign) {
+    document.getElementById('sign-detail-char').textContent = sign.sign || '';
+    document.getElementById('sign-detail-code').textContent = sign.code || '';
+    document.getElementById('sign-detail-desc').textContent = sign.description || 'Pas de description disponible';
+    document.getElementById('sign-detail-translit').textContent = sign.transliteration || 'Pas de translittération';
+    document.getElementById('sign-detail-descriptif').textContent = sign.descriptif || '';
+
+    signDetailModal.classList.remove('hidden');
+    signDetailModal.classList.add('visible');
+}
+
+function closeSignDetailModal() {
+    signDetailModal.classList.remove('visible');
+    signDetailModal.classList.add('hidden');
+}
+
+// Close modal when clicking outside content
+signDetailModal.addEventListener('click', function (e) {
+    if (e.target === signDetailModal) {
+        closeSignDetailModal();
+    }
+});
+
+// Masquer une section et revenir au traducteur
+function hideSection(sectionId) {
+    document.getElementById(sectionId).classList.add('hidden');
+    mainContainer.style.display = 'flex';
+}
+
+// === COMPTEUR DE MOTS ===
+function loadWordCount() {
+    fetch('/api/count')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('word-count').textContent = `${data.count} mots`;
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+        });
+}
+
+// Charger le compteur au démarrage
+loadWordCount();
+
+// === OVERLAY "À PROPOS" ===
+
+const overlay = document.getElementById('about-overlay');
+const hieroAnimation = document.getElementById('hiero-animation');
+
+// Hiéroglyphes pour l'animation
+const hieroglyphs = ['𓂀', '𓃀', '𓄀', '𓅃', '𓆃', '𓇋', '𓈖', '𓉐', '𓊃', '𓋴', '𓌸', '𓍿', '𓎛', '𓏏', '𓐍', '𓀀', '𓁀', '𓂋', '𓃭', '𓄿', '𓅱', '𓆓', '𓇳', '𓈙', '𓉻', '𓊹', '𓋹', '𓌀', '𓍯', '𓎟', '𓏤', '𓐙'];
+
+let animationInterval;
+
+function openOverlay() {
+    overlay.classList.remove('hidden');
+    overlay.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+    startHieroglyphAnimation();
+}
+
+function closeOverlay() {
+    overlay.classList.remove('visible');
+    overlay.classList.add('hidden');
+    document.body.style.overflow = '';
+    stopHieroglyphAnimation();
+}
+
+// Animation de hiéroglyphes défilants
+function startHieroglyphAnimation() {
+    let display = '';
+    let index = 0;
+
+    // Afficher progressivement des hiéroglyphes
+    animationInterval = setInterval(() => {
+        if (index < 8) {
+            const randomHiero = hieroglyphs[Math.floor(Math.random() * hieroglyphs.length)];
+            display += randomHiero;
+            hieroAnimation.textContent = display;
+            index++;
+        } else {
+            // Recommencer avec de nouveaux hiéroglyphes
+            display = '';
+            index = 0;
+        }
+    }, 300);
+}
+
+function stopHieroglyphAnimation() {
+    clearInterval(animationInterval);
+    hieroAnimation.textContent = '';
+}
+
+// Fermer l'overlay en cliquant à l'extérieur
+overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) {
+        closeOverlay();
+    }
+});
+
+// Fermer avec la touche Escape
+// Fermer avec la touche Escape
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        if (overlay.classList.contains('visible')) closeOverlay();
+        if (authOverlay.classList.contains('visible')) closeAuthOverlay();
+        if (accountOverlay.classList.contains('visible')) closeAccountOverlay();
+        if (signDetailModal && signDetailModal.classList.contains('visible')) closeSignDetailModal();
+    }
+});
+
+
+// === GESTION DE L'AUTHENTIFICATION ===
+
+const authOverlay = document.getElementById('auth-overlay');
+const accountOverlay = document.getElementById('account-overlay');
+const authBtn = document.getElementById('auth-btn');
+
+let currentUser = null;
+
+// Vérifier si l'utilisateur est connecté au chargement
+function checkAuth() {
+    fetch('/api/auth/me')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.logged_in) {
+                currentUser = data.user;
+                updateAuthUI(true);
+            } else {
+                currentUser = null;
+                updateAuthUI(false);
+            }
+        })
+        .catch(err => console.error(err));
+}
+
+// Mettre à jour l'interface selon l'état de connexion
+// Mettre à jour l'interface selon l'état de connexion
+function updateAuthUI(isLoggedIn) {
+    if (isLoggedIn) {
+        authBtn.textContent = 'Mon Compte';
+        authBtn.classList.add('logged-in');
+
+        // Populate Dropdown Info
+        document.getElementById('dropdown-username').textContent = currentUser.username;
+        document.getElementById('dropdown-email').textContent = currentUser.email;
+
+        // Populate Form Inputs for Edit Modals (optional, can be done on open)
+        document.getElementById('edit-username-input').value = currentUser.username;
+        document.getElementById('edit-email-input').value = currentUser.email;
+
+        // Photo de profil dropdown
+        const profilePic = document.getElementById('dropdown-user-pic');
+        if (currentUser.profile_picture) {
+            profilePic.src = currentUser.profile_picture;
+            profilePic.classList.remove('fallback');
+        } else {
+            profilePic.src = '';
+            profilePic.classList.add('fallback');
+        }
+
+    } else {
+        authBtn.textContent = 'Connexion';
+        authBtn.classList.remove('logged-in');
+
+        // Ensure dropdown is closed
+        if (accountDropdown) accountDropdown.classList.add('hidden');
+    }
+}
+
+// --- OVERLAY AUTH ---
+
+function openAuthOverlay() {
+    authOverlay.classList.remove('hidden');
+    authOverlay.classList.add('visible');
+    switchAuthTab('login'); // Par défaut sur login
+}
+
+function closeAuthOverlay() {
+    authOverlay.classList.remove('visible');
+    authOverlay.classList.add('hidden');
+}
+
+function switchAuthTab(tab) {
+    // Boutons
+    document.querySelectorAll('.auth-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`.auth-tab[onclick="switchAuthTab('${tab}')"]`).classList.add('active');
+
+    // Formulaires
+    if (tab === 'login') {
+        document.getElementById('login-form-container').classList.remove('hidden');
+        document.getElementById('register-form-container').classList.add('hidden');
+    } else {
+        document.getElementById('login-form-container').classList.add('hidden');
+        document.getElementById('register-form-container').classList.remove('hidden');
+    }
+}
+
+// --- LOGIN ---
+document.getElementById('login-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const identifier = document.getElementById('login-identifier').value;
+    const password = document.getElementById('login-password').value;
+    const errorDiv = document.getElementById('login-error');
+
+    fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier, password })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                currentUser = data.user;
+                updateAuthUI(true);
+                closeAuthOverlay();
+                // Reset form
+                this.reset();
+                errorDiv.classList.add('hidden');
+            } else {
+                errorDiv.textContent = data.message;
+                errorDiv.classList.remove('hidden');
+            }
+        })
+        .catch(err => {
+            errorDiv.textContent = "Erreur de connexion serveur";
+            errorDiv.classList.remove('hidden');
+        });
+});
+
+// --- REGISTER ---
+document.getElementById('register-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const username = document.getElementById('register-username').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    const errorDiv = document.getElementById('register-error');
+
+    fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
+                switchAuthTab('login');
+                this.reset();
+                errorDiv.classList.add('hidden');
+            } else {
+                errorDiv.textContent = data.message;
+                errorDiv.classList.remove('hidden');
+            }
+        })
+        .catch(err => {
+            errorDiv.textContent = "Erreur serveur";
+            errorDiv.classList.remove('hidden');
+        });
+});
+
+// --- OVERLAY COMPTE ---
+
+// --- MANAGEMENT DU DROPDOWN & MODALS ---
+
+const accountDropdown = document.getElementById('account-dropdown');
+
+function handleAuthClick() {
+    if (currentUser) {
+        toggleDropdown();
+    } else {
+        openAuthOverlay();
+    }
+}
+
+function toggleDropdown() {
+    if (accountDropdown.classList.contains('hidden')) {
+        accountDropdown.classList.remove('hidden');
+    } else {
+        accountDropdown.classList.add('hidden');
+    }
+}
+
+function closeDropdown() {
+    if (accountDropdown) accountDropdown.classList.add('hidden');
+}
+
+// Fermer le dropdown quand on clique en dehors
+document.addEventListener('click', function (e) {
+    if (accountDropdown && !accountDropdown.classList.contains('hidden')) {
+        const authBtn = document.getElementById('auth-btn');
+        const isClickInsideDropdown = accountDropdown.contains(e.target);
+        const isClickOnAuthBtn = authBtn && authBtn.contains(e.target);
+
+        if (!isClickInsideDropdown && !isClickOnAuthBtn) {
+            closeDropdown();
+            hideEditPanel(); // Also hide edit panel when closing dropdown
+        }
+    }
+});
+
+// === PANNEAU D'ÉDITION INLINE ===
+
+let currentEditField = null;
+
+function showEditPanel(field) {
+    currentEditField = field;
+
+    const mainView = document.getElementById('dropdown-main-view');
+    const editView = document.getElementById('dropdown-edit-view');
+    const titleElement = document.getElementById('edit-panel-title');
+
+    // Hide all edit fields
+    document.querySelectorAll('.edit-field-group').forEach(el => el.classList.add('hidden'));
+
+    // Show the correct field and set title
+    const titles = {
+        'username': 'Modifier l\'identifiant',
+        'email': 'Modifier l\'email',
+        'password': 'Modifier le mot de passe'
+    };
+
+    titleElement.textContent = titles[field] || 'Modifier';
+    document.getElementById(`edit-panel-${field}`).classList.remove('hidden');
+
+    // Pre-fill current values
+    if (field === 'username' && currentUser) {
+        document.getElementById('inline-edit-username').value = currentUser.username || '';
+    } else if (field === 'email' && currentUser) {
+        document.getElementById('inline-edit-email').value = currentUser.email || '';
+    }
+
+    // Clear password fields
+    if (field === 'password') {
+        document.getElementById('inline-edit-password-current').value = '';
+        document.getElementById('inline-edit-password-new').value = '';
+    }
+
+    // Clear errors
+    document.getElementById('inline-edit-error').classList.add('hidden');
+
+    // Animate transition
+    mainView.classList.add('slide-out');
+    editView.classList.remove('hidden');
+    editView.classList.add('visible');
+}
+
+function hideEditPanel() {
+    const mainView = document.getElementById('dropdown-main-view');
+    const editView = document.getElementById('dropdown-edit-view');
+
+    mainView.classList.remove('slide-out');
+    editView.classList.remove('visible');
+    editView.classList.add('hidden');
+
+    currentEditField = null;
+}
+
+function saveInlineEdit() {
+    if (!currentEditField || !currentUser) return;
+
+    const errorDiv = document.getElementById('inline-edit-error');
+    let data = {};
+
+    if (currentEditField === 'username') {
+        data.username = document.getElementById('inline-edit-username').value;
+    } else if (currentEditField === 'email') {
+        data.email = document.getElementById('inline-edit-email').value;
+    } else if (currentEditField === 'password') {
+        data.current_password = document.getElementById('inline-edit-password-current').value;
+        data.password = document.getElementById('inline-edit-password-new').value;
+    }
+
+    fetch('/api/auth/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+        .then(res => res.json())
+        .then(response => {
+            if (response.success) {
+                // Update local user data
+                if (data.username) currentUser.username = data.username;
+                if (data.email) currentUser.email = data.email;
+
+                // Update UI
+                updateAuthUI(true);
+                hideEditPanel();
+            } else {
+                errorDiv.textContent = response.message || 'Erreur lors de la mise à jour';
+                errorDiv.classList.remove('hidden');
+            }
+        })
+        .catch(err => {
+            errorDiv.textContent = 'Erreur de connexion au serveur';
+            errorDiv.classList.remove('hidden');
+        });
+}
+
+// Toggle password visibility
+function togglePasswordVisibility(inputId, button) {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') {
+        input.type = 'text';
+        button.textContent = '🙈';
+        button.classList.add('visible');
+    } else {
+        input.type = 'password';
+        button.textContent = '👁';
+        button.classList.remove('visible');
+    }
+}
+
+// === GESTION DE L'HISTORIQUE (PAR UTILISATEUR) ===
+
+const historyList = document.getElementById('history-list');
+
+// Retourne la clé de stockage : 'history_guest' ou 'history_username'
+function getHistoryKey() {
+    if (currentUser && currentUser.username) {
+        return `history_${currentUser.username}`;
+    }
+    return 'history_guest';
+}
+
+function getHistory() {
+    try {
+        const key = getHistoryKey();
+        return JSON.parse(localStorage.getItem(key)) || [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveHistory(historyData) {
+    const key = getHistoryKey();
+    localStorage.setItem(key, JSON.stringify(historyData));
+    renderHistory();
+}
+
+
+function addToHistory(french, translit, hiero) {
+    let history = getHistory();
+
+    // Éviter les doublons consécutifs
+    if (history.length > 0) {
+        const last = history[0];
+        if (last.french === french && last.translit === translit) return;
+    }
+
+    history.unshift({ french, translit, hiero });
+
+    if (history.length > 50) history.pop(); // Limite
+
+    saveHistory(history);
+
+    // Update user stats
+    updateStats(translit);
+}
+
+// === STATISTIQUES UTILISATEUR ===
+
+function getStatsKey() {
+    if (currentUser && currentUser.username) {
+        return `stats_${currentUser.username}`;
+    }
+    return 'stats_guest';
+}
+
+function getStats() {
+    try {
+        const key = getStatsKey();
+        return JSON.parse(localStorage.getItem(key)) || { searchCount: 0, wordCounts: {} };
+    } catch (e) {
+        return { searchCount: 0, wordCounts: {} };
+    }
+}
+
+function saveStats(stats) {
+    const key = getStatsKey();
+    localStorage.setItem(key, JSON.stringify(stats));
+}
+
+function updateStats(searchTerm) {
+    let stats = getStats();
+
+    // Increment search count
+    stats.searchCount = (stats.searchCount || 0) + 1;
+
+    // Track word frequency
+    if (searchTerm) {
+        stats.wordCounts = stats.wordCounts || {};
+        stats.wordCounts[searchTerm] = (stats.wordCounts[searchTerm] || 0) + 1;
+    }
+
+    saveStats(stats);
+    renderStats();
+}
+
+function renderStats() {
+    const stats = getStats();
+
+    // Update search count
+    const countEl = document.getElementById('stat-search-count');
+    if (countEl) {
+        countEl.textContent = stats.searchCount || 0;
+    }
+
+    // Find top word
+    const topWordEl = document.getElementById('stat-top-word');
+    if (topWordEl && stats.wordCounts) {
+        let topWord = '—';
+        let maxCount = 0;
+
+        for (const [word, count] of Object.entries(stats.wordCounts)) {
+            if (count > maxCount) {
+                maxCount = count;
+                topWord = word;
+            }
+        }
+
+        // Truncate if too long
+        if (topWord.length > 8) {
+            topWord = topWord.substring(0, 7) + '…';
+        }
+
+        topWordEl.textContent = topWord;
+    }
+}
+
+// === GESTION DES FAVORIS ===
+
+function getFavoritesKey() {
+    if (currentUser && currentUser.username) {
+        return `favorites_${currentUser.username}`;
+    }
+    return 'favorites_guest';
+}
+
+function getFavorites() {
+    try {
+        const key = getFavoritesKey();
+        return JSON.parse(localStorage.getItem(key)) || [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveFavorites(favorites) {
+    const key = getFavoritesKey();
+    localStorage.setItem(key, JSON.stringify(favorites));
+    renderFavorites();
+}
+
+function toggleFavorite() {
+    const hiero = document.getElementById('result-hiero').textContent;
+    const french = document.getElementById('result-french').textContent;
+    const translit = document.getElementById('main-input').value;
+
+    if (!hiero || !french) return;
+
+    let favorites = getFavorites();
+    const existing = favorites.findIndex(f => f.hiero === hiero);
+
+    const btn = document.getElementById('result-favorite');
+
+    if (existing >= 0) {
+        // Remove from favorites
+        favorites.splice(existing, 1);
+        btn.classList.remove('active');
+        btn.querySelector('.favorite-icon').textContent = '☆';
+        btn.querySelector('.favorite-text').textContent = 'Ajouter aux favoris';
+    } else {
+        // Add to favorites
+        favorites.unshift({ hiero, french, translit, date: Date.now() });
+        if (favorites.length > 20) favorites.pop(); // Limit
+        btn.classList.add('active');
+        btn.querySelector('.favorite-icon').textContent = '★';
+        btn.querySelector('.favorite-text').textContent = 'Dans vos favoris';
+    }
+
+    saveFavorites(favorites);
+}
+
+function checkIfFavorite(hiero) {
+    const favorites = getFavorites();
+    const btn = document.getElementById('result-favorite');
+    if (!btn) return;
+
+    const isFav = favorites.some(f => f.hiero === hiero);
+    if (isFav) {
+        btn.classList.add('active');
+        btn.querySelector('.favorite-icon').textContent = '★';
+        btn.querySelector('.favorite-text').textContent = 'Dans vos favoris';
+    } else {
+        btn.classList.remove('active');
+        btn.querySelector('.favorite-icon').textContent = '☆';
+        btn.querySelector('.favorite-text').textContent = 'Ajouter aux favoris';
+    }
+}
+
+function renderFavorites() {
+    const favorites = getFavorites();
+    const container = document.getElementById('favorites-list');
+    const countEl = document.getElementById('favorites-count');
+
+    if (!container) return;
+
+    if (countEl) countEl.textContent = `(${favorites.length})`;
+
+    if (favorites.length === 0) {
+        container.innerHTML = '<div class="favorites-empty">Aucun favori</div>';
+        return;
+    }
+
+    container.innerHTML = favorites.map((fav, i) => `
+        <div class="favorite-item" onclick="loadFavorite(${i})">
+            <span class="favorite-item-hiero">${fav.hiero}</span>
+            <span class="favorite-item-text">${fav.translit || fav.french}</span>
+            <button class="favorite-remove" onclick="event.stopPropagation(); removeFavorite(${i})">✕</button>
+        </div>
+    `).join('');
+}
+
+function loadFavorite(index) {
+    const favorites = getFavorites();
+    const fav = favorites[index];
+    if (!fav) return;
+
+    // Close dropdown
+    closeDropdown();
+
+    // Show main section
+    document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
+    document.querySelector('.main-container').style.display = 'flex';
+
+    // Fill in the result
+    document.getElementById('main-input').value = fav.translit || '';
+    document.getElementById('result-hiero').textContent = fav.hiero;
+    document.getElementById('result-french').textContent = fav.french;
+    checkIfFavorite(fav.hiero);
+}
+
+function removeFavorite(index) {
+    let favorites = getFavorites();
+    favorites.splice(index, 1);
+    saveFavorites(favorites);
+}
+
+// Search the top word when clicked
+function searchTopWord() {
+    const stats = getStats();
+    if (!stats.wordCounts) return;
+
+    // Find top word (full version, not truncated)
+    let topWord = null;
+    let maxCount = 0;
+
+    for (const [word, count] of Object.entries(stats.wordCounts)) {
+        if (count > maxCount) {
+            maxCount = count;
+            topWord = word;
+        }
+    }
+
+    if (topWord && topWord !== '—') {
+        // Close dropdown
+        closeDropdown();
+
+        // Hide any sections and show main
+        document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
+        document.querySelector('.main-container').style.display = 'flex';
+
+        // Fill search input and perform search
+        document.getElementById('main-input').value = topWord;
+        performTranslation();
+    }
+}
+
+function renderHistory() {
+    const history = getHistory();
+    historyList.innerHTML = '';
+
+    if (history.length === 0) {
+        historyList.innerHTML = '<div class="history-empty">Aucune recherche récente</div>';
+        return;
+    }
+
+    history.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.onclick = () => restoreHistoryItem(item);
+
+        div.innerHTML = `
+            <span class="h-french">${item.french}</span>
+            <span class="h-sep">-</span>
+            <span class="h-translit">${item.translit}</span>
+            <span class="h-sep">-</span>
+            <span class="h-hiero">${item.hiero}</span>
+        `;
+        historyList.appendChild(div);
+    });
+}
+
+function clearHistory() {
+    if (confirm('Voulez-vous vraiment effacer tout l\'historique ?')) {
+        const key = getHistoryKey();
+        localStorage.removeItem(key);
+        renderHistory();
+    }
+}
+
+function restoreHistoryItem(item) {
+    document.getElementById('result-hiero').textContent = `Hiéroglyphes: ${item.hiero} (${item.translit})`;
+    document.getElementById('result-french').textContent = `Traduction: ${item.french} `;
+}
+
+
+// === GESTION DE L'INTERFACE (RESET) ===
+
+function resetInterface() {
+    // Vider la barre de recherche
+    document.getElementById('main-input').value = '';
+
+    // Vider les résultats
+    document.getElementById('result-hiero').textContent = '';
+    document.getElementById('result-french').textContent = '';
+
+    // Vider / Masquer les suggestions
+    if (document.getElementById('propositions-list')) {
+        document.getElementById('propositions-list').classList.add('hidden');
+        document.getElementById('propositions-list').innerHTML = '';
+    }
+
+    // Recharger l'historique (qui sera celui du guest ou vide)
+    renderHistory();
+}
+
+function updateAuthUI(isLoggedIn) {
+    if (isLoggedIn) {
+        authBtn.textContent = 'Mon Compte';
+        authBtn.classList.add('logged-in');
+
+        document.getElementById('dropdown-username').textContent = currentUser.username;
+        document.getElementById('dropdown-email').textContent = currentUser.email;
+        document.getElementById('dropdown-header-name').textContent = currentUser.username;
+
+        const profilePic = document.getElementById('dropdown-user-pic');
+        if (currentUser.profile_picture) {
+            profilePic.src = currentUser.profile_picture;
+            profilePic.classList.remove('fallback');
+        } else {
+            profilePic.src = '';
+            profilePic.classList.add('fallback');
+        }
+
+        // Charger l'historique et stats de l'utilisateur connecté
+        renderHistory();
+        renderStats();
+
+    } else {
+        authBtn.textContent = 'Connexion';
+        authBtn.classList.remove('logged-in');
+        closeDropdown();
+    }
+}
+
+function logout() {
+    fetch('/api/auth/logout', { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                currentUser = null;
+                updateAuthUI(false);
+                resetInterface(); // Remise à zéro totale
+            }
+        });
+}
+
+// === QUIZ SYSTÈME ===
+
+let quizScore = 0;
+let quizTotal = 0;
+let currentQuizSign = null;
+let quizSigns = [];
+let quizMode = 'translit'; // 'translit' ou 'description' (translit par défaut)
+
+function switchQuizMode(mode) {
+    quizMode = mode;
+
+    // Update buttons
+    document.querySelectorAll('.quiz-mode').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Update prompts
+    const signPrompt = document.getElementById('quiz-sign-prompt');
+    const translatePrompt = document.getElementById('quiz-translate-prompt');
+    const translateInput = document.getElementById('quiz-translate-input');
+
+    if (mode === 'translit') {
+        if (signPrompt) signPrompt.textContent = 'Quelle est la translittération de ce signe ?';
+        if (translatePrompt) translatePrompt.textContent = 'Écrivez la translittération :';
+        if (translateInput) translateInput.placeholder = 'Ex: ꜥnḫ, nfr, pr...';
+    } else {
+        if (signPrompt) signPrompt.textContent = 'Quelle est la description de ce signe ?';
+        if (translatePrompt) translatePrompt.textContent = 'Quelle est la description de ce signe ?';
+        if (translateInput) translateInput.placeholder = 'Votre réponse...';
+    }
+
+    // Regenerate current question
+    if (document.getElementById('quiz-sign').classList.contains('active')) {
+        generateSignQuestion();
+    } else {
+        generateTranslateQuestion();
+    }
+
+    // Mettre à jour le leaderboard pour cette catégorie
+    updateLeaderboard();
+}
+
+// Charger les signes pour le quiz
+async function loadQuizSigns() {
+    if (quizSigns.length === 0) {
+        try {
+            const response = await fetch('gardiner_signs.json');
+            const signs = await response.json();
+            // Filtrer les signes qui ont une description
+            quizSigns = signs.filter(s => s.description && s.sign);
+        } catch (e) {
+            console.error('Erreur chargement quiz:', e);
+        }
+    }
+}
+
+function switchQuizType(type) {
+    // Update tabs
+    document.querySelectorAll('.quiz-tab').forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Update panels
+    document.querySelectorAll('.quiz-panel').forEach(panel => panel.classList.remove('active'));
+    document.getElementById(`quiz-${type}`).classList.add('active');
+
+    // Clear feedback
+    document.getElementById('quiz-feedback').classList.add('hidden');
+
+    // Generate new question
+    if (type === 'sign') {
+        generateSignQuestion();
+    } else {
+        generateTranslateQuestion();
+    }
+
+    // Mettre à jour le leaderboard
+    updateLeaderboard();
+}
+
+async function generateSignQuestion() {
+    await loadQuizSigns();
+
+    // En mode translit, ne garder que les signes avec translittération
+    let eligibleSigns = quizSigns;
+    if (quizMode === 'translit') {
+        eligibleSigns = quizSigns.filter(s => s.transliteration);
+    }
+
+    if (eligibleSigns.length < 4) return;
+
+    // Pick random sign
+    const correctIndex = Math.floor(Math.random() * eligibleSigns.length);
+    currentQuizSign = eligibleSigns[correctIndex];
+
+    // Display the sign
+    document.getElementById('quiz-sign-char').textContent = currentQuizSign.sign;
+
+    // Generate 4 options (1 correct + 3 wrong) - tous avec translittération en mode translit
+    const options = [currentQuizSign];
+    while (options.length < 4) {
+        const randSign = eligibleSigns[Math.floor(Math.random() * eligibleSigns.length)];
+        if (!options.find(o => o.code === randSign.code)) {
+            options.push(randSign);
+        }
+    }
+
+    // Shuffle
+    options.sort(() => Math.random() - 0.5);
+
+    // Render options based on mode
+    const container = document.getElementById('quiz-sign-options');
+    container.innerHTML = options.map(opt => {
+        const displayText = quizMode === 'translit'
+            ? (opt.transliteration || 'Pas de translittération')
+            : opt.description;
+        return `
+            <button class="quiz-option" onclick="checkSignAnswer(this, '${opt.code}')">
+                ${opt.code} - ${displayText}
+            </button>
+        `;
+    }).join('');
+}
+
+function checkSignAnswer(button, selectedCode) {
+    const isCorrect = selectedCode === currentQuizSign.code;
+    quizTotal++;
+
+    // Disable all buttons
+    document.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent.includes(currentQuizSign.code)) {
+            btn.classList.add('correct');
+        }
+    });
+
+    if (isCorrect) {
+        quizScore++;
+        button.classList.add('correct');
+        showFeedback(true, 'Correct !');
+    } else {
+        button.classList.add('wrong');
+        const correctText = quizMode === 'translit'
+            ? (currentQuizSign.transliteration || 'Pas de translittération')
+            : currentQuizSign.description;
+        showFeedback(false, `Faux ! C'était ${currentQuizSign.code} - ${correctText}`);
+    }
+
+    updateScore();
+
+    // Next question after delay
+    setTimeout(() => {
+        document.getElementById('quiz-feedback').classList.add('hidden');
+        generateSignQuestion();
+    }, 2000);
+}
+
+async function generateTranslateQuestion() {
+    await loadQuizSigns();
+    if (quizSigns.length === 0) return;
+
+    // Pick random sign - si mode translit, filtrer ceux qui ont une translittération
+    let eligibleSigns = quizSigns;
+    if (quizMode === 'translit') {
+        eligibleSigns = quizSigns.filter(s => s.transliteration);
+    }
+    if (eligibleSigns.length === 0) return;
+
+    currentQuizSign = eligibleSigns[Math.floor(Math.random() * eligibleSigns.length)];
+    document.getElementById('quiz-translate-char').textContent = currentQuizSign.sign;
+    document.getElementById('quiz-translate-input').value = '';
+}
+
+function checkTranslation() {
+    const input = document.getElementById('quiz-translate-input').value.trim().toLowerCase();
+
+    let correctAnswer, isCorrect;
+
+    if (quizMode === 'translit') {
+        correctAnswer = (currentQuizSign.transliteration || '').toLowerCase();
+        // Pour la translittération, on vérifie la correspondance exacte ou une partie significative
+        isCorrect = correctAnswer && (
+            correctAnswer.includes(input) ||
+            input.includes(correctAnswer) ||
+            input === correctAnswer
+        );
+    } else {
+        correctAnswer = currentQuizSign.description.toLowerCase();
+        // Pour la description, on vérifie si ça contient le mot clé
+        isCorrect = correctAnswer.includes(input) || input.includes(correctAnswer.split(' ')[0]);
+    }
+
+    quizTotal++;
+
+    const displayAnswer = quizMode === 'translit'
+        ? (currentQuizSign.transliteration || 'Pas de translittération')
+        : currentQuizSign.description;
+
+    if (isCorrect && input.length > 0) {
+        quizScore++;
+        showFeedback(true, 'Correct !');
+    } else {
+        showFeedback(false, `C'était : ${displayAnswer}`);
+    }
+
+    updateScore();
+
+    setTimeout(() => {
+        document.getElementById('quiz-feedback').classList.add('hidden');
+        generateTranslateQuestion();
+    }, 2000);
+}
+
+// Insérer un caractère spécial dans l'input du quiz
+function insertQuizChar(char) {
+    const input = document.getElementById('quiz-translate-input');
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    const value = input.value;
+
+    input.value = value.substring(0, start) + char + value.substring(end);
+    input.focus();
+    input.setSelectionRange(start + char.length, start + char.length);
+}
+
+function showFeedback(isCorrect, message) {
+    const feedback = document.getElementById('quiz-feedback');
+    feedback.classList.remove('hidden', 'correct', 'wrong');
+    feedback.classList.add(isCorrect ? 'correct' : 'wrong');
+    feedback.querySelector('.feedback-icon').textContent = isCorrect ? '✓' : '✗';
+    feedback.querySelector('.feedback-text').textContent = message;
+}
+
+function updateScore() {
+    document.getElementById('quiz-score').textContent = quizScore;
+    document.getElementById('quiz-total').textContent = quizTotal;
+
+    // Sauvegarder le score au leaderboard (après 5 questions minimum)
+    saveScore();
+}
+
+function resetQuiz() {
+    quizScore = 0;
+    quizTotal = 0;
+    updateScore();
+    document.getElementById('quiz-feedback').classList.add('hidden');
+
+    // Check which tab is active and generate question
+    if (document.getElementById('quiz-sign').classList.contains('active')) {
+        generateSignQuestion();
+    } else {
+        generateTranslateQuestion();
+    }
+}
+
+// Initialize quiz when section is shown
+document.addEventListener('click', (e) => {
+    if (e.target.matches('a[href="#exercice"]')) {
+        setTimeout(() => {
+            generateSignQuestion();
+            updateLeaderboard();
+        }, 100);
+    }
+});
+
+// === LEADERBOARD SYSTÈME ===
+
+function getLeaderboardKey() {
+    const quizType = document.getElementById('quiz-sign').classList.contains('active') ? 'sign' : 'translate';
+    return `leaderboard_${quizType}_${quizMode}`;
+}
+
+function getCategoryLabel() {
+    const quizType = document.getElementById('quiz-sign').classList.contains('active') ? 'Identifier' : 'Traduire';
+    const modeLabel = quizMode === 'translit' ? 'Translittération' : 'Description';
+    return `${quizType} • ${modeLabel}`;
+}
+
+function getLeaderboard() {
+    try {
+        const key = getLeaderboardKey();
+        return JSON.parse(localStorage.getItem(key)) || [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveScore() {
+    if (quizTotal < 5) return; // Minimum 5 questions pour enregistrer
+
+    const username = currentUser?.username || 'Invité';
+    const percentage = Math.round((quizScore / quizTotal) * 100);
+    const key = getLeaderboardKey();
+
+    let leaderboard = getLeaderboard();
+
+    // Chercher si l'utilisateur a déjà un score
+    const existingIndex = leaderboard.findIndex(e => e.name === username);
+
+    if (existingIndex >= 0) {
+        // Garder le meilleur score
+        if (percentage > leaderboard[existingIndex].score) {
+            leaderboard[existingIndex].score = percentage;
+            leaderboard[existingIndex].correct = quizScore;
+            leaderboard[existingIndex].total = quizTotal;
+        }
+    } else {
+        leaderboard.push({
+            name: username,
+            score: percentage,
+            correct: quizScore,
+            total: quizTotal,
+            date: Date.now()
+        });
+    }
+
+    // Trier par score décroissant et garder top 10
+    leaderboard.sort((a, b) => b.score - a.score);
+    leaderboard = leaderboard.slice(0, 10);
+
+    localStorage.setItem(key, JSON.stringify(leaderboard));
+    updateLeaderboard();
+}
+
+function updateLeaderboard() {
+    let leaderboard = getLeaderboard();
+
+    // Ajouter des scores de démonstration si le leaderboard est vide
+    if (leaderboard.length === 0) {
+        leaderboard = [
+            { name: 'juleezzzzz', score: 98, correct: 49, total: 50 },
+            { name: 'PharaonMaster', score: 92, correct: 23, total: 25 },
+            { name: 'NeferBot', score: 88, correct: 22, total: 25 },
+            { name: 'AnubisGamer', score: 84, correct: 21, total: 25 },
+            { name: 'HorusPlayer', score: 80, correct: 20, total: 25 },
+            { name: 'RaSupreme', score: 76, correct: 19, total: 25 },
+            { name: 'ThothWise', score: 72, correct: 18, total: 25 },
+            { name: 'IsisQueen', score: 68, correct: 17, total: 25 },
+            { name: 'OsirisKing', score: 64, correct: 16, total: 25 },
+            { name: 'SethDark', score: 60, correct: 15, total: 25 }
+        ];
+    }
+
+    const container = document.getElementById('leaderboard-list');
+    const categoryEl = document.getElementById('leaderboard-category');
+    const yourBestEl = document.getElementById('your-best-score');
+
+    if (!container) return;
+
+    // Mettre à jour le label de catégorie
+    if (categoryEl) {
+        categoryEl.textContent = getCategoryLabel();
+    }
+
+    // Afficher le classement
+    if (leaderboard.length === 0) {
+        container.innerHTML = '<div class="leaderboard-empty">Aucun score enregistré</div>';
+    } else {
+        container.innerHTML = leaderboard.map((entry, i) => `
+            <div class="leaderboard-item">
+                <span class="leaderboard-rank">${i + 1}</span>
+                <span class="leaderboard-name">${entry.name}</span>
+                <span class="leaderboard-score">${entry.score}%</span>
+            </div>
+        `).join('');
+    }
+
+    // Afficher le meilleur score de l'utilisateur actuel
+    const username = currentUser?.username || 'Invité';
+    const userEntry = leaderboard.find(e => e.name === username);
+    if (yourBestEl) {
+        yourBestEl.textContent = userEntry ? `${userEntry.score}% (${userEntry.correct}/${userEntry.total})` : '—';
+    }
+}
+
+// Initialisation au chargement
+renderHistory();
+renderStats();
+renderFavorites();
+checkAuth();
+
+// Nouvelles initialisations
+checkFirstVisit();  // Onboarding au premier lancement
+handleUrlParams();  // Gérer ?q=xxx dans l'URL
+
+// === CARTOUCHE GENERATOR ===
+// Mapping lettres latines vers hiéroglyphes phonétiques (approximatif)
+const letterToHiero = {
+    'a': '𓄿', 'b': '𓃀', 'c': '𓎡', 'd': '𓂧', 'e': '𓇋', 'f': '𓆑',
+    'g': '𓎼', 'h': '𓉔', 'i': '𓇋', 'j': '𓆓', 'k': '𓎡', 'l': '𓃭',
+    'm': '𓅓', 'n': '𓈖', 'o': '𓍯', 'p': '𓊪', 'q': '𓏘', 'r': '𓂋',
+    's': '𓋴', 't': '𓏏', 'u': '𓅱', 'v': '𓆑', 'w': '𓅱', 'x': '𓎡𓋴',
+    'y': '𓇌', 'z': '𓊃'
+};
+
+function updateCartouche() {
+    const nameInput = document.getElementById('cartouche-name');
+    const hierosDisplay = document.getElementById('cartouche-hieros');
+    const translitDisplay = document.getElementById('cartouche-translit');
+
+    if (!nameInput || !hierosDisplay) return;
+
+    const name = nameInput.value.toLowerCase().trim();
+    let hieros = '';
+    let translit = '';
+
+    for (const char of name) {
+        if (letterToHiero[char]) {
+            hieros += letterToHiero[char];
+            translit += char;
+        } else if (char === ' ') {
+            // Espace entre les mots
+            hieros += ' ';
+            translit += '-';
+        }
+    }
+
+    hierosDisplay.textContent = hieros || '𓏏𓍯𓋹'; // Placeholder si vide
+    if (translitDisplay) translitDisplay.textContent = translit || '—';
+}
+
+function downloadCartouche() {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 400;
+    canvas.height = 200;
+
+    // Fond
+    ctx.fillStyle = '#f5e6c8';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Cadre du cartouche
+    ctx.strokeStyle = '#8b7355';
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.roundRect(50, 40, 300, 100, 50);
+    ctx.stroke();
+    ctx.fillStyle = '#faf3e0';
+    ctx.fill();
+
+    // Hiéroglyphes
+    ctx.font = '40px "Noto Sans Egyptian Hieroglyphs"';
+    ctx.fillStyle = '#2b2b2b';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const hieros = document.getElementById('cartouche-hieros').textContent;
+    ctx.fillText(hieros, 200, 90);
+
+    // Base du cartouche
+    ctx.fillStyle = '#8b7355';
+    ctx.fillRect(185, 140, 30, 20);
+
+    // Télécharger
+    const link = document.createElement('a');
+    link.download = 'mon-cartouche.png';
+    link.href = canvas.toDataURL();
+    link.click();
+}
+
+function shareCartouche() {
+    const name = document.getElementById('cartouche-name').value;
+    const url = `${window.location.origin}${window.location.pathname}?cartouche=${encodeURIComponent(name)}`;
+
+    navigator.clipboard.writeText(url).then(() => {
+        alert('Lien copié ! Partagez-le pour montrer votre cartouche.');
+    });
+}
+
+// Charger un cartouche depuis l'URL
+function loadCartoucheFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const cartoucheName = params.get('cartouche');
+    if (cartoucheName) {
+        const input = document.getElementById('cartouche-name');
+        if (input) {
+            input.value = cartoucheName;
+            updateCartouche();
+            showSection('cartouche');
+        }
+    }
+}
+
+// === TEXTES CÉLÈBRES ===
+const famousTexts = {
+    rosetta: {
+        title: 'Pierre de Rosette - Décret de Ptolémée V',
+        hieros: '𓇋𓅱𓀀𓏏𓏭 𓇳𓅃𓏏𓇯 𓆓𓏏𓇯 𓇋𓈖𓏤 𓊪𓏏𓍯𓃭𓅓𓇋𓅱𓋴',
+        translation: '"Au temps du roi Ptolémée, dieu vivant, bien-aimé de Ptah..."'
+    },
+    book_dead: {
+        title: 'Livre des Morts - Chapitre 125',
+        hieros: '𓇋𓀀 𓅓 𓇋𓏤𓂋𓏏 𓂝𓏏 𓅓𓂋𓏤𓇋𓏏 𓄿𓏤𓂋𓂧𓅱𓀀',
+        translation: '"Je suis pur, je suis pur ! Je n\'ai pas commis d\'injustice..."'
+    },
+    hymn_nile: {
+        title: 'Hymne au Nil',
+        hieros: '𓇋𓈖𓂧𓅱𓀀 𓉐𓂝𓏤𓂋 𓆓𓏏𓇋𓏤 𓏏𓄿𓏤',
+        translation: '"Salut à toi, ô Nil, qui jaillis de la terre..."'
+    },
+    tutankhamun: {
+        title: 'Cartouche de Toutânkhamon',
+        hieros: '𓇋𓏠𓈖 𓏏𓅱𓏏 𓋹𓈖𓐍 𓇋𓏠𓈖',
+        translation: 'Toutânkhamon = "Image vivante d\'Amon" (twt-ꜥnḫ-jmn)'
+    }
+};
+
+function openTexte(texteId) {
+    const texte = famousTexts[texteId];
+    if (!texte) return;
+
+    const viewer = document.getElementById('texte-viewer');
+    document.getElementById('texte-title').textContent = texte.title;
+    document.getElementById('texte-hieros').textContent = texte.hieros;
+    document.getElementById('texte-translation').textContent = texte.translation;
+
+    viewer.classList.remove('hidden');
+    viewer.scrollIntoView({ behavior: 'smooth' });
+}
+
+// === API STATS ===
+async function loadApiStats() {
+    try {
+        const response = await fetch('/api/stats');
+        const data = await response.json();
+
+        if (data.success) {
+            document.getElementById('total-searches').textContent = data.total_searches.toLocaleString();
+            document.getElementById('today-searches').textContent = data.today_count.toLocaleString();
+
+            const topList = document.getElementById('top-words-list');
+            if (topList && data.top_words.length > 0) {
+                topList.innerHTML = data.top_words.map(w =>
+                    `<li><strong>${w.term}</strong> (${w.count} recherches)</li>`
+                ).join('');
+            }
+        }
+    } catch (err) {
+        console.error('Erreur chargement stats:', err);
+    }
+}
+
+// Load stats when API section is shown
+const originalShowSection = window.showSection;
+window.showSection = function (sectionId) {
+    originalShowSection(sectionId);
+
+    if (sectionId === 'api') {
+        loadApiStats();
+    }
+};
+
+// === BROWSER EXTENSION HELPER ===
+// Info pour créer l'extension navigateur
+function getExtensionCode() {
+    return {
+        manifest: {
+            name: "Hierotranslate",
+            version: "1.0",
+            description: "Traduisez les hiéroglyphes depuis n'importe quel site",
+            permissions: ["activeTab"],
+            action: {
+                default_popup: "popup.html",
+                default_icon: "icon.png"
+            },
+            manifest_version: 3
+        },
+        popup_html: `<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { width: 300px; padding: 15px; font-family: sans-serif; }
+        input { width: 100%; padding: 8px; margin: 10px 0; }
+        #result { margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 5px; }
+        .hiero { font-family: 'Noto Sans Egyptian Hieroglyphs'; font-size: 24px; }
+    </style>
+</head>
+<body>
+    <h3>🔍 Hierotranslate</h3>
+    <input type="text" id="term" placeholder="Entrez un mot...">
+    <div id="result"></div>
+    <script src="popup.js"></script>
+</body>
+</html>`,
+        popup_js: `document.getElementById('term').addEventListener('input', async (e) => {
+    const term = e.target.value.trim();
+    if (!term) return;
+    
+    const response = await fetch('https://hierotranslate.com/api/translate?term=' + term);
+    const data = await response.json();
+    
+    if (data.success) {
+        document.getElementById('result').innerHTML = 
+            '<div class="hiero">' + data.data.hieroglyphes + '</div>' +
+            '<p>' + data.data.francais + '</p>';
+    }
+});`
+    };
+}
+
+// Initialiser cartouche depuis URL si présent
+loadCartoucheFromUrl();

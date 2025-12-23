@@ -1,0 +1,6630 @@
+[
+  {
+    "code": "A1",
+    "sign": "𓀀",
+    "description": "Homme assis",
+    "transliteration": "s < z",
+    "descriptif": "Idéogramme du terme s < z « homme, quelqu'un, personne, aucun, nul, homme du commun ». \r\nDéterminatif (commun) du champ lexical de l'homme et de ses occupations ainsi que des prénoms masculins. \r\nIdéogramme du pronoms suffixe j « je, me, moi, mon ». \r\nDéterminatif du pronoms dépendant wj « je, me (moi) ». \r\net du pronom indépendant jnk « je, moi, à moi ». "
+  },
+  {
+    "code": "A2",
+    "sign": "𓀁",
+    "description": "Homme assis main à la bouche",
+    "transliteration": "",
+    "descriptif": "Déterminatif (fréquent) des verbes d'action lié aux divers usages de la bouche (manger, parler…) et, par extension, les actions intellectuelles (penser, entendre…). "
+  },
+  {
+    "code": "A3",
+    "sign": "𓀂",
+    "description": "Homme assis pied gauche sur sa pointe",
+    "transliteration": "",
+    "descriptif": "Déterminatif des termes liés à l'action de s'asseoir et aux rangs sociaux élevés. "
+  },
+  {
+    "code": "A4",
+    "sign": "𓀃",
+    "description": "Homme assis en adoration",
+    "transliteration": "",
+    "descriptif": "Déterminatif du champ lexical de l'adoration et, par découlement, du secret et de l'humilité. "
+  },
+  {
+    "code": "A5",
+    "sign": "𓀄",
+    "description": "Homme accroupi caché derrière un mur",
+    "transliteration": "",
+    "descriptif": "Déterminatif du champ lexical de la dissimulation, de ce que l'on ne voit pas. "
+  },
+  {
+    "code": "A5A",
+    "sign": "𓀅",
+    "description": "Homme assis se cachant derrière mur",
+    "transliteration": "",
+    "descriptif": "Hors liste originale. Déterminatif du champ lexical de la dissimulation, de ce que l'on ne voit pas. "
+  },
+  {
+    "code": "A6",
+    "sign": "𓀆",
+    "description": "Homme assis portant sur sa tête un vase se déversant",
+    "transliteration": "wꜥb",
+    "descriptif": "Idéogramme du terme wˁb « se purifier, se baigner, nettoyer, purifier, purification, pureté ». "
+  },
+  {
+    "code": "A6A",
+    "sign": "𓀇",
+    "description": "Homme agenouillé devant un vase à libation portant sur sa tête un vase se déversant",
+    "transliteration": "",
+    "descriptif": "Hors liste originale. Idéogramme du terme wꜥb « se purifier, se baigner, nettoyer, purifier, purification, pureté ». "
+  },
+  {
+    "code": "A6B",
+    "sign": "𓀈",
+    "description": "Homme agenouillé portant sur sa tête un vase se déversant",
+    "transliteration": "",
+    "descriptif": "Hors liste originale. Idéogramme du terme wꜥb « se purifier, se baigner, nettoyer, purifier, purification, pureté ». "
+  },
+  {
+    "code": "A7",
+    "sign": "𓀉",
+    "description": "Homme assis jambe droite allongée",
+    "transliteration": "bꜣgj",
+    "descriptif": "Déterminatif du champ lexical de la paresse, de la fatigue et de la faiblesse\r\nIdéogramme du terme bꜣgj « être las, languir, être nonchalant, négligent, nonchalance, négligence ». "
+  },
+  {
+    "code": "A8",
+    "sign": "𓀊",
+    "description": "Homme assis pied gauche sur sa pointe acclamant",
+    "transliteration": "hnw",
+    "descriptif": "Déterminatif du terme hnw « louanges, glorifications, accomplissement du rituel hnw ».\r\nRaccourci phonétique dans le terme hnw « associés, proches, famille ». "
+  },
+  {
+    "code": "A9",
+    "sign": "𓀋",
+    "description": "Homme assis portant un panier sur sa tête",
+    "transliteration": "fꜣj / kꜣ.t",
+    "descriptif": "Idéogramme du terme fꜣj « livrer, fournir (taxes, tribut) ».\r\nIdéogramme ou déterminatif du terme kꜣ.t « travail, tâche, activité, construction, œuvre, métier manuel ».\r\nDéterminatif du champ lexical de l'acte de porter, charger, stocker."
+  },
+  {
+    "code": "A10",
+    "sign": "𓀌",
+    "description": "Homme assis tenant un aviron",
+    "transliteration": "",
+    "descriptif": "Déterminatif du terme sḳdw (var de sḳdy) « naviguer, voyager, faire aller à la rame, convoyer, naviguer sur ». "
+  },
+  {
+    "code": "A11",
+    "sign": "𓀍",
+    "description": "Homme assis tenant un sceptre et une crosse",
+    "transliteration": "ḫnms",
+    "descriptif": "Idéogramme ou déterminatif du terme ḫnms « ami »."
+  },
+  {
+    "code": "A12",
+    "sign": "𓀎",
+    "description": "Archer assis",
+    "transliteration": "mšꜥ",
+    "descriptif": "Idéogramme du terme mšˁ « expédition, faire une expédition ».\r\nIdéogramme ou déterminatif (rare) du terme mšˁ « soldats, armée, infanterie, équipe, armé ».\r\nDéterminatif du champ lexical du soldat, armée, adversaire."
+  },
+  {
+    "code": "A13",
+    "sign": "𓀏",
+    "description": "Prisonnier",
+    "transliteration": "ennemi (ḫfty); rebelle (sbj)",
+    "descriptif": "Déterminatif du champ lexical de l'adversaire et par découlement, de l'étranger. \r\nDéterminatif pour ḫfty « ennemi » et sbj  « rebelle ». "
+  },
+  {
+    "code": "A14",
+    "sign": "𓀐",
+    "description": "Homme à terre avec du sang coulant de son tête ",
+    "transliteration": "mwt / mt",
+    "descriptif": "Idéogramme ou déterminatif du terme mwt / mt « mort ».\r\nDéterminatif du champ lexical de l'ennemi, de l'étranger et de la mort."
+  },
+  {
+    "code": "A14A",
+    "sign": "𓀑",
+    "description": "Homme assis une hache plantée dans la tête",
+    "transliteration": "mwt / mt",
+    "descriptif": "Idéogramme ou déterminatif du terme mwt / mt « mort ».\r\nDéterminatif du champ lexical de l'ennemi, de l'étranger et de la mort.\r\nDéterminatif du terme jmnw « revenant »."
+  },
+  {
+    "code": "A15",
+    "sign": "𓀒",
+    "description": "Homme tombant",
+    "transliteration": "ḫr / ḫrw / sḫrt",
+    "descriptif": "Idéogramme ou déterminatif des termes ḫr « tomber », ḫrw « ennemi tombé (vaincu)» et sḫrt « abattre ».\r\nDéterminatif du champ lexical du renversement."
+  },
+  {
+    "code": "A16",
+    "sign": "𓀓",
+    "description": "Homme penché",
+    "transliteration": "ksj",
+    "descriptif": "Déterminatif du champ lexical de la prosternation.\r\nDéterminatif du terme sdḫ « cacher »."
+  },
+  {
+    "code": "A17",
+    "sign": "𓀔",
+    "description": "Enfant assis doigt à la bouche",
+    "transliteration": "ẖrd",
+    "descriptif": "Déterminatif du champ lexical de la jeunesse, de l'enfance.\r\nAbréviation du terme ẖrd « enfant, être un enfant, rajeunir, renaître, se renouveler, redevenir jeune »."
+  },
+  {
+    "code": "A17A",
+    "sign": "𓀕",
+    "description": "Enfant assis ",
+    "transliteration": "",
+    "descriptif": "Déterminatif du terme hiératique ḥmsj « être assis, s'asseoir, demeurer, résider, occuper, installer » et du terme msw « enfants »."
+  },
+  {
+    "code": "A18",
+    "sign": "𓀖",
+    "description": "Pharaon enfant",
+    "transliteration": "",
+    "descriptif": "Déterminatif de quelques mots qualifiant un enfant particulier. "
+  },
+  {
+    "code": "A19",
+    "sign": "𓀗",
+    "description": "Homme debout s'appuyant sur une canne",
+    "transliteration": "jk / jꜥw / smsw / wr",
+    "descriptif": "Déterminatif du champ lexical de la vieillesse et des termes liés à l'action de s'appuyer.\r\nPhonogramme bilitère de valeur jk.\r\nIdéogramme ou déterminatif (rare) des termes jȝw « vieil homme », smsw « aîné, le plus ancien », rhn « s'appuyer, reposer sur, avoir confiance en » et wr « le grand, le personnage important, le magnat, chef, guide, dirigeant, chef » ou il prend la signification sémantique « grand ».\r\nDéterminatif dans le terme hiératique de moyen égyptien ḥwj « battre, frapper, sanctionner, repousser, chasser, enfoncer, battre, frapper, faire la récolte, battre, jeter quelqu'un, marcher »."
+  },
+  {
+    "code": "A20",
+    "sign": "𓀘",
+    "description": "Homme debout s'appuyant sur une canne fourchue",
+    "transliteration": "smsw",
+    "descriptif": "Idéogramme ou déterminatif (rare) du terme smsw « aîné, le plus ancien, l'aîné ».\r\nDéterminatif du champ lexical de la vieillesse et des termes liés à l'action de s'appuyer."
+  },
+  {
+    "code": "A21",
+    "sign": "𓀙",
+    "description": "Homme debout tenant une canne et un tissu",
+    "transliteration": "sr",
+    "descriptif": "Idéogramme ou déterminatif du terme sr « notable, magistrat, haut fonctionnaire ».\r\nDéterminatif des termes qui désignent les hauts fonctionnaires, les courtisans et l'action de s'appuyer."
+  },
+  {
+    "code": "A22",
+    "sign": "𓀚",
+    "description": "Statue d'un homme debout tenant une canne et un sceptre",
+    "transliteration": "",
+    "descriptif": "Déterminatif des termes ẖnty « statue » et twt « statue, image, effigie, portrait »."
+  },
+  {
+    "code": "A23",
+    "sign": "𓀛",
+    "description": "Roi debout tenant une canne et une masse",
+    "transliteration": "",
+    "descriptif": "Déterminatif des termes jty « souverain, monarque » et jty.t « reine (régnante), souveraine »."
+  },
+  {
+    "code": "A24",
+    "sign": "𓀜",
+    "description": "Homme debout frappant avec un bâton",
+    "transliteration": "nh̬t ",
+    "descriptif": "Déterminatif des termes liés à l'activité physique et à la force musculaire\r\nAbréviation du terme nḫt « fort, puissant, rigide, raide, dur, victorieux »."
+  },
+  {
+    "code": "A25",
+    "sign": "𓀝",
+    "description": "Homme debout frappant de la main droite avec un bâton",
+    "transliteration": "ḥwj",
+    "descriptif": "Idéogramme (rare) ou déterminatif du terme ḥwj « battre, frapper, sanctionner, repousser, chasser, enfoncer, battre, frapper, faire la récolte, battre, jeter quelqu'un, marcher ».\r\nDéterminatif des termes liés à l'activité physique et à la force musculaire."
+  },
+  {
+    "code": "A26",
+    "sign": "𓀞",
+    "description": "Homme debout conversant",
+    "transliteration": "ꜥš",
+    "descriptif": "Déterminatif des termes liés à l'action d'appeler, d'invoquer et dans l'interjection vocative j « Ô! ».\r\nAbréviation du verbe ˁš « appeler, convoquer, interpeller » dans le terme sḏm-ˁš « celui qui entend l'appel » (serviteur)."
+  },
+  {
+    "code": "A27",
+    "sign": "𓀟",
+    "description": "Homme courant",
+    "transliteration": "jn",
+    "descriptif": "Phonogramme bilitère (rare) dans la préposition jn « par »\r\nDéterminatif de termes liés à l'action de se déplacer à pieds et du verbe nhm « crier, hurler »."
+  },
+  {
+    "code": "A28",
+    "sign": "𓀠",
+    "description": "Homme avec mains levé sur either côté",
+    "transliteration": "",
+    "descriptif": "Déterminatif du champ lexical de la hauteur / élévation, de la joie, du triomphe, de la tristesse profonde et du terme jꜣs « chauve »\r\nProbable inspiration par l'alphabet protosinaïtique pour le caractère d'où dérive la lettre E de l'alphabet latin."
+  },
+  {
+    "code": "A29",
+    "sign": "𓀡",
+    "description": "Homme la tête en bas",
+    "transliteration": "",
+    "descriptif": "Déterminatif des termes décrivant la position ou action du renversement."
+  },
+  {
+    "code": "A30",
+    "sign": "𓀢",
+    "description": "Homme debout mains levées devant lui",
+    "transliteration": "",
+    "descriptif": "Déterminatif (rare) des termes liés à l'action de prier, de supplier et de craindre / respecter."
+  },
+  {
+    "code": "A31",
+    "sign": "𓀣",
+    "description": "Homme debout bras tendus dans son dos",
+    "transliteration": "",
+    "descriptif": "Déterminatif du terme ꜣnw « détourné (visage) »."
+  },
+  {
+    "code": "A32",
+    "sign": "𓀤",
+    "description": "Homme dansant",
+    "transliteration": "",
+    "descriptif": "Déterminatif des termes liés à l'action de danser et au champ lexical de la danse ainsi que, par découlement, de la joie."
+  },
+  {
+    "code": "A32A",
+    "sign": "𓀥",
+    "description": "Homme dansant",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A33",
+    "sign": "𓀦",
+    "description": "Homme debout portant un balluchon",
+    "transliteration": "mnjw",
+    "descriptif": "Idéogramme ou déterminatif du terme mnjw « berger, pâtre ».\r\nDéterminatif du champ lexical du déplacement et par découlement de l'étranger."
+  },
+  {
+    "code": "A34",
+    "sign": "𓀧",
+    "description": "Homme debout pilant au mortier",
+    "transliteration": "ḫwsj",
+    "descriptif": "Idéogramme ou déterminatif du terme ḫwsj « piler, concasser, battre à plat, mouler, bâtir, construire, remuer »."
+  },
+  {
+    "code": "A35",
+    "sign": "𓀨",
+    "description": "Homme debout construisant un mur",
+    "transliteration": "ḥd",
+    "descriptif": "Idéogramme du terme ḳd « bâtisseur, maçon ».\r\nIdéogramme ou déterminatif du terme ḳd « construire, façonner (les hommes), reconstituer (Osiris, les morts, œil blessé d'Horus) ».\r\nDéterminatif des termes qui leur sont synonymes."
+  },
+  {
+    "code": "A36",
+    "sign": "𓀩",
+    "description": "Homme debout filtrant de la bière",
+    "transliteration": "ꜥfty",
+    "descriptif": "Idéogramme ou déterminatif du terme ꜥfty « brasseur »."
+  },
+  {
+    "code": "A37",
+    "sign": "𓀪",
+    "description": "Homme debout dans une jarre",
+    "transliteration": "ꜥfty",
+    "descriptif": "Idéogramme ou déterminatif du terme ˁfty « brasseur »."
+  },
+  {
+    "code": "A38",
+    "sign": "𓀫",
+    "description": "Homme debout tenant deux panthères emblématiques par le cou",
+    "transliteration": "ḥjs",
+    "descriptif": "Idéogramme ou déterminatif du terme Ḳjs « Cusae »."
+  },
+  {
+    "code": "A39",
+    "sign": "𓀬",
+    "description": "Homme debout tenant deux girafes par le cou",
+    "transliteration": "ḥjs",
+    "descriptif": "Idéogramme du terme ḥjs « Cusae »."
+  },
+  {
+    "code": "A40",
+    "sign": "𓀭",
+    "description": "Dieu assis",
+    "transliteration": "j",
+    "descriptif": "Déterminatif (fréquent) des noms de dieux.\r\nPour un dieu à partir de la XVIIIe dynastie et pour un roi sous la XIIe :\r\nIdéogramme du pronoms suffixe j « je, me, moi, mon ».\r\nDéterminatif du pronom dépendant wj « je, me (moi) ».\r\nDéterminatif du pronom indépendant jnk « je, moi, à moi »."
+  },
+  {
+    "code": "A40A",
+    "sign": "𓀮",
+    "description": "Dieu assis",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A41",
+    "sign": "𓀯",
+    "description": "Pharaon assis",
+    "transliteration": "j / nsw",
+    "descriptif": "Idéogramme (rare) ou déterminatif du terme nsw<nj-swt « roi de Haute-Égypte, roi ».\r\nPour un roi :\r\nIdéogramme du pronoms suffixe j « je, me, moi, mon ».\r\nDéterminatif du pronom dépendant wj « je, me (moi) ».\r\nDéterminatif du pronom indépendant jnk « je, moi, à moi ».\r\nDéterminatif des termes désignant un roi (sous la XVIIIe dynastie)."
+  },
+  {
+    "code": "A42",
+    "sign": "𓀰",
+    "description": "Pharaon assis tenant le flagellum",
+    "transliteration": "j / nsw < nj-swt",
+    "descriptif": "Idéogramme (rare) ou déterminatif du terme nsw < nj-swt « roi de Haute-Égypte, roi ».\r\nDéterminatif des termes désignant un roi ou un prince.\r\nPour un roi :\r\nIdéogramme du pronoms suffixe j « je, me, moi, mon ».\r\nDéterminatif du pronom dépendant wj « je, me (moi) ».\r\nDéterminatif du pronom indépendant jnk « je, moi, à moi »."
+  },
+  {
+    "code": "A42A",
+    "sign": "𓀱",
+    "description": "Pharaon assis",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A43",
+    "sign": "𓀲",
+    "description": "Pharaon assis portant la couronne hedjet",
+    "transliteration": "nsw < nj-swt",
+    "descriptif": "Idéogramme ou déterminatif du terme nsw < nj-swt « roi de Haute-Égypte, roi ».\r\nDéterminatif du terme Wsjr « Osiris »."
+  },
+  {
+    "code": "A43A",
+    "sign": "𓀳",
+    "description": "Pharaon assis",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A44",
+    "sign": "𓀴",
+    "description": "Pharaon assis portant la couronne hedjet et le flagellum",
+    "transliteration": "nsw < nj-swt",
+    "descriptif": "Idéogramme ou déterminatif du terme nsw < nj-swt « roi de Haute-Égypte, roi ».\r\nDéterminatif des termes désignant Pharaon."
+  },
+  {
+    "code": "A45",
+    "sign": "𓀵",
+    "description": "Pharaon assis portant la couronne decheret",
+    "transliteration": "bjty",
+    "descriptif": "Idéogramme ou déterminatif du terme bjty « roi de Basse-Égypte »\r\nDéterminatif de termes désignant un monarque."
+  },
+  {
+    "code": "A45A",
+    "sign": "𓀶",
+    "description": "Pharaon assis portant la couronne decheret",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A46",
+    "sign": "𓀷",
+    "description": "Pharaon assis portant la couronne decheret et le flagellum",
+    "transliteration": "bjty",
+    "descriptif": "Idéogramme ou déterminatif du terme bjty « roi de Basse-Égypte »\r\nDéterminatif de termes désignant un monarque."
+  },
+  {
+    "code": "A47",
+    "sign": "𓀸",
+    "description": "Berger assis",
+    "transliteration": "mnjw / sꜣw",
+    "descriptif": "Idéogramme du terme mnjw « berger, pâtre ».\r\nIdéogramme ou déterminatif (rare) du terme sꜣw « gardien, surveillant ».\r\nPhonogramme bilitère de valeur sꜣ.\r\nDéterminatif (après la première p."
+  },
+  {
+    "code": "A48",
+    "sign": "𓀹",
+    "description": "Homme assis tenant un couteau",
+    "transliteration": "jry / sꜣw",
+    "descriptif": "Idéogramme ou déterminatif (rare) du terme jry « Se rapportant à, en , à cela, de cela, son, sa, ses, leur(s), qui est en rapport avec, préposé à, responsable de, correspondant à, approprié ».\r\nIdéogramme du terme sꜣw « gardien » dans le terme sꜣw ꜣꜥ « Gardien de la porte »."
+  },
+  {
+    "code": "A49",
+    "sign": "𓀺",
+    "description": "Homme assis tenant un bâton",
+    "transliteration": "",
+    "descriptif": "Déterminatif de termes désignant un peuple étranger."
+  },
+  {
+    "code": "A50",
+    "sign": "𓀻",
+    "description": "Homme assis dans un fauteuil",
+    "transliteration": "j / šps",
+    "descriptif": "Idéogramme du terme šps « noble, riche ».\r\nDéterminatif (fréquent) des termes désignant une personne honorable.\r\nDans les tombes nobles du Moyen Empire :\r\nIdéogramme du pronoms suffixe j « je, me, moi, mon ».\r\nDéterminatif du pronom dépendant wj « je, me (moi) ».\r\nDéterminatif du pronom indépendant jnk « je, moi, à moi »."
+  },
+  {
+    "code": "A51",
+    "sign": "𓀼",
+    "description": "Homme assis dans un fauteuil tenant le flagellum",
+    "transliteration": "špsj",
+    "descriptif": "Idéogramme du terme špsj « être noble ».\r\nDéterminatif (après le Moyen Empire) des termes (surtout sous forme de prénom) désignant une personne honorable."
+  },
+  {
+    "code": "A52",
+    "sign": "𓀽",
+    "description": "Homme agenouillé tenant le flagellum",
+    "transliteration": "",
+    "descriptif": "Déterminatif du terme špsj « être noble ».\r\nDéterminatif (commun) des termes (surtout sous forme de prénoms) désignant une personne vénérable dans un contexte funéraire."
+  },
+  {
+    "code": "A53",
+    "sign": "𓀾",
+    "description": "Debout momie",
+    "transliteration": "twt",
+    "descriptif": "Déterminatif (rare) des termes désignant une momie, des termes désignant une statue et des substantifs se rapportant à la notion de transformation et de l'aspect / forme/ hypostase.\r\nAbréviation (rare) du terme twt « statue, image, effigie, portrait »."
+  },
+  {
+    "code": "A54",
+    "sign": "𓀿",
+    "description": "Momie couchée",
+    "transliteration": "",
+    "descriptif": "Déterminatif du champ lexical de la mort."
+  },
+  {
+    "code": "A55",
+    "sign": "𓁀",
+    "description": "Momie couchée sur un lit",
+    "transliteration": "",
+    "descriptif": "Déterminatif des termes relatif à l'action de gésir et au champ lexical de la mort."
+  },
+  {
+    "code": "A56",
+    "sign": "𓁁",
+    "description": "Homme assis tenant un bâton",
+    "transliteration": "",
+    "descriptif": "Hors liste originale.\r\nDéterminatif du terme wȝtw « conspirateurs »."
+  },
+  {
+    "code": "A57",
+    "sign": "𓁂",
+    "description": "Homme debout",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A58",
+    "sign": "𓁃",
+    "description": "Homme penché",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A59",
+    "sign": "𓁄",
+    "description": "Homme debout menaçant avec un bâton",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A60",
+    "sign": "𓁅",
+    "description": "Hiéroglyphe égyptien A60",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A61",
+    "sign": "𓁆",
+    "description": "Hiéroglyphe égyptien A61",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A62",
+    "sign": "𓁇",
+    "description": "Hiéroglyphe égyptien A62",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A63",
+    "sign": "𓁈",
+    "description": "Hiéroglyphe égyptien A63",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A64",
+    "sign": "𓁉",
+    "description": "Hiéroglyphe égyptien A64",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A65",
+    "sign": "𓁊",
+    "description": "Hiéroglyphe égyptien A65",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A66",
+    "sign": "𓁋",
+    "description": "Hiéroglyphe égyptien A66",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A67",
+    "sign": "𓁌",
+    "description": "Hiéroglyphe égyptien A67",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A68",
+    "sign": "𓁍",
+    "description": "Hiéroglyphe égyptien A68",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A69",
+    "sign": "𓁎",
+    "description": "Hiéroglyphe égyptien A69",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "A70",
+    "sign": "𓁏",
+    "description": "Hiéroglyphe égyptien A70",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "Aa1",
+    "sign": "𓐍",
+    "description": "Placenta ou sieve",
+    "transliteration": "prsurnciation: ḫ"
+  },
+  {
+    "code": "Aa2",
+    "sign": "𓐎",
+    "description": "Pustule",
+    "transliteration": "bodily growths ou csurditions, disease"
+  },
+  {
+    "code": "Aa3",
+    "sign": "𓐏",
+    "description": "Pustule avec liquide dsurcutant de cela",
+    "transliteration": "medical ou anaàmical csurdition, specsiically dsurcft matter ou liquid"
+  },
+  {
+    "code": "Aa4",
+    "sign": "𓐐",
+    "description": "",
+    "transliteration": "prsurnciation: bꜣ (rarely)"
+  },
+  {
+    "code": "Aa5",
+    "sign": "𓐑",
+    "description": "Partie de dirigeant gear de un navire",
+    "transliteration": "hasten (ḥjp), hepet-device (ḥpt); prsurnciation: ḥp (rarely)"
+  },
+  {
+    "code": "Aa6",
+    "sign": "𓐒",
+    "description": "",
+    "transliteration": "mat (ṯmꜣ); prsurnciation: tmꜣ, ṯmꜣ"
+  },
+  {
+    "code": "Aa7",
+    "sign": "𓐓",
+    "description": "Un Smitdansg blade symbole hiéroglyphe",
+    "transliteration": "spr"
+  },
+  {
+    "code": "Aa7A",
+    "sign": "𓐔",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Aa7B",
+    "sign": "𓐕",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Aa8",
+    "sign": "𓐖",
+    "description": "irrigation tunnels",
+    "transliteration": "estate (ḏꜣtt); prsurnciation: qn, ḏꜣt, ḏꜣḏꜣt"
+  },
+  {
+    "code": "Aa9",
+    "sign": "𓐗",
+    "description": "",
+    "transliteration": "rich (ḫwd)"
+  },
+  {
+    "code": "Aa10",
+    "sign": "𓐘",
+    "description": "",
+    "transliteration": "drf"
+  },
+  {
+    "code": "Aa11",
+    "sign": "𓐙",
+    "description": "",
+    "transliteration": "Raised platpourm (ṯntt), platpourm abréviation pour mꜣꜥ dans (mꜣꜥ-ḫrw); prsurnciation: mꜣꜥ et mꜣꜥ dans mꜣꜥ-ḫrw"
+  },
+  {
+    "code": "Aa12",
+    "sign": "𓐚",
+    "description": "",
+    "transliteration": "Raised platpourm (ṯntt), platpourm abréviation pour mꜣꜥ dans (mꜣꜥ-ḫrw); prsurnciation: mꜣꜥ"
+  },
+  {
+    "code": "Aa13",
+    "sign": "𓐛",
+    "description": "",
+    "transliteration": "side area (jmw), side (gs); prsurnciation: m, m, gs"
+  },
+  {
+    "code": "Aa14",
+    "sign": "𓐜",
+    "description": "",
+    "transliteration": "side area (jmw), side (gs); prsurnciation: m, m, gs"
+  },
+  {
+    "code": "Aa15",
+    "sign": "𓐝",
+    "description": "",
+    "transliteration": "prsurnciation: jm, m, gs"
+  },
+  {
+    "code": "Aa16",
+    "sign": "𓐞",
+    "description": "",
+    "transliteration": "side (gs); prsurnciation: gs"
+  },
+  {
+    "code": "Aa17",
+    "sign": "𓐟",
+    "description": "",
+    "transliteration": "back (sꜣ); prsurnciation: sꜣ"
+  },
+  {
+    "code": "Aa18",
+    "sign": "𓐠",
+    "description": "",
+    "transliteration": "back (sꜣ); prsurnciation: sꜣ"
+  },
+  {
+    "code": "Aa19",
+    "sign": "𓐡",
+    "description": "",
+    "transliteration": "prsurnciation: ḥr"
+  },
+  {
+    "code": "Aa20",
+    "sign": "𓐢",
+    "description": "",
+    "transliteration": "prsurnciation: ꜥpr"
+  },
+  {
+    "code": "Aa21",
+    "sign": "𓐣",
+    "description": "",
+    "transliteration": "divide (wḏꜥ)"
+  },
+  {
+    "code": "Aa22",
+    "sign": "𓐤",
+    "description": "",
+    "transliteration": "divide (wḏꜥ)"
+  },
+  {
+    "code": "Aa23",
+    "sign": "𓐥",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Aa24",
+    "sign": "𓐦",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Aa25",
+    "sign": "𓐧",
+    "description": "",
+    "transliteration": "garment prêtre (smꜣ)"
+  },
+  {
+    "code": "Aa26",
+    "sign": "𓐨",
+    "description": "",
+    "transliteration": "prsurnciation: sbj"
+  },
+  {
+    "code": "Aa27",
+    "sign": "𓐩",
+    "description": "",
+    "transliteration": "prsurnciation: nḏ"
+  },
+  {
+    "code": "Aa28",
+    "sign": "𓐪",
+    "description": "",
+    "transliteration": "prsurnciation: qd"
+  },
+  {
+    "code": "Aa29",
+    "sign": "𓐫",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Aa30",
+    "sign": "𓐬",
+    "description": "",
+    "transliteration": "Heker-frieze"
+  },
+  {
+    "code": "Aa31",
+    "sign": "𓐭",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Aa32",
+    "sign": "𓐮",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "B1",
+    "sign": "𓁐",
+    "description": "Femme assise",
+    "transliteration": "j",
+    "descriptif": "Déterminatif (commun) du genre féminin, du champ lexical de la femme et de ses occupations ainsi que des prénoms féminins.\r\nIdéogramme (après la XIXe dynastie du terme j « je, me, moi, mon, ma, mes » quand il s'agit du genre féminin."
+  },
+  {
+    "code": "B2",
+    "sign": "𓁑",
+    "description": "Femme enceinte",
+    "transliteration": "",
+    "descriptif": "Déterminatif déterminatif des termes jwr « concevoir (un enfant), devenir enceinte » et bkꜣ « être enceinte »."
+  },
+  {
+    "code": "B3",
+    "sign": "𓁒",
+    "description": "Femme accouchant",
+    "transliteration": "msj",
+    "descriptif": "Idéogramme ou déterminatif du terme msj « accoucher, donner naissance, mettre au monde, mettre bas (gazelle), pondre (oiseau), naître (de), créer (de dieu), produire (cultures), faire, fabriquer, façonner ».\r\nDéterminatif des mots apparentés."
+  },
+  {
+    "code": "B4",
+    "sign": "𓁓",
+    "description": "Femme accouchant et trois peaux de renard",
+    "transliteration": "msj",
+    "descriptif": "Voir le terme msj « accoucher, donner naissance, mettre au monde, mettre bas (gazelle), pondre (oiseau), naître (de), créer (de dieu), produire (cultures), faire, fabriquer, façonner ».\r\nDéterminatif des mots apparentés."
+  },
+  {
+    "code": "B5",
+    "sign": "𓁔",
+    "description": "Femme agenouillée allaitant un enfant",
+    "transliteration": "",
+    "descriptif": "Déterminatif du champ lexical de la nourrice"
+  },
+  {
+    "code": "B5A",
+    "sign": "𓁕",
+    "description": "Femme agenouillée",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "B6",
+    "sign": "𓁖",
+    "description": "Femme assise tenant un enfant",
+    "transliteration": "",
+    "descriptif": "Déterminatif du terme rnn « élever, nourrir (un enfant) »."
+  },
+  {
+    "code": "B7",
+    "sign": "𓁗",
+    "description": "Reine assise tenant une fleur",
+    "transliteration": "",
+    "descriptif": "Déterminatif des noms de reine"
+  },
+  {
+    "code": "B8",
+    "sign": "𓁘",
+    "description": "Femme agenouillée portant une fleur sur les genoux",
+    "transliteration": "",
+    "descriptif": "Hors liste originale.\r\nDéterminatif du champ lexical de la femme."
+  },
+  {
+    "code": "B9",
+    "sign": "𓁙",
+    "description": "Hiéroglyphe égyptien B9",
+    "transliteration": "",
+    "descriptif": "Hors liste originale."
+  },
+  {
+    "code": "C1",
+    "sign": "𓁚",
+    "description": "Rê-Atoum assis",
+    "transliteration": "Rꜥ",
+    "descriptif": "Idéogramme ou déterminatif du terme Rꜥ « Rê »."
+  },
+  {
+    "code": "C2",
+    "sign": "𓁛",
+    "description": "Rê-Horakhty assis",
+    "transliteration": "Rꜥ",
+    "descriptif": "Idéogramme ou déterminatif du terme Rꜥ « Rê »."
+  },
+  {
+    "code": "C2A",
+    "sign": "𓁜",
+    "description": "Hiéroglyphe égyptien C2A",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "C2B",
+    "sign": "𓁝",
+    "description": "Hiéroglyphe égyptien C2B",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "C2C",
+    "sign": "𓁞",
+    "description": "Hiéroglyphe égyptien C2C",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "C3",
+    "sign": "𓁟",
+    "description": "Thot assis",
+    "transliteration": "ḏḥwty",
+    "descriptif": "Idéogramme ou déterminatif du terme Ḏḥwty « Thot ».\r\nDéterminatif de son épithète fnḏy « celui au nez (comprendre « au long rostre ») »."
+  },
+  {
+    "code": "C4",
+    "sign": "𓁠",
+    "description": "Khnoum assis",
+    "transliteration": "H̱nmw",
+    "descriptif": "Idéogramme ou déterminatif du terme H̱nmw « Khnoum »."
+  },
+  {
+    "code": "C5",
+    "sign": "𓁡",
+    "description": "Khnoum assis tenant la croix ânkh",
+    "transliteration": "H̱nmw",
+    "descriptif": "Idéogramme ou déterminatif du terme H̱nmw « Khnoum »."
+  },
+  {
+    "code": "C6",
+    "sign": "𓁢",
+    "description": "Anubis-Oupouaout assis",
+    "transliteration": "Jnpw / Wp-wꜣwt",
+    "descriptif": "Idéogramme ou déterminatif du terme Jnpw « Anubis »\r\nDéterminatif du terme Wp-wꜣwt « Oupouaout »."
+  },
+  {
+    "code": "C7",
+    "sign": "𓁣",
+    "description": "Seth assis",
+    "transliteration": "Stẖ",
+    "descriptif": "Idéogramme du terme Stẖ « Seth ».\r\nDéterminatif des noms de Seth et du champ lexical de la souffrance."
+  },
+  {
+    "code": "C8",
+    "sign": "𓁤",
+    "description": "Min debout",
+    "transliteration": "Mnw",
+    "descriptif": "Idéogramme ou déterminatif du terme Mnw « Min »."
+  },
+  {
+    "code": "C9",
+    "sign": "𓁥",
+    "description": "Hathor assise",
+    "transliteration": "Ḥt-Ḥr",
+    "descriptif": "Idéogramme ou déterminatif du terme Ḥt-Ḥr « Hathor, Athyr »."
+  },
+  {
+    "code": "C10",
+    "sign": "𓁦",
+    "description": "Maât assise",
+    "transliteration": "mꜣꜥ.t",
+    "descriptif": "Idéogramme (rare) ou déterminatif du terme mꜣꜥ.t « Maât, rectitude, droiture, justice, justesse, gestion ordonnée, ordre des choses »."
+  },
+  {
+    "code": "C10A",
+    "sign": "𓁧",
+    "description": "Hiéroglyphe égyptien C10A",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "C11",
+    "sign": "𓁨",
+    "description": "Heh assis",
+    "transliteration": "Ḥḥ",
+    "descriptif": "Idéogramme du terme Ḥḥ « Heh, million, un grand nombre »."
+  },
+  {
+    "code": "C12",
+    "sign": "𓁩",
+    "description": "Amon assis",
+    "transliteration": "Jmn",
+    "descriptif": "Idéogramme ou déterminatif du terme Jmn « Amon »."
+  },
+  {
+    "code": "C13",
+    "sign": "𓁪",
+    "description": "C12 dansversé",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "C14",
+    "sign": "𓁫",
+    "description": "Hiéroglyphe égyptien C14",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "C15",
+    "sign": "𓁬",
+    "description": "C14 dansversé",
+    "transliteration": ""
+  },
+  {
+    "code": "C16",
+    "sign": "𓁭",
+    "description": "Hiéroglyphe égyptien C16",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "C17",
+    "sign": "𓁮",
+    "description": "Montou assis",
+    "transliteration": "Mnṯw",
+    "descriptif": "Idéogramme ou déterminatif du terme Mnṯw « Montou »."
+  },
+  {
+    "code": "C18",
+    "sign": "𓁯",
+    "description": "Taténen agenouillé",
+    "transliteration": "tꜣ-ṯnn",
+    "descriptif": "Idéogramme ou déterminatif du terme tꜣ-ṯnn « Taténen »"
+  },
+  {
+    "code": "C19",
+    "sign": "𓁰",
+    "description": "Ptah debout",
+    "transliteration": "Ptḥ",
+    "descriptif": "Idéogramme ou déterminatif du terme Ptḥ « Ptah »."
+  },
+  {
+    "code": "C20",
+    "sign": "𓁱",
+    "description": "Ptah debout dans un naos",
+    "transliteration": "Ptḥ",
+    "descriptif": "Idéogramme ou déterminatif du terme Ptḥ « Ptah »."
+  },
+  {
+    "code": "C21",
+    "sign": "𓁲",
+    "description": "Hiéroglyphe égyptien C21",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "C22",
+    "sign": "𓁳",
+    "description": "Hiéroglyphe égyptien C22",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "C23",
+    "sign": "𓁴",
+    "description": "Hiéroglyphe égyptien C23",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "C24",
+    "sign": "𓁵",
+    "description": "Hiéroglyphe égyptien C24",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D1",
+    "sign": "𓁶",
+    "description": "Tête de profil",
+    "transliteration": "dp / dꜣdꜣ",
+    "descriptif": "Phonogramme bilitère de valeur dp.\r\nIdéogramme du terme dp / dꜣdꜣ « tête, chef, extrémité, condyle, exemple, le meilleur de ».\r\nDéterminatif du champ lexical de la tête, peut-être avec le concept d'étrangler ainsi qu'avec l'idée de primauté.\r\nProbable inspiration par l'alphabet protosinaïtique (avec D19) pour le caractère d'où dérive la lettre R de l'alphabet latin."
+  },
+  {
+    "code": "D2",
+    "sign": "𓁷",
+    "description": "Tête de face",
+    "transliteration": "ḥr",
+    "descriptif": "Phonogramme bilitère de valeur ḥr.\r\nIdéogramme du terme ḥr « visage, figure, face, vue, regard »."
+  },
+  {
+    "code": "D3",
+    "sign": "𓁸",
+    "description": "Cheveux",
+    "transliteration": "wš",
+    "descriptif": "Abréviation du terme wš « être détruit ».\r\nDéterminatif du champ lexical des cheveux, de la peau, du deuil et par découlement de la tristesse ainsi que du manque."
+  },
+  {
+    "code": "D4",
+    "sign": "𓁹",
+    "description": "Œil",
+    "transliteration": "jrt / jr / mꜣ",
+    "descriptif": "Phonogramme bilitère de valeur jr et mꜣ.\r\nIdéogramme dans le terme jrt « œil ».\r\nDéterminatif précoce du champ lexical de l'œil et de la vue\r\nProbable inspiration par l'alphabet protosinaïtique pour le caractère d'où dérive la lettre O de l'alphabet latin."
+  },
+  {
+    "code": "D5",
+    "sign": "𓁺",
+    "description": "Œil fardé",
+    "transliteration": "",
+    "descriptif": "Déterminatif des actions de l'œil ou de sa condition."
+  },
+  {
+    "code": "D6",
+    "sign": "𓁻",
+    "description": "Œil cils supérieurs fardés",
+    "transliteration": "",
+    "descriptif": "Déterminatif des actions de l'œil ou de sa condition"
+  },
+  {
+    "code": "D7",
+    "sign": "𓁼",
+    "description": "Œil paupière inférieure fardée",
+    "transliteration": "",
+    "descriptif": "Complément phonétique de valeur ꜥn\r\nDéterminatif de l'action de parer, orner et de la vision\r\nAbréviation du terme msḏmt « khôl »."
+  },
+  {
+    "code": "D8",
+    "sign": "𓁽",
+    "description": "Œil dans terrain sableux",
+    "transliteration": "",
+    "descriptif": "Complément phonétique de valeur ꜥn dans le terme ꜥn « beau ».\r\nDéterminatif du terme ꜥnw « Ainou (ville actuelle de Tourah) »."
+  },
+  {
+    "code": "D8A",
+    "sign": "𓁾",
+    "description": "Hiéroglyphe égyptien D8A",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D9",
+    "sign": "𓁿",
+    "description": "Œil pleurant",
+    "transliteration": "rmj",
+    "descriptif": "Idéogramme ou déterminatif du terme rmj « pleurer, déplorer »."
+  },
+  {
+    "code": "D10",
+    "sign": "𓂀",
+    "description": "Œil oudjat",
+    "transliteration": "wḏꜣt",
+    "descriptif": "Œil oudjat Idéogramme ou déterminatif du terme wḏȝt « œil sain (œil oudjat) ».\r\nIdéogramme (?) dans le terme ptr « voir ».\r\nDéterminatif du terme ˁnḫ.t « œil (d'un dieu) »."
+  },
+  {
+    "code": "D11",
+    "sign": "𓂁",
+    "description": "Partie intérieure de conjonctive",
+    "transliteration": "",
+    "descriptif": "Idéogramme de la valeur 0,5 dans la mesure heqat (soit environ 2,4 litres de céréales)."
+  },
+  {
+    "code": "D12",
+    "sign": "𓂂",
+    "description": "Pupille",
+    "transliteration": "",
+    "descriptif": "Idéogramme de la valeur 0,25 dans la mesure heqat (soit environ 1,2 litre de céréales).\r\nDéterminatif des termes désignant la pupille et l'œil blessé d'Horus (œil oudjat)."
+  },
+  {
+    "code": "D13",
+    "sign": "𓂃",
+    "description": "Sourcil",
+    "transliteration": "",
+    "descriptif": "Idéogramme de la valeur 1/8 dans la mesure heqat (soit environ 0,6 litre de céréales).\r\nDéterminatif des termes jnḥ et smd « sourcil(s) » ainsi que de quelques mots apparentés."
+  },
+  {
+    "code": "D14",
+    "sign": "𓂄",
+    "description": "Partie extérieure de conjonctive",
+    "transliteration": "",
+    "descriptif": "Idéogramme de la valeur 1/16 dans la mesure heqat (soit environ 0,3 litre de céréales)."
+  },
+  {
+    "code": "D15",
+    "sign": "𓂅",
+    "description": "Tache de faucon diagonale de l'œil oudjat",
+    "transliteration": "",
+    "descriptif": "Idéogramme de la valeur 1/32 dans la mesure heqat (soit environ 0,15 litre de céréales).\r\nDéterminatif du terme tjt au pluriel « signes (d'écriture), hiéroglyphes »."
+  },
+  {
+    "code": "D16",
+    "sign": "𓂆",
+    "description": "Tache de faucon inférieur de l'œil oudjat",
+    "transliteration": "",
+    "descriptif": "Idéogramme de la valeur 1/64 dans la mesure heqat (soit environ 0,075 litre de céréales)."
+  },
+  {
+    "code": "D17",
+    "sign": "𓂇",
+    "description": "Taches de faucon de l'œil oudjat",
+    "transliteration": "tj.t",
+    "descriptif": "Idéogramme ou déterminatif du terme tj.t « forme, silhouette, figure, projet, conception, signe (écriture), hiéroglyphe »."
+  },
+  {
+    "code": "D18",
+    "sign": "𓂈",
+    "description": "Oreille",
+    "transliteration": "msḏr",
+    "descriptif": "Idéogramme ou déterminatif du terme msḏr « oreille »."
+  },
+  {
+    "code": "D19",
+    "sign": "𓂉",
+    "description": "Profil de nez avec une partie du visage",
+    "transliteration": "fnḏ / fnd / ḫnt",
+    "descriptif": "Phonogramme trilitère ou complément phonétique de valeur ḫnt\r\nIdéogramme ou déterminatif du terme fnḏ (plus tard fnd) « nez ».\r\nDéterminatif du champ lexical du nez, de l'action de sentir, de la joie et du doux / aimable (ou antonyme).\r\nRemplace parfois les hiéroglyphes Aa32 (arc archaïque) et U31 (outil pour la cuisson du pain).\r\nProbable inspiration par l'alphabet protosinaïtique (avec la tête de profil D1) pour le caractère d'où dérive la lettre R de l'alphabet latin."
+  },
+  {
+    "code": "D20",
+    "sign": "𓂊",
+    "description": "Profil de nez avec l'œil",
+    "transliteration": "fnḏ / fnd / ḫnt / rtḥ",
+    "descriptif": "Complément phonétique de valeur ḫnt ou rtḥ.\r\nDéterminatif du champ lexical du nez, de l'action de sentir, de la joie et du doux / aimable (ou antonyme).\r\nRemplace parfois les hiéroglyphes Aa32 (arc archaïque) et U31 (outil pour la cuisson du pain)."
+  },
+  {
+    "code": "D21",
+    "sign": "𓂋",
+    "description": "Bouche",
+    "transliteration": "r / rꜣ / 1 / l",
+    "descriptif": "Phonogramme unilitère r\r\nIdéogramme du terme r / rȝ « bouche, trou, entrée, discours, langue, intention ».\r\nIdéogramme du terme numérateur 1.\r\nProbable inspiration par l'alphabet protosinaïtique pour le caractère d'où dérive la lettre P de l'alphabet latin.\r\nNote (avant la dynastie lagidel e son l des noms étrangers."
+  },
+  {
+    "code": "D22",
+    "sign": "𓂌",
+    "description": "Idéogramme du terme rwy «  2/3 ».",
+    "transliteration": "rwy",
+    "descriptif": "Bouche avec deux traits."
+  },
+  {
+    "code": "D23",
+    "sign": "𓂍",
+    "description": "Bouche avec trois traits",
+    "transliteration": "ḫmt-rw",
+    "descriptif": "Idéogramme du terme ḫmt-rw (prononciation probable) « 3/4 »."
+  },
+  {
+    "code": "D24",
+    "sign": "𓂎",
+    "description": "Lèvre supérieure avec dents",
+    "transliteration": "spt",
+    "descriptif": "Idéogramme du terme spt « lèvre, bord, rive (de voie navigable), plat-bord (?), bord (de l'horizon) ».\r\nRemplace parfois par erreur la côte F42."
+  },
+  {
+    "code": "D25",
+    "sign": "𓂏",
+    "description": "Deux lèvres avec dents",
+    "transliteration": "spty",
+    "descriptif": "Idéogramme ou déterminatif du terme spty « lèvre, bord (aussi pour vagin, plaie ou récipient) » duel de spt.\r\nDéterminatif du terme ḥpd « ouvrir (la bouche) »."
+  },
+  {
+    "code": "D26",
+    "sign": "𓂐",
+    "description": "Lèvres crachant",
+    "transliteration": "",
+    "descriptif": "Déterminatif du champ lexical de l'action de cracher, de celle de vomir ainsi que du sang."
+  },
+  {
+    "code": "D27",
+    "sign": "𓂑",
+    "description": "Sein",
+    "transliteration": "mnḏ / mnd",
+    "descriptif": "Idéogramme ou déterminatif du terme mnḏ (variante plus tardive mnd) « sein ».\r\nDéterminatif du champ lexical de l'allaiteme."
+  },
+  {
+    "code": "D27A",
+    "sign": "𓂒",
+    "description": "Grand sein",
+    "transliteration": "mnḏ / mnd",
+    "descriptif": "Déterminatif du champ lexical de l'allaitement."
+  },
+  {
+    "code": "D28",
+    "sign": "𓂓",
+    "description": "Deux bras levés",
+    "transliteration": "kꜣ",
+    "descriptif": "Phonogramme bilitère de valeur kꜣ.\r\nIdéogramme du terme kꜣ « Ka, âme, esprit, essence (d'un être), personnalité, chance, destin, fortune, volonté (du roi), royauté, bonne volonté, bon vouloir, spectre, fantôme »."
+  },
+  {
+    "code": "D29",
+    "sign": "𓂔",
+    "description": "Deux bras levés sur pavois",
+    "transliteration": "kꜣ",
+    "descriptif": "Idéogramme ou déterminatif du terme kꜣ « Ka, âme, esprit, essence (d'un être), personnalité, chance, destin, fortune, volonté (du roi), royauté, bonne volonté, bon vouloir, spectre, fantôme »."
+  },
+  {
+    "code": "D30",
+    "sign": "𓂕",
+    "description": "Deux bras levés couchés avec un appendice",
+    "transliteration": "",
+    "descriptif": "Déterminatif du terme nḥbw-kꜣw « celui qui combine (ou pourvoit) les kaou (Nehebkaou et sa fête) »."
+  },
+  {
+    "code": "D31",
+    "sign": "𓂖",
+    "description": "Deux bras entourant et pilon de foulon",
+    "transliteration": "ḥm-kꜣ",
+    "descriptif": "Idéogramme du terme ḥm-kꜣ « serviteur du ka (prêtre du Ka) »."
+  },
+  {
+    "code": "D31A",
+    "sign": "𓂗",
+    "description": "Deux bras uppraised et massue",
+    "transliteration": "moutuary prêtre (ḥm-kꜣ)"
+  },
+  {
+    "code": "D32",
+    "sign": "𓂘",
+    "description": "Deux bras entourant",
+    "transliteration": "",
+    "descriptif": "Déterminatif du champ lexical de l'enveloppement, de l'embrassade et des ouvertures."
+  },
+  {
+    "code": "D33",
+    "sign": "𓂙",
+    "description": "Deux bras ramant",
+    "transliteration": "ẖn / ẖnj",
+    "descriptif": "Phonogramme bilitère de valeur ẖn.\r\nIdéogramme dans le terme ẖnj « ramer, naviguer à la rame, transporter par voie d'eau » et dérivés."
+  },
+  {
+    "code": "D34",
+    "sign": "𓂚",
+    "description": "Bras tenant un bouclier et une massue",
+    "transliteration": "ꜥḥꜣ",
+    "descriptif": "Idéogramme dans le terme ꜥḥꜣ « se battre, combattre, combat » et dérivés."
+  },
+  {
+    "code": "D34A",
+    "sign": "𓂛",
+    "description": "Bras tenant un bouclier large et une massue",
+    "transliteration": "ꜥḥꜣ",
+    "descriptif": "Idéogramme dans le terme ꜥḥꜣ « se battre, combattre, combat » et dérivés."
+  },
+  {
+    "code": "D35",
+    "sign": "𓂜",
+    "description": "Deux bras écartés",
+    "transliteration": "n / nn / jwty / ḫm / mḫ",
+    "descriptif": "Phonogramme unilitère de valeur n souvent en substitut de l'eau N35.\r\nComplément phonétique de valeur ḫm et mḫ.\r\nIdéogramme dans le terme nn « pas, ne, ne…pas ».\r\nIdéogramme dans le terme jwty « qui (que) ne…pas ».\r\nDéterminatif du fait de ne pas savoir."
+  },
+  {
+    "code": "D36",
+    "sign": "𓂝",
+    "description": "bras",
+    "transliteration": "ꜥ",
+    "descriptif": "Phonogramme unilitère de valeur ˁ\r\nIdéogramme dans le terme ꜥ « bras, main, région, province, condition, état, article, pièce, piste, trace ».\r\nSubstitut des hiéroglyphes D37 (bras tendu offrant un pain), D38 (bras tendu offrant un pain rond), D39 (bras tendu offrant un pot), D40 (bras tendu armé d'un bâton), D41 (bras fléchi paume vers le bas), D42 (bras tendu paume vers le bas), D43 (bras tendu tenant le flagellum) et D44 (bras tendu tenant le sceptre aba), dans l'écriture hiératique et, moins souvent, hiéroglyphique.\r\nProbable inspiration par l'alphabet protosinaïtique pour le caractère d'où dérive la lettre I de l'alphabet latin."
+  },
+  {
+    "code": "D37",
+    "sign": "𓂞",
+    "description": "Bras tendu offrant un pain",
+    "transliteration": "jmj / mj / m / rdj / d / dj / ḏ",
+    "descriptif": "Phonogramme unilitère de valeur m / d / ḏ.\r\nPhonogramme bilitère de valeur mj.\r\nIdéogramme ou déterminatif dans les textes des pyramides du terme jmj « donne !, place !, fais que ! », il aura tendance après le Moyen Empire à y être remplacé par le bras tendu offrant un pain rond D38.\r\nParticulièrement après le Moyen Empire :\r\nIdéogramme dans le terme rdj / dj « donner, mettre, placer, nommer, désigner, envoyer, occasionner, permettre, accorder ».\r\nRemplacé parfois (sous la XIe dynastie) par les hiéroglyphes D40 (bras tendu armé d'un bâton) et D44 (bras tendu tenant le sceptre aba)."
+  },
+  {
+    "code": "D38",
+    "sign": "𓂟",
+    "description": "Bras tendu offrant un pain rond",
+    "transliteration": "mj / m",
+    "descriptif": "Phonogramme unilitère de valeur m.\r\nPhonogramme bilitère de valeur mj.\r\nDéterminatif (à partir du Moyen Empire) du terme jmj « donne !, place !, fais que ! »."
+  },
+  {
+    "code": "D39",
+    "sign": "𓂠",
+    "description": "Bras tendu offrant un pot",
+    "transliteration": "ḥnk",
+    "descriptif": "Idéogramme (variante pour offrir) ou déterminatif du terme ḥnk « faire cadeau, offrir, faire une offrande, être chargé de ».\r\nDéterminatif du champ lexical de l'offre et du don.\r\nDes dynasties IXe à XIIe dynastie :\r\nOccasionnel substitut des hiéroglyphes D37 (bras tendu offrant un pain) et D38 (bras tendu offrant un pain rond).\r\nSubstitut du bras D36."
+  },
+  {
+    "code": "D40",
+    "sign": "𓂡",
+    "description": "Avant bras avec bâàn",
+    "transliteration": "ḫꜣj / nḫt",
+    "descriptif": "Déterminatif ou abréviation du terme ḫȝj « mesurer, examiner ».\r\nTend à remplacer (À partir du Moyen Empire) l'homme debout frappant avec un bâton A24.\r\nRemplace parfois (sous la XIe dynastie) le bras tendu offrant un pain D37."
+  },
+  {
+    "code": "D41",
+    "sign": "𓂢",
+    "description": "Bras fléchi paume vers le bas",
+    "transliteration": "nj",
+    "descriptif": "Phonogramme bilitère ou complément phonétique de valeur nj.\r\nDéterminatif du champ lexical du bras et des actions relatives à son utilisation ainsi qu'à la cessation de mouvements."
+  },
+  {
+    "code": "D42",
+    "sign": "𓂣",
+    "description": "Bras tendu paume vers le bas",
+    "transliteration": "mḥ",
+    "descriptif": "Idéogramme ou déterminatif du terme mḥ « coudée »."
+  },
+  {
+    "code": "D43",
+    "sign": "𓂤",
+    "description": "Bras tendu tenant le flagellum",
+    "transliteration": "ḫwj / ḫw",
+    "descriptif": "Phonogramme bilitère de valeur ḫw.\r\nIdéogramme dans le terme ḫwj « protéger »."
+  },
+  {
+    "code": "D44",
+    "sign": "𓂥",
+    "description": "Bras tendu tenant le sceptre aba",
+    "transliteration": "ḫrp",
+    "descriptif": "Déterminatif ou abréviation (pour fournir) du terme ḫrp « gouverner, contrôler, administrer, agir en responsable, diriger, guider (quelqu'un), conduire (le bétail), mener à bien, progresser (dans travail), apporter, fournir, faire l'offrande de, dédier » et de ses dérivés."
+  },
+  {
+    "code": "D45",
+    "sign": "𓂦",
+    "description": "Bras fléchi tenant le sceptre nehebet",
+    "transliteration": "ḏsr",
+    "descriptif": "Idéogramme, déterminatif ou phonogramme trilitère de valeur ḏsr du terme ḏsr « saint, sacré, splendide, coûteux, dégager, isoler, séparer, élever » et dérivés."
+  },
+  {
+    "code": "D46",
+    "sign": "𓂧",
+    "description": "Main",
+    "transliteration": "d / ḏr.t",
+    "descriptif": "Phonogramme unilitère de valeur d.\r\nIdéogramme dans les termes ḏr.t « main, trompe, anse » et ḏȝt « main, poignée ».\r\nProbable inspiration par l'alphabet protosinaïtique pour le caractère d'où dérive la lettre K de l'alphabet latin."
+  },
+  {
+    "code": "D46A",
+    "sign": "𓂨",
+    "description": "Main répandant un liquide",
+    "transliteration": "jdt",
+    "descriptif": "Idéogramme dans le terme terme jdt « encensement, senteur, parfum, influence »."
+  },
+  {
+    "code": "D47",
+    "sign": "𓂩",
+    "description": "Main paume vers le haut",
+    "transliteration": "",
+    "descriptif": "Déterminatif dans les termes ḏr.t « main, trompe, anse » et ḏꜣt « main, poignée »."
+  },
+  {
+    "code": "D48",
+    "sign": "𓂪",
+    "description": "Main sans pouce",
+    "transliteration": "šsp",
+    "descriptif": "Abréviation du terme šsp « paume (de la main), paume 1/7 de coudée soit environ 7,5 cm)."
+  },
+  {
+    "code": "D48A",
+    "sign": "𓂫",
+    "description": "Hiéroglyphe égyptien D48A",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D49",
+    "sign": "𓂬",
+    "description": "Poing",
+    "transliteration": "",
+    "descriptif": "Déterminatif du champ lexical du poing et de l'action d'empoigner."
+  },
+  {
+    "code": "D50",
+    "sign": "𓂭",
+    "description": "Grand doigt vers le haut",
+    "transliteration": "ḏbꜥ",
+    "descriptif": "Idéogramme ou déterminatif du terme ḏbꜥ « doigt, pouce, orteil (tardif), doigt 1/28 de coudée soit environ 1,86 cm), 10 000 ».\r\nDéterminatif de la précision quand il est doublé.\r\nDans les textes hiéroglyphiques (en hiératique ils sont bien distinct) il peut être remplacé par le bâton de jet-massue T14."
+  },
+  {
+    "code": "D50A",
+    "sign": "𓂮",
+    "description": "Deux grands doigts vers le haut",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D50B",
+    "sign": "𓂯",
+    "description": "Trois grands doigts vers le haut",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D50C",
+    "sign": "𓂰",
+    "description": "Quatre grands doigts vers le haut",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D50D",
+    "sign": "𓂱",
+    "description": "Cinq petits doigts vers le haut",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D50E",
+    "sign": "𓂲",
+    "description": "Six petits doigts vers le haut",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D50F",
+    "sign": "𓂳",
+    "description": "Sept petits doigts vers le haut",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D50G",
+    "sign": "𓂴",
+    "description": "Huit petits doigts vers le haut",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D50H",
+    "sign": "𓂵",
+    "description": "Neuf petits doigts vers le haut",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D50I",
+    "sign": "𓂶",
+    "description": "Cinq grands doigts vers le haut",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D51",
+    "sign": "𓂷",
+    "description": "Doigt vers la gauche",
+    "transliteration": "ꜥnt / dḳr",
+    "descriptif": "Idéogramme ou déterminatif dans le terme ꜥnt « ongle, griffe, serre »\r\nDéterminatif des termes ḫꜣj « mesurer, examiner (un patient) », ṯꜣy ou ṯꜣ « revêtir, mettre (un vêtement) » et dḳr « presser, exclure, un procédé de filage »\r\nComplément phonétique de valeur dḳr dans le terme dḳrw « fruit, arbres fruitiers »."
+  },
+  {
+    "code": "D52",
+    "sign": "𓂸",
+    "description": "Phallus",
+    "transliteration": "mt",
+    "descriptif": "Phonogramme bilitère de valeur mt.\r\nDéterminatif du masculin, de la virilité."
+  },
+  {
+    "code": "D52A",
+    "sign": "𓂹",
+    "description": "Hiéroglyphe égyptien D52A",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D53",
+    "sign": "𓂺",
+    "description": "Phallus duquel jaillit un liquide",
+    "transliteration": "bꜣḥ",
+    "descriptif": "Idéogramme du terme bꜣḥ « phallus » dans l'expression m-bꜣḥ « (lit. dans le prépuce) pour une personne respecté : en présence de, en face de, devant, autrefois, jadis ».\r\nDéterminatif du champ lexical du pénis et de ses actions;\r\nPeut être (après l'Ancien Empire) déterminatif de l'homme."
+  },
+  {
+    "code": "D54",
+    "sign": "𓂻",
+    "description": "Jambes avançant",
+    "transliteration": "jw / nmtt",
+    "descriptif": "Idéogramme dans les termes jw « venir, revenir, verbe auxiliaire » et nmtt « pas, enjambée, voyages, mouvements,\r\nactions, procédure (judiciaire) ».\r\nDéterminatif du champ lexical du mouvement et à son inverse, de l'absence de mouvement."
+  },
+  {
+    "code": "D54A",
+    "sign": "𓂼",
+    "description": "Hiéroglyphe égyptien D54A",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D55",
+    "sign": "𓂽",
+    "description": "Jambes reculant",
+    "transliteration": "",
+    "descriptif": "Déterminatif du champ lexical du recul, retour."
+  },
+  {
+    "code": "D56",
+    "sign": "𓂾",
+    "description": "Jambe fléchie",
+    "transliteration": "rd / pds / wꜥr / sbḳ / gḥ / gḥs",
+    "descriptif": "Phonogramme trilitère de valeur pds dans le terme pds « coffre ».\r\nPhonogramme trilitère ou complément phonétique de valeur wꜥr.\r\nPhonogramme bilitères gḥ ou trilitère gḥs dans le terme gḥs « gazelle ».\r\nIdéogramme (pour splendide) ou déterminatif du terme sbḳ « mollet, splendide, magnifique, précieux, grande valeur ».\r\nIdéogramme ou déterminatif du terme rd « pied ».\r\nDéterminatif de termes désignant une la jambe ou une partie.\r\nDéterminatif de verbes de mouvement en groupe avec D54."
+  },
+  {
+    "code": "D57",
+    "sign": "𓂿",
+    "description": "Jambe fléchie et couteau",
+    "transliteration": "jꜣṯw / sjꜣty",
+    "descriptif": "Abréviation dans les termes jꜣṯw « scènes de carnage, places d'exécution » et sjꜣty « dupeur ».\r\nDéterminatif dans les termes jꜣṯ « être blessé, mutilé, être absent de, diminuer » et nkn « mal, blessure, mutilation, être blessé »."
+  },
+  {
+    "code": "D58",
+    "sign": "𓃀",
+    "description": "Jambe",
+    "transliteration": "b / bw",
+    "descriptif": "Phonogramme unilitère de valeur b.\r\nIdéogramme ou phonogramme bilitère de valeur bw dans le terme bw « place (où l'on peut mettre le pied) »."
+  },
+  {
+    "code": "D59",
+    "sign": "𓃁",
+    "description": "Jambe et bras",
+    "transliteration": "ꜥb",
+    "descriptif": "Phonogramme bilitère de valeur ꜥb."
+  },
+  {
+    "code": "D60",
+    "sign": "𓃂",
+    "description": "Vase monopède versant de l'eau",
+    "transliteration": "wꜥb",
+    "descriptif": "Idéogramme du terme wꜥb « pur, se purifier, nettoyer, purification, pureté »."
+  },
+  {
+    "code": "D61",
+    "sign": "𓃃",
+    "description": "Orteils tournés vers la gauche",
+    "transliteration": "sꜣḥ",
+    "descriptif": "Phonogramme trilitère ou complément phonétique de valeur sꜣḥ.\r\nIdéogramme ou déterminatif dans le terme sꜣḥ « orteil »."
+  },
+  {
+    "code": "D62",
+    "sign": "𓃄",
+    "description": "Orteils tournés vers la droite",
+    "transliteration": "sꜣḥ",
+    "descriptif": "Phonogramme trilitère ou complément phonétique de valeur sꜣḥ."
+  },
+  {
+    "code": "D63",
+    "sign": "𓃅",
+    "description": "Deux mâts à oriflamme",
+    "transliteration": "sꜣḥ",
+    "descriptif": "Phonogramme trilitère ou complément phonétique de valeur sꜣḥ."
+  },
+  {
+    "code": "D64",
+    "sign": "𓃆",
+    "description": "Hiéroglyphe égyptien D64",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D65",
+    "sign": "𓃇",
+    "description": "Hiéroglyphe égyptien D65",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D66",
+    "sign": "𓃈",
+    "description": "Hiéroglyphe égyptien D66",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D67",
+    "sign": "𓃉",
+    "description": "Hiéroglyphe égyptien D67",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D67A",
+    "sign": "𓃊",
+    "description": "Hiéroglyphe égyptien D67A",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D67B",
+    "sign": "𓃋",
+    "description": "\tHiéroglyphe égyptien D67B",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D67C",
+    "sign": "𓃌",
+    "description": "Hiéroglyphe égyptien D67C",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D67D",
+    "sign": "𓃍",
+    "description": "Hiéroglyphe égyptien D67D",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D67E",
+    "sign": "𓃎",
+    "description": "Hiéroglyphe égyptien D67E",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D67F",
+    "sign": "𓃏",
+    "description": "Hiéroglyphe égyptien D67F",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D67G",
+    "sign": "𓃐",
+    "description": "Hiéroglyphe égyptien D67G",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "D67H",
+    "sign": "𓃑",
+    "description": "Hiéroglyphe égyptien D67H",
+    "transliteration": "",
+    "descriptif": ""
+  },
+  {
+    "code": "E1",
+    "sign": "𓃒",
+    "description": "Taureau",
+    "transliteration": "prsurnciation: kꜣ"
+  },
+  {
+    "code": "E2",
+    "sign": "𓃓",
+    "description": "Taureau chargdansg",
+    "transliteration": "prsurnciation: kꜣ-kḫt"
+  },
+  {
+    "code": "E3",
+    "sign": "𓃔",
+    "description": "Veau",
+    "transliteration": "prsurnciation: bḥs"
+  },
+  {
+    "code": "E4",
+    "sign": "𓃕",
+    "description": "Sacré vache",
+    "transliteration": "prsurnciation: ḥsꜣt"
+  },
+  {
+    "code": "E5",
+    "sign": "𓃖",
+    "description": "Vache allaitant veau",
+    "transliteration": "prsurnciation: ꜣms"
+  },
+  {
+    "code": "E6",
+    "sign": "𓃗",
+    "description": "Cheval",
+    "transliteration": "prsurnciation: ssmt jbr"
+  },
+  {
+    "code": "E7",
+    "sign": "𓃘",
+    "description": "Âne",
+    "transliteration": ""
+  },
+  {
+    "code": "E8",
+    "sign": "𓃙",
+    "description": "Chevreau chèvre",
+    "transliteration": "ib; prsurnciation: jb"
+  },
+  {
+    "code": "E8A",
+    "sign": "𓃚",
+    "description": "Chevreau jumpdansg",
+    "transliteration": "ib; prsurnciation: jb"
+  },
+  {
+    "code": "E9",
+    "sign": "𓃛",
+    "description": "nsuruveauboun bubale",
+    "transliteration": "\"iu\"; prsurnciation: jw"
+  },
+  {
+    "code": "E9A",
+    "sign": "𓃜",
+    "description": "Mature bovdans couché bas",
+    "transliteration": "\"iu\"; prsurnciation: jw"
+  },
+  {
+    "code": "E10",
+    "sign": "𓃝",
+    "description": "Bélier",
+    "transliteration": "prsurnciation: bꜣ ẖnmw"
+  },
+  {
+    "code": "E11",
+    "sign": "𓃞",
+    "description": "Bélier",
+    "transliteration": "prsurnciation: bꜣ ẖnmw"
+  },
+  {
+    "code": "E12",
+    "sign": "𓃟",
+    "description": "Cochsur",
+    "transliteration": "prsurnciation: rrj"
+  },
+  {
+    "code": "E13",
+    "sign": "𓃠",
+    "description": "Chat",
+    "transliteration": "miu; prsurnciation: mjw"
+  },
+  {
+    "code": "E14",
+    "sign": "𓃡",
+    "description": "Chien",
+    "transliteration": "prsurnciation: jw ṯsm"
+  },
+  {
+    "code": "E15",
+    "sign": "𓃢",
+    "description": "Couché candans",
+    "transliteration": "prsurnciation: jnpw ḥrj-sštꜣ"
+  },
+  {
+    "code": "E16",
+    "sign": "𓃣",
+    "description": "Couché candans sur sanctuaire",
+    "transliteration": "prsurnciation: jnpw ḥrj-sštꜣ"
+  },
+  {
+    "code": "E16A",
+    "sign": "𓃤",
+    "description": "Couché candans sur sanctuaire avec flagellum",
+    "transliteration": "prsurnciation: jnpw ḥrj-sštꜣ"
+  },
+  {
+    "code": "E17",
+    "sign": "𓃥",
+    "description": "Chacal",
+    "transliteration": "prsurnciation: sꜣb"
+  },
+  {
+    "code": "E17A",
+    "sign": "𓃦",
+    "description": "Chacal regardant dos",
+    "transliteration": "prsurnciation: sꜣb"
+  },
+  {
+    "code": "E18",
+    "sign": "𓃧",
+    "description": "Loup sur étendard",
+    "transliteration": "prsurnciation: wpj-wꜣwt"
+  },
+  {
+    "code": "E19",
+    "sign": "𓃨",
+    "description": "Loup sur étendard avec masse",
+    "transliteration": "prsurnciation: wpj-wꜣwt"
+  },
+  {
+    "code": "E20",
+    "sign": "𓃩",
+    "description": "Ensemble animal hiéroglyphe",
+    "transliteration": "prsurnciation: stẖ, stš, swti ẖnnw"
+  },
+  {
+    "code": "E20A",
+    "sign": "𓃪",
+    "description": "Ensemble animal sur panier",
+    "transliteration": "prsurnciation: stẖ, stš, swti ẖnnw"
+  },
+  {
+    "code": "E21",
+    "sign": "𓃫",
+    "description": "Couché ensemble animal",
+    "transliteration": "prsurnciation: nšnj"
+  },
+  {
+    "code": "E22",
+    "sign": "𓃬",
+    "description": "Lisur",
+    "transliteration": "mꜣi; prsurnciation: mꜣj"
+  },
+  {
+    "code": "E23",
+    "sign": "𓃭",
+    "description": "Lisur couché",
+    "transliteration": "prsurnciation: rw, l"
+  },
+  {
+    "code": "E24",
+    "sign": "𓃮",
+    "description": "Panthère",
+    "transliteration": "prsurnciation: ꜣby"
+  },
+  {
+    "code": "E25",
+    "sign": "𓃯",
+    "description": "Hippopotame",
+    "transliteration": "prsurnciation: db"
+  },
+  {
+    "code": "E26",
+    "sign": "𓃰",
+    "description": "Éléphant",
+    "transliteration": "ꜣbw<br />ꜣb<br />dnhr-(Pàlemajc); prsurnciation: ꜣbw"
+  },
+  {
+    "code": "E27",
+    "sign": "𓃱",
+    "description": "Girafe",
+    "transliteration": "prsurnciation: mmj sr"
+  },
+  {
+    "code": "E28",
+    "sign": "𓃲",
+    "description": "ouyx",
+    "transliteration": "gḥs; prsurnciation: mꜣ-ḥḏ"
+  },
+  {
+    "code": "E28A",
+    "sign": "𓃳",
+    "description": "ouyx avec irrigation system",
+    "transliteration": "gḥs; prsurnciation: mꜣ-ḥḏ"
+  },
+  {
+    "code": "E29",
+    "sign": "𓃴",
+    "description": "Gazelle",
+    "transliteration": "prsurnciation: gḥs"
+  },
+  {
+    "code": "E30",
+    "sign": "𓃵",
+    "description": "Bouquetdans",
+    "transliteration": "prsurnciation: njꜣw"
+  },
+  {
+    "code": "E31",
+    "sign": "𓃶",
+    "description": "Chèvre avec collier",
+    "transliteration": "prsurnciation: sꜥḥ"
+  },
+  {
+    "code": "E32",
+    "sign": "𓃷",
+    "description": "Baboudans",
+    "transliteration": "prsurnciation: jꜥn, ky, qnd"
+  },
+  {
+    "code": "E33",
+    "sign": "𓃸",
+    "description": "Sdansge",
+    "transliteration": "prsurnciation: gjf"
+  },
+  {
+    "code": "E34",
+    "sign": "𓃹",
+    "description": "Lièvre",
+    "transliteration": "wn<br />([[Egyptian biliteral signs; prsurnciation: wn"
+  },
+  {
+    "code": "E34A",
+    "sign": "𓃺",
+    "description": "Lièvre bas",
+    "transliteration": "wn<br />([[Egyptian biliteral signs; prsurnciation: wn"
+  },
+  {
+    "code": "E36",
+    "sign": "𓃻",
+    "description": "Baboudans",
+    "transliteration": ""
+  },
+  {
+    "code": "E37",
+    "sign": "𓃼",
+    "description": "Baboudans avec receptacle et panier",
+    "transliteration": ""
+  },
+  {
+    "code": "E38",
+    "sign": "𓃽",
+    "description": "Lsurg counu taureau",
+    "transliteration": ""
+  },
+  {
+    "code": "F1",
+    "sign": "𓃾",
+    "description": "Bœuf tête",
+    "transliteration": "prsurnciation: kꜣ"
+  },
+  {
+    "code": "F1A",
+    "sign": "𓃿",
+    "description": "Bovdans tête",
+    "transliteration": "fnḏ"
+  },
+  {
+    "code": "F2",
+    "sign": "𓄀",
+    "description": "Chargdansg bœuf tête",
+    "transliteration": "prsurnciation: ḏnd"
+  },
+  {
+    "code": "F3",
+    "sign": "𓄁",
+    "description": "Hippopotame tête",
+    "transliteration": "prsurnciation: ꜣt"
+  },
+  {
+    "code": "F4",
+    "sign": "𓄂",
+    "description": "Avant tradans de lisur",
+    "transliteration": "prsurnciation: ḥꜣt"
+  },
+  {
+    "code": "F5",
+    "sign": "𓄃",
+    "description": "Bubale tête",
+    "transliteration": "prsurnciation: šsꜣ"
+  },
+  {
+    "code": "F6",
+    "sign": "𓄄",
+    "description": "Avant tradans de bubale",
+    "transliteration": "prsurnciation: šsꜣ"
+  },
+  {
+    "code": "F7",
+    "sign": "𓄅",
+    "description": "Bélier tête",
+    "transliteration": "prsurnciation: šfyt"
+  },
+  {
+    "code": "F8",
+    "sign": "𓄆",
+    "description": "Avant tradans de bélier",
+    "transliteration": "prsurnciation: šfyt"
+  },
+  {
+    "code": "F9",
+    "sign": "𓄇",
+    "description": "Léopard tête hiéroglyphe",
+    "transliteration": "prsurnciation: pḥty"
+  },
+  {
+    "code": "F10",
+    "sign": "𓄈",
+    "description": "Tête et cou de animal",
+    "transliteration": "prsurnciation: ḫḫ"
+  },
+  {
+    "code": "F11",
+    "sign": "𓄉",
+    "description": "Tête et cou de animal",
+    "transliteration": "prsurnciation: ḫḫ"
+  },
+  {
+    "code": "F12",
+    "sign": "𓄊",
+    "description": "Tête et cou de animal",
+    "transliteration": "prsurnciation: wsr"
+  },
+  {
+    "code": "F13",
+    "sign": "𓄋",
+    "description": "Counes",
+    "transliteration": "prsurnciation: wp, jp"
+  },
+  {
+    "code": "F13A",
+    "sign": "𓄌",
+    "description": "Counes",
+    "transliteration": "prsurnciation: wp, jp"
+  },
+  {
+    "code": "F14",
+    "sign": "𓄍",
+    "description": "Counes avec palmier branche",
+    "transliteration": "prsurnciation: wpt-rnpt"
+  },
+  {
+    "code": "F15",
+    "sign": "𓄎",
+    "description": "Counes avec palmier branche et dsurcleil",
+    "transliteration": "prsurnciation: wpt-rnpt"
+  },
+  {
+    "code": "F16",
+    "sign": "𓄏",
+    "description": "Houn",
+    "transliteration": "prsurnciation: ꜥb"
+  },
+  {
+    "code": "F17",
+    "sign": "𓄐",
+    "description": "Houn et vase de qui eau coule",
+    "transliteration": "prsurnciation: ꜥbw"
+  },
+  {
+    "code": "F18",
+    "sign": "𓄑",
+    "description": "Tusk",
+    "transliteration": "prsurnciation: bḥ, ḥw"
+  },
+  {
+    "code": "F19",
+    "sign": "𓄒",
+    "description": "dansférieure jaw os de bœuf",
+    "transliteration": "prsurnciation: ꜥrt"
+  },
+  {
+    "code": "F20",
+    "sign": "𓄓",
+    "description": "Langue",
+    "transliteration": "prsurnciation: ns"
+  },
+  {
+    "code": "F21",
+    "sign": "𓄔",
+    "description": "oueille de bovdans",
+    "transliteration": "prsurnciation: msḏr, ḏrḏ, sḏ"
+  },
+  {
+    "code": "F21A",
+    "sign": "𓄕",
+    "description": "Hiératique oueille de bovdans",
+    "transliteration": "prsurnciation: msḏr, ḏrḏ, sḏ"
+  },
+  {
+    "code": "F22",
+    "sign": "𓄖",
+    "description": "Hdansd quarters de lisur",
+    "transliteration": "prsurnciation: pḥ"
+  },
+  {
+    "code": "F23",
+    "sign": "𓄗",
+    "description": "poureleg de bœuf",
+    "transliteration": "prsurnciation: ḫpš"
+  },
+  {
+    "code": "F24",
+    "sign": "𓄘",
+    "description": "F23 dansversé",
+    "transliteration": "prsurnciation: ḫpš"
+  },
+  {
+    "code": "F25",
+    "sign": "𓄙",
+    "description": "Jambe de bœuf",
+    "transliteration": "prsurnciation: wḥm"
+  },
+  {
+    "code": "F26",
+    "sign": "𓄚",
+    "description": "Peau de chèvre",
+    "transliteration": "prsurnciation: ẖn"
+  },
+  {
+    "code": "F27",
+    "sign": "𓄛",
+    "description": "Peau de vache avec courbé queue",
+    "transliteration": "prsurnciation: dḥr, pnw"
+  },
+  {
+    "code": "F28",
+    "sign": "𓄜",
+    "description": "Peau de vache avec droit queue",
+    "transliteration": "prsurnciation: ꜣb"
+  },
+  {
+    "code": "F29",
+    "sign": "𓄝",
+    "description": "Vache's peau pierced par flèche",
+    "transliteration": "prsurnciation: sṯ"
+  },
+  {
+    "code": "F30",
+    "sign": "𓄞",
+    "description": "Eau peau",
+    "transliteration": "prsurnciation: šd"
+  },
+  {
+    "code": "F31",
+    "sign": "𓄟",
+    "description": "Trois peaux attaché ensemble",
+    "transliteration": "prsurnciation: ms"
+  },
+  {
+    "code": "F31A",
+    "sign": "𓄠",
+    "description": "Trois peaux attaché ensemble",
+    "transliteration": "prsurnciation: ms"
+  },
+  {
+    "code": "F32",
+    "sign": "𓄡",
+    "description": "Animal's ventre",
+    "transliteration": "prsurnciation: ẖ"
+  },
+  {
+    "code": "F33",
+    "sign": "𓄢",
+    "description": "Queue",
+    "transliteration": "sd; prsurnciation: sd"
+  },
+  {
+    "code": "F34",
+    "sign": "𓄣",
+    "description": "Cœur",
+    "transliteration": "ib; prsurnciation: jb"
+  },
+  {
+    "code": "F35",
+    "sign": "𓄤",
+    "description": "Cœur et trachée",
+    "transliteration": "nfr<br />; prsurnciation: nfr"
+  },
+  {
+    "code": "F36",
+    "sign": "𓄥",
+    "description": "Poumsur et trachée",
+    "transliteration": "smꜣ<br />([[Egyptjan trjljteral sjgns; prsurncjatjon: [[Unjsur symbole (hjéroglyphe)"
+  },
+  {
+    "code": "F37",
+    "sign": "𓄦",
+    "description": "Colsurne vertébrale et côtes et vertébrale coude",
+    "transliteration": "šꜥt; prsurnciation: jꜣt"
+  },
+  {
+    "code": "F37A",
+    "sign": "𓄧",
+    "description": "Colsurne vertébrale et côtes",
+    "transliteration": "šꜥt; prsurnciation: jꜣt"
+  },
+  {
+    "code": "F38",
+    "sign": "𓄨",
+    "description": "Colsurne vertébrale et côtes",
+    "transliteration": "prsurnciation: jꜣt"
+  },
+  {
+    "code": "F38A",
+    "sign": "𓄩",
+    "description": "Colsurne vertébrale et côtes et vertébrale coude",
+    "transliteration": "prsurnciation: jꜣt"
+  },
+  {
+    "code": "F39",
+    "sign": "𓄪",
+    "description": "Colsurne vertébrale et vertébrale coude",
+    "transliteration": "prsurnciation: jmꜣḫ"
+  },
+  {
+    "code": "F40",
+    "sign": "𓄫",
+    "description": "Colsurne vertébrale et vertébrale couds",
+    "transliteration": "ꜣw<br />([[Egyptian biliteral signs; prsurnciation: ꜣw"
+  },
+  {
+    "code": "F41",
+    "sign": "𓄬",
+    "description": "Vertèbres",
+    "transliteration": "prsurnciation: psḏ"
+  },
+  {
+    "code": "F42",
+    "sign": "𓄭",
+    "description": "Côte",
+    "transliteration": "prsurnciation: spr"
+  },
+  {
+    "code": "F43",
+    "sign": "𓄮",
+    "description": "Côtes",
+    "transliteration": "prsurnciation: spḥt"
+  },
+  {
+    "code": "F44",
+    "sign": "𓄯",
+    "description": "Os avec viete hiéroglyphe",
+    "transliteration": "jsw<br />jwꜥ, jw<br />swt; prsurnciation: jsw"
+  },
+  {
+    "code": "F45",
+    "sign": "𓄰",
+    "description": "Utérus",
+    "transliteration": "vulva, womb, cow; prsurnciation: jdt"
+  },
+  {
+    "code": "F45A",
+    "sign": "𓄱",
+    "description": "Utérus",
+    "transliteration": "vulva, womb, cow; prsurnciation: jdt"
+  },
+  {
+    "code": "F46",
+    "sign": "𓄲",
+    "description": "danstestdans",
+    "transliteration": "pẖr, rr<br />wḏb; prsurnciation: pẖr, dbn"
+  },
+  {
+    "code": "F46A",
+    "sign": "𓄳",
+    "description": "danstestdans",
+    "transliteration": "prsurnciation: pẖr, dbn"
+  },
+  {
+    "code": "F47",
+    "sign": "𓄴",
+    "description": "danstestdans",
+    "transliteration": "prsurnciation: pẖr, dbn"
+  },
+  {
+    "code": "F47A",
+    "sign": "𓄵",
+    "description": "danstestdans",
+    "transliteration": "prsurnciation: pẖr, dbn"
+  },
+  {
+    "code": "F48",
+    "sign": "𓄶",
+    "description": "danstestdans",
+    "transliteration": "prsurnciation: pẖr, dbn"
+  },
+  {
+    "code": "F49",
+    "sign": "𓄷",
+    "description": "danstestdans",
+    "transliteration": "prsurnciation: pẖr, dbn"
+  },
+  {
+    "code": "F50",
+    "sign": "𓄸",
+    "description": "Combdansaison de F46 et S29",
+    "transliteration": "spẖr; prsurnciation: spẖr"
+  },
+  {
+    "code": "F51",
+    "sign": "𓄹",
+    "description": "Pièce de chaise",
+    "transliteration": "prsurnciation: ꜣs, ws"
+  },
+  {
+    "code": "F51A",
+    "sign": "𓄺",
+    "description": "Trois pièces de chaise houizsurtalement",
+    "transliteration": "prsurnciation: ꜣs, ws"
+  },
+  {
+    "code": "F51B",
+    "sign": "𓄻",
+    "description": "Trois pièces de chaise verticalement",
+    "transliteration": "prsurnciation: ꜣs, ws"
+  },
+  {
+    "code": "F51C",
+    "sign": "𓄼",
+    "description": "F51 dansversé",
+    "transliteration": "prsurnciation: ꜣs, ws"
+  },
+  {
+    "code": "F52",
+    "sign": "𓄽",
+    "description": "Excrément",
+    "transliteration": "ḥs; prsurnciation: ḥs"
+  },
+  {
+    "code": "F53",
+    "sign": "𓄾",
+    "description": "Divdans rod avec bélier tête",
+    "transliteration": ""
+  },
+  {
+    "code": "G1",
+    "sign": "𓄿",
+    "description": "Égyptien vauàur",
+    "transliteration": "prsurnciation: ꜣ"
+  },
+  {
+    "code": "G2",
+    "sign": "𓅀",
+    "description": "Deux égyptien vauàurs",
+    "transliteration": "prsurnciation: ꜣꜣ"
+  },
+  {
+    "code": "G3",
+    "sign": "𓅁",
+    "description": "Combdansaison de égyptien vauàur et faucille",
+    "transliteration": "prsurnciation: mꜣ"
+  },
+  {
+    "code": "G4",
+    "sign": "𓅂",
+    "description": "Buzzard",
+    "transliteration": "tjw; prsurnciation: tjw"
+  },
+  {
+    "code": "G5",
+    "sign": "𓅃",
+    "description": "Faucsur",
+    "transliteration": "[[Houus"
+  },
+  {
+    "code": "G6",
+    "sign": "𓅄",
+    "description": "Combdansaison de faucsur et flaggellum",
+    "transliteration": "falcsur (bjk); prsurnciation: Id. [[Houus"
+  },
+  {
+    "code": "G6A",
+    "sign": "𓅅",
+    "description": "Faucsur sur panier",
+    "transliteration": "falcsur (bjk); prsurnciation: Id. [[Houus"
+  },
+  {
+    "code": "G7",
+    "sign": "𓅆",
+    "description": "Faucsur sur étendard",
+    "transliteration": "Various wouds related; prsurnciation: nswt ou ny-sw.t"
+  },
+  {
+    "code": "G7A",
+    "sign": "𓅇",
+    "description": "Faucsur dans bateau",
+    "transliteration": "Various wouds related; prsurnciation: nswt ou ny-sw.t"
+  },
+  {
+    "code": "G7B",
+    "sign": "𓅈",
+    "description": "Faucsur dans bateau",
+    "transliteration": "Various wouds related; prsurnciation: nswt ou ny-sw.t"
+  },
+  {
+    "code": "G8",
+    "sign": "𓅉",
+    "description": "Faucsur sur collier de perles",
+    "transliteration": "prsurnciation: Id. ḥr-nbw/bjk-nbw"
+  },
+  {
+    "code": "G9",
+    "sign": "𓅊",
+    "description": "Faucsur avec dsurcleil sur tête",
+    "transliteration": "prsurnciation: [[Seker"
+  },
+  {
+    "code": "G10",
+    "sign": "𓅋",
+    "description": "Faucsur dans dsurckar barque",
+    "transliteration": "dsurckar, ḥnw-bark"
+  },
+  {
+    "code": "G11",
+    "sign": "𓅌",
+    "description": "Image de faucsur",
+    "transliteration": ""
+  },
+  {
+    "code": "G11A",
+    "sign": "𓅍",
+    "description": "Image de faucsur sur étendard",
+    "transliteration": ""
+  },
+  {
+    "code": "G12",
+    "sign": "𓅎",
+    "description": "Combdansaison de image de faucsur et flagellum",
+    "transliteration": ""
+  },
+  {
+    "code": "G13",
+    "sign": "𓅏",
+    "description": "Image de faucsur avec deux plumes",
+    "transliteration": "dsurcpdu; prsurnciation: Id. ḥrw [[Nekhen"
+  },
+  {
+    "code": "G14",
+    "sign": "𓅐",
+    "description": "Vauàur",
+    "transliteration": "vulture (nrt); prsurnciation: mwt"
+  },
+  {
+    "code": "G15",
+    "sign": "𓅑",
+    "description": "Combdansaison de vauàur et flagellum",
+    "transliteration": "Mut; prsurnciation: Id. mwt"
+  },
+  {
+    "code": "G16",
+    "sign": "𓅒",
+    "description": "Vauàur et cobra each sur un panier",
+    "transliteration": "prsurnciation: Id. nbtj"
+  },
+  {
+    "code": "G17",
+    "sign": "𓅓",
+    "description": "Chouette hiéroglyphe",
+    "transliteration": "m<br />(vertjcal); prsurnciation: m"
+  },
+  {
+    "code": "G18",
+    "sign": "𓅔",
+    "description": "Deux chouettes",
+    "transliteration": "prsurnciation: mm"
+  },
+  {
+    "code": "G19",
+    "sign": "𓅕",
+    "description": "Combdansaison de chouette et avant bras avec csurique miche",
+    "transliteration": "prsurnciation: m, mj"
+  },
+  {
+    "code": "G20",
+    "sign": "𓅖",
+    "description": "Combdansaison de chouette et avant bras",
+    "transliteration": "prsurnciation: m, mj"
+  },
+  {
+    "code": "G20A",
+    "sign": "𓅗",
+    "description": "Combdansaison de chouette et bouche",
+    "transliteration": "prsurnciation: m, mj"
+  },
+  {
+    "code": "G21",
+    "sign": "𓅘",
+    "description": "Gudanseafowl",
+    "transliteration": "nḥ<br />([[Egyptian biliteral signs; prsurnciation: nḥ, Id. nḥ"
+  },
+  {
+    "code": "G22",
+    "sign": "𓅙",
+    "description": "Hoopoe",
+    "transliteration": "prsurnciation: ḏb"
+  },
+  {
+    "code": "G23",
+    "sign": "𓅚",
+    "description": "Vanneau",
+    "transliteration": "rḫyt-peuple; prsurnciation: Id. rḫyt"
+  },
+  {
+    "code": "G24",
+    "sign": "𓅛",
+    "description": "Vanneau avec twisted ailes",
+    "transliteration": "rḫyt-peuple; prsurnciation: Id. rḫyt"
+  },
+  {
+    "code": "G25",
+    "sign": "𓅜",
+    "description": "nsurudern bald ibis",
+    "transliteration": "(ꜣḫ)<br />([[Egyptian biliteral signs; prsurnciation: ꜣḫ"
+  },
+  {
+    "code": "G26",
+    "sign": "𓅝",
+    "description": "African ibis sacré",
+    "transliteration": "Ibis (hb); prsurnciation: Id. [[Thoth"
+  },
+  {
+    "code": "G26A",
+    "sign": "𓅞",
+    "description": "Ibis sacré",
+    "transliteration": "Ibis (hb); prsurnciation: Id. [[Thoth"
+  },
+  {
+    "code": "G27",
+    "sign": "𓅟",
+    "description": "Flahommet",
+    "transliteration": "flamdansgo (dšr); prsurnciation: dšr"
+  },
+  {
+    "code": "G28",
+    "sign": "𓅠",
+    "description": "Glossy ibis",
+    "transliteration": "gm<br />([[Egyptian biliteral signs; prsurnciation: gm"
+  },
+  {
+    "code": "G29",
+    "sign": "𓅡",
+    "description": "Saddle billed cigogne",
+    "transliteration": "bꜣ<br />([[Egyptian biliteral signs; prsurnciation: bꜣ"
+  },
+  {
+    "code": "G30",
+    "sign": "𓅢",
+    "description": "Trois saddle billed cigognes",
+    "transliteration": "bꜣu; prsurnciation: Id. bꜣw"
+  },
+  {
+    "code": "G31",
+    "sign": "𓅣",
+    "description": "Hérsur",
+    "transliteration": "Hersur/Bennu-oiseau (bnw)<br />"
+  },
+  {
+    "code": "G32",
+    "sign": "𓅤",
+    "description": "Hérsur sur perch",
+    "transliteration": "à dansundate (bꜥḥj); prsurnciation: Id. bꜥḥj"
+  },
+  {
+    "code": "G33",
+    "sign": "𓅥",
+    "description": "Bétail egret",
+    "transliteration": "à tremble (sdꜣ/sdꜣdꜣ)"
+  },
+  {
+    "code": "G34",
+    "sign": "𓅦",
+    "description": "Autruche",
+    "transliteration": "ostrich (njw)"
+  },
+  {
+    "code": "G35",
+    "sign": "𓅧",
+    "description": "Coumouan",
+    "transliteration": "prsurnciation: ꜥq"
+  },
+  {
+    "code": "G36",
+    "sign": "𓅨",
+    "description": "Hirsurdelle hiéroglyphe",
+    "transliteration": "swalbas (mnt); prsurnciation: wr"
+  },
+  {
+    "code": "G36A",
+    "sign": "𓅩",
+    "description": "Hirsurdelle bas",
+    "transliteration": "swalbas (mnt); prsurnciation: wr"
+  },
+  {
+    "code": "G37",
+    "sign": "𓅪",
+    "description": "Modanseau",
+    "transliteration": ""
+  },
+  {
+    "code": "G37A",
+    "sign": "𓅫",
+    "description": "Modanseau bas",
+    "transliteration": ""
+  },
+  {
+    "code": "G38",
+    "sign": "𓅬",
+    "description": "Blanc frsurted oie",
+    "transliteration": "oiseau; prsurnciation: sꜣ, sꜣ-t<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "G39",
+    "sign": "𓅭",
+    "description": "nsurudern pilet",
+    "transliteration": "Pdanstail duck (st); prsurnciation: sꜣ"
+  },
+  {
+    "code": "G40",
+    "sign": "𓅮",
+    "description": "Pilet volant",
+    "transliteration": "pꜣ<br />([[Egyptian biliteral signs; prsurnciation: pꜣ"
+  },
+  {
+    "code": "G41",
+    "sign": "𓅯",
+    "description": "Pilet alightdansg",
+    "transliteration": "prsurnciation: pꜣ"
+  },
+  {
+    "code": "G42",
+    "sign": "𓅰",
+    "description": "Wigesur",
+    "transliteration": "à fatten (wšꜣ), Food (ḏfꜣw); prsurnciation: Id. wšꜣ"
+  },
+  {
+    "code": "G43",
+    "sign": "𓅱",
+    "description": "Caille poussdans",
+    "transliteration": "w<br />u; prsurnciation: w, Id. w"
+  },
+  {
+    "code": "G43A",
+    "sign": "𓅲",
+    "description": "Combdansaison de caille poussdans et plat miche",
+    "transliteration": "w<br />u; prsurnciation: w, Id. w"
+  },
+  {
+    "code": "G44",
+    "sign": "𓅳",
+    "description": "Deux caille poussdanss",
+    "transliteration": "prsurnciation: ww"
+  },
+  {
+    "code": "G45",
+    "sign": "𓅴",
+    "description": "Combdansaison de caille poussdans et avant bras",
+    "transliteration": "prsurnciation: wꜥ"
+  },
+  {
+    "code": "G45A",
+    "sign": "𓅵",
+    "description": "Combdansaison de caille poussdans et avant bras avec csurique miche",
+    "transliteration": "prsurnciation: wꜥ"
+  },
+  {
+    "code": "G46",
+    "sign": "𓅶",
+    "description": "Combdansaison de caille poussdans et faucille",
+    "transliteration": "prsurnciation: mꜣw"
+  },
+  {
+    "code": "G47",
+    "sign": "𓅷",
+    "description": "Caneàn",
+    "transliteration": "ṯꜣ<br />([[Egyptian biliteral signs; prsurnciation: ṯꜣ"
+  },
+  {
+    "code": "G48",
+    "sign": "𓅸",
+    "description": "Trois caneàns dans nid",
+    "transliteration": "nest, psurd, marsh (sš); prsurnciation: Id. sš"
+  },
+  {
+    "code": "G49",
+    "sign": "𓅹",
+    "description": "Trois caneàns dans bassdans",
+    "transliteration": "nest, psurd, marsh (sš); prsurnciation: Id. sš"
+  },
+  {
+    "code": "G50",
+    "sign": "𓅺",
+    "description": "Deux paimerrs",
+    "transliteration": "prsurnciation: Id. rḫtj"
+  },
+  {
+    "code": "G51",
+    "sign": "𓅻",
+    "description": "Oiseau pecroi à poisson",
+    "transliteration": "à catch fish (ḥꜣm/ḥjm)"
+  },
+  {
+    "code": "G52",
+    "sign": "𓅼",
+    "description": "Oie picroi haut gradans",
+    "transliteration": "à feed (snm)"
+  },
+  {
+    "code": "G53",
+    "sign": "𓅽",
+    "description": "Humain headed oiseau avec bol avec fumée",
+    "transliteration": "Ba (bꜣ), personality; prsurnciation: Id. [[Egyptian dsurcul#Ba%20.28dsurcul.2Fpersonality.29"
+  },
+  {
+    "code": "G54",
+    "sign": "𓅾",
+    "description": "Plucked oiseau",
+    "transliteration": "à wrdansg (bjrds' necks) (wšn); prsurnciation: snḏ"
+  },
+  {
+    "code": "H1",
+    "sign": "𓅿",
+    "description": "Tête de pilet",
+    "transliteration": "oiseau (dans rdansgdansg de ojseau's neck wšn); prsurnciation: mꜣꜥ, wšm, pq (pꜣq)"
+  },
+  {
+    "code": "H2",
+    "sign": "𓆀",
+    "description": "Tête de huppé oiseau",
+    "transliteration": "prsurnciation: mꜣꜥ, wšm, pq (pꜣq)"
+  },
+  {
+    "code": "H3",
+    "sign": "𓆁",
+    "description": "Tête de sposurbill",
+    "transliteration": "prsurnciation: pꜣq"
+  },
+  {
+    "code": "H4",
+    "sign": "𓆂",
+    "description": "Tête de vauàur",
+    "transliteration": "prsurnciation: nr, rmṯ dans \"peuple\""
+  },
+  {
+    "code": "H5",
+    "sign": "𓆃",
+    "description": "Aile",
+    "transliteration": "wdansg (ḏnḥ), fly (pꜣ)"
+  },
+  {
+    "code": "H6",
+    "sign": "𓆄",
+    "description": "Plume",
+    "transliteration": "fmangerher (šwt), Maat (mꜣꜥt), šw"
+  },
+  {
+    "code": "H6A",
+    "sign": "𓆅",
+    "description": "Hiératique plume",
+    "transliteration": "fmangerher (šwt), Maat (mꜣꜥt), šw"
+  },
+  {
+    "code": "H7",
+    "sign": "𓆆",
+    "description": "Claw",
+    "transliteration": "prsurnciation: šꜣ (surly dans compterry šꜣt)"
+  },
+  {
+    "code": "H8",
+    "sign": "𓆇",
+    "description": "Œuf hiéroglyphe",
+    "transliteration": "son, egg (swḥt)"
+  },
+  {
+    "code": "I1",
+    "sign": "𓆈",
+    "description": "Gecko",
+    "transliteration": "ꜥšꜣ<br />([[Egyptian triliteral signs"
+  },
+  {
+    "code": "I2",
+    "sign": "𓆉",
+    "description": "àutue",
+    "transliteration": "št"
+  },
+  {
+    "code": "I3",
+    "sign": "𓆊",
+    "description": "Crocodile",
+    "transliteration": ""
+  },
+  {
+    "code": "I4",
+    "sign": "𓆋",
+    "description": "Crocodile sur sanctuaire",
+    "transliteration": "sbk"
+  },
+  {
+    "code": "I5",
+    "sign": "𓆌",
+    "description": "Crocodile avec courbe queue",
+    "transliteration": ""
+  },
+  {
+    "code": "I5A",
+    "sign": "𓆍",
+    "description": "Image de crocodile",
+    "transliteration": ""
+  },
+  {
+    "code": "I6",
+    "sign": "𓆎",
+    "description": "Crocodile balance",
+    "transliteration": ""
+  },
+  {
+    "code": "I7",
+    "sign": "𓆏",
+    "description": "Grensuruille",
+    "transliteration": "ḥqt<br />(ꜥbḫn et qrr)"
+  },
+  {
+    "code": "I8",
+    "sign": "𓆐",
+    "description": "Têtard",
+    "transliteration": "ḥfn<br />100,000"
+  },
+  {
+    "code": "I9",
+    "sign": "𓆑",
+    "description": "Vipère counu",
+    "transliteration": "f"
+  },
+  {
+    "code": "I9A",
+    "sign": "𓆒",
+    "description": "Vipère counu crawldansg out de encedanste",
+    "transliteration": "f"
+  },
+  {
+    "code": "I10",
+    "sign": "𓆓",
+    "description": "Cobra",
+    "transliteration": "ḏ"
+  },
+  {
+    "code": "I10A",
+    "sign": "𓆔",
+    "description": "Cobra avec plume",
+    "transliteration": "ḏ"
+  },
+  {
+    "code": "I11",
+    "sign": "𓆕",
+    "description": "Deux cobras",
+    "transliteration": ""
+  },
+  {
+    "code": "I11A",
+    "sign": "𓆖",
+    "description": "Combdansaison de cobra plat miche et étendue de sable",
+    "transliteration": ""
+  },
+  {
+    "code": "I12",
+    "sign": "𓆗",
+    "description": "Erect cobra",
+    "transliteration": "jꜥrt"
+  },
+  {
+    "code": "I13",
+    "sign": "𓆘",
+    "description": "Erect cobra sur panier",
+    "transliteration": ""
+  },
+  {
+    "code": "I14",
+    "sign": "𓆙",
+    "description": "Serpent",
+    "transliteration": ""
+  },
+  {
+    "code": "I15",
+    "sign": "𓆚",
+    "description": "Serpent",
+    "transliteration": ""
+  },
+  {
+    "code": "K1",
+    "sign": "𓆛",
+    "description": "Nile tilapia",
+    "transliteration": "Nile tilapia jnt ou flathead mullet (Mugjl cephalus); prsurnciation: jnt, jn<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "K2",
+    "sign": "𓆜",
+    "description": "Barbel poisson",
+    "transliteration": "prsurnciation: bw"
+  },
+  {
+    "code": "K3",
+    "sign": "𓆝",
+    "description": "Mulet poisson",
+    "transliteration": "flathead mullet (ꜥḏw); prsurnciation: ou ꜥḏ surly dans \"compterry commissisurer (ꜥḏ-mr)\"<!--? \"ou\" quoi?-->"
+  },
+  {
+    "code": "K4",
+    "sign": "𓆞",
+    "description": "Elephantsnsurut poisson",
+    "transliteration": "Moumyrus (ẖꜣt); prsurnciation: ẖꜣ"
+  },
+  {
+    "code": "K5",
+    "sign": "𓆟",
+    "description": "Petrocephalus bane",
+    "transliteration": "petrocephalus bane (rm); prsurnciation: bs"
+  },
+  {
+    "code": "K6",
+    "sign": "𓆠",
+    "description": "Poisson scale",
+    "transliteration": "fish scale (nšmt)"
+  },
+  {
+    "code": "K7",
+    "sign": "𓆡",
+    "description": "Pufferfish",
+    "transliteration": "Nile pufferfish,"
+  },
+  {
+    "code": "K8",
+    "sign": "𓆢",
+    "description": "Poisson chat",
+    "transliteration": ""
+  },
+  {
+    "code": "L1",
+    "sign": "𓆣",
+    "description": "Fiente scarabée",
+    "transliteration": "dung beetle, become, emerge; prsurnciation: ḫpr"
+  },
+  {
+    "code": "L2",
+    "sign": "𓆤",
+    "description": "Abeille",
+    "transliteration": "bee (bjt); prsurnciation: pour bjt (surly dans \"roj de baser Egypt\" (bjt))"
+  },
+  {
+    "code": "L2A",
+    "sign": "𓆥",
+    "description": "Combdansaison de abeille, carex et deux plat miches",
+    "transliteration": "bee (bjt); prsurnciation: pour bjt (surly dans \"roj de baser Egypt\" (bjt))"
+  },
+  {
+    "code": "L3",
+    "sign": "𓆦",
+    "description": "Mouche",
+    "transliteration": "fly (ꜥff)"
+  },
+  {
+    "code": "L4",
+    "sign": "𓆧",
+    "description": "Criquet",
+    "transliteration": "Grasshopper (snḥmn), locust"
+  },
+  {
+    "code": "L5",
+    "sign": "𓆨",
+    "description": "Mille pattes",
+    "transliteration": "centipede (spꜣ)"
+  },
+  {
+    "code": "L6",
+    "sign": "𓆩",
+    "description": "Coquillage",
+    "transliteration": "prsurnciation: ḫꜣ (rarely)"
+  },
+  {
+    "code": "L6A",
+    "sign": "𓆪",
+    "description": "L6 dansversé",
+    "transliteration": "prsurnciation: ḫꜣ (rarely)"
+  },
+  {
+    "code": "L7",
+    "sign": "𓆫",
+    "description": "Scoupisur",
+    "transliteration": "Selkis, scoupisur déesse (srqt)"
+  },
+  {
+    "code": "L8",
+    "sign": "𓆬",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "M1",
+    "sign": "𓆭",
+    "description": "Arbre",
+    "transliteration": ""
+  },
+  {
+    "code": "M1A",
+    "sign": "𓆮",
+    "description": "Combdansaison de arbre et branche",
+    "transliteration": ""
+  },
+  {
+    "code": "M1B",
+    "sign": "𓆯",
+    "description": "Combdansaison de arbre et vipère counu",
+    "transliteration": ""
+  },
+  {
+    "code": "M2",
+    "sign": "𓆰",
+    "description": "Plante",
+    "transliteration": "ḥn-(de ḥnj)<br />js-(de jsw)"
+  },
+  {
+    "code": "M3",
+    "sign": "𓆱",
+    "description": "Branche hiéroglyphe",
+    "transliteration": "prsurnciation: ḫt"
+  },
+  {
+    "code": "M3A",
+    "sign": "𓆲",
+    "description": "Combdansaison de chouette et branche",
+    "transliteration": "prsurnciation: ḫt"
+  },
+  {
+    "code": "M4",
+    "sign": "𓆳",
+    "description": "Palmier branche",
+    "transliteration": ""
+  },
+  {
+    "code": "M5",
+    "sign": "𓆴",
+    "description": "Combdansaison de palmier branche et plat miche",
+    "transliteration": ""
+  },
+  {
+    "code": "M6",
+    "sign": "𓆵",
+    "description": "Combdansaison de palmier branche et bouche",
+    "transliteration": ""
+  },
+  {
+    "code": "M7",
+    "sign": "𓆶",
+    "description": "Combdansaison de palmier branche et tabouret",
+    "transliteration": ""
+  },
+  {
+    "code": "M8",
+    "sign": "𓆷",
+    "description": "Bassdans avec lotus fleurs",
+    "transliteration": "šꜣ"
+  },
+  {
+    "code": "M9",
+    "sign": "𓆸",
+    "description": "lotus fleur",
+    "transliteration": "sšn<br />(aldsurc snšn)"
+  },
+  {
+    "code": "M10",
+    "sign": "𓆹",
+    "description": "lotus bourgesur avec droit tige",
+    "transliteration": ""
+  },
+  {
+    "code": "M10A",
+    "sign": "𓆺",
+    "description": "lotus bourgesur avec sdansueux tige",
+    "transliteration": ""
+  },
+  {
+    "code": "M11",
+    "sign": "𓆻",
+    "description": "Fleur sur lsurg twisted stalk",
+    "transliteration": "wtn"
+  },
+  {
+    "code": "M12",
+    "sign": "𓆼",
+    "description": "Un lotus plante",
+    "transliteration": "1000<br />ḫꜣ"
+  },
+  {
+    "code": "M12A",
+    "sign": "𓆽",
+    "description": "Deux lotus plantes",
+    "transliteration": "2000"
+  },
+  {
+    "code": "M12B",
+    "sign": "𓆾",
+    "description": "Trois lotus plantes",
+    "transliteration": "3000"
+  },
+  {
+    "code": "M12C",
+    "sign": "𓆿",
+    "description": "Quatre lotus plantes",
+    "transliteration": "4000"
+  },
+  {
+    "code": "M12D",
+    "sign": "𓇀",
+    "description": "Cdansq lotus plantes",
+    "transliteration": "5000"
+  },
+  {
+    "code": "M12E",
+    "sign": "𓇁",
+    "description": "Six lotus plantes",
+    "transliteration": "6000"
+  },
+  {
+    "code": "M12F",
+    "sign": "𓇂",
+    "description": "Sept lotus plantes",
+    "transliteration": "7000"
+  },
+  {
+    "code": "M12G",
+    "sign": "𓇃",
+    "description": "Huit lotus plantes",
+    "transliteration": "8000"
+  },
+  {
+    "code": "M12H",
+    "sign": "𓇄",
+    "description": "Neuf lotus plantes",
+    "transliteration": "9000"
+  },
+  {
+    "code": "M13",
+    "sign": "𓇅",
+    "description": "papyrus tige hiéroglyphe",
+    "transliteration": "wꜣḏ<br /><br />([[Egyptian triliteral signs"
+  },
+  {
+    "code": "M14",
+    "sign": "𓇆",
+    "description": "Combdansaison de papyrus et cobra",
+    "transliteration": ""
+  },
+  {
+    "code": "M15",
+    "sign": "𓇇",
+    "description": "àuffe de papyrus avec bourgesurs",
+    "transliteration": ""
+  },
+  {
+    "code": "M15A",
+    "sign": "𓇈",
+    "description": "Combdansaison de àuffe de papyrus avec bourgesurs et village",
+    "transliteration": ""
+  },
+  {
+    "code": "M16",
+    "sign": "𓇉",
+    "description": "àuffe de papyrus",
+    "transliteration": "mḥw"
+  },
+  {
+    "code": "M16A",
+    "sign": "𓇊",
+    "description": "Combdansaison de àuffe de papyrus et village",
+    "transliteration": "mḥw"
+  },
+  {
+    "code": "M17",
+    "sign": "𓇋",
+    "description": "Roseau",
+    "transliteration": "j"
+  },
+  {
+    "code": "M17A",
+    "sign": "𓇌",
+    "description": "Deux roseaux",
+    "transliteration": "j"
+  },
+  {
+    "code": "M18",
+    "sign": "𓇍",
+    "description": "Combdansaison de roseau et jambes marchant",
+    "transliteration": "jj<br />jt"
+  },
+  {
+    "code": "M19",
+    "sign": "𓇎",
+    "description": "Heaped csurique gâteaus entre roseau et massue",
+    "transliteration": ""
+  },
+  {
+    "code": "M20",
+    "sign": "𓇏",
+    "description": "Champ de roseaux",
+    "transliteration": ""
+  },
+  {
+    "code": "M21",
+    "sign": "𓇐",
+    "description": "Roseaux avec racdanse",
+    "transliteration": ""
+  },
+  {
+    "code": "M22",
+    "sign": "𓇑",
+    "description": "Jsurc",
+    "transliteration": ""
+  },
+  {
+    "code": "M22A",
+    "sign": "𓇒",
+    "description": "Deux rushes",
+    "transliteration": ""
+  },
+  {
+    "code": "M23",
+    "sign": "𓇓",
+    "description": "Carex",
+    "transliteration": "sw"
+  },
+  {
+    "code": "M24",
+    "sign": "𓇔",
+    "description": "Combdansaison de carex et bouche",
+    "transliteration": "rs"
+  },
+  {
+    "code": "M24A",
+    "sign": "𓇕",
+    "description": "Lys",
+    "transliteration": "rs"
+  },
+  {
+    "code": "M25",
+    "sign": "𓇖",
+    "description": "Combdansaison de fleuri carex et bouche",
+    "transliteration": "rs"
+  },
+  {
+    "code": "M26",
+    "sign": "𓇗",
+    "description": "Fleuri carex",
+    "transliteration": "šmꜥ"
+  },
+  {
+    "code": "M27",
+    "sign": "𓇘",
+    "description": "Combdansaison de fleuri carex et avant bras",
+    "transliteration": ""
+  },
+  {
+    "code": "M28",
+    "sign": "𓇙",
+    "description": "Combdansaison de fleuri carex et entrave",
+    "transliteration": ""
+  },
+  {
+    "code": "M28A",
+    "sign": "𓇚",
+    "description": "Trois lilies sur village",
+    "transliteration": ""
+  },
+  {
+    "code": "M29",
+    "sign": "𓇛",
+    "description": "Gradanse pod",
+    "transliteration": "nḏm<br />([[Egyptian triliteral signs"
+  },
+  {
+    "code": "M30",
+    "sign": "𓇜",
+    "description": "Racdanse",
+    "transliteration": "bnr"
+  },
+  {
+    "code": "M31",
+    "sign": "𓇝",
+    "description": "Rhizome",
+    "transliteration": ""
+  },
+  {
+    "code": "M31A",
+    "sign": "𓇞",
+    "description": "Arbre dans vase",
+    "transliteration": ""
+  },
+  {
+    "code": "M32",
+    "sign": "𓇟",
+    "description": "Rhizome",
+    "transliteration": ""
+  },
+  {
+    "code": "M33",
+    "sign": "𓇠",
+    "description": "3 gradanss houizsurtalement",
+    "transliteration": ""
+  },
+  {
+    "code": "M33A",
+    "sign": "𓇡",
+    "description": "3 gradanss verticalement",
+    "transliteration": ""
+  },
+  {
+    "code": "M33B",
+    "sign": "𓇢",
+    "description": "3 gradanss dans triangular arrangement",
+    "transliteration": ""
+  },
+  {
+    "code": "M34",
+    "sign": "𓇣",
+    "description": "oueille de amidsurnier",
+    "transliteration": ""
+  },
+  {
+    "code": "M35",
+    "sign": "𓇤",
+    "description": "Stack de gradans",
+    "transliteration": "(kh)ty<br />ꜥḥꜥ-ꜥḥꜥw"
+  },
+  {
+    "code": "M36",
+    "sign": "𓇥",
+    "description": "Paquet de ldans",
+    "transliteration": "1-ḏr<br />hommey woud<br />csurstructs<br />2-dma<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "M37",
+    "sign": "𓇦",
+    "description": "Paquet de ldans",
+    "transliteration": ""
+  },
+  {
+    "code": "M38",
+    "sign": "𓇧",
+    "description": "Gret paquet de ldans",
+    "transliteration": ""
+  },
+  {
+    "code": "M39",
+    "sign": "𓇨",
+    "description": "Panier de fruit ou gradans",
+    "transliteration": "1. ḏr<br />2. dmꜥ (à-gather)<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "M40",
+    "sign": "𓇩",
+    "description": "Paquet de roseaux",
+    "transliteration": ""
+  },
+  {
+    "code": "M40A",
+    "sign": "𓇪",
+    "description": "Paquet de roseaux",
+    "transliteration": ""
+  },
+  {
+    "code": "M41",
+    "sign": "𓇫",
+    "description": "Pièce de bois",
+    "transliteration": ""
+  },
+  {
+    "code": "M42",
+    "sign": "𓇬",
+    "description": "Fleur",
+    "transliteration": ""
+  },
+  {
+    "code": "M43",
+    "sign": "𓇭",
+    "description": "Vigne sur trellis",
+    "transliteration": ""
+  },
+  {
+    "code": "M44",
+    "sign": "𓇮",
+    "description": "Thoun",
+    "transliteration": "spd<br />srt"
+  },
+  {
+    "code": "N1",
+    "sign": "𓇯",
+    "description": "Ciel",
+    "transliteration": "pt"
+  },
+  {
+    "code": "N2",
+    "sign": "𓇰",
+    "description": "Ciel avec sceptre",
+    "transliteration": ""
+  },
+  {
+    "code": "N3",
+    "sign": "𓇱",
+    "description": "Ciel avec sceptre",
+    "transliteration": "grḥ"
+  },
+  {
+    "code": "N4",
+    "sign": "𓇲",
+    "description": "Ciel avec pluie",
+    "transliteration": ""
+  },
+  {
+    "code": "N5",
+    "sign": "𓇳",
+    "description": "dsurcleil",
+    "transliteration": ""
+  },
+  {
+    "code": "N6",
+    "sign": "𓇴",
+    "description": "dsurcleil avec uræus",
+    "transliteration": ""
+  },
+  {
+    "code": "N7",
+    "sign": "𓇵",
+    "description": "Combdansaison de dsurcleil et de boucher bloc",
+    "transliteration": ""
+  },
+  {
+    "code": "N8",
+    "sign": "𓇶",
+    "description": "dsurcleilshdanse",
+    "transliteration": ""
+  },
+  {
+    "code": "N9",
+    "sign": "𓇷",
+    "description": "Lune avec dansférieure demi obscured",
+    "transliteration": "psḏ"
+  },
+  {
+    "code": "N10",
+    "sign": "𓇸",
+    "description": "Lune avec dansférieure section obscured",
+    "transliteration": ""
+  },
+  {
+    "code": "N11",
+    "sign": "𓇹",
+    "description": "Croissant lune",
+    "transliteration": "jꜥḥ"
+  },
+  {
+    "code": "N12",
+    "sign": "𓇺",
+    "description": "Croissant lune",
+    "transliteration": ""
+  },
+  {
+    "code": "N13",
+    "sign": "𓇻",
+    "description": "Combdansaison de croissant lune et élabourere",
+    "transliteration": ""
+  },
+  {
+    "code": "N14",
+    "sign": "𓇼",
+    "description": "Élabourere",
+    "transliteration": "sbꜣ<br />dwꜣ<br /><br />([[Egyptian triliteral signs"
+  },
+  {
+    "code": "N15",
+    "sign": "𓇽",
+    "description": "Élabourere dans cercle",
+    "transliteration": "dwꜣt"
+  },
+  {
+    "code": "N16",
+    "sign": "𓇾",
+    "description": "Terre avec gradanss",
+    "transliteration": "tꜣ"
+  },
+  {
+    "code": "N17",
+    "sign": "𓇿",
+    "description": "Terre",
+    "transliteration": ""
+  },
+  {
+    "code": "N18",
+    "sign": "𓈀",
+    "description": "Étendue de sable",
+    "transliteration": ""
+  },
+  {
+    "code": "N18A",
+    "sign": "𓈁",
+    "description": "Combdansaison de étendue de sable et surdulation de eau",
+    "transliteration": ""
+  },
+  {
+    "code": "N18B",
+    "sign": "𓈂",
+    "description": "Combdansaison de roll de douleur et verrou",
+    "transliteration": ""
+  },
+  {
+    "code": "N19",
+    "sign": "𓈃",
+    "description": "Deux étendue de sables",
+    "transliteration": "tꜣwj"
+  },
+  {
+    "code": "N20",
+    "sign": "𓈄",
+    "description": "Langue de terre",
+    "transliteration": ""
+  },
+  {
+    "code": "N21",
+    "sign": "𓈅",
+    "description": "Cour langue de terre",
+    "transliteration": ""
+  },
+  {
+    "code": "N22",
+    "sign": "𓈆",
+    "description": "Gret langue de terre",
+    "transliteration": ""
+  },
+  {
+    "code": "N23",
+    "sign": "𓈇",
+    "description": "irrigation canal",
+    "transliteration": ""
+  },
+  {
+    "code": "N24",
+    "sign": "𓈈",
+    "description": "Terre, irrigated hiéroglyphe",
+    "transliteration": "spꜣt"
+  },
+  {
+    "code": "N25",
+    "sign": "𓈉",
+    "description": "Trois colldanses",
+    "transliteration": "ḫꜣs(t)"
+  },
+  {
+    "code": "N25A",
+    "sign": "𓈊",
+    "description": "Trois colldanses bas",
+    "transliteration": "ḫꜣs(t)"
+  },
+  {
+    "code": "N26",
+    "sign": "𓈋",
+    "description": "Deux colldanses",
+    "transliteration": "ḏw<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "N27",
+    "sign": "𓈌",
+    "description": "dsurcleil sur msurtagne",
+    "transliteration": "ꜣḫt"
+  },
+  {
+    "code": "N28",
+    "sign": "𓈍",
+    "description": "Raysurs de dsurcleil sur colldanse",
+    "transliteration": "ḫꜥ"
+  },
+  {
+    "code": "N29",
+    "sign": "𓈎",
+    "description": "Slope de colldanse",
+    "transliteration": "prsurnciation: q"
+  },
+  {
+    "code": "N30",
+    "sign": "𓈏",
+    "description": "maiste de terre",
+    "transliteration": ""
+  },
+  {
+    "code": "N31",
+    "sign": "𓈐",
+    "description": "Route avec shrubs",
+    "transliteration": ""
+  },
+  {
+    "code": "N32",
+    "sign": "𓈑",
+    "description": "Lump de argile",
+    "transliteration": ""
+  },
+  {
+    "code": "N33",
+    "sign": "𓈒",
+    "description": "Gradans",
+    "transliteration": ""
+  },
+  {
+    "code": "N33A",
+    "sign": "𓈓",
+    "description": "Trois gradanss",
+    "transliteration": ""
+  },
+  {
+    "code": "N34",
+    "sign": "𓈔",
+    "description": "dansgot de en métal",
+    "transliteration": ""
+  },
+  {
+    "code": "N34A",
+    "sign": "𓈕",
+    "description": "dansgot de en métal",
+    "transliteration": ""
+  },
+  {
+    "code": "N35",
+    "sign": "𓈖",
+    "description": "surdulation de eau",
+    "transliteration": ""
+  },
+  {
+    "code": "N35A",
+    "sign": "𓈗",
+    "description": "Trois surdulations de eau",
+    "transliteration": ""
+  },
+  {
+    "code": "N36",
+    "sign": "𓈘",
+    "description": "Canal",
+    "transliteration": "mr"
+  },
+  {
+    "code": "N37",
+    "sign": "𓈙",
+    "description": "Bassdans lac bassdans hiéroglyphe",
+    "transliteration": "š"
+  },
+  {
+    "code": "N37A",
+    "sign": "𓈚",
+    "description": "Bassdans",
+    "transliteration": "š"
+  },
+  {
+    "code": "N38",
+    "sign": "𓈛",
+    "description": "Profsurd bassdans",
+    "transliteration": ""
+  },
+  {
+    "code": "N39",
+    "sign": "𓈜",
+    "description": "Bassdans avec eau",
+    "transliteration": "1. jnr<br />2. ḏbt<br />dby-t-pldansth"
+  },
+  {
+    "code": "N40",
+    "sign": "𓈝",
+    "description": "Bassdans avec jambes",
+    "transliteration": ""
+  },
+  {
+    "code": "N41",
+    "sign": "𓈞",
+    "description": "Puits avec surdulation de eau",
+    "transliteration": "ḥmt<br />bjꜣ"
+  },
+  {
+    "code": "N42",
+    "sign": "𓈟",
+    "description": "Puits avec ligne de eau",
+    "transliteration": ""
+  },
+  {
+    "code": "NL1",
+    "sign": "𓈠",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL2",
+    "sign": "𓈡",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL3",
+    "sign": "𓈢",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL4",
+    "sign": "𓈣",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL5",
+    "sign": "𓈤",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL5a",
+    "sign": "𓈥",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL6",
+    "sign": "𓈦",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL7",
+    "sign": "𓈧",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL8",
+    "sign": "𓈨",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL9",
+    "sign": "𓈩",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL10",
+    "sign": "𓈪",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL11",
+    "sign": "𓈫",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL12",
+    "sign": "𓈬",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL13",
+    "sign": "𓈭",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL14",
+    "sign": "𓈮",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL15",
+    "sign": "𓈯",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL16",
+    "sign": "𓈰",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL17",
+    "sign": "𓈱",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL17a",
+    "sign": "𓈲",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL18",
+    "sign": "𓈳",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL19",
+    "sign": "𓈴",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NL20",
+    "sign": "𓈵",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU1",
+    "sign": "𓈶",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU2",
+    "sign": "𓈷",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU3",
+    "sign": "𓈸",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU4",
+    "sign": "𓈹",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU5",
+    "sign": "𓈺",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU6",
+    "sign": "𓈻",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU7",
+    "sign": "𓈼",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU8",
+    "sign": "𓈽",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU9",
+    "sign": "𓈾",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU10",
+    "sign": "𓈿",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU10a",
+    "sign": "𓉀",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU11",
+    "sign": "𓉁",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU11a",
+    "sign": "𓉂",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU12",
+    "sign": "𓉃",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU13",
+    "sign": "𓉄",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU14",
+    "sign": "𓉅",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU15",
+    "sign": "𓉆",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU16",
+    "sign": "𓉇",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU17",
+    "sign": "𓉈",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU18",
+    "sign": "𓉉",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU18a",
+    "sign": "𓉊",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU19",
+    "sign": "𓉋",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU20",
+    "sign": "𓉌",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU21",
+    "sign": "𓉍",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU22",
+    "sign": "𓉎",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "NU22a",
+    "sign": "𓉏",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "O1",
+    "sign": "𓉐",
+    "description": "Pr hiéroglyphe",
+    "transliteration": "pr<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "O2",
+    "sign": "𓉒",
+    "description": "Combdansaison de maison et masse avec rsurd tête",
+    "transliteration": ""
+  },
+  {
+    "code": "O3",
+    "sign": "𓉓",
+    "description": "Combdansaison de maison rame gret miche et bière cruche",
+    "transliteration": ""
+  },
+  {
+    "code": "O4",
+    "sign": "𓉔",
+    "description": "Roseau shelter hiéroglyphe",
+    "transliteration": "h"
+  },
+  {
+    "code": "O5",
+    "sign": "𓉕",
+    "description": "Sdansueux mur de supérieure gauche codans",
+    "transliteration": ""
+  },
+  {
+    "code": "O5A",
+    "sign": "𓉖",
+    "description": "Sdansueux mur de dansférieure gauche codans",
+    "transliteration": ""
+  },
+  {
+    "code": "O6",
+    "sign": "𓉗",
+    "description": "Encedanste",
+    "transliteration": "ḥwt"
+  },
+  {
+    "code": "O6A",
+    "sign": "𓉘",
+    "description": "Ouvrant de hathou",
+    "transliteration": "ḥwt"
+  },
+  {
+    "code": "O6B",
+    "sign": "𓉙",
+    "description": "Ouvrant de château encedanste",
+    "transliteration": "ḥwt"
+  },
+  {
+    "code": "O6C",
+    "sign": "𓉚",
+    "description": "Ouvrant de château encedanste",
+    "transliteration": "ḥwt"
+  },
+  {
+    "code": "O6D",
+    "sign": "𓉛",
+    "description": "Ferhommet de château encedanste",
+    "transliteration": "ḥwt"
+  },
+  {
+    "code": "O6E",
+    "sign": "𓉜",
+    "description": "Ferhommet de château encedanste",
+    "transliteration": "ḥwt"
+  },
+  {
+    "code": "O6F",
+    "sign": "𓉝",
+    "description": "Ferhommet de château encedanste",
+    "transliteration": "ḥwt"
+  },
+  {
+    "code": "O7",
+    "sign": "𓉞",
+    "description": "Combdansaison de encedanste et plat miche",
+    "transliteration": ""
+  },
+  {
+    "code": "O8",
+    "sign": "𓉟",
+    "description": "Combdansaison de encedanste, plat miche et en bois colsurne",
+    "transliteration": ""
+  },
+  {
+    "code": "O9",
+    "sign": "𓉠",
+    "description": "Combdansaison de encedanste, plat miche et panier",
+    "transliteration": ""
+  },
+  {
+    "code": "O10",
+    "sign": "𓉡",
+    "description": "Combdansaison de encedanste et faucsur",
+    "transliteration": ""
+  },
+  {
+    "code": "O10A",
+    "sign": "𓉢",
+    "description": "Combdansaison de encedanste et setale lanière",
+    "transliteration": ""
+  },
+  {
+    "code": "O10B",
+    "sign": "𓉣",
+    "description": "Combdansaison de encedanste et abeille",
+    "transliteration": ""
+  },
+  {
+    "code": "O10C",
+    "sign": "𓉤",
+    "description": "Combdansaison de sanctuaire dans profil et visage",
+    "transliteration": ""
+  },
+  {
+    "code": "O11",
+    "sign": "𓉥",
+    "description": "Palais",
+    "transliteration": " ꜥḥ"
+  },
+  {
+    "code": "O12",
+    "sign": "𓉦",
+    "description": "Combdansaison de palais et avant bras",
+    "transliteration": ""
+  },
+  {
+    "code": "O13",
+    "sign": "𓉧",
+    "description": "Battlemented encedanste",
+    "transliteration": ""
+  },
+  {
+    "code": "O14",
+    "sign": "𓉨",
+    "description": "Partie de battlemented encedanste",
+    "transliteration": ""
+  },
+  {
+    "code": "O15",
+    "sign": "𓉩",
+    "description": "Encedanste avec coupe et plat miche",
+    "transliteration": ""
+  },
+  {
+    "code": "O16",
+    "sign": "𓉪",
+    "description": "Poute avec serpents",
+    "transliteration": ""
+  },
+  {
+    "code": "O17",
+    "sign": "𓉫",
+    "description": "Ouvert poute avec serpents",
+    "transliteration": ""
+  },
+  {
+    "code": "O18",
+    "sign": "𓉬",
+    "description": "Sanctuaire dans profil",
+    "transliteration": ""
+  },
+  {
+    "code": "O19",
+    "sign": "𓉭",
+    "description": "Sanctuaire avec clôture",
+    "transliteration": ""
+  },
+  {
+    "code": "O19A",
+    "sign": "𓉮",
+    "description": "Sanctuaire",
+    "transliteration": ""
+  },
+  {
+    "code": "O20",
+    "sign": "𓉯",
+    "description": "Sanctuaire",
+    "transliteration": ""
+  },
+  {
+    "code": "O20A",
+    "sign": "𓉰",
+    "description": "Sanctuaire",
+    "transliteration": ""
+  },
+  {
+    "code": "O21",
+    "sign": "𓉱",
+    "description": "Façade de sanctuaire",
+    "transliteration": ""
+  },
+  {
+    "code": "O22",
+    "sign": "𓉲",
+    "description": "Booth avec poteau",
+    "transliteration": ""
+  },
+  {
+    "code": "O23",
+    "sign": "𓉳",
+    "description": "Double platpourm",
+    "transliteration": ""
+  },
+  {
+    "code": "O24",
+    "sign": "𓉴",
+    "description": "Pyramide",
+    "transliteration": ""
+  },
+  {
+    "code": "O24A",
+    "sign": "𓉵",
+    "description": "Pedestal de dsurcleil temple",
+    "transliteration": ""
+  },
+  {
+    "code": "O25",
+    "sign": "𓉶",
+    "description": "Obélisque",
+    "transliteration": "tḫn"
+  },
+  {
+    "code": "O25A",
+    "sign": "𓉷",
+    "description": "Obélisque et pedestal de dsurcleil temple",
+    "transliteration": "tḫn"
+  },
+  {
+    "code": "O26",
+    "sign": "𓉸",
+    "description": "Stèle",
+    "transliteration": "wḏ<br />ꜥḥꜥw"
+  },
+  {
+    "code": "O27",
+    "sign": "𓉹",
+    "description": "Salle de colsurnes",
+    "transliteration": ""
+  },
+  {
+    "code": "O28",
+    "sign": "𓉺",
+    "description": "Colsurne",
+    "transliteration": ""
+  },
+  {
+    "code": "O29",
+    "sign": "𓉻",
+    "description": "En bois houizsurtal colsurne",
+    "transliteration": "prsurnciation: ꜥꜣ"
+  },
+  {
+    "code": "O29A",
+    "sign": "𓉼",
+    "description": "En bois vertical colsurne",
+    "transliteration": "prsurnciation: ꜥꜣ"
+  },
+  {
+    "code": "O30",
+    "sign": "𓉽",
+    "description": "suppouter",
+    "transliteration": ""
+  },
+  {
+    "code": "O30A",
+    "sign": "𓉾",
+    "description": "Quatre suppouters",
+    "transliteration": ""
+  },
+  {
+    "code": "O31",
+    "sign": "𓉿",
+    "description": "Poute",
+    "transliteration": "prsurnciation: ꜥꜣ"
+  },
+  {
+    "code": "O32",
+    "sign": "𓊀",
+    "description": "Poute",
+    "transliteration": ""
+  },
+  {
+    "code": "O33",
+    "sign": "𓊁",
+    "description": "Façade de palais",
+    "transliteration": ""
+  },
+  {
+    "code": "O33A",
+    "sign": "𓊂",
+    "description": "Ferhommet de Serekh",
+    "transliteration": ""
+  },
+  {
+    "code": "O34",
+    "sign": "𓊃",
+    "description": "Poute verrou s hiéroglyphe",
+    "transliteration": "s<br />(houjzsurtal)"
+  },
+  {
+    "code": "O35",
+    "sign": "𓊄",
+    "description": "Combdansaison de verrou et jambes",
+    "transliteration": "zj"
+  },
+  {
+    "code": "O36",
+    "sign": "𓊅",
+    "description": "Mur",
+    "transliteration": "jnb"
+  },
+  {
+    "code": "O36A",
+    "sign": "𓊆",
+    "description": "Ouvrant de ovale pourtsiié mur encedanste",
+    "transliteration": "jnb"
+  },
+  {
+    "code": "O36B",
+    "sign": "𓊇",
+    "description": "Ferhommet de ovale pourtsiié mur encedanste",
+    "transliteration": "jnb"
+  },
+  {
+    "code": "O36C",
+    "sign": "𓊈",
+    "description": "Ouvrant de carré pourtsiié mur encedanste",
+    "transliteration": "jnb"
+  },
+  {
+    "code": "O36D",
+    "sign": "𓊉",
+    "description": "Closure de carré pourtsiié mur encedanste",
+    "transliteration": "jnb"
+  },
+  {
+    "code": "O37",
+    "sign": "𓊊",
+    "description": "Mur àmbant",
+    "transliteration": ""
+  },
+  {
+    "code": "O38",
+    "sign": "𓊋",
+    "description": "Codans de mur",
+    "transliteration": ""
+  },
+  {
+    "code": "O39",
+    "sign": "𓊌",
+    "description": "Pierre",
+    "transliteration": ""
+  },
+  {
+    "code": "O40",
+    "sign": "𓊍",
+    "description": "Escalier unique hiéroglyphe",
+    "transliteration": ""
+  },
+  {
+    "code": "O41",
+    "sign": "𓊎",
+    "description": "Double escalier",
+    "transliteration": "qꜣ, qꜣꜣ, qꜣj"
+  },
+  {
+    "code": "O42",
+    "sign": "𓊏",
+    "description": "Clôture",
+    "transliteration": "prsurnciation: šsp"
+  },
+  {
+    "code": "O43",
+    "sign": "𓊐",
+    "description": "Bas clôture",
+    "transliteration": ""
+  },
+  {
+    "code": "O44",
+    "sign": "𓊑",
+    "description": "Emblème de mdans",
+    "transliteration": "jꜣt"
+  },
+  {
+    "code": "O45",
+    "sign": "𓊒",
+    "description": "Domed csurstruisant",
+    "transliteration": ""
+  },
+  {
+    "code": "O46",
+    "sign": "𓊓",
+    "description": "Domed csurstruisant",
+    "transliteration": ""
+  },
+  {
+    "code": "O47",
+    "sign": "𓊔",
+    "description": "Clos maiste",
+    "transliteration": ""
+  },
+  {
+    "code": "O48",
+    "sign": "𓊕",
+    "description": "Clos maiste",
+    "transliteration": "sp"
+  },
+  {
+    "code": "O49",
+    "sign": "𓊖",
+    "description": "Village",
+    "transliteration": ""
+  },
+  {
+    "code": "O50",
+    "sign": "𓊗",
+    "description": "Battant dsurcl",
+    "transliteration": "sp<br />(de spt)"
+  },
+  {
+    "code": "O50A",
+    "sign": "𓊘",
+    "description": "Hiératique battant dsurcl",
+    "transliteration": "sp<br />(de spt)"
+  },
+  {
+    "code": "O50B",
+    "sign": "𓊙",
+    "description": "O50A dansversé",
+    "transliteration": "sp<br />(de spt)"
+  },
+  {
+    "code": "O51",
+    "sign": "𓊚",
+    "description": "Pile de gradans",
+    "transliteration": "prsurnciation: šnwt"
+  },
+  {
+    "code": "P1",
+    "sign": "𓊛",
+    "description": "Bateau",
+    "transliteration": "navire, bateau (dpt), voile, go downstream"
+  },
+  {
+    "code": "P1A",
+    "sign": "𓊜",
+    "description": "Bateau renversé bas",
+    "transliteration": "navire, bateau (dpt), voile, go downstream"
+  },
+  {
+    "code": "P2",
+    "sign": "𓊝",
+    "description": "Navire dsurcus voile",
+    "transliteration": "voile (go upstream)"
+  },
+  {
+    "code": "P3",
+    "sign": "𓊞",
+    "description": "Sacré barque",
+    "transliteration": "sacred barque (wjꜣ ou wrtA)"
+  },
+  {
+    "code": "P3A",
+    "sign": "𓊟",
+    "description": "Sacré barque sans rame dirigeant",
+    "transliteration": "sacred barque (wjꜣ ou wrtA)"
+  },
+  {
+    "code": "P4",
+    "sign": "𓊠",
+    "description": "Bateau avec filet",
+    "transliteration": ""
+  },
+  {
+    "code": "P5",
+    "sign": "𓊡",
+    "description": "Voile",
+    "transliteration": "voile (ṯꜣwt) (ḥtꜣw), sailou (nfw), vent (ṯꜣw), nsurud vent (mḥyt)"
+  },
+  {
+    "code": "P6",
+    "sign": "𓊢",
+    "description": "Mât hiéroglyphe",
+    "transliteration": "se tenir debout (ꜥḥꜥ); prsurnciation: ꜥḥꜥ"
+  },
+  {
+    "code": "P7",
+    "sign": "𓊣",
+    "description": "Combdansaison de mât et avant bras",
+    "transliteration": "prsurnciation: ꜥḥꜥw"
+  },
+  {
+    "code": "P8",
+    "sign": "𓊤",
+    "description": "Rame",
+    "transliteration": "rame (wsrw)"
+  },
+  {
+    "code": "P9",
+    "sign": "𓊥",
+    "description": "Combdansaison de rame et vipère counu",
+    "transliteration": "says (ḫrwfj)"
+  },
+  {
+    "code": "P10",
+    "sign": "𓊦",
+    "description": "Gouvernail",
+    "transliteration": "steerdansg rame (ḥmw)"
+  },
+  {
+    "code": "P11",
+    "sign": "𓊧",
+    "description": "Amarrage poteau",
+    "transliteration": "mooudansg post (mjnj)"
+  },
+  {
+    "code": "Q1",
+    "sign": "𓊨",
+    "description": "Siège trône",
+    "transliteration": "smanger (st), place; prsurnciation: st, ḥtm"
+  },
+  {
+    "code": "Q2",
+    "sign": "𓊩",
+    "description": "Poutant chaise",
+    "transliteration": "smanger (st); prsurnciation: *ws dans Osiris (wsjr)"
+  },
+  {
+    "code": "Q3",
+    "sign": "𓊪",
+    "description": "Tabouret",
+    "transliteration": "suppouter (p), sàol, sàol made out de roseau"
+  },
+  {
+    "code": "Q4",
+    "sign": "𓊫",
+    "description": "Headrest",
+    "transliteration": "wrs"
+  },
+  {
+    "code": "Q5",
+    "sign": "𓊬",
+    "description": "Coffre",
+    "transliteration": "boîte (hn)"
+  },
+  {
+    "code": "Q6",
+    "sign": "𓊭",
+    "description": "Sarcophagus",
+    "transliteration": "coffdans (qrsw), bury (qrs)"
+  },
+  {
+    "code": "Q7",
+    "sign": "𓊮",
+    "description": "Brasero hiéroglyphe",
+    "transliteration": "feu, flamme; lamp; brazier"
+  },
+  {
+    "code": "R1",
+    "sign": "𓊯",
+    "description": "Haut table avec offrants",
+    "transliteration": "offrirdansg table (ḫꜣwt); prsurnciation: ḫꜣwt"
+  },
+  {
+    "code": "R2",
+    "sign": "𓊰",
+    "description": "Table avec slices de douleur",
+    "transliteration": "offrirdansg table (ḫꜣwt); prsurnciation: ḫꜣwt"
+  },
+  {
+    "code": "R2A",
+    "sign": "𓊱",
+    "description": "Haut table avec offrants",
+    "transliteration": "offrirdansg table (ḫꜣwt); prsurnciation: ḫꜣwt"
+  },
+  {
+    "code": "R3",
+    "sign": "𓊲",
+    "description": "Bas table avec offrants",
+    "transliteration": "offrirdansg table (ḫꜣwt); prsurnciation: ḫꜣwt"
+  },
+  {
+    "code": "R3A",
+    "sign": "𓊳",
+    "description": "Bas table",
+    "transliteration": "altar; csurtentment; prsurnciation: ḥtp"
+  },
+  {
+    "code": "R3B",
+    "sign": "𓊴",
+    "description": "Bas table avec offrants simplsiié",
+    "transliteration": "offrirdansg table (ḫꜣwt); prsurnciation: ḫꜣwt"
+  },
+  {
+    "code": "R4",
+    "sign": "𓊵",
+    "description": "Miche sur natte",
+    "transliteration": "[[Hotep"
+  },
+  {
+    "code": "R5",
+    "sign": "𓊶",
+    "description": "Étroit encendsurcir",
+    "transliteration": ""
+  },
+  {
+    "code": "R6",
+    "sign": "𓊷",
+    "description": "Gret encendsurcir",
+    "transliteration": ""
+  },
+  {
+    "code": "R7",
+    "sign": "𓊸",
+    "description": "Bol avec fumée",
+    "transliteration": ""
+  },
+  {
+    "code": "R8",
+    "sign": "𓊹",
+    "description": "Tissu sur poteau",
+    "transliteration": "nṯr"
+  },
+  {
+    "code": "R9",
+    "sign": "𓊺",
+    "description": "Combdansaison de tissu sur poteau et sac",
+    "transliteration": ""
+  },
+  {
+    "code": "R10",
+    "sign": "𓊻",
+    "description": "Combdansaison de tissu sur poteau, de boucher bloc et slope de colldanse",
+    "transliteration": ""
+  },
+  {
+    "code": "R10A",
+    "sign": "𓊼",
+    "description": "Combdansaison de tissu sur poteau et de boucher bloc",
+    "transliteration": ""
+  },
+  {
+    "code": "R11",
+    "sign": "𓊽",
+    "description": "Roseau colsurne",
+    "transliteration": "ḏd([[Egyptian biliteral signs"
+  },
+  {
+    "code": "R12",
+    "sign": "𓊾",
+    "description": "Étendard",
+    "transliteration": ""
+  },
+  {
+    "code": "R13",
+    "sign": "𓊿",
+    "description": "Faucsur et plume sur étendard",
+    "transliteration": ""
+  },
+  {
+    "code": "R14",
+    "sign": "𓋀",
+    "description": "Emblème de le ouest hiéroglyphe",
+    "transliteration": "jmnj (\"ouest\"); wnmj (\"drojte\")"
+  },
+  {
+    "code": "R15",
+    "sign": "𓋁",
+    "description": "Lance, emblème de le est",
+    "transliteration": "jꜣbt (\"est\"); jꜣbj (\"gauche\")"
+  },
+  {
+    "code": "R16",
+    "sign": "𓋂",
+    "description": "Sceptre avec plumes et strdansg",
+    "transliteration": ""
+  },
+  {
+    "code": "R16A",
+    "sign": "𓋃",
+    "description": "Sceptre avec plumes",
+    "transliteration": ""
+  },
+  {
+    "code": "R17",
+    "sign": "𓋄",
+    "description": "Wig sur poteau",
+    "transliteration": ""
+  },
+  {
+    "code": "R18",
+    "sign": "𓋅",
+    "description": "Combdansaison de wig sur poteau et irrigation canal system",
+    "transliteration": ""
+  },
+  {
+    "code": "R19",
+    "sign": "𓋆",
+    "description": "Sceptre avec plume",
+    "transliteration": ""
+  },
+  {
+    "code": "R20",
+    "sign": "𓋇",
+    "description": "Fleur avec counes",
+    "transliteration": ""
+  },
+  {
+    "code": "R21",
+    "sign": "𓋈",
+    "description": "Fleur avec counes",
+    "transliteration": ""
+  },
+  {
+    "code": "R22",
+    "sign": "𓋉",
+    "description": "Deux étroit belemnites",
+    "transliteration": ""
+  },
+  {
+    "code": "R23",
+    "sign": "𓋊",
+    "description": "Deux gret belemnites",
+    "transliteration": ""
+  },
+  {
+    "code": "R24",
+    "sign": "𓋋",
+    "description": "Deux arcs attaché houizsurtalement",
+    "transliteration": "nt"
+  },
+  {
+    "code": "R25",
+    "sign": "𓋌",
+    "description": "Deux arcs attaché verticalement",
+    "transliteration": ""
+  },
+  {
+    "code": "R26",
+    "sign": "𓋍",
+    "description": "Combdansaison de terre, poumon et trachée, lys, et papyrus",
+    "transliteration": ""
+  },
+  {
+    "code": "R27",
+    "sign": "𓋎",
+    "description": "Deux flèches croisé sur un bouclier",
+    "transliteration": ""
+  },
+  {
+    "code": "R28",
+    "sign": "𓋏",
+    "description": "Chauve dsurcuris",
+    "transliteration": ""
+  },
+  {
+    "code": "R29",
+    "sign": "𓋐",
+    "description": "Niche avec serpent",
+    "transliteration": ""
+  },
+  {
+    "code": "S1",
+    "sign": "𓋑",
+    "description": "Coursurne blanc",
+    "transliteration": "ḥḏ <!--?-->"
+  },
+  {
+    "code": "S2",
+    "sign": "𓋒",
+    "description": "Combdansaison de blanc couronne et panier",
+    "transliteration": "wrt"
+  },
+  {
+    "code": "S2A",
+    "sign": "𓋓",
+    "description": "Combdansaison de blanc couronne et village",
+    "transliteration": "wrt"
+  },
+  {
+    "code": "S3",
+    "sign": "𓋔",
+    "description": "Coursurne rouge",
+    "transliteration": "n<br />(vertjcal)"
+  },
+  {
+    "code": "S4",
+    "sign": "𓋕",
+    "description": "Combdansaison de rouge couronne et panier",
+    "transliteration": "wrt"
+  },
+  {
+    "code": "S5",
+    "sign": "𓋖",
+    "description": "Pschent couronne",
+    "transliteration": ""
+  },
+  {
+    "code": "S6",
+    "sign": "𓋗",
+    "description": "Combdansaison de pschent couronne et panier",
+    "transliteration": ""
+  },
+  {
+    "code": "S6A",
+    "sign": "𓋘",
+    "description": "Combdansaison de rouge couronne et village",
+    "transliteration": ""
+  },
+  {
+    "code": "S7",
+    "sign": "𓋙",
+    "description": "Coursurne bleu",
+    "transliteration": "prsurnciation: ḫprš"
+  },
+  {
+    "code": "S8",
+    "sign": "𓋚",
+    "description": "Atef couronne hiéroglyphe",
+    "transliteration": "ꜣtf"
+  },
+  {
+    "code": "S9",
+    "sign": "𓋛",
+    "description": "Shuti hiéroglyphe deux plume adounment",
+    "transliteration": "prsurnciation: šwtj"
+  },
+  {
+    "code": "S10",
+    "sign": "𓋜",
+    "description": "Headbet",
+    "transliteration": ""
+  },
+  {
+    "code": "S11",
+    "sign": "𓋝",
+    "description": "Gret collier",
+    "transliteration": ""
+  },
+  {
+    "code": "S12",
+    "sign": "𓋞",
+    "description": "Collier de perles",
+    "transliteration": "nbw<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "S13",
+    "sign": "𓋟",
+    "description": "Combdansaison de collier de perles et pied",
+    "transliteration": ""
+  },
+  {
+    "code": "S14",
+    "sign": "𓋠",
+    "description": "Combdansaison de collier de perles et masse avec rsurd tête",
+    "transliteration": ""
+  },
+  {
+    "code": "S14A",
+    "sign": "𓋡",
+    "description": "Combdansaison de collier de perles et sceptre",
+    "transliteration": "ḏꜥm"
+  },
+  {
+    "code": "S14B",
+    "sign": "𓋢",
+    "description": "Combdansaison de collier de perles et sceptre",
+    "transliteration": ""
+  },
+  {
+    "code": "S15",
+    "sign": "𓋣",
+    "description": "pecàual",
+    "transliteration": ""
+  },
+  {
+    "code": "S16",
+    "sign": "𓋤",
+    "description": "pecàual",
+    "transliteration": ""
+  },
+  {
+    "code": "S17",
+    "sign": "𓋥",
+    "description": "pecàual",
+    "transliteration": ""
+  },
+  {
+    "code": "S17A",
+    "sign": "𓋦",
+    "description": "Cedansture",
+    "transliteration": ""
+  },
+  {
+    "code": "S18",
+    "sign": "𓋧",
+    "description": "Menat collier et comptererpoise",
+    "transliteration": "prsurnciation: (mnjt)"
+  },
+  {
+    "code": "S19",
+    "sign": "𓋨",
+    "description": "Sceau avec collier",
+    "transliteration": ""
+  },
+  {
+    "code": "S20",
+    "sign": "𓋩",
+    "description": "Collier avec sceau",
+    "transliteration": "hommey<br />voir dsurcus:<br />ḏb-à seal<br />ḏbꜥj-t"
+  },
+  {
+    "code": "S21",
+    "sign": "𓋪",
+    "description": "Bague",
+    "transliteration": ""
+  },
+  {
+    "code": "S22",
+    "sign": "𓋫",
+    "description": "Épaule nœud",
+    "transliteration": ""
+  },
+  {
+    "code": "S23",
+    "sign": "𓋬",
+    "description": "Deux fouets avec shen bague hiéroglyphe",
+    "transliteration": "dmḏ<br />oudnḏ"
+  },
+  {
+    "code": "S24",
+    "sign": "𓋭",
+    "description": "Cedansture nœud",
+    "transliteration": "ṯs<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "S25",
+    "sign": "𓋮",
+    "description": "Vêtement avec ties",
+    "transliteration": ""
+  },
+  {
+    "code": "S26",
+    "sign": "𓋯",
+    "description": "Tablier",
+    "transliteration": ""
+  },
+  {
+    "code": "S26A",
+    "sign": "𓋰",
+    "description": "Tablier",
+    "transliteration": ""
+  },
+  {
+    "code": "S26B",
+    "sign": "𓋱",
+    "description": "Tablier",
+    "transliteration": ""
+  },
+  {
+    "code": "S27",
+    "sign": "𓋲",
+    "description": "Tissu avec deux strets",
+    "transliteration": ""
+  },
+  {
+    "code": "S28",
+    "sign": "𓋳",
+    "description": "Tissu avec frange sur haut et plié tissu",
+    "transliteration": ""
+  },
+  {
+    "code": "S29",
+    "sign": "𓋴",
+    "description": "Plié tissu",
+    "transliteration": "spdt"
+  },
+  {
+    "code": "S30",
+    "sign": "𓋵",
+    "description": "Combdansaison de plié tissu et vipère counu",
+    "transliteration": ""
+  },
+  {
+    "code": "S31",
+    "sign": "𓋶",
+    "description": "Combdansaison de plié tissu et faucille",
+    "transliteration": ""
+  },
+  {
+    "code": "S32",
+    "sign": "𓋷",
+    "description": "Tissu avec frange sur le côté",
+    "transliteration": ""
+  },
+  {
+    "code": "S33",
+    "sign": "𓋸",
+    "description": "Setale",
+    "transliteration": ""
+  },
+  {
+    "code": "S34",
+    "sign": "𓋹",
+    "description": "Vie setale lanière",
+    "transliteration": "[[ankh"
+  },
+  {
+    "code": "S35",
+    "sign": "𓋺",
+    "description": "Paradsurcl",
+    "transliteration": ""
+  },
+  {
+    "code": "S35A",
+    "sign": "𓋻",
+    "description": "Paradsurcl",
+    "transliteration": ""
+  },
+  {
+    "code": "S36",
+    "sign": "𓋼",
+    "description": "Paradsurcl",
+    "transliteration": ""
+  },
+  {
+    "code": "S37",
+    "sign": "𓋽",
+    "description": "Éventail",
+    "transliteration": ""
+  },
+  {
+    "code": "S38",
+    "sign": "𓋾",
+    "description": "Crosse",
+    "transliteration": "ḥq"
+  },
+  {
+    "code": "S39",
+    "sign": "𓋿",
+    "description": "De berger crosse",
+    "transliteration": ""
+  },
+  {
+    "code": "S40",
+    "sign": "𓌀",
+    "description": "Wꜣssceptre uꜣs",
+    "transliteration": "prsurnciation: wꜣs<br />(uas)"
+  },
+  {
+    "code": "S41",
+    "sign": "𓌁",
+    "description": "Sceptre",
+    "transliteration": ""
+  },
+  {
+    "code": "S42",
+    "sign": "𓌂",
+    "description": "Sekhem sceptre",
+    "transliteration": "sḫm"
+  },
+  {
+    "code": "S43",
+    "sign": "𓌃",
+    "description": "Bâàn marchant",
+    "transliteration": "md"
+  },
+  {
+    "code": "S44",
+    "sign": "𓌄",
+    "description": "Bâàn marchant avec flagellum",
+    "transliteration": ""
+  },
+  {
+    "code": "S45",
+    "sign": "𓌅",
+    "description": "Flagellum",
+    "transliteration": ""
+  },
+  {
+    "code": "S46",
+    "sign": "𓌆",
+    "description": "Csurdansg pour tête et cou",
+    "transliteration": ""
+  },
+  {
+    "code": "T1",
+    "sign": "𓌇",
+    "description": "Masse avec plat tête",
+    "transliteration": ""
+  },
+  {
+    "code": "T2",
+    "sign": "𓌈",
+    "description": "Masse avec rsurd tête",
+    "transliteration": ""
+  },
+  {
+    "code": "T3",
+    "sign": "𓌉",
+    "description": "Masse avec rsurd tête",
+    "transliteration": "ḥḏ"
+  },
+  {
+    "code": "T3A",
+    "sign": "𓌊",
+    "description": "Combdansaison de masse avec rsurd tête et deux colldanses",
+    "transliteration": "ḥḏ"
+  },
+  {
+    "code": "T4",
+    "sign": "𓌋",
+    "description": "Masse avec lanière",
+    "transliteration": ""
+  },
+  {
+    "code": "T5",
+    "sign": "𓌌",
+    "description": "Combdansaison de masse avec rsurd tête et cobra",
+    "transliteration": ""
+  },
+  {
+    "code": "T6",
+    "sign": "𓌍",
+    "description": "Combdansaison de masse avec rsurd tête et deux cobras",
+    "transliteration": ""
+  },
+  {
+    "code": "T7",
+    "sign": "𓌎",
+    "description": "Hache",
+    "transliteration": ""
+  },
+  {
+    "code": "T7A",
+    "sign": "𓌏",
+    "description": "Hache",
+    "transliteration": ""
+  },
+  {
+    "code": "T8",
+    "sign": "𓌐",
+    "description": "Dague",
+    "transliteration": "tp"
+  },
+  {
+    "code": "T8A",
+    "sign": "𓌑",
+    "description": "Dague",
+    "transliteration": "tp"
+  },
+  {
+    "code": "T9",
+    "sign": "𓌒",
+    "description": "Arc",
+    "transliteration": "pḏ"
+  },
+  {
+    "code": "T9A",
+    "sign": "𓌓",
+    "description": "Arc",
+    "transliteration": "pḏ"
+  },
+  {
+    "code": "T10",
+    "sign": "𓌔",
+    "description": "Compos'asseoire arc",
+    "transliteration": ""
+  },
+  {
+    "code": "T11",
+    "sign": "𓌕",
+    "description": "Flèche",
+    "transliteration": ""
+  },
+  {
+    "code": "T11A",
+    "sign": "𓌖",
+    "description": "Deux croisé flèches",
+    "transliteration": ""
+  },
+  {
+    "code": "T12",
+    "sign": "𓌗",
+    "description": "Bowstrdansg hiéroglyphe",
+    "transliteration": "rwḏ"
+  },
+  {
+    "code": "T13",
+    "sign": "𓌘",
+    "description": "Jodansed pièces de bois",
+    "transliteration": "rs"
+  },
+  {
+    "code": "T14",
+    "sign": "𓌙",
+    "description": "Throw bâàn verticalement",
+    "transliteration": ""
+  },
+  {
+    "code": "T15",
+    "sign": "𓌚",
+    "description": "Throw bâàn slanted",
+    "transliteration": ""
+  },
+  {
+    "code": "T16",
+    "sign": "𓌛",
+    "description": "Cimeterre",
+    "transliteration": ""
+  },
+  {
+    "code": "T16A",
+    "sign": "𓌜",
+    "description": "Cimeterre",
+    "transliteration": ""
+  },
+  {
+    "code": "T17",
+    "sign": "𓌝",
+    "description": "Char",
+    "transliteration": "wrrt"
+  },
+  {
+    "code": "T18",
+    "sign": "𓌞",
+    "description": "Crosse avec package attached",
+    "transliteration": "prsurnciation: šms"
+  },
+  {
+    "code": "T19",
+    "sign": "𓌟",
+    "description": "Harpsur tête",
+    "transliteration": "gn"
+  },
+  {
+    "code": "T20",
+    "sign": "𓌠",
+    "description": "Harpsur tête",
+    "transliteration": ""
+  },
+  {
+    "code": "T21",
+    "sign": "𓌡",
+    "description": "Harpsur hiéroglyphe",
+    "transliteration": "wꜥ<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "T22",
+    "sign": "𓌢",
+    "description": "Arrowhead",
+    "transliteration": "sn"
+  },
+  {
+    "code": "T23",
+    "sign": "𓌣",
+    "description": "Arrowhead",
+    "transliteration": ""
+  },
+  {
+    "code": "T24",
+    "sign": "𓌤",
+    "description": "Fishdansgnet",
+    "transliteration": "iꜥḥ"
+  },
+  {
+    "code": "T25",
+    "sign": "𓌥",
+    "description": "Flotteur",
+    "transliteration": "ḏb<br />ḏbꜣ"
+  },
+  {
+    "code": "T26",
+    "sign": "𓌦",
+    "description": "Birdtrap",
+    "transliteration": ""
+  },
+  {
+    "code": "T27",
+    "sign": "𓌧",
+    "description": "Piège",
+    "transliteration": "sḫt"
+  },
+  {
+    "code": "T28",
+    "sign": "𓌨",
+    "description": "De boucher bloc",
+    "transliteration": "ẖr"
+  },
+  {
+    "code": "T29",
+    "sign": "𓌩",
+    "description": "De boucher bloc avec couteau",
+    "transliteration": ""
+  },
+  {
+    "code": "T30",
+    "sign": "𓌪",
+    "description": "Couteau",
+    "transliteration": "šꜥ"
+  },
+  {
+    "code": "T31",
+    "sign": "𓌫",
+    "description": "Couteau aiguiseur",
+    "transliteration": ""
+  },
+  {
+    "code": "T32",
+    "sign": "𓌬",
+    "description": "Combdansaison de couteau et jambes",
+    "transliteration": ""
+  },
+  {
+    "code": "T32A",
+    "sign": "𓌭",
+    "description": "Combdansaison de couteau et plié tissu",
+    "transliteration": ""
+  },
+  {
+    "code": "T33",
+    "sign": "𓌮",
+    "description": "Couteau aiguiseur de boucher",
+    "transliteration": ""
+  },
+  {
+    "code": "T33A",
+    "sign": "𓌯",
+    "description": "Combdansaison de couteau aiguiseur et plié tissu",
+    "transliteration": ""
+  },
+  {
+    "code": "T34",
+    "sign": "𓌰",
+    "description": "De boucher couteau",
+    "transliteration": ""
+  },
+  {
+    "code": "T35",
+    "sign": "𓌱",
+    "description": "De boucher couteau",
+    "transliteration": ""
+  },
+  {
+    "code": "T36",
+    "sign": "𓌲",
+    "description": "Bouclier",
+    "transliteration": ""
+  },
+  {
+    "code": "U1",
+    "sign": "𓌳",
+    "description": "Faucille",
+    "transliteration": ""
+  },
+  {
+    "code": "U2",
+    "sign": "𓌴",
+    "description": "Faucille",
+    "transliteration": ""
+  },
+  {
+    "code": "U3",
+    "sign": "𓌵",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U4",
+    "sign": "𓌶",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U5",
+    "sign": "𓌷",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U6",
+    "sign": "𓌸",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U6A",
+    "sign": "𓌹",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U6B",
+    "sign": "𓌺",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U7",
+    "sign": "𓌻",
+    "description": "Houe",
+    "transliteration": "mr"
+  },
+  {
+    "code": "U8",
+    "sign": "𓌼",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U9",
+    "sign": "𓌽",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U10",
+    "sign": "𓌾",
+    "description": "Gradans mesurer avec pluriel, pour gradans particles",
+    "transliteration": "dbḥ"
+  },
+  {
+    "code": "U11",
+    "sign": "𓌿",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U12",
+    "sign": "𓍀",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U13",
+    "sign": "𓍁",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U14",
+    "sign": "𓍂",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U15",
+    "sign": "𓍃",
+    "description": "Sled traîneau",
+    "transliteration": "tm"
+  },
+  {
+    "code": "U16",
+    "sign": "𓍄",
+    "description": "Sled avec chacal tête",
+    "transliteration": "bjꜣ"
+  },
+  {
+    "code": "U17",
+    "sign": "𓍅",
+    "description": "Pick, ouvrant terre",
+    "transliteration": "grg<br />gr"
+  },
+  {
+    "code": "U18",
+    "sign": "𓍆",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U19",
+    "sign": "𓍇",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U20",
+    "sign": "𓍈",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U21",
+    "sign": "𓍉",
+    "description": "Hermdansette sur bloc",
+    "transliteration": "stp"
+  },
+  {
+    "code": "U22",
+    "sign": "𓍊",
+    "description": "Clapper de bell outil dansstrument fourchu bâàn, etc.",
+    "transliteration": "mnḫ"
+  },
+  {
+    "code": "U23",
+    "sign": "𓍋",
+    "description": "Ciseau",
+    "transliteration": "ꜣb<br />mr"
+  },
+  {
+    "code": "U23A",
+    "sign": "𓍌",
+    "description": "",
+    "transliteration": "ꜣb<br />mr"
+  },
+  {
+    "code": "U24",
+    "sign": "𓍍",
+    "description": "Madans pouret hiéroglyphe",
+    "transliteration": "ḥmt"
+  },
+  {
+    "code": "U25",
+    "sign": "𓍎",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U26",
+    "sign": "𓍏",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U27",
+    "sign": "𓍐",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U28",
+    "sign": "𓍑",
+    "description": "Feu pouret",
+    "transliteration": "ḏꜣ<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "U29",
+    "sign": "𓍒",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U29A",
+    "sign": "𓍓",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U30",
+    "sign": "𓍔",
+    "description": "Quatre",
+    "transliteration": "tꜣ"
+  },
+  {
+    "code": "U31",
+    "sign": "𓍕",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U32",
+    "sign": "𓍖",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U32A",
+    "sign": "𓍗",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U33",
+    "sign": "𓍘",
+    "description": "'pestle' courbe haut",
+    "transliteration": "tj"
+  },
+  {
+    "code": "U34",
+    "sign": "𓍙",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U35",
+    "sign": "𓍚",
+    "description": "",
+    "transliteration": "ḫsf"
+  },
+  {
+    "code": "U36",
+    "sign": "𓍛",
+    "description": "Fuller's massue",
+    "transliteration": "ḥm<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "U37",
+    "sign": "𓍜",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U38",
+    "sign": "𓍝",
+    "description": "Scale",
+    "transliteration": "mḫꜣt"
+  },
+  {
+    "code": "U39",
+    "sign": "𓍞",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "U40",
+    "sign": "𓍟",
+    "description": "Un suppouter vers lsit",
+    "transliteration": "prsurnciation: wṯs<br />wṯs"
+  },
+  {
+    "code": "U41",
+    "sign": "𓍠",
+    "description": "Plummet",
+    "transliteration": ""
+  },
+  {
+    "code": "U42",
+    "sign": "𓍡",
+    "description": "Pitchpourk",
+    "transliteration": ""
+  },
+  {
+    "code": "V1",
+    "sign": "𓍢",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V1A",
+    "sign": "𓍣",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V1B",
+    "sign": "𓍤",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V1C",
+    "sign": "𓍥",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V1D",
+    "sign": "𓍦",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V1E",
+    "sign": "𓍧",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V1F",
+    "sign": "𓍨",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V1G",
+    "sign": "𓍩",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V1H",
+    "sign": "𓍪",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V1I",
+    "sign": "𓍫",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V2",
+    "sign": "𓍬",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V2A",
+    "sign": "𓍭",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V3",
+    "sign": "𓍮",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V4",
+    "sign": "𓍯",
+    "description": "Lasdsurc",
+    "transliteration": "wꜣ<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "V5",
+    "sign": "𓍰",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V6",
+    "sign": "𓍱",
+    "description": "Coude pourme",
+    "transliteration": "šs<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "V7",
+    "sign": "𓍲",
+    "description": "Coude pourme",
+    "transliteration": "šn<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "V7A",
+    "sign": "𓍳",
+    "description": "",
+    "transliteration": "šn<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "V7B",
+    "sign": "𓍴",
+    "description": "",
+    "transliteration": "šn<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "V8",
+    "sign": "𓍵",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V9",
+    "sign": "𓍶",
+    "description": "Shen bague",
+    "transliteration": "prsurnciation: šn"
+  },
+  {
+    "code": "V10",
+    "sign": "𓍷",
+    "description": "Caràuche hiéroglyphe",
+    "transliteration": "šn<br />rn"
+  },
+  {
+    "code": "V11",
+    "sign": "𓍸",
+    "description": "Caràuche divided",
+    "transliteration": "dn"
+  },
+  {
+    "code": "V11A",
+    "sign": "𓍹",
+    "description": "",
+    "transliteration": "dn"
+  },
+  {
+    "code": "V11B",
+    "sign": "𓍺",
+    "description": "",
+    "transliteration": "dn"
+  },
+  {
+    "code": "V11C",
+    "sign": "𓍻",
+    "description": "",
+    "transliteration": "dn"
+  },
+  {
+    "code": "V12",
+    "sign": "𓍼",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V12A",
+    "sign": "𓍽",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V12B",
+    "sign": "𓍾",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V13",
+    "sign": "𓍿",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V14",
+    "sign": "𓎀",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V15",
+    "sign": "𓎁",
+    "description": "Tetherdansg coude w marchant jambes",
+    "transliteration": "jṯj"
+  },
+  {
+    "code": "V16",
+    "sign": "𓎂",
+    "description": "Bétail entrave égyptien biliteral signes",
+    "transliteration": "sꜣ"
+  },
+  {
+    "code": "V17",
+    "sign": "𓎃",
+    "description": "viesaver",
+    "transliteration": "sꜣ<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "V18",
+    "sign": "𓎄",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V19",
+    "sign": "𓎅",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V20",
+    "sign": "𓎆",
+    "description": "Bétail entrave",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20A",
+    "sign": "𓎇",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20B",
+    "sign": "𓎈",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20C",
+    "sign": "𓎉",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20D",
+    "sign": "𓎊",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20E",
+    "sign": "𓎋",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20F",
+    "sign": "𓎌",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20G",
+    "sign": "𓎍",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20H",
+    "sign": "𓎎",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20I",
+    "sign": "𓎏",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20J",
+    "sign": "𓎐",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20K",
+    "sign": "𓎑",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V20L",
+    "sign": "𓎒",
+    "description": "",
+    "transliteration": "mḏw<br />(aldsurc mḏ)"
+  },
+  {
+    "code": "V21",
+    "sign": "𓎓",
+    "description": "Entrave cobra",
+    "transliteration": "mḏ, mḏwt"
+  },
+  {
+    "code": "V22",
+    "sign": "𓎔",
+    "description": "Fouet",
+    "transliteration": "mḥ"
+  },
+  {
+    "code": "V23",
+    "sign": "𓎕",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V23A",
+    "sign": "𓎖",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V24",
+    "sign": "𓎗",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V25",
+    "sign": "𓎘",
+    "description": "Comhommed bâàn",
+    "transliteration": "wḏ<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "V26",
+    "sign": "𓎙",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V27",
+    "sign": "𓎚",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V28",
+    "sign": "𓎛",
+    "description": "'éternité' un lsurg temps period",
+    "transliteration": "ḥḥ"
+  },
+  {
+    "code": "V28A",
+    "sign": "𓎜",
+    "description": "",
+    "transliteration": "ḥḥ"
+  },
+  {
+    "code": "V29",
+    "sign": "𓎝",
+    "description": "Fiber swab straw broom",
+    "transliteration": "sq, ḫsr<br />wꜣḥ<br /><br />[[Egyptian biliteral signs"
+  },
+  {
+    "code": "V29A",
+    "sign": "𓎞",
+    "description": "",
+    "transliteration": "sq, ḫsr<br />wꜣḥ<br /><br />[[Egyptian biliteral signs"
+  },
+  {
+    "code": "V30",
+    "sign": "𓎟",
+    "description": "Panier hiéroglyphe",
+    "transliteration": "nb<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "V30A",
+    "sign": "𓎠",
+    "description": "",
+    "transliteration": "nb<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "V31",
+    "sign": "𓎡",
+    "description": "Panier avec hetle hiéroglyphe",
+    "transliteration": "k<br />([[Egyptian uniliteral signs"
+  },
+  {
+    "code": "V31A",
+    "sign": "𓎢",
+    "description": "",
+    "transliteration": "k<br />([[Egyptian uniliteral signs"
+  },
+  {
+    "code": "V32",
+    "sign": "𓎣",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V33",
+    "sign": "𓎤",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V33A",
+    "sign": "𓎥",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V34",
+    "sign": "𓎦",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V35",
+    "sign": "𓎧",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V36",
+    "sign": "𓎨",
+    "description": "Doubled csurtadanser ou added glyphs hommey spelldansgs",
+    "transliteration": "ḥnty"
+  },
+  {
+    "code": "V37",
+    "sign": "𓎩",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V37A",
+    "sign": "𓎪",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V38",
+    "sign": "𓎫",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V39",
+    "sign": "𓎬",
+    "description": "? stylized croix ânkh pour isis?",
+    "transliteration": "ṯt<br />tyet"
+  },
+  {
+    "code": "V40",
+    "sign": "𓎭",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "V40A",
+    "sign": "𓎮",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "W1",
+    "sign": "𓎯",
+    "description": "Huile jarre",
+    "transliteration": "Odanstment (mrḥt), oil"
+  },
+  {
+    "code": "W2",
+    "sign": "𓎰",
+    "description": "Huile jarre sans ties",
+    "transliteration": "Bas-csurtadanser (bꜣs); prsurnciation: bꜣs"
+  },
+  {
+    "code": "W3",
+    "sign": "𓎱",
+    "description": "Albâtre bassdans",
+    "transliteration": "alabaster (šs), festival (ḥꜣb); prsurnciation: sš<br />"
+  },
+  {
+    "code": "W3A",
+    "sign": "𓎲",
+    "description": "Albâtre bassdans",
+    "transliteration": "alabaster (šs), festival (ḥꜣb); prsurnciation: sš<br />"
+  },
+  {
+    "code": "W4",
+    "sign": "𓎳",
+    "description": "Festival chambre, le queue est aldsurc vertical 'gret' ꜥꜣ",
+    "transliteration": "festival (ḥb); prsurnciation:  Sṯ"
+  },
+  {
+    "code": "W5",
+    "sign": "𓎴",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "W6",
+    "sign": "𓎵",
+    "description": "En métal vase",
+    "transliteration": "boiler (wḥꜣt)"
+  },
+  {
+    "code": "W7",
+    "sign": "𓎶",
+    "description": "Granit bol",
+    "transliteration": "rouge granite (mꜣṯ); prsurnciation: mꜣṯ"
+  },
+  {
+    "code": "W8",
+    "sign": "𓎷",
+    "description": "Granit bol",
+    "transliteration": "rouge granite (mꜣṯ)"
+  },
+  {
+    "code": "W9",
+    "sign": "𓎸",
+    "description": "Cruche pierre",
+    "transliteration": "Nechnem-oil (nḥnm); prsurnciation: ḥnm"
+  },
+  {
+    "code": "W9A",
+    "sign": "𓎹",
+    "description": "",
+    "transliteration": "Nechnem-oil (nḥnm); prsurnciation: ḥnm"
+  },
+  {
+    "code": "W10",
+    "sign": "𓎺",
+    "description": "Coupe",
+    "transliteration": "détermdansatsi pour goblet (jꜥb); prsurnciation: wsḫ, sẖw"
+  },
+  {
+    "code": "W10A",
+    "sign": "𓎻",
+    "description": "Pot",
+    "transliteration": "prsurnciation: bꜣ (rarely)"
+  },
+  {
+    "code": "W11",
+    "sign": "𓎼",
+    "description": "Jarre suppouter",
+    "transliteration": "smanger (nst); prsurnciation: g"
+  },
+  {
+    "code": "W12",
+    "sign": "𓎽",
+    "description": "Jarre suppouter",
+    "transliteration": "smanger (nst); prsurnciation: g"
+  },
+  {
+    "code": "W13",
+    "sign": "𓎾",
+    "description": "Pot",
+    "transliteration": "Heset-pitcher, Senbet-pitcher (snbt) ou similar csurtadansers"
+  },
+  {
+    "code": "W14",
+    "sign": "𓎿",
+    "description": "Eau jarre",
+    "transliteration": "side area (jmw), side (gs); prsurnciation: m, m, gs"
+  },
+  {
+    "code": "W14A",
+    "sign": "𓏀",
+    "description": "Eau jarre avec eau",
+    "transliteration": "side area (jmw), side (gs); prsurnciation: m, m, gs"
+  },
+  {
+    "code": "W15",
+    "sign": "𓏁",
+    "description": "Eau jarre avec étagère",
+    "transliteration": "clean (qbḥ) (surly jdéogramme)"
+  },
+  {
+    "code": "W16",
+    "sign": "𓏂",
+    "description": "Eau jarre avec étagère",
+    "transliteration": "Libation (qbḥ), (qbb)"
+  },
+  {
+    "code": "W17",
+    "sign": "𓏃",
+    "description": "Eau jarre avec étagère",
+    "transliteration": "eau pitchers dans le se tenir debout (ḫntw), first ḫnt (j); prsurnciation: ḫnt"
+  },
+  {
+    "code": "W17A",
+    "sign": "𓏄",
+    "description": "",
+    "transliteration": "eau pitchers dans le se tenir debout (ḫntw), first ḫnt (j); prsurnciation: ḫnt"
+  },
+  {
+    "code": "W18",
+    "sign": "𓏅",
+    "description": "Eau jarre avec étagère",
+    "transliteration": "eau pitchers dans le se tenir debout (ḫntw), first ḫnt (j); prsurnciation: ḫnt"
+  },
+  {
+    "code": "W18A",
+    "sign": "𓏆",
+    "description": "",
+    "transliteration": "eau pitchers dans le se tenir debout (ḫntw), first ḫnt (j); prsurnciation: ḫnt"
+  },
+  {
+    "code": "W19",
+    "sign": "𓏇",
+    "description": "Lait cruche avec hetle",
+    "transliteration": "mj"
+  },
+  {
+    "code": "W20",
+    "sign": "𓏈",
+    "description": "Lait cruche avec csur",
+    "transliteration": "milk (jrṯt), milk csurtadanser et csurtents"
+  },
+  {
+    "code": "W21",
+    "sign": "𓏉",
+    "description": "Vdans jarres",
+    "transliteration": "wdanse (jrp)"
+  },
+  {
+    "code": "W22",
+    "sign": "𓏊",
+    "description": "Bière cruche",
+    "transliteration": "bière (ḥnqt), csurtadansers et its csurtents, trimaise (jnw), victim, attendant (wdpw)"
+  },
+  {
+    "code": "W23",
+    "sign": "𓏋",
+    "description": "Bière cruche",
+    "transliteration": "surtadanser (qrḥt), csurtadansers et their csurtents"
+  },
+  {
+    "code": "W24",
+    "sign": "𓏌",
+    "description": "Pot",
+    "transliteration": "nw, jn * (accompanjes le sjgns Aa-27 et Aa-28) get (jnj); prsurnciation: nw<br />qd<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "W24A",
+    "sign": "𓏍",
+    "description": "Trois pots",
+    "transliteration": "nw, jn * (accompanjes le sjgns Aa-27 et Aa-28) get (jnj); prsurnciation: nw<br />qd<br />([[Egyptian biliteral signs"
+  },
+  {
+    "code": "W25",
+    "sign": "𓏎",
+    "description": "Pot avec jambes",
+    "transliteration": "jnj"
+  },
+  {
+    "code": "X1",
+    "sign": "𓏏",
+    "description": "Miche de douleur",
+    "transliteration": "t"
+  },
+  {
+    "code": "X2",
+    "sign": "𓏐",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "X3",
+    "sign": "𓏑",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "X4",
+    "sign": "𓏒",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "X4A",
+    "sign": "𓏓",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "X4B",
+    "sign": "𓏔",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "X5",
+    "sign": "𓏕",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "X6",
+    "sign": "𓏖",
+    "description": "Miche avec decouation",
+    "transliteration": "pꜣt<br />(phsureme pꜣ)"
+  },
+  {
+    "code": "X6A",
+    "sign": "𓏗",
+    "description": "",
+    "transliteration": "pꜣt<br />(phsureme pꜣ)"
+  },
+  {
+    "code": "X7",
+    "sign": "𓏘",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "X8",
+    "sign": "𓏙",
+    "description": "Csure en pourme de douleur",
+    "transliteration": "ḏj"
+  },
+  {
+    "code": "X8A",
+    "sign": "𓏚",
+    "description": "",
+    "transliteration": "ḏj"
+  },
+  {
+    "code": "Y1",
+    "sign": "𓏛",
+    "description": "papyrus roll lié hiéroglyphe",
+    "transliteration": "papyrus rouleau, book (mḏꜣt); prsurnciation: mḏꜣ-t<br />mḏꜣt"
+  },
+  {
+    "code": "Y1A",
+    "sign": "𓏜",
+    "description": "",
+    "transliteration": "papyrus rouleau, book (mḏꜣt); prsurnciation: mḏꜣ-t<br />mḏꜣt"
+  },
+  {
+    "code": "Y2",
+    "sign": "𓏝",
+    "description": "",
+    "transliteration": "papyrus rouleau, book (mḏꜣt)"
+  },
+  {
+    "code": "Y3",
+    "sign": "𓏳",
+    "description": "Équipement de scribe",
+    "transliteration": "écriture (mnhd); scribe (sš); être lisse (snꜥꜥ)"
+  },
+  {
+    "code": "Y4",
+    "sign": "𓏴",
+    "description": "Équipement de scribe",
+    "transliteration": "variante de Y3"
+  },
+  {
+    "code": "Y5",
+    "sign": "𓏠",
+    "description": "Senet plateau",
+    "transliteration": "prsurnciation: mn"
+  },
+  {
+    "code": "Y6",
+    "sign": "𓏡",
+    "description": "Jeu pièce hiéroglyphe",
+    "transliteration": "game figure (jbꜣ) abréviation pour danseur (jbꜣ); prsurnciation: jbꜣ"
+  },
+  {
+    "code": "Y7",
+    "sign": "𓏢",
+    "description": "Harpe",
+    "transliteration": "harp; prsurnciation: bjnt"
+  },
+  {
+    "code": "Y8",
+    "sign": "𓏣",
+    "description": "Sistre",
+    "transliteration": "Sistrum (sššt); prsurnciation: sš, sššt<br />(aldsurc sḫm)"
+  },
+  {
+    "code": "Z1",
+    "sign": "𓏤",
+    "description": "Unique trait",
+    "transliteration": "sdansgulierity, Egyptian numeral 1"
+  },
+  {
+    "code": "Z2",
+    "sign": "𓏥",
+    "description": "Pluriel trait houizsurtal",
+    "transliteration": ""
+  },
+  {
+    "code": "Z2A",
+    "sign": "𓏦",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z2B",
+    "sign": "𓏧",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z2C",
+    "sign": "𓏨",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z2D",
+    "sign": "𓏩",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z3",
+    "sign": "𓏪",
+    "description": "Pluriel traits vertical",
+    "transliteration": ""
+  },
+  {
+    "code": "Z3A",
+    "sign": "𓏫",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z3B",
+    "sign": "𓏬",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z4",
+    "sign": "𓏭",
+    "description": "Dual trait",
+    "transliteration": "Egyptian numeral 2,; prsurnciation: pour j (y) (surly si enddansg dsurcunds ljke a dual enddansg)"
+  },
+  {
+    "code": "Z4A",
+    "sign": "𓏮",
+    "description": "",
+    "transliteration": "Egyptian numeral 2,; prsurnciation: pour j (y) (surly si enddansg dsurcunds ljke a dual enddansg)"
+  },
+  {
+    "code": "Z5",
+    "sign": "𓏯",
+    "description": "Trait diil y anal de hiératique",
+    "transliteration": ""
+  },
+  {
+    "code": "Z5A",
+    "sign": "𓏰",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z6",
+    "sign": "𓏱",
+    "description": "Substitute pour various humain figures",
+    "transliteration": "pour mout, die (mwt)"
+  },
+  {
+    "code": "Z7",
+    "sign": "𓏲",
+    "description": "Coil hiéroglyphe",
+    "transliteration": "prsurnciation: w ou (u)"
+  },
+  {
+    "code": "Z8",
+    "sign": "𓏳",
+    "description": "Ovale",
+    "transliteration": "round (šnw)"
+  },
+  {
+    "code": "Z9",
+    "sign": "𓏴",
+    "description": "Croisé diil y anal bâàns",
+    "transliteration": "destroy (ḥḏj), break, divide (wpj), sur charger (ḏꜣj), cross, meet; prsurnciation: swꜣ, sḏ, ḫbs, šbn, wp, wr"
+  },
+  {
+    "code": "Z10",
+    "sign": "𓏵",
+    "description": "Croisé diil y anal bâàns",
+    "transliteration": "destroy (ḥḏj), break, divide (wpj), sur charger (ḏꜣj), cross, meet; prsurnciation: swꜣ, sḏ, ḫbs, šbn, wp, wr"
+  },
+  {
+    "code": "Z11",
+    "sign": "𓏶",
+    "description": "Deux planks et croisé jodansed",
+    "transliteration": "prsurnciation: imi"
+  },
+  {
+    "code": "Z12",
+    "sign": "𓏷",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z13",
+    "sign": "𓏸",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z14",
+    "sign": "𓏹",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z15",
+    "sign": "𓏺",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z15A",
+    "sign": "𓏻",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z15B",
+    "sign": "𓏼",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z15C",
+    "sign": "𓏽",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z15D",
+    "sign": "𓏾",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z15E",
+    "sign": "𓏿",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z15F",
+    "sign": "𓐀",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z15G",
+    "sign": "𓐁",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z15H",
+    "sign": "𓐂",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z15I",
+    "sign": "𓐃",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z16",
+    "sign": "𓐄",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z16A",
+    "sign": "𓐅",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z16B",
+    "sign": "𓐆",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z16C",
+    "sign": "𓐇",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z16D",
+    "sign": "𓐈",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z16E",
+    "sign": "𓐉",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z16F",
+    "sign": "𓐊",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z16G",
+    "sign": "𓐋",
+    "description": "",
+    "transliteration": ""
+  },
+  {
+    "code": "Z16H",
+    "sign": "𓐌",
+    "description": "",
+    "transliteration": ""
+  }
+]

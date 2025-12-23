@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hierotranslate — Dictionnaire de l'Égyptien Ancien</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Dictionnaire de l'égyptien ancien : traduction hiéroglyphes ↔ translittération ↔ français. Liste complète des signes Gardiner, exercices interactifs et outils pour égyptologues.">
+    <meta name="keywords"
+        content="hiéroglyphes, égyptien ancien, translittération, Gardiner, dictionnaire, égyptologie, pharaon">
+    <meta name="author" content="Jules Charcosset">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Hierotranslate — Dictionnaire de l'Égyptien Ancien">
+    <meta property="og:description"
+        content="Traduisez hiéroglyphes, translittération et français. Liste complète des signes Gardiner avec exercices interactifs.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Gentium+Plus:ital@0;1&family=Source+Sans+3:wght@400;500;600&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="gardiner.css">
+</head>
+
+<body>
+    <!-- Overlay Onboarding (premier usage) -->
+    <div id="onboarding-overlay" class="overlay hidden">
+        <div class="overlay-content onboarding-content">
+            <button class="overlay-close" onclick="closeOnboarding()">&times;</button>
+            <div class="onboarding-header">
+                <span class="onboarding-emoji">𓂀</span>
+                <h1>Bienvenue sur Hierotranslate !</h1>
+            </div>
+            <div class="onboarding-body">
+                <div class="onboarding-step">
+                    <span class="step-number">1</span>
+                    <div class="step-content">
+                        <h4>Recherchez un terme</h4>
+                        <p>Tapez une translittération (ex: <strong>nfr</strong>) ou un mot français (ex:
+                            <strong>beau</strong>)
+                        </p>
+                    </div>
+                </div>
+                <div class="onboarding-step">
+                    <span class="step-number">2</span>
+                    <div class="step-content">
+                        <h4>Utilisez le clavier spécial</h4>
+                        <p>Les caractères égyptiens spéciaux (ꜣ, ḥ, ḫ...) sont accessibles via le clavier ci-dessous</p>
+                    </div>
+                </div>
+                <div class="onboarding-step">
+                    <span class="step-number">3</span>
+                    <div class="step-content">
+                        <h4>Explorez les signes Gardiner</h4>
+                        <p>Consultez la liste complète des signes avec leurs descriptions détaillées</p>
+                    </div>
+                </div>
+            </div>
+            <button class="onboarding-start-btn" onclick="closeOnboarding()">Commencer l'exploration 𓃭</button>
+        </div>
+    </div>
+
+    <!-- Overlay "À propos" -->
+    <div id="about-overlay" class="overlay hidden">
+        <div class="overlay-content">
+            <button class="overlay-close" onclick="closeOverlay()">&times;</button>
+
+            <div class="overlay-header">
+                <div class="hieroglyph-animation" id="hiero-animation"></div>
+                <h1>Hierotranslate</h1>
+                <p class="tagline">Dictionnaire de l'Égyptien Ancien</p>
+            </div>
+
+            <div class="overlay-body">
+                <section class="about-section">
+                    <h3>À propos</h3>
+                    <p>Hierotranslate est votre compagnon pour l'exploration de l'égyptien ancien.</p>
+                    <ul class="features-list">
+                        <li>Traduction translittération ↔ hiéroglyphes ↔ français</li>
+                        <li>Liste complète des signes Gardiner avec détails</li>
+                        <li>Historique personnalisé de vos recherches</li>
+                        <li>Exercices d'apprentissage interactifs</li>
+                        <li>Forum de discussion entre passionnés</li>
+                        <li>Sources et bibliographie égyptologique</li>
+                    </ul>
+                </section>
+
+                <section class="about-section">
+                    <h3>Contact</h3>
+                    <p>Pour toute question ou suggestion :</p>
+                    <p class="contact-email">hierotranslate@gmail.com</p>
+                </section>
+            </div>
+
+            <div class="overlay-footer">
+                <p>© 2024 Hierotranslate</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay "Connexion / Inscription" -->
+    <div id="auth-overlay" class="overlay hidden">
+        <div class="overlay-content auth-content">
+            <button class="overlay-close" onclick="closeAuthOverlay()">&times;</button>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Connexion</button>
+                <button class="auth-tab" onclick="switchAuthTab('register')">Inscription</button>
+            </div>
+
+            <!-- Formulaire Connexion -->
+            <div id="login-form-container" class="auth-form-container">
+                <h2>Bon retour</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-identifier">Email ou Identifiant</label>
+                        <input type="text" id="login-identifier" required placeholder="ex: scribe777">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Mot de passe</label>
+                        <input type="password" id="login-password" required placeholder="••••••••">
+                    </div>
+                    <div class="form-error hidden" id="login-error"></div>
+                    <button type="submit" class="auth-submit-btn">Se connecter</button>
+                </form>
+            </div>
+
+            <!-- Formulaire Inscription -->
+            <div id="register-form-container" class="auth-form-container hidden">
+                <h2>Créer un compte</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-username">Identifiant</label>
+                        <input type="text" id="register-username" required placeholder="ex: Champollion">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required placeholder="votre@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Mot de passe (6 min.)</label>
+                        <input type="password" id="register-password" required placeholder="••••••••" minlength="6">
+                    </div>
+                    <div class="form-error hidden" id="register-error"></div>
+                    <button type="submit" class="auth-submit-btn">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals d'édition (remplace l'overlay unique) -->
+    <div id="edit-username-modal" class="overlay hidden">
+        <div class="overlay-content edit-modal-content">
+            <button class="overlay-close" onclick="closeEditModal('username')">&times;</button>
+            <h2>Modifier l'identifiant</h2>
+            <form onsubmit="handleUpdateField(event, 'username')">
+                <div class="form-group">
+                    <label for="edit-username-input">Nouvel identifiant</label>
+                    <input type="text" id="edit-username-input" required>
+                </div>
+                <div class="form-error hidden" id="edit-username-error"></div>
+                <button type="submit" class="auth-submit-btn">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-email-modal" class="overlay hidden">
+        <div class="overlay-content edit-modal-content">
+            <button class="overlay-close" onclick="closeEditModal('email')">&times;</button>
+            <h2>Modifier l'email</h2>
+            <form onsubmit="handleUpdateField(event, 'email')">
+                <div class="form-group">
+                    <label for="edit-email-input">Nouvel email</label>
+                    <input type="email" id="edit-email-input" required>
+                </div>
+                <div class="form-error hidden" id="edit-email-error"></div>
+                <button type="submit" class="auth-submit-btn">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-password-modal" class="overlay hidden">
+        <div class="overlay-content edit-modal-content">
+            <button class="overlay-close" onclick="closeEditModal('password')">&times;</button>
+            <h2>Modifier le mot de passe</h2>
+            <form onsubmit="handleUpdateField(event, 'password')">
+                <div class="form-group">
+                    <label for="edit-password-current">Mot de passe actuel</label>
+                    <input type="password" id="edit-password-current" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-password-new">Nouveau mot de passe</label>
+                    <input type="password" id="edit-password-new" required minlength="6">
+                </div>
+                <div class="form-error hidden" id="edit-password-error"></div>
+                <button type="submit" class="auth-submit-btn">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Détail d'un Signe Gardiner -->
+    <div id="sign-detail-modal" class="overlay hidden">
+        <div class="overlay-content sign-detail-content">
+            <button class="overlay-close" onclick="closeSignDetailModal()">&times;</button>
+            <div class="sign-detail-header">
+                <span id="sign-detail-char" class="sign-detail-char"></span>
+            </div>
+            <div class="sign-detail-body">
+                <div class="sign-detail-code" id="sign-detail-code"></div>
+                <div class="sign-detail-desc" id="sign-detail-desc"></div>
+                <div class="sign-detail-translit" id="sign-detail-translit"></div>
+                <div class="sign-detail-section" id="sign-detail-section-descriptif">
+                    <h4 class="sign-detail-section-title">Plus à propos de ce signe</h4>
+                    <div class="sign-detail-descriptif" id="sign-detail-descriptif"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barre de navigation -->
+    <nav class="top-nav" role="navigation" aria-label="Navigation principale">
+        <div class="nav-brand" onclick="openOverlay()">Hierotranslate</div>
+        <div class="nav-links">
+            <a href="#liste-signes" class="nav-link">Liste des signes</a>
+            <a href="#discussion" class="nav-link">Discussion</a>
+            <a href="#exercice" class="nav-link">Exercices</a>
+            <a href="#sources" class="nav-link">Sources</a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="Changer de thème"
+                aria-label="Basculer entre thème clair et sombre">
+                <span class="theme-icon">☀️</span>
+            </button>
+            <div class="auth-container">
+                <button id="auth-btn" class="nav-btn-auth" onclick="handleAuthClick()"
+                    aria-label="Connexion ou gérer votre compte">Connexion</button>
+
+                <!-- Dropdown Menu (Hidden by default) -->
+                <div id="account-dropdown" class="dropdown-menu hidden">
+                    <!-- Vue principale du compte -->
+                    <div id="dropdown-main-view" class="dropdown-view">
+                        <div class="dropdown-header">
+                            <div class="dropdown-profile-pic"
+                                onclick="document.getElementById('dropdown-profile-upload').click()">
+                                <img id="dropdown-user-pic" src="" alt="Profil" class="profile-img fallback">
+                                <div class="profile-overlay-small">Modifier</div>
+                                <input type="file" id="dropdown-profile-upload" accept="image/*" hidden>
+                            </div>
+                            <p class="dropdown-username" id="dropdown-header-name"></p>
+                            <p class="dropdown-tagline">Explorateur de hiéroglyphes</p>
+                        </div>
+
+                        <ul class="dropdown-list">
+                            <li onclick="showEditPanel('username')">
+                                <span class="icon">@</span>
+                                <div class="info">
+                                    <span class="label">Identifiant</span>
+                                    <span class="value" id="dropdown-username">User</span>
+                                </div>
+                                <span class="edit-icon">›</span>
+                            </li>
+                            <li onclick="showEditPanel('email')">
+                                <span class="icon">✉</span>
+                                <div class="info">
+                                    <span class="label">Email</span>
+                                    <span class="value" id="dropdown-email">email@test.com</span>
+                                </div>
+                                <span class="edit-icon">›</span>
+                            </li>
+                            <li onclick="showEditPanel('password')">
+                                <span class="icon">✱</span>
+                                <div class="info">
+                                    <span class="label">Mot de passe</span>
+                                    <span class="value">••••••••</span>
+                                </div>
+                                <span class="edit-icon">›</span>
+                            </li>
+                        </ul>
+
+                        <!-- Section Statistiques -->
+                        <div class="dropdown-stats">
+                            <h4 class="stats-title">Statistiques</h4>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <span class="stat-value" id="stat-search-count">0</span>
+                                    <span class="stat-label">Recherches</span>
+                                </div>
+                                <div class="stat-item stat-clickable" onclick="searchTopWord()">
+                                    <span class="stat-value" id="stat-top-word">—</span>
+                                    <span class="stat-label">Mot favori</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section Favoris -->
+                        <div class="dropdown-favorites">
+                            <h4 class="favorites-title">Favoris <span id="favorites-count">(0)</span></h4>
+                            <div id="favorites-list" class="favorites-list">
+                                <div class="favorites-empty">Aucun favori</div>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-footer">
+                            <button onclick="logout()" class="dropdown-logout-btn">Se déconnecter</button>
+                        </div>
+                    </div>
+
+                    <!-- Vue d'édition (cachée par défaut) -->
+                    <div id="dropdown-edit-view" class="dropdown-view dropdown-edit-panel hidden">
+                        <div class="edit-panel-header">
+                            <button class="edit-back-btn" onclick="hideEditPanel()">‹ Retour</button>
+                            <span class="edit-panel-title" id="edit-panel-title">Modifier</span>
+                        </div>
+                        <div class="edit-panel-content">
+                            <div id="edit-panel-username" class="edit-field-group hidden">
+                                <label>Nouvel identifiant</label>
+                                <input type="text" id="inline-edit-username" placeholder="Votre identifiant">
+                            </div>
+                            <div id="edit-panel-email" class="edit-field-group hidden">
+                                <label>Nouvel email</label>
+                                <input type="email" id="inline-edit-email" placeholder="votre@email.com">
+                            </div>
+                            <div id="edit-panel-password" class="edit-field-group hidden">
+                                <label>Mot de passe actuel</label>
+                                <div class="password-input-container">
+                                    <input type="password" id="inline-edit-password-current" placeholder="••••••••">
+                                    <button type="button" class="password-toggle"
+                                        onclick="togglePasswordVisibility('inline-edit-password-current', this)">👁</button>
+                                </div>
+                                <label style="margin-top: 10px;">Nouveau mot de passe</label>
+                                <div class="password-input-container">
+                                    <input type="password" id="inline-edit-password-new" placeholder="••••••••">
+                                    <button type="button" class="password-toggle"
+                                        onclick="togglePasswordVisibility('inline-edit-password-new', this)">👁</button>
+                                </div>
+                            </div>
+                            <div class="edit-error hidden" id="inline-edit-error"></div>
+                            <button class="edit-save-btn" onclick="saveInlineEdit()">Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <!-- Contenu principal -->
+    <!-- Contenu principal -->
+    <!-- Contenu principal -->
+    <main class="main-container">
+
+        <div class="split-layout">
+            <!-- Colonne Gauche : Recherche -->
+            <section class="left-column">
+                <article class="search-card">
+                    <header class="card-header">
+                        <h1>Dictionnaire de l'Égyptien Ancien</h1>
+                        <p class="subtitle">Recherchez par translittération ou par mot français</p>
+                    </header>
+
+                    <div class="search-area">
+                        <input type="text" id="main-input"
+                            placeholder="Tapez un mot français : soleil, roi, eau, maison..."
+                            aria-label="Rechercher une translittération ou un mot français" role="searchbox">
+                        <div id="search-loader" class="search-loader hidden">
+                            <span class="loader-spinner"></span>
+                        </div>
+                        <span class="search-hint">💡 Essayez : soleil, beau, maison, eau, dieu, vie</span>
+                    </div>
+
+                    <div id="hieroglyph-keyboard" class="keyboard visible" role="toolbar"
+                        aria-label="Clavier de translittération égyptienne"></div>
+                    <div id="propositions-list" class="propositions-container hidden"></div>
+                </article>
+            </section>
+
+            <!-- Colonne Droite : Résultats et Historique -->
+            <section class="right-column">
+                <!-- Résultats -->
+                <article class="result-card">
+                    <div class="result-header">
+                        <h2>Résultat</h2>
+                        <span class="word-count" id="word-count">— mots</span>
+                    </div>
+                    <div class="result-content">
+                        <div class="result-row">
+                            <p class="hiero-result" id="result-hiero"></p>
+                            <button class="copy-btn" onclick="copyToClipboard('result-hiero', this)"
+                                title="Copier les hiéroglyphes"
+                                aria-label="Copier les hiéroglyphes dans le presse-papier">
+                                <span class="copy-icon">📋</span>
+                            </button>
+                        </div>
+                        <div class="result-row">
+                            <p class="french-result" id="result-french"></p>
+                            <button class="copy-btn" onclick="copyToClipboard('result-french', this)"
+                                title="Copier la traduction" aria-label="Copier la traduction dans le presse-papier">
+                                <span class="copy-icon">📋</span>
+                            </button>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite()" title="Ajouter aux favoris"
+                            id="result-favorite" aria-label="Ajouter ou retirer des favoris">
+                            <span class="favorite-icon">☆</span>
+                            <span class="favorite-text">Ajouter aux favoris</span>
+                        </button>
+                        <button class="share-btn-small" onclick="shareResult()" title="Partager ce résultat"
+                            aria-label="Copier le lien de partage">
+                            🔗
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Historique -->
+                <article class="history-card">
+                    <div class="history-header">
+                        <h2>Historique</h2>
+                        <button class="clear-history-btn" onclick="clearHistory()"
+                            title="Effacer l'historique">🗑️</button>
+                    </div>
+                    <div id="history-list" class="history-list">
+                        <!-- Les items d'historique seront injectés ici par JS -->
+                        <div class="history-empty">Aucune recherche récente</div>
+                    </div>
+                </article>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Sections (à développer) -->
+    <section id="liste-signes" class="page-section hidden">
+        <a href="#" class="back-link-fixed" onclick="hideSection('liste-signes')">← Retour</a>
+        <article class="translator-card signs-container-card">
+            <h1>Liste des signes hiéroglyphiques (Gardiner)</h1>
+            <p>Liste des signes avec leur translittération et description. Total : <span id="gardiner-count"
+                    style="font-weight:bold;">...</span> signes.</p>
+
+            <div class="gardiner-controls">
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="setGardinerView('grid')" title="Vue grille">
+                        <span>▦</span>
+                    </button>
+                    <button class="view-btn" onclick="setGardinerView('table')" title="Vue tableau">
+                        <span>☰</span>
+                    </button>
+                </div>
+                <div class="sort-controls">
+                    <label>Trier par :</label>
+                    <select id="gardiner-sort" onchange="sortGardinerSigns()">
+                        <option value="code">Code</option>
+                        <option value="translit">Translittération</option>
+                        <option value="description">Description</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="search-filters" style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="gardiner-search" placeholder="Rechercher un signe (code, description...)"
+                    style="flex: 1; min-width: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                <select id="gardiner-category" onchange="filterByCategory()" class="category-select">
+                    <option value="">Toutes les catégories</option>
+                    <option value="A">A - Homme</option>
+                    <option value="B">B - Femme</option>
+                    <option value="C">C - Divinités</option>
+                    <option value="D">D - Parties du corps humain</option>
+                    <option value="E">E - Mammifères</option>
+                    <option value="F">F - Parties de mammifères</option>
+                    <option value="G">G - Oiseaux</option>
+                    <option value="H">H - Parties d'oiseaux</option>
+                    <option value="I">I - Reptiles</option>
+                    <option value="K">K - Poissons</option>
+                    <option value="L">L - Invertébrés</option>
+                    <option value="M">M - Arbres et plantes</option>
+                    <option value="N">N - Ciel, terre, eau</option>
+                    <option value="O">O - Bâtiments</option>
+                    <option value="P">P - Bateaux</option>
+                    <option value="Q">Q - Mobilier</option>
+                    <option value="R">R - Objets de culte</option>
+                    <option value="S">S - Couronnes et insignes</option>
+                    <option value="T">T - Armes et outils</option>
+                    <option value="U">U - Agriculture</option>
+                    <option value="V">V - Cordes et paniers</option>
+                    <option value="W">W - Vases</option>
+                    <option value="X">X - Pains et gâteaux</option>
+                    <option value="Y">Y - Écriture et jeux</option>
+                    <option value="Z">Z - Traits et formes</option>
+                    <option value="Aa">Aa - Non classés</option>
+                </select>
+            </div>
+
+            <div id="gardiner-list-container" class="gardiner-grid">
+                <!-- Les signes seront injectés ici par JS -->
+                <div class="loading-spinner">Chargement...</div>
+            </div>
+        </article>
+    </section>
+
+    <section id="discussion" class="page-section hidden">
+        <a href="#" class="back-link-fixed" onclick="hideSection('discussion')">← Retour</a>
+        <article class="translator-card placeholder-section">
+            <div class="placeholder-icon">💬</div>
+            <h1>Espace de discussion</h1>
+            <p>Forum d'échange autour de l'égyptien ancien.</p>
+            <div class="coming-soon-badge">Bientôt disponible</div>
+            <p class="placeholder-desc">Cet espace permettra bientôt aux passionnés d'égyptologie d'échanger, poser des
+                questions et partager leurs découvertes sur les hiéroglyphes.</p>
+        </article>
+    </section>
+
+    <section id="exercice" class="page-section hidden">
+        <a href="#" class="back-link-fixed" onclick="hideSection('exercice')">← Retour</a>
+
+        <div class="exercise-layout">
+            <!-- Leaderboard à gauche -->
+            <aside class="leaderboard-card">
+                <h3 class="leaderboard-title">🏆 Classement</h3>
+                <p class="leaderboard-category" id="leaderboard-category">Identifier • Translittération</p>
+                <div class="leaderboard-list" id="leaderboard-list">
+                    <!-- Généré par JS -->
+                    <div class="leaderboard-empty">Aucun score enregistré</div>
+                </div>
+                <div class="leaderboard-your-score">
+                    <span>Votre meilleur :</span>
+                    <strong id="your-best-score">—</strong>
+                </div>
+            </aside>
+
+            <!-- Quiz au centre -->
+            <article class="translator-card exercise-card">
+                <h1>Exercices pratiques</h1>
+                <p>Testez vos connaissances en égyptien ancien !</p>
+
+                <div class="quiz-tabs">
+                    <button class="quiz-tab active" onclick="switchQuizType('sign')">Identifier le signe</button>
+                    <button class="quiz-tab" onclick="switchQuizType('translate')">Traduire le signe</button>
+                </div>
+
+                <!-- Sous-mode : Translittération ou Description -->
+                <div class="quiz-mode-toggle">
+                    <button class="quiz-mode active" onclick="switchQuizMode('translit')">Translittération</button>
+                    <button class="quiz-mode" onclick="switchQuizMode('description')">Description</button>
+                </div>
+
+                <div id="quiz-container" class="quiz-container">
+                    <!-- Quiz Sign -->
+                    <div id="quiz-sign" class="quiz-panel active">
+                        <div class="quiz-question">
+                            <span class="quiz-hiero" id="quiz-sign-char">𓀀</span>
+                            <p id="quiz-sign-prompt">Quelle est la translittération de ce signe ?</p>
+                        </div>
+                        <div class="quiz-options" id="quiz-sign-options">
+                            <!-- Options générées par JS -->
+                        </div>
+                    </div>
+
+                    <!-- Quiz Translate -->
+                    <div id="quiz-translate" class="quiz-panel">
+                        <div class="quiz-question">
+                            <span class="quiz-hiero" id="quiz-translate-char">𓂋𓏤</span>
+                            <p id="quiz-translate-prompt">Écrivez la translittération :</p>
+                        </div>
+                        <input type="text" id="quiz-translate-input" class="quiz-input"
+                            placeholder="Ex: ꜥnḫ, nfr, pr...">
+
+                        <!-- Clavier complet pour translittération -->
+                        <div class="quiz-keyboard" id="quiz-keyboard">
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('ꜣ')">ꜣ</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('j')">j</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('y')">y</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('ꜥ')">ꜥ</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('w')">w</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('b')">b</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('p')">p</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('f')">f</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('m')">m</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('n')">n</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('r')">r</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('h')">h</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('ḥ')">ḥ</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('ḫ')">ḫ</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('ẖ')">ẖ</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('s')">s</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('š')">š</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('q')">q</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('k')">k</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('g')">g</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('t')">t</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('ṯ')">ṯ</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('d')">d</button>
+                            <button type="button" class="quiz-key" onclick="insertQuizChar('ḏ')">ḏ</button>
+                        </div>
+
+                        <button class="quiz-submit-btn" onclick="checkTranslation()">Vérifier</button>
+                    </div>
+                </div>
+
+                <div class="quiz-feedback hidden" id="quiz-feedback">
+                    <span class="feedback-icon"></span>
+                    <span class="feedback-text"></span>
+                </div>
+
+                <div class="quiz-score">
+                    <span>Score : <strong id="quiz-score">0</strong> / <strong id="quiz-total">0</strong></span>
+                    <button class="quiz-reset-btn" onclick="resetQuiz()">Recommencer</button>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section id="discussion" class="page-section hidden">
+        <article class="translator-card">
+            <h1>Espace de discussion</h1>
+            <p>Forum d'échange autour de l'égyptien ancien.</p>
+            <a href="#" class="back-link" onclick="hideSection('discussion')">← Retour</a>
+        </article>
+    </section>
+
+    <section id="sources" class="page-section hidden">
+        <article class="translator-card">
+            <h1>Bibliographie et sources</h1>
+            <p>Références utilisées pour ce dictionnaire.</p>
+            <a href="#" class="back-link" onclick="hideSection('sources')">← Retour</a>
+        </article>
+    </section>
+
+    <!-- Crédit -->
+    <footer class="site-credit">Created by Jules Charcosset</footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

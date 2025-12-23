@@ -1,0 +1,242 @@
+/* Gardiner Sign List Styles */
+
+.back-link-fixed {
+    position: fixed;
+    left: 20px;
+    top: 100px;
+    text-decoration: none;
+    font-size: 1rem;
+    z-index: 100;
+    transition: opacity 0.2s;
+}
+
+.back-link-fixed:hover {
+    opacity: 0.7;
+}
+
+.category-select {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    background: white;
+    cursor: pointer;
+    min-width: 180px;
+    transition: border-color 0.2s;
+}
+
+.category-select:hover,
+.category-select:focus {
+    border-color: var(--accent, #c9a227);
+    outline: none;
+}
+
+[data-theme="dark"] .category-select {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+
+.signs-container-card {
+    max-width: 1200px !important;
+    /* Wider card for 3 columns */
+}
+
+.gardiner-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.sign-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.sign-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.sign-char {
+    font-family: 'Noto Sans Egyptian Hieroglyphs', sans-serif;
+    font-size: 2.5rem;
+    margin-right: 15px;
+    min-width: 60px;
+    text-align: center;
+    color: var(--primary);
+}
+
+.sign-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-code {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.sign-desc {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.sign-item {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sign-item:hover {
+    transform: translateY(-2px);
+}
+
+/* Modal Détail Signe */
+.sign-detail-content {
+    max-width: 500px;
+    text-align: center;
+    padding: 40px 35px;
+}
+
+.sign-detail-header {
+    margin-bottom: 16px;
+}
+
+.sign-detail-char {
+    font-family: 'Noto Sans Egyptian Hieroglyphs', sans-serif;
+    font-size: 6rem;
+    color: var(--primary);
+    line-height: 1;
+    display: block;
+}
+
+.sign-detail-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sign-detail-code {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.sign-detail-desc {
+    font-size: 1.1rem;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.sign-detail-translit {
+    font-family: 'Gentium Plus', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-light);
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+}
+
+.sign-detail-section {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.sign-detail-section-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sign-detail-descriptif {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.6;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.03);
+    padding: 15px;
+    border-radius: 8px;
+    white-space: pre-wrap;
+}
+
+.sign-detail-descriptif:empty {
+    display: none;
+}
+
+.sign-detail-section:has(.sign-detail-descriptif:empty) {
+    display: none;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.pagination-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: var(--accent, #c9a227);
+    color: white;
+    border-color: var(--accent, #c9a227);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+[data-theme="dark"] .pagination-btn {
+    background: var(--bg-tertiary);
+    border-color: var(--border);
+    color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gardiner-grid {
+        grid-template-columns: 1fr;
+        /* Stack on mobile */
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .pagination-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
