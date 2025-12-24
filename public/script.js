@@ -293,6 +293,33 @@ transliterationKeys.forEach(key => {
 });
 
 
+// === FONCTION D'EMPILEMENT VERTICAL DES HIÉROGLYPHES ===
+// Affiche chaque signe l'un au-dessus de l'autre
+function createStackedHieroglyphs(hieroglyphString) {
+    if (!hieroglyphString || hieroglyphString.length === 0) {
+        return '';
+    }
+
+    // Séparer chaque caractère Unicode (les hiéroglyphes peuvent être sur plusieurs bytes)
+    const signs = [...hieroglyphString];
+
+    if (signs.length === 1) {
+        // Un seul signe, pas besoin d'empiler
+        return `<span style="font-size: 3em; font-family: 'Noto Sans Egyptian Hieroglyphs', sans-serif;">${signs[0]}</span>`;
+    }
+
+    // Plusieurs signes: les empiler verticalement
+    const stackedSigns = signs.map(sign =>
+        `<div style="line-height: 1; font-family: 'Noto Sans Egyptian Hieroglyphs', sans-serif;">${sign}</div>`
+    ).join('');
+
+    return `
+        <div style="display: inline-flex; flex-direction: column; align-items: center; font-size: 2em; vertical-align: middle; background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); padding: 10px 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-right: 15px;">
+            ${stackedSigns}
+        </div>
+    `;
+}
+
 // 2. Fonction de recherche et de Traduction
 function performTranslation() {
     const searchTerm = mainInput.value.trim().toLowerCase();
@@ -318,8 +345,10 @@ function performTranslation() {
         .then(data => {
             hideSearchLoader();
             if (data.success) {
-                // Succès : affiche les données reçues
-                resultHiero.textContent = `Hiéroglyphes: ${data.data.hieroglyphes} (${data.data.translitteration})`;
+                // Succès : affiche les données reçues avec hiéroglyphes empilés verticalement
+                const hieroglyphs = data.data.hieroglyphes || '';
+                const stackedHiero = createStackedHieroglyphs(hieroglyphs);
+                resultHiero.innerHTML = stackedHiero + ` <span style="font-size: 0.5em; vertical-align: middle;">(${data.data.translitteration})</span>`;
                 resultFrench.textContent = `Traduction: ${data.data.francais} `;
 
                 // Ajouter à l'historique
