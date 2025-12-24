@@ -314,7 +314,7 @@ function createStackedHieroglyphs(hieroglyphString) {
         const style = isZ1
             ? 'transform: scaleX(1.3); font-weight: bold;'
             : '';
-        return `<span style="display: block; line-height: 0.75; text-align: center; ${style}">${sign}</span>`;
+        return `<span style="display: block; line-height: 0.6; text-align: center; ${style}">${sign}</span>`;
     }).join('');
 
     return `<span style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle;">${stackedSigns}</span>`;
@@ -431,7 +431,7 @@ function renderPropositions(items) {
                 <span class="p-translit">${item.translitteration}</span>
                 <span class="p-french">${item.francais}</span>
             </div>
-            <span class="p-hiero">${item.hieroglyphes || ''}</span>
+            <span class="p-hiero">${createStackedHieroglyphs(item.hieroglyphes || '')}</span>
         `;
 
         div.onclick = () => {
