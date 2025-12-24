@@ -10,6 +10,7 @@ export default function AdminGardinerPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [editingSign, setEditingSign] = useState(null);
     const [message, setMessage] = useState('');
+    const [scrollPosition, setScrollPosition] = useState(0);
 
     const ADMIN_PASSWORD = 'Chamalo77850!';
 
@@ -44,6 +45,8 @@ export default function AdminGardinerPage() {
     }, []);
 
     const handleEdit = (sign) => {
+        // Sauvegarder la position de scroll avant d'ouvrir le modal
+        setScrollPosition(window.scrollY);
         setEditingSign({ ...sign });
     };
 
@@ -56,9 +59,14 @@ export default function AdminGardinerPage() {
         );
         setSigns(updatedSigns);
         setEditingSign(null);
-        setMessage('✅ Modification enregistrée localement. Téléchargez le JSON pour sauvegarder définitivement.');
+        setMessage('✅ Modification enregistrée localement. Téléchargez le JSON pour sauvegarder.');
 
-        setTimeout(() => setMessage(''), 5000);
+        // Restaurer la position de scroll après fermeture du modal
+        setTimeout(() => {
+            window.scrollTo(0, scrollPosition);
+        }, 50);
+
+        setTimeout(() => setMessage(''), 3000);
     };
 
     const handleDownloadJSON = () => {
@@ -207,8 +215,8 @@ export default function AdminGardinerPage() {
                     <span style={styles.colAction}>Action</span>
                 </div>
 
-                {filteredSigns.slice(0, 100).map((sign, i) => (
-                    <div key={sign.code || i} style={styles.tableRow}>
+                {filteredSigns.map((sign, i) => (
+                    <div key={sign.code || i} id={`sign-${sign.code}`} style={styles.tableRow}>
                         <span style={styles.colSign}>{sign.sign}</span>
                         <span style={styles.colCode}>{sign.code}</span>
                         <span style={{ ...styles.colTranslit, color: sign.transliteration ? '#27ae60' : '#e74c3c' }}>
@@ -224,11 +232,7 @@ export default function AdminGardinerPage() {
                 ))}
             </div>
 
-            {filteredSigns.length > 100 && (
-                <p style={styles.moreInfo}>
-                    Affichage limité à 100 signes. Utilisez la recherche pour trouver un signe spécifique.
-                </p>
-            )}
+
 
             <footer style={styles.footer}>
                 <a href="/" style={styles.footerLink}>← Retour au traducteur</a>
