@@ -698,21 +698,44 @@ const accountOverlay = document.getElementById('account-overlay');
 const authBtn = document.getElementById('auth-btn');
 
 let currentUser = null;
+let authToken = localStorage.getItem('authToken');
+
+// Obtenir les headers d'authentification
+function getAuthHeaders() {
+    const headers = { 'Content-Type': 'application/json' };
+    if (authToken) {
+        headers['Authorization'] = `Bearer ${authToken}`;
+    }
+    return headers;
+}
 
 // Vérifier si l'utilisateur est connecté au chargement
 function checkAuth() {
-    fetch('/api/auth/me')
+    if (!authToken) {
+        currentUser = null;
+        updateAuthUI(false);
+        return;
+    }
+
+    fetch('/api/auth/profile', {
+        headers: getAuthHeaders()
+    })
         .then(response => response.json())
         .then(data => {
-            if (data.success && data.logged_in) {
+            if (data.success) {
                 currentUser = data.user;
                 updateAuthUI(true);
+                loadUserFavorites();
+                loadUserHistory();
             } else {
-                currentUser = null;
-                updateAuthUI(false);
+                // Token invalide, déconnecter
+                logout();
             }
         })
-        .catch(err => console.error(err));
+        .catch(err => {
+            console.error(err);
+            logout();
+        });
 }
 
 // Mettre à jour l'interface selon l'état de connexion
@@ -792,14 +815,19 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
         .then(res => res.json())
         .then(data => {
             if (data.success) {
+                // Stocker le token JWT
+                authToken = data.token;
+                localStorage.setItem('authToken', authToken);
                 currentUser = data.user;
                 updateAuthUI(true);
                 closeAuthOverlay();
+                loadUserFavorites();
+                loadUserHistory();
                 // Reset form
                 this.reset();
                 errorDiv.classList.add('hidden');
             } else {
-                errorDiv.textContent = data.message;
+                errorDiv.textContent = data.error || 'Erreur de connexion';
                 errorDiv.classList.remove('hidden');
             }
         })
@@ -825,12 +853,18 @@ document.getElementById('register-form').addEventListener('submit', function (e)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                alert('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
-                switchAuthTab('login');
+                // Stocker le token JWT
+                authToken = data.token;
+                localStorage.setItem('authToken', authToken);
+                currentUser = data.user;
+                updateAuthUI(true);
+                closeAuthOverlay();
+                // Message de bienvenue avec info email
+                alert('Compte créé avec succès ! ' + (data.emailSent ? 'Un email de vérification vous a été envoyé.' : 'Vérifiez votre email pour activer votre compte.'));
                 this.reset();
                 errorDiv.classList.add('hidden');
             } else {
-                errorDiv.textContent = data.message;
+                errorDiv.textContent = data.error || 'Erreur lors de l\'inscription';
                 errorDiv.classList.remove('hidden');
             }
         })
@@ -1151,6 +1185,15 @@ function toggleFavorite() {
         btn.classList.remove('active');
         btn.querySelector('.favorite-icon').textContent = '☆';
         btn.querySelector('.favorite-text').textContent = 'Ajouter aux favoris';
+
+        // Sync with server if logged in
+        if (authToken) {
+            fetch('/api/user/favorites', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify({ transliteration: translit, action: 'remove' })
+            }).catch(err => console.error('Erreur sync favori:', err));
+        }
     } else {
         // Add to favorites
         favorites.unshift({ hiero, french, translit, date: Date.now() });
@@ -1158,6 +1201,15 @@ function toggleFavorite() {
         btn.classList.add('active');
         btn.querySelector('.favorite-icon').textContent = '★';
         btn.querySelector('.favorite-text').textContent = 'Dans vos favoris';
+
+        // Sync with server if logged in
+        if (authToken) {
+            fetch('/api/user/favorites', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify({ transliteration: translit })
+            }).catch(err => console.error('Erreur sync favori:', err));
+        }
     }
 
     saveFavorites(favorites);
@@ -1347,16 +1399,154 @@ function updateAuthUI(isLoggedIn) {
 }
 
 function logout() {
-    fetch('/api/auth/logout', { method: 'POST' })
+    // Clear token from localStorage
+    authToken = null;
+    localStorage.removeItem('authToken');
+    currentUser = null;
+    updateAuthUI(false);
+    resetInterface();
+    closeDropdown();
+}
+
+// === SYNC AVEC LE SERVEUR ===
+
+function loadUserFavorites() {
+    if (!authToken) return;
+
+    fetch('/api/user/favorites', {
+        headers: getAuthHeaders()
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.favorites) {
+                // Mettre à jour les favoris locaux
+                updateLocalFavorites(data.favorites);
+            }
+        })
+        .catch(err => console.error('Erreur chargement favoris:', err));
+}
+
+function loadUserHistory() {
+    if (!authToken) return;
+
+    fetch('/api/user/history', {
+        headers: getAuthHeaders()
+    })
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                currentUser = null;
-                updateAuthUI(false);
-                resetInterface(); // Remise à zéro totale
+                // Mettre à jour l'historique local
+                if (data.history) {
+                    updateLocalHistory(data.history);
+                }
+                // Mettre à jour les stats
+                if (data.stats) {
+                    updateUserStats(data.stats);
+                }
             }
-        });
+        })
+        .catch(err => console.error('Erreur chargement historique:', err));
 }
+
+function updateLocalFavorites(serverFavorites) {
+    // Mettre à jour l'affichage des favoris
+    const favoritesList = document.getElementById('favorites-list');
+    const favoritesCount = document.getElementById('favorites-count');
+
+    if (!favoritesList) return;
+
+    if (!serverFavorites || serverFavorites.length === 0) {
+        favoritesList.innerHTML = '<div class="favorites-empty">Aucun favori</div>';
+        if (favoritesCount) favoritesCount.textContent = '(0)';
+        return;
+    }
+
+    if (favoritesCount) favoritesCount.textContent = `(${serverFavorites.length})`;
+
+    favoritesList.innerHTML = serverFavorites.map(fav => `
+        <div class="favorite-item" onclick="searchFavorite('${fav.transliteration}')">
+            <span class="favorite-term">${fav.transliteration}</span>
+            <button class="remove-favorite" onclick="event.stopPropagation(); removeFavorite('${fav.transliteration}')">×</button>
+        </div>
+    `).join('');
+}
+
+function updateLocalHistory(serverHistory) {
+    const historyList = document.getElementById('history-list');
+    if (!historyList) return;
+
+    if (!serverHistory || serverHistory.length === 0) {
+        historyList.innerHTML = '<div class="history-empty">Aucune recherche récente</div>';
+        return;
+    }
+
+    historyList.innerHTML = serverHistory.slice(0, 10).map(item => `
+        <div class="history-item" onclick="searchFromHistory('${item.query}')">
+            <span class="history-query">${item.query}</span>
+            ${item.transliteration ? `<span class="history-translit">${item.transliteration}</span>` : ''}
+        </div>
+    `).join('');
+}
+
+function updateUserStats(stats) {
+    const searchCount = document.getElementById('stat-search-count');
+    const topWord = document.getElementById('stat-top-word');
+
+    if (searchCount) searchCount.textContent = stats.searchCount || 0;
+    if (topWord) topWord.textContent = stats.topWord || '—';
+}
+
+function syncSearchToServer(query, transliteration, hieroglyphs, french) {
+    if (!authToken) return;
+
+    fetch('/api/user/history', {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ query, transliteration, hieroglyphs, french })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.stats) {
+                updateUserStats(data.stats);
+            }
+        })
+        .catch(err => console.error('Erreur sync historique:', err));
+}
+
+function searchFavorite(term) {
+    const input = document.getElementById('main-input');
+    if (input) {
+        input.value = term;
+        handleSearch();
+    }
+    closeDropdown();
+}
+
+function searchFromHistory(query) {
+    const input = document.getElementById('main-input');
+    if (input) {
+        input.value = query;
+        handleSearch();
+    }
+}
+
+function removeFavorite(transliteration) {
+    if (!authToken) return;
+
+    fetch('/api/user/favorites', {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ transliteration, action: 'remove' })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                updateLocalFavorites(data.favorites);
+            }
+        })
+        .catch(err => console.error('Erreur suppression favori:', err));
+}
+
 
 // === QUIZ SYSTÈME ===
 
