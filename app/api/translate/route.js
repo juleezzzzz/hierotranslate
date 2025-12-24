@@ -1,12 +1,33 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import clientPromise from '../../../lib/mongodb';
 
-// Charger les données Gardiner
+// Charger les données Gardiner depuis le fichier JSON
 function loadGardinerData() {
-    const filePath = path.join(process.cwd(), 'public', 'gardiner_signs.json');
-    const data = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(data);
+    try {
+        const filePath = path.join(process.cwd(), 'public', 'gardiner_signs.json');
+        const data = fs.readFileSync(filePath, 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Erreur chargement JSON:', error);
+        return [];
+    }
+}
+
+// Charger les données depuis MongoDB
+async function loadMongoData() {
+    try {
+        const client = await clientPromise;
+        if (!client) return [];
+
+        const db = client.db('hierotranslate');
+        const signs = await db.collection('signs').find({}).toArray();
+        return signs;
+    } catch (error) {
+        console.error('Erreur chargement MongoDB:', error);
+        return [];
+    }
 }
 
 export async function GET(request) {
@@ -18,16 +39,22 @@ export async function GET(request) {
     }
 
     try {
-        const signs = loadGardinerData();
+        // Charger depuis les deux sources
+        const jsonSigns = loadGardinerData();
+        const mongoSigns = await loadMongoData();
+
+        // Priorité: MongoDB d'abord (pour les ajouts manuels), puis JSON
+        const allSigns = [...mongoSigns, ...jsonSigns];
 
         // Recherche par translittération exacte
-        let result = signs.find(s =>
-            s.transliteration?.toLowerCase() === term
+        let result = allSigns.find(s =>
+            (s.transliteration?.toLowerCase() === term) ||
+            (s.code?.toLowerCase() === term)
         );
 
         // Si pas trouvé, recherche par description (contient le terme)
         if (!result) {
-            result = signs.find(s =>
+            result = allSigns.find(s =>
                 s.description?.toLowerCase().includes(term)
             );
         }
@@ -37,9 +64,9 @@ export async function GET(request) {
                 success: true,
                 data: {
                     translitteration: result.transliteration || result.code,
-                    hieroglyphes: result.sign,
+                    hieroglyphes: result.sign || result.character,
                     francais: result.description || '',
-                    notes: result.descriptif || ''
+                    notes: result.descriptif || result.notes || ''
                 }
             });
         } else {
