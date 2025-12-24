@@ -431,6 +431,53 @@ export default function AdminSignsPage() {
                                 <strong>Prévisualisation :</strong>
                                 <span style={styles.previewText}>{getComposerPreview() || '—'}</span>
                             </div>
+
+                            {/* Visual Keyboard */}
+                            <div style={styles.keyboardVisual}>
+                                <p style={styles.keyboardTitle}>⌨️ Clavier Hiéroglyphique (AZERTY MacBook)</p>
+                                <div style={styles.keyboardContainer}>
+                                    {/* Row 1: Numbers */}
+                                    <div style={styles.keyboardRow}>
+                                        {['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-'].map(k => (
+                                            <div key={k} style={styles.keyBox}>
+                                                <span style={styles.keyLabel}>{k}</span>
+                                                <span style={styles.keyHiero}>{keyboardMap[k] || ''}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* Row 2: AZERTY top row */}
+                                    <div style={styles.keyboardRow}>
+                                        {['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].map(k => (
+                                            <div key={k} style={styles.keyBox}>
+                                                <span style={styles.keyLabel}>{k.toUpperCase()}</span>
+                                                <span style={styles.keyHiero}>{keyboardMap[k] || ''}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* Row 3: AZERTY middle row */}
+                                    <div style={styles.keyboardRow}>
+                                        {['q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm'].map(k => (
+                                            <div key={k} style={styles.keyBox}>
+                                                <span style={styles.keyLabel}>{k.toUpperCase()}</span>
+                                                <span style={styles.keyHiero}>{keyboardMap[k] || ''}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* Row 4: AZERTY bottom row */}
+                                    <div style={styles.keyboardRow}>
+                                        {['w', 'x', 'c', 'v', 'b', 'n'].map(k => (
+                                            <div key={k} style={styles.keyBox}>
+                                                <span style={styles.keyLabel}>{k.toUpperCase()}</span>
+                                                <span style={styles.keyHiero}>{keyboardMap[k] || ''}</span>
+                                            </div>
+                                        ))}
+                                        <div style={{ ...styles.keyBox, width: '80px' }}>
+                                            <span style={styles.keyLabel}>ESPACE</span>
+                                            <span style={styles.keyHiero}>{keyboardMap[' '] || ''}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         {/* Sign Picker */}
@@ -617,5 +664,12 @@ const styles = {
     empty: { textAlign: 'center', color: '#888', padding: '40px' },
     moreInfo: { textAlign: 'center', color: '#888', padding: '10px' },
     footer: { textAlign: 'center', padding: '20px' },
-    link: { color: '#1e3a5f', textDecoration: 'none' }
+    link: { color: '#1e3a5f', textDecoration: 'none' },
+    keyboardVisual: { marginTop: '20px', padding: '15px', background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)', borderRadius: '12px' },
+    keyboardTitle: { color: 'white', fontWeight: 'bold', marginBottom: '15px', textAlign: 'center' },
+    keyboardContainer: { display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center' },
+    keyboardRow: { display: 'flex', gap: '4px', justifyContent: 'center' },
+    keyBox: { width: '45px', height: '50px', background: '#1a1a1a', borderRadius: '6px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #444', boxShadow: '0 2px 4px rgba(0,0,0,0.3)' },
+    keyLabel: { color: '#888', fontSize: '10px', fontWeight: 'bold' },
+    keyHiero: { color: 'white', fontSize: '18px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', marginTop: '2px' }
 };
