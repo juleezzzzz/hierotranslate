@@ -36,7 +36,8 @@ export default function AdminSignsPage() {
     // Keyboard mapping - tu peux personnaliser ces touches!
     // Format: { 'touche clavier': 'hiéroglyphe' }
     const keyboardMap = {
-        'a': '𓏺', // Z1 - trait vertical (déterminatif)
+        'a': '𓋹', // ankh - vie
+        '-': '𓏺', // Z1 - trait vertical (déterminatif)
         'z': '𓏤', // Z2 - trait horizontal
         'e': '𓏭', // triple trait
         'r': '𓇋', // i - roseau
