@@ -63,7 +63,7 @@ export default function AdminSignsPage() {
         'c': '𓍿', // tch
         'w': '𓅱', // w - caille
         'x': '𓄡', // kh
-        ' ': '𓐠', // espace = séparateur
+        ' ': ' ', // espace = espace normal
         '1': '𓏺', // Z1
         '2': '𓏻', // Z2
         '3': '𓏼', // Z3
