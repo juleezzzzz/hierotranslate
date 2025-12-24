@@ -294,7 +294,7 @@ transliterationKeys.forEach(key => {
 
 
 // === FONCTION D'EMPILEMENT VERTICAL DES HIÉROGLYPHES ===
-// Affiche chaque signe l'un au-dessus de l'autre
+// Affiche chaque signe l'un au-dessus de l'autre, style inline
 function createStackedHieroglyphs(hieroglyphString) {
     if (!hieroglyphString || hieroglyphString.length === 0) {
         return '';
@@ -305,19 +305,15 @@ function createStackedHieroglyphs(hieroglyphString) {
 
     if (signs.length === 1) {
         // Un seul signe, pas besoin d'empiler
-        return `<span style="font-size: 3em; font-family: 'Noto Sans Egyptian Hieroglyphs', sans-serif;">${signs[0]}</span>`;
+        return signs[0];
     }
 
-    // Plusieurs signes: les empiler verticalement
+    // Plusieurs signes: les empiler verticalement dans un conteneur inline
     const stackedSigns = signs.map(sign =>
-        `<div style="line-height: 1; font-family: 'Noto Sans Egyptian Hieroglyphs', sans-serif;">${sign}</div>`
+        `<span style="display: block; line-height: 0.9;">${sign}</span>`
     ).join('');
 
-    return `
-        <div style="display: inline-flex; flex-direction: column; align-items: center; font-size: 2em; vertical-align: middle; background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); padding: 10px 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-right: 15px;">
-            ${stackedSigns}
-        </div>
-    `;
+    return `<span style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle;">${stackedSigns}</span>`;
 }
 
 // 2. Fonction de recherche et de Traduction
@@ -348,7 +344,7 @@ function performTranslation() {
                 // Succès : affiche les données reçues avec hiéroglyphes empilés verticalement
                 const hieroglyphs = data.data.hieroglyphes || '';
                 const stackedHiero = createStackedHieroglyphs(hieroglyphs);
-                resultHiero.innerHTML = stackedHiero + ` <span style="font-size: 0.5em; vertical-align: middle;">(${data.data.translitteration})</span>`;
+                resultHiero.innerHTML = `Hiéroglyphes: ${stackedHiero} (${data.data.translitteration})`;
                 resultFrench.textContent = `Traduction: ${data.data.francais} `;
 
                 // Ajouter à l'historique
