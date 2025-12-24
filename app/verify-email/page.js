@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function VerifyEmailPage() {
+function VerifyEmailContent() {
     const searchParams = useSearchParams();
     const [status, setStatus] = useState('verifying');
     const [message, setMessage] = useState('Vérification en cours...');
@@ -113,5 +113,37 @@ export default function VerifyEmailPage() {
                 )}
             </div>
         </div>
+    );
+}
+
+function LoadingFallback() {
+    return (
+        <div style={{
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%)',
+            fontFamily: 'system-ui, -apple-system, sans-serif'
+        }}>
+            <div style={{
+                background: 'white',
+                padding: '60px',
+                borderRadius: '16px',
+                textAlign: 'center',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+            }}>
+                <div style={{ fontSize: '64px', marginBottom: '20px' }}>⏳</div>
+                <h1 style={{ color: '#1e3a5f', fontSize: '28px' }}>Chargement...</h1>
+            </div>
+        </div>
+    );
+}
+
+export default function VerifyEmailPage() {
+    return (
+        <Suspense fallback={<LoadingFallback />}>
+            <VerifyEmailContent />
+        </Suspense>
     );
 }
