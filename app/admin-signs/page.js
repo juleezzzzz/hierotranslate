@@ -40,11 +40,11 @@ export default function AdminSignsPage() {
         '-': '𓏺', // Z1 - trait vertical (déterminatif)
         'z': '𓏤', // Z2 - trait horizontal
         'e': '𓏭', // triple trait
-        'r': '𓇋', // i - roseau
+        'r': '𓇳', // soleil (anciennement i)
         't': '𓏏', // t - pain
         'y': '𓇌', // y - double roseau
         'u': '𓅱', // w - caille
-        'i': '𓇳', // soleil
+        'i': '𓇋', // i - roseau (anciennement r)
         'o': '𓂋', // r - bouche  
         'p': '𓉐', // pr - maison
         'q': '𓈎', // k - corbeille
