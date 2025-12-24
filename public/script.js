@@ -292,6 +292,179 @@ transliterationKeys.forEach(key => {
     keyboard.appendChild(button);
 });
 
+// === HIEROGLYPH KEYBOARD MODE ===
+// Mapping clavier -> hiéroglyphes (même que la page admin)
+const hieroKeyboardMap = {
+    'a': '𓏺', // Z1 - trait vertical (déterminatif)
+    'z': '𓏤', // Z2 - trait horizontal
+    'e': '𓏭', // triple trait
+    'r': '𓇋', // i - roseau
+    't': '𓏏', // t - pain
+    'y': '𓇌', // y - double roseau
+    'u': '𓅱', // w - caille
+    'i': '𓇳', // soleil
+    'o': '𓂋', // r - bouche  
+    'p': '𓉐', // pr - maison
+    'q': '𓈎', // k - corbeille
+    's': '𓋴', // s - tissu
+    'd': '𓂧', // d - main
+    'f': '𓆑', // f - vipère
+    'g': '𓎼', // g - jarre
+    'h': '𓉔', // h - cour
+    'j': '𓆓', // dj - serpent
+    'k': '𓎡', // k - corbeille
+    'l': '𓃭', // l - lion
+    'm': '𓅓', // m - chouette
+    'n': '𓈖', // n - eau
+    'b': '𓃀', // b - jambe
+    'v': '𓆭', // plante
+    'c': '𓍿', // tch
+    'w': '𓅱', // w - caille
+    'x': '𓄡', // kh
+    '1': '𓏺', // Z1
+    '2': '𓏻', // Z2
+    '3': '𓏼', // Z3
+};
+
+let hieroModeActive = false;
+let hieroInputContent = '';
+
+// Créer le bouton de mode hiéroglyphique
+function createHieroModeButton() {
+    const searchContainer = document.querySelector('.search-container') || mainInput.parentElement;
+    if (!searchContainer) return;
+
+    // Bouton toggle
+    const toggleBtn = document.createElement('button');
+    toggleBtn.id = 'hiero-mode-toggle';
+    toggleBtn.innerHTML = '𓀀 Mode Hiéro';
+    toggleBtn.title = 'Activer le clavier hiéroglyphique (chaque touche = un signe)';
+    toggleBtn.style.cssText = `
+        position: absolute;
+        right: 60px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 12px;
+        font-family: 'Noto Sans Egyptian Hieroglyphs', sans-serif;
+        transition: all 0.3s ease;
+        z-index: 10;
+    `;
+
+    toggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleHieroMode();
+    });
+
+    // Positionnement relatif du parent
+    if (searchContainer.style.position !== 'absolute' && searchContainer.style.position !== 'relative') {
+        searchContainer.style.position = 'relative';
+    }
+
+    searchContainer.appendChild(toggleBtn);
+}
+
+function toggleHieroMode() {
+    hieroModeActive = !hieroModeActive;
+    const btn = document.getElementById('hiero-mode-toggle');
+
+    if (hieroModeActive) {
+        btn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
+        btn.innerHTML = '⌨️ Mode Actif';
+        hieroInputContent = '';
+        mainInput.placeholder = 'Tapez sur votre clavier → hiéroglyphes';
+        mainInput.value = '';
+        showHieroHelper();
+    } else {
+        btn.style.background = 'linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%)';
+        btn.innerHTML = '𓀀 Mode Hiéro';
+        mainInput.placeholder = 'Entrez une translittération';
+        hideHieroHelper();
+    }
+    mainInput.focus();
+}
+
+function showHieroHelper() {
+    let helper = document.getElementById('hiero-helper');
+    if (!helper) {
+        helper = document.createElement('div');
+        helper.id = 'hiero-helper';
+        helper.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 14px;
+            z-index: 9999;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        `;
+        document.body.appendChild(helper);
+    }
+    helper.innerHTML = `
+        <strong>🎹 Clavier Hiéroglyphique Actif</strong><br>
+        <span style="font-family: 'Noto Sans Egyptian Hieroglyphs'; font-size: 20px;">
+        a=𓏺 | m=𓅓 | n=𓈖 | p=𓉐 | i=𓇳 | t=𓏏
+        </span><br>
+        <small>Backspace = effacer | Échap = désactiver</small>
+    `;
+    helper.style.display = 'block';
+}
+
+function hideHieroHelper() {
+    const helper = document.getElementById('hiero-helper');
+    if (helper) helper.style.display = 'none';
+}
+
+// Gestionnaire de clavier pour le mode hiéroglyphique
+mainInput.addEventListener('keydown', (e) => {
+    if (!hieroModeActive) return;
+
+    const key = e.key.toLowerCase();
+
+    // Échap pour désactiver
+    if (e.key === 'Escape') {
+        e.preventDefault();
+        toggleHieroMode();
+        return;
+    }
+
+    // Entrée pour rechercher
+    if (e.key === 'Enter') {
+        // Laisse passer pour la recherche
+        return;
+    }
+
+    // Backspace
+    if (e.key === 'Backspace') {
+        e.preventDefault();
+        hieroInputContent = hieroInputContent.slice(0, -1);
+        mainInput.value = hieroInputContent;
+        return;
+    }
+
+    // Vérifier si la touche est mappée
+    if (hieroKeyboardMap[key]) {
+        e.preventDefault();
+        const hieroglyph = hieroKeyboardMap[key];
+        hieroInputContent += hieroglyph;
+        mainInput.value = hieroInputContent;
+    }
+});
+
+// Initialiser le bouton au chargement
+setTimeout(createHieroModeButton, 500);
+
 
 // 2. Fonction de recherche et de Traduction
 function performTranslation() {
