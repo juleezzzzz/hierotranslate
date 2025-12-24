@@ -30,6 +30,44 @@ export default function AdminSignsPage() {
     const [activeCategory, setActiveCategory] = useState('A');
     const categories = ['A', 'Aa', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+    // Keyboard focus state
+    const [keyboardActive, setKeyboardActive] = useState(false);
+
+    // Keyboard mapping - tu peux personnaliser ces touches!
+    // Format: { 'touche clavier': 'hiéroglyphe' }
+    const keyboardMap = {
+        'a': '𓏺', // Z1 - trait vertical (déterminatif)
+        'z': '𓏤', // Z2 - trait horizontal
+        'e': '𓏭', // triple trait
+        'r': '𓇋', // i - roseau
+        't': '𓏏', // t - pain
+        'y': '𓇌', // y - double roseau
+        'u': '𓅱', // w - caille
+        'i': '𓇳', // soleil
+        'o': '𓂋', // r - bouche  
+        'p': '𓉐', // pr - maison
+        'q': '𓈎', // k - corbeille
+        's': '𓋴', // s - tissu
+        'd': '𓂧', // d - main
+        'f': '𓆑', // f - vipère
+        'g': '𓎼', // g - jarre
+        'h': '𓉔', // h - cour
+        'j': '𓆓', // dj - serpent
+        'k': '𓎡', // k - corbeille
+        'l': '𓃭', // l - lion
+        'm': '𓅓', // m - chouette
+        'n': '𓈖', // n - eau
+        'b': '𓃀', // b - jambe
+        'v': '𓆭', // plante
+        'c': '𓍿', // tch
+        'w': '𓅱', // w - caille
+        'x': '𓄡', // kh
+        ' ': '𓐠', // espace = séparateur
+        '1': '𓏺', // Z1
+        '2': '𓏻', // Z2
+        '3': '𓏼', // Z3
+    };
+
     const ADMIN_PASSWORD = 'Chamalo77850!';
 
     const getPassword = () => password || localStorage.getItem('adminPassword');
@@ -156,6 +194,47 @@ export default function AdminSignsPage() {
 
     const getComposerPreview = () => {
         return composerGroups.map(g => g.signs.join('')).join('');
+    };
+
+    // Keyboard handler for hieroglyph input
+    const handleKeyboardInput = (e) => {
+        const key = e.key.toLowerCase();
+
+        // Check if key is mapped to a hieroglyph
+        if (keyboardMap[key]) {
+            e.preventDefault();
+            const hieroglyph = keyboardMap[key];
+
+            // Add the hieroglyph to composer
+            const newGroup = {
+                id: Date.now(),
+                signs: [hieroglyph],
+                code: `KEY-${key.toUpperCase()}`
+            };
+            const newGroups = [...composerGroups, newGroup];
+            setComposerGroups(newGroups);
+            updateHieroglyphsField(newGroups);
+        }
+
+        // Backspace removes last group
+        if (e.key === 'Backspace' && composerGroups.length > 0) {
+            e.preventDefault();
+            const newGroups = composerGroups.slice(0, -1);
+            setComposerGroups(newGroups);
+            updateHieroglyphsField(newGroups);
+        }
+    };
+
+    // Quick add Z1 stroke
+    const addZ1Stroke = () => {
+        const newGroup = {
+            id: Date.now(),
+            signs: ['𓏺'],
+            code: 'Z1'
+        };
+        const newGroups = [...composerGroups, newGroup];
+        setComposerGroups(newGroups);
+        updateHieroglyphsField(newGroups);
     };
 
     // Form functions
@@ -319,7 +398,28 @@ export default function AdminSignsPage() {
                                 )}
                             </div>
 
+                            {/* Keyboard Input Zone */}
+                            <div style={styles.keyboardSection}>
+                                <p style={styles.keyboardLabel}>⌨️ Zone de saisie clavier (cliquez ici et tapez)</p>
+                                <input
+                                    type="text"
+                                    onKeyDown={handleKeyboardInput}
+                                    onFocus={() => setKeyboardActive(true)}
+                                    onBlur={() => setKeyboardActive(false)}
+                                    placeholder="Cliquez ici et tapez sur votre clavier..."
+                                    style={{
+                                        ...styles.keyboardInput,
+                                        ...(keyboardActive ? styles.keyboardInputActive : {})
+                                    }}
+                                    readOnly
+                                />
+                                <p style={styles.keyboardHint}>
+                                    <strong>Raccourcis :</strong> a=𓏺(Z1) | m=𓅓 | n=𓈖 | p=𓉐 | t=𓏏 | i=𓇳 | Backspace=effacer
+                                </p>
+                            </div>
+
                             <div style={styles.composerControls}>
+                                <button onClick={addZ1Stroke} style={styles.ctrlBtnZ1}>𓏺 Ajouter Z1</button>
                                 <button onClick={stackSelected} style={styles.ctrlBtn} disabled={selectedGroups.length < 2}>⬆️ Empiler</button>
                                 <button onClick={unstackSelected} style={styles.ctrlBtn} disabled={selectedGroups.length !== 1}>↔️ Désempiler</button>
                                 <button onClick={deleteSelected} style={styles.ctrlBtnDanger} disabled={selectedGroups.length === 0}>🗑️ Supprimer</button>
@@ -483,6 +583,12 @@ const styles = {
     ctrlBtn: { padding: '8px 15px', background: '#3498db', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' },
     ctrlBtnDanger: { padding: '8px 15px', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' },
     ctrlBtnWarning: { padding: '8px 15px', background: '#f39c12', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' },
+    ctrlBtnZ1: { padding: '8px 15px', background: '#9b59b6', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontFamily: 'Noto Sans Egyptian Hieroglyphs', fontSize: '16px' },
+    keyboardSection: { marginTop: '20px', padding: '15px', background: '#e8f5e9', borderRadius: '8px', border: '2px solid #4CAF50' },
+    keyboardLabel: { fontWeight: 'bold', marginBottom: '10px', color: '#2e7d32' },
+    keyboardInput: { width: '100%', padding: '15px', fontSize: '24px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', border: '2px solid #4CAF50', borderRadius: '8px', background: 'white', textAlign: 'center', cursor: 'text', caretColor: 'transparent' },
+    keyboardInputActive: { borderColor: '#2e7d32', boxShadow: '0 0 10px rgba(76, 175, 80, 0.5)', background: '#f1f8e9' },
+    keyboardHint: { fontSize: '12px', color: '#555', marginTop: '10px', fontFamily: 'monospace' },
     preview: { marginTop: '15px', padding: '15px', background: '#f9f9f9', borderRadius: '8px' },
     previewText: { fontSize: '28px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', marginLeft: '15px' },
     categoryTabs: { display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '15px' },
