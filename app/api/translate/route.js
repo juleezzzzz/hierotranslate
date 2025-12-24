@@ -30,6 +30,25 @@ async function loadMongoData() {
     }
 }
 
+// Vérifie si une translittération est valide (pas juste un code Gardiner comme A1, B2, etc.)
+function hasValidTransliteration(sign) {
+    const translit = sign.transliteration || '';
+
+    // Si pas de translittération, exclure
+    if (!translit || translit.trim() === '') {
+        return false;
+    }
+
+    // Exclure si c'est juste un code Gardiner (lettre(s) + chiffre(s))
+    // Exemples à exclure: A1, A2, Aa1, B12, C3A, etc.
+    const gardinerCodePattern = /^[A-Za-z]{1,2}\d+[A-Za-z]?$/;
+    if (gardinerCodePattern.test(translit.trim())) {
+        return false;
+    }
+
+    return true;
+}
+
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const term = searchParams.get('term')?.toLowerCase().trim() || '';
@@ -46,15 +65,17 @@ export async function GET(request) {
         // Priorité: MongoDB d'abord (pour les ajouts manuels), puis JSON
         const allSigns = [...mongoSigns, ...jsonSigns];
 
+        // Filtrer pour garder seulement les signes avec translittération valide
+        const validSigns = allSigns.filter(s => hasValidTransliteration(s));
+
         // Recherche par translittération exacte
-        let result = allSigns.find(s =>
-            (s.transliteration?.toLowerCase() === term) ||
-            (s.code?.toLowerCase() === term)
+        let result = validSigns.find(s =>
+            s.transliteration?.toLowerCase() === term
         );
 
         // Si pas trouvé, recherche par description (contient le terme)
         if (!result) {
-            result = allSigns.find(s =>
+            result = validSigns.find(s =>
                 s.description?.toLowerCase().includes(term)
             );
         }
@@ -63,7 +84,7 @@ export async function GET(request) {
             return NextResponse.json({
                 success: true,
                 data: {
-                    translitteration: result.transliteration || result.code,
+                    translitteration: result.transliteration,
                     hieroglyphes: result.sign || result.character,
                     francais: result.description || '',
                     notes: result.descriptif || result.notes || ''

@@ -28,6 +28,25 @@ async function loadMongoData() {
     }
 }
 
+// Vérifie si une translittération est valide (pas juste un code Gardiner comme A1, B2, etc.)
+function hasValidTransliteration(sign) {
+    const translit = sign.transliteration || '';
+
+    // Si pas de translittération, exclure
+    if (!translit || translit.trim() === '') {
+        return false;
+    }
+
+    // Exclure si c'est juste un code Gardiner (lettre(s) + chiffre(s))
+    // Exemples à exclure: A1, A2, Aa1, B12, C3A, etc.
+    const gardinerCodePattern = /^[A-Za-z]{1,2}\d+[A-Za-z]?$/;
+    if (gardinerCodePattern.test(translit.trim())) {
+        return false;
+    }
+
+    return true;
+}
+
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const term = searchParams.get('term')?.toLowerCase().trim() || '';
@@ -40,15 +59,22 @@ export async function GET(request) {
         // Combiner les deux sources (MongoDB en premier pour priorité)
         const allSigns = [...mongoSigns, ...jsonSigns];
 
-        // Filtrer les signes qui correspondent
+        // Filtrer: 
+        // 1. Doit avoir une translittération valide (pas juste code Gardiner)
+        // 2. Doit correspondre au terme de recherche
         const results = allSigns.filter(s => {
-            const translit = (s.transliteration || s.code || '').toLowerCase();
+            // D'abord vérifier si a une translittération valide
+            if (!hasValidTransliteration(s)) {
+                return false;
+            }
+
+            const translit = (s.transliteration || '').toLowerCase();
             const desc = (s.description || '').toLowerCase();
             return translit.startsWith(term) || desc.includes(term);
         }).slice(0, 10); // Limiter à 10 résultats
 
         const suggestions = results.map(s => ({
-            translitteration: s.transliteration || s.code,
+            translitteration: s.transliteration,
             hieroglyphes: s.sign || s.character,
             francais: s.description || ''
         }));
