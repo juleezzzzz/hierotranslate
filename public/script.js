@@ -513,8 +513,47 @@ function loadGardinerSigns() {
 // Pagination variables (disabled - all signs on one page)
 let allGardinerSigns = [];
 
+// Ordre des catégories Gardiner (Aa en dernier)
+const gardinerCategoryOrder = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Aa'];
+
+// Fonction pour extraire la catégorie et le numéro d'un code Gardiner
+function parseGardinerCode(code) {
+    if (!code) return { category: 'ZZ', num: 9999, suffix: '' };
+    const match = code.match(/^([A-Za-z]+)(\d+)([A-Za-z]?)$/);
+    if (match) {
+        return {
+            category: match[1].toUpperCase() === 'AA' ? 'Aa' : match[1].toUpperCase(),
+            num: parseInt(match[2], 10),
+            suffix: match[3] || ''
+        };
+    }
+    return { category: 'ZZ', num: 9999, suffix: '' };
+}
+
+// Trier les signes selon l'ordre Gardiner
+function sortGardinerSigns(signs) {
+    return [...signs].sort((a, b) => {
+        const codeA = parseGardinerCode(a.code);
+        const codeB = parseGardinerCode(b.code);
+
+        // Comparer par catégorie d'abord
+        const catIndexA = gardinerCategoryOrder.indexOf(codeA.category);
+        const catIndexB = gardinerCategoryOrder.indexOf(codeB.category);
+        const catA = catIndexA === -1 ? 999 : catIndexA;
+        const catB = catIndexB === -1 ? 999 : catIndexB;
+
+        if (catA !== catB) return catA - catB;
+
+        // Puis par numéro
+        if (codeA.num !== codeB.num) return codeA.num - codeB.num;
+
+        // Puis par suffixe alphabétique
+        return codeA.suffix.localeCompare(codeB.suffix);
+    });
+}
+
 function renderGardinerSigns(signs) {
-    allGardinerSigns = signs;
+    allGardinerSigns = sortGardinerSigns(signs);
     renderAllSigns();
 }
 
