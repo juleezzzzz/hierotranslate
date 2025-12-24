@@ -293,27 +293,58 @@ transliterationKeys.forEach(key => {
 });
 
 
-// === FONCTION D'EMPILEMENT VERTICAL DES HIÉROGLYPHES ===
-// Affiche chaque signe l'un au-dessus de l'autre, style inline
+// === FONCTION D'AFFICHAGE HIÉROGLYPHES STYLE VÉGA ===
+// Affiche les signes empilés dans une boîte avec bordure, comme Véga
 function createStackedHieroglyphs(hieroglyphString) {
     if (!hieroglyphString || hieroglyphString.length === 0) {
-        return '';
+        return hieroglyphString;
     }
 
-    // Séparer chaque caractère Unicode (les hiéroglyphes peuvent être sur plusieurs bytes)
+    // Séparer chaque caractère Unicode
     const signs = [...hieroglyphString];
 
     if (signs.length === 1) {
-        // Un seul signe, pas besoin d'empiler
-        return signs[0];
+        // Un seul signe - affichage dans une boîte simple
+        return `<span style="
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            padding: 8px 12px;
+            background: #fafafa;
+            margin: 0 8px;
+            vertical-align: middle;
+            min-width: 40px;
+            font-family: 'Noto Sans Egyptian Hieroglyphs', sans-serif;
+        ">${signs[0]}</span>`;
     }
 
-    // Plusieurs signes: les empiler verticalement dans un conteneur inline
-    const stackedSigns = signs.map(sign =>
-        `<span style="display: block; line-height: 0.9;">${sign}</span>`
-    ).join('');
+    // Plusieurs signes: les empiler verticalement dans une boîte style Véga
+    const stackedSigns = signs.map((sign, index) => {
+        // Si c'est le trait Z1 (𓏺), l'afficher avec un style plus épais
+        const isZ1 = sign === '𓏺' || sign === '𓏤';
+        const style = isZ1
+            ? 'font-weight: bold; transform: scaleX(1.5); font-size: 1.1em;'
+            : '';
+        return `<span style="display: block; line-height: 1; text-align: center; ${style}">${sign}</span>`;
+    }).join('');
 
-    return `<span style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle;">${stackedSigns}</span>`;
+    return `<span style="
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        padding: 8px 12px;
+        background: #fafafa;
+        margin: 0 8px;
+        vertical-align: middle;
+        min-width: 40px;
+        font-family: 'Noto Sans Egyptian Hieroglyphs', sans-serif;
+    ">${stackedSigns}</span>`;
 }
 
 // 2. Fonction de recherche et de Traduction
