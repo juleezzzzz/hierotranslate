@@ -156,6 +156,34 @@ export default function AdminSignsPage() {
         updateHieroglyphsField(remainingGroups);
     };
 
+    // Pyramide: 1 signe en haut, 2 signes en bas côte à côte
+    const pyramidSelected = () => {
+        if (selectedGroups.length !== 3) {
+            setMessage('Sélectionnez exactement 3 groupes pour créer une pyramide (1 haut + 2 bas)');
+            setTimeout(() => setMessage(''), 3000);
+            return;
+        }
+
+        const selectedGroupsData = composerGroups.filter(g => selectedGroups.includes(g.id));
+        const remainingGroups = composerGroups.filter(g => !selectedGroups.includes(g.id));
+
+        // Le premier sélectionné va en haut, les 2 autres en bas
+        const allSigns = selectedGroupsData.flatMap(g => g.signs);
+        const pyramidGroup = {
+            id: Date.now(),
+            signs: allSigns,
+            pyramid: true, // layout pyramide
+            codes: selectedGroupsData.map(g => g.code).join(':')
+        };
+
+        const firstIndex = composerGroups.findIndex(g => selectedGroups.includes(g.id));
+        remainingGroups.splice(firstIndex, 0, pyramidGroup);
+
+        setComposerGroups(remainingGroups);
+        setSelectedGroups([]);
+        updateHieroglyphsField(remainingGroups);
+    };
+
     const unstackSelected = () => {
         if (selectedGroups.length !== 1) return;
 
@@ -405,10 +433,19 @@ export default function AdminSignsPage() {
                                             style={{
                                                 ...styles.composerGroup,
                                                 ...(selectedGroups.includes(group.id) ? styles.selectedGroup : {}),
-                                                ...(group.stacked ? styles.stackedGroup : {})
+                                                ...(group.stacked ? styles.stackedGroup : {}),
+                                                ...(group.pyramid ? styles.pyramidGroup : {})
                                             }}
                                         >
-                                            {group.stacked ? (
+                                            {group.pyramid ? (
+                                                <div style={styles.pyramidLayout}>
+                                                    <div style={styles.pyramidTop}>{group.signs[0]}</div>
+                                                    <div style={styles.pyramidBottom}>
+                                                        <span style={styles.pyramidBottomSign}>{group.signs[1]}</span>
+                                                        <span style={styles.pyramidBottomSign}>{group.signs[2]}</span>
+                                                    </div>
+                                                </div>
+                                            ) : group.stacked ? (
                                                 <div style={styles.stackedSigns}>
                                                     {group.signs.map((s, i) => <div key={i} style={styles.stackedSign}>{s}</div>)}
                                                 </div>
@@ -443,6 +480,7 @@ export default function AdminSignsPage() {
                             <div style={styles.composerControls}>
                                 <button onClick={addZ1Stroke} style={styles.ctrlBtnZ1}>𓏺 Ajouter Z1</button>
                                 <button onClick={stackSelected} style={styles.ctrlBtn} disabled={selectedGroups.length < 2}>⬆️ Empiler</button>
+                                <button onClick={pyramidSelected} style={styles.ctrlBtnPyramid} disabled={selectedGroups.length !== 3}>🔺 Pyramide</button>
                                 <button onClick={unstackSelected} style={styles.ctrlBtn} disabled={selectedGroups.length !== 1}>↔️ Désempiler</button>
                                 <button onClick={deleteSelected} style={styles.ctrlBtnDanger} disabled={selectedGroups.length === 0}>🗑️ Supprimer</button>
                                 <button onClick={clearComposer} style={styles.ctrlBtnWarning}>🔄 Tout effacer</button>
@@ -718,5 +756,11 @@ const styles = {
     keyHieroDual: { display: 'flex', gap: '4px', marginTop: '2px' },
     keyHieroAlt: { color: '#9b59b6', fontSize: '14px', fontFamily: 'Noto Sans Egyptian Hieroglyphs' },
     translitKeyboard: { display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '8px', padding: '10px', background: '#f0f4f8', borderRadius: '8px', border: '1px solid #ddd' },
-    translitKey: { padding: '8px 12px', fontSize: '16px', fontFamily: 'Gentium Plus, serif', background: 'white', border: '1px solid #ccc', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s', minWidth: '36px' }
+    translitKey: { padding: '8px 12px', fontSize: '16px', fontFamily: 'Gentium Plus, serif', background: 'white', border: '1px solid #ccc', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s', minWidth: '36px' },
+    ctrlBtnPyramid: { padding: '8px 15px', background: '#e67e22', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' },
+    pyramidGroup: { background: '#fff3e0' },
+    pyramidLayout: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
+    pyramidTop: { fontSize: '24px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', lineHeight: 1 },
+    pyramidBottom: { display: 'flex', gap: '2px' },
+    pyramidBottomSign: { fontSize: '20px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', lineHeight: 1 }
 };
