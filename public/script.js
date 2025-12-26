@@ -307,10 +307,10 @@ function createStackedHieroglyphs(hieroglyphString) {
         const topSign = parts[0];
         const bottomSigns = [...parts[1]]; // Séparer les signes du bas
 
-        return `<span style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; line-height: 1;">
-            <span style="display: block; text-align: center; margin-bottom: -0.15em;">${topSign}</span>
-            <span style="display: flex; gap: 0; justify-content: center; align-items: flex-start;">
-                ${bottomSigns.map(s => `<span style="display: inline-block; text-align: center;">${s}</span>`).join('')}
+        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
+            <span style="font-size: 1em; line-height: 0.9;">${topSign}</span>
+            <span style="display: inline-flex; justify-content: center; align-items: baseline; font-size: 0.85em; line-height: 0.9; margin-top: -0.1em;">
+                ${bottomSigns.map(s => `<span>${s}</span>`).join('')}
             </span>
         </span>`;
     }
