@@ -308,9 +308,9 @@ function createStackedHieroglyphs(hieroglyphString) {
         const bottomSigns = [...parts[1]]; // Séparer les signes du bas
 
         return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
-            <span style="font-size: 1em; line-height: 0.9;">${topSign}</span>
-            <span style="display: inline-flex; justify-content: center; align-items: center; gap: 0.15em; font-size: 0.85em; line-height: 0.9; margin-top: -0.05em;">
-                ${bottomSigns.map(s => `<span style="display: inline-block;">${s}</span>`).join('')}
+            <span style="font-size: 1em; line-height: 1;">${topSign}</span>
+            <span style="display: inline-flex; justify-content: center; align-items: flex-start; gap: 0.2em; font-size: 0.9em; line-height: 1; margin-top: 0;">
+                ${bottomSigns.map(s => `<span style="display: inline-flex; align-items: flex-start;">${s}</span>`).join('')}
             </span>
         </span>`;
     }
