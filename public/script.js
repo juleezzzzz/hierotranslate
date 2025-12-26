@@ -310,7 +310,7 @@ function createStackedHieroglyphs(hieroglyphString) {
     // Plusieurs signes: les empiler verticalement très proches
     const stackedSigns = signs.map((sign) => {
         // Si c'est le trait Z1 (𓏺), l'afficher avec un style plus épais
-        const isZ1 = sign === '𓏺' || sign === '𓏤';
+        const isZ1 = sign === '𓏺';
         const style = isZ1
             ? 'transform: scaleX(1.3); font-weight: bold;'
             : '';
