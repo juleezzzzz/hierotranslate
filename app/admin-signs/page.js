@@ -200,29 +200,20 @@ export default function AdminSignsPage() {
     };
 
     // Keyboard handler for hieroglyph input
+    // Supporte les claviers AZERTY et QWERTY en utilisant e.key
     const handleKeyboardInput = (e) => {
-        // Pour gérer majuscule/minuscule correctement:
-        // On utilise e.code (ex: "KeyA") puis on vérifie ShiftKey
-        const code = e.code; // ex: "KeyA", "Digit1", "Minus"
-        const isShift = e.shiftKey;
+        const key = e.key; // Le caractère réel tapé (prend en compte la disposition AZERTY)
 
+        // Vérifier si la touche exacte (avec casse) est mappée
+        // D'abord essayer la touche exacte, puis la minuscule
         let mappedKey = null;
 
-        // Mapping des codes de touche vers les caractères
-        if (code.startsWith('Key')) {
-            const letter = code.replace('Key', '').toLowerCase();
-            // Si Shift est pressé, essayer la majuscule d'abord
-            if (isShift && keyboardMap[letter.toUpperCase()] !== undefined) {
-                mappedKey = letter.toUpperCase();
-            } else {
-                mappedKey = letter;
-            }
-        } else if (code.startsWith('Digit')) {
-            mappedKey = code.replace('Digit', '');
-        } else if (code === 'Minus') {
-            mappedKey = '-';
-        } else if (code === 'Space') {
-            mappedKey = ' ';
+        if (keyboardMap[key] !== undefined) {
+            // La touche exacte est mappée (ex: 'A' majuscule)
+            mappedKey = key;
+        } else if (keyboardMap[key.toLowerCase()] !== undefined) {
+            // Sinon essayer la minuscule
+            mappedKey = key.toLowerCase();
         }
 
         if (mappedKey && keyboardMap[mappedKey]) {
