@@ -219,12 +219,23 @@ export default function AdminSignsPage() {
     };
 
     const updateHieroglyphsField = (groups) => {
-        const hieroglyphs = groups.map(g => g.signs.join('')).join('');
+        const hieroglyphs = groups.map(g => {
+            if (g.pyramid && g.signs.length === 3) {
+                // Format pyramide: signe1⌂signe2signe3
+                return g.signs[0] + '⌂' + g.signs[1] + g.signs[2];
+            }
+            return g.signs.join('');
+        }).join('');
         setFormData(prev => ({ ...prev, hieroglyphs }));
     };
 
     const getComposerPreview = () => {
-        return composerGroups.map(g => g.signs.join('')).join('');
+        return composerGroups.map(g => {
+            if (g.pyramid && g.signs.length === 3) {
+                return g.signs[0] + '⌂' + g.signs[1] + g.signs[2];
+            }
+            return g.signs.join('');
+        }).join('');
     };
 
     // Keyboard handler for hieroglyph input

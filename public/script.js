@@ -295,9 +295,24 @@ transliterationKeys.forEach(key => {
 
 // === FONCTION D'AFFICHAGE HIÉROGLYPHES STYLE VÉGA ===
 // Affiche les signes empilés très proches, sans cadre
+// Supporte le layout pyramide avec le marqueur ⌂ (ex: "𓈐⌂𓏏𓏤" = 𓈐 en haut, 𓏏𓏤 en bas)
 function createStackedHieroglyphs(hieroglyphString) {
     if (!hieroglyphString || hieroglyphString.length === 0) {
         return hieroglyphString;
+    }
+
+    // Vérifier si c'est un layout pyramide (marqueur ⌂)
+    if (hieroglyphString.includes('⌂')) {
+        const parts = hieroglyphString.split('⌂');
+        const topSign = parts[0];
+        const bottomSigns = [...parts[1]]; // Séparer les signes du bas
+
+        return `<span style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle;">
+            <span style="display: block; line-height: 0.8; text-align: center;">${topSign}</span>
+            <span style="display: flex; gap: 0px; justify-content: center;">
+                ${bottomSigns.map(s => `<span style="line-height: 0.7;">${s}</span>`).join('')}
+            </span>
+        </span>`;
     }
 
     // Séparer chaque caractère Unicode
