@@ -310,7 +310,7 @@ function createStackedHieroglyphs(hieroglyphString) {
         return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
             <span style="font-size: 1em; line-height: 1;">${topSign}</span>
             <span style="display: inline-flex; justify-content: center; align-items: flex-start; gap: 0.2em; font-size: 0.9em; line-height: 1; margin-top: 0;">
-                ${bottomSigns.map((s, i) => `<span style="display: inline-flex; align-items: flex-start;${i === 1 ? ' margin-top: -0.8em;' : ''}">${s}</span>`).join('')}
+                ${bottomSigns.map((s, i) => `<span style="display: inline-flex; align-items: flex-start;${i === 1 ? ' margin-top: -0.3em;' : ''}">${s}</span>`).join('')}
             </span>
         </span>`;
     }
