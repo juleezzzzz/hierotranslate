@@ -332,7 +332,7 @@ function createStackedHieroglyphs(hieroglyphString) {
         return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.75; text-align: center; margin: -0.05em 0; ${style}">${sign}</span>`;
     }).join('');
 
-    return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle; margin-top: -0.1em;">${stackedSigns}</span>`;
+    return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle; margin-top: -0.35em;">${stackedSigns}</span>`;
 }
 
 // 2. Fonction de recherche et de Traduction
