@@ -35,8 +35,10 @@ export default function AdminSignsPage() {
 
     // Keyboard mapping - tu peux personnaliser ces touches!
     // Format: { 'touche clavier': 'hiéroglyphe' }
+    // Pour les lettres avec majuscules: minuscule = signe habituel, majuscule = signe alternatif
     const keyboardMap = {
-        'a': '𓋹', // ankh - vie
+        'a': '𓋹', // ankh - vie (minuscule)
+        'A': '𓄿', // G1 - vautour égyptien (majuscule) - translittération: ꜣ
         '-': '𓏺', // Z1 - trait vertical (déterminatif)
         'z': '𓏤', // Z2 - trait horizontal
         'e': '𓏭', // triple trait
@@ -199,18 +201,39 @@ export default function AdminSignsPage() {
 
     // Keyboard handler for hieroglyph input
     const handleKeyboardInput = (e) => {
-        const key = e.key.toLowerCase();
+        // Pour gérer majuscule/minuscule correctement:
+        // On utilise e.code (ex: "KeyA") puis on vérifie ShiftKey
+        const code = e.code; // ex: "KeyA", "Digit1", "Minus"
+        const isShift = e.shiftKey;
 
-        // Check if key is mapped to a hieroglyph
-        if (keyboardMap[key]) {
+        let mappedKey = null;
+
+        // Mapping des codes de touche vers les caractères
+        if (code.startsWith('Key')) {
+            const letter = code.replace('Key', '').toLowerCase();
+            // Si Shift est pressé, essayer la majuscule d'abord
+            if (isShift && keyboardMap[letter.toUpperCase()] !== undefined) {
+                mappedKey = letter.toUpperCase();
+            } else {
+                mappedKey = letter;
+            }
+        } else if (code.startsWith('Digit')) {
+            mappedKey = code.replace('Digit', '');
+        } else if (code === 'Minus') {
+            mappedKey = '-';
+        } else if (code === 'Space') {
+            mappedKey = ' ';
+        }
+
+        if (mappedKey && keyboardMap[mappedKey]) {
             e.preventDefault();
-            const hieroglyph = keyboardMap[key];
+            const hieroglyph = keyboardMap[mappedKey];
 
             // Add the hieroglyph to composer
             const newGroup = {
                 id: Date.now(),
                 signs: [hieroglyph],
-                code: `KEY-${key.toUpperCase()}`
+                code: `KEY-${mappedKey.toUpperCase()}`
             };
             const newGroups = [...composerGroups, newGroup];
             setComposerGroups(newGroups);
@@ -415,7 +438,7 @@ export default function AdminSignsPage() {
                                     readOnly
                                 />
                                 <p style={styles.keyboardHint}>
-                                    <strong>Raccourcis :</strong> a=𓏺(Z1) | m=𓅓 | n=𓈖 | p=𓉐 | t=𓏏 | i=𓇳 | Backspace=effacer
+                                    <strong>Raccourcis :</strong> a=𓋹(ankh) | A=𓄿(vautour) | m=𓅓 | n=𓈖 | p=𓉐 | t=𓏏 | Backspace=effacer
                                 </p>
                             </div>
 
@@ -448,9 +471,16 @@ export default function AdminSignsPage() {
                                     {/* Row 2: AZERTY top row */}
                                     <div style={styles.keyboardRow}>
                                         {['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].map(k => (
-                                            <div key={k} style={styles.keyBox}>
+                                            <div key={k} style={k === 'a' ? { ...styles.keyBox, ...styles.keyBoxSpecial } : styles.keyBox}>
                                                 <span style={styles.keyLabel}>{k.toUpperCase()}</span>
-                                                <span style={styles.keyHiero}>{keyboardMap[k] || ''}</span>
+                                                {k === 'a' ? (
+                                                    <span style={styles.keyHieroDual}>
+                                                        <span title="minuscule">{keyboardMap['a']}</span>
+                                                        <span style={styles.keyHieroAlt} title="majuscule">{keyboardMap['A']}</span>
+                                                    </span>
+                                                ) : (
+                                                    <span style={styles.keyHiero}>{keyboardMap[k] || ''}</span>
+                                                )}
                                             </div>
                                         ))}
                                     </div>
@@ -670,6 +700,9 @@ const styles = {
     keyboardContainer: { display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center' },
     keyboardRow: { display: 'flex', gap: '4px', justifyContent: 'center' },
     keyBox: { width: '45px', height: '50px', background: '#1a1a1a', borderRadius: '6px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid #444', boxShadow: '0 2px 4px rgba(0,0,0,0.3)' },
+    keyBoxSpecial: { width: '55px', background: 'linear-gradient(135deg, #1a1a1a 0%, #2d1f3d 100%)', border: '1px solid #9b59b6' },
     keyLabel: { color: '#888', fontSize: '10px', fontWeight: 'bold' },
-    keyHiero: { color: 'white', fontSize: '18px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', marginTop: '2px' }
+    keyHiero: { color: 'white', fontSize: '18px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', marginTop: '2px' },
+    keyHieroDual: { display: 'flex', gap: '4px', marginTop: '2px' },
+    keyHieroAlt: { color: '#9b59b6', fontSize: '14px', fontFamily: 'Noto Sans Egyptian Hieroglyphs' }
 };
