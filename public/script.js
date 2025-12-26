@@ -329,10 +329,10 @@ function createStackedHieroglyphs(hieroglyphString) {
         const style = isZ1
             ? 'transform: scaleX(1.3); font-weight: bold;'
             : '';
-        return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.75; text-align: center; margin: -0.05em 0; ${style}">${sign}</span>`;
+        return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.9; text-align: center; ${style}">${sign}</span>`;
     }).join('');
 
-    return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle; margin-top: -0.35em;">${stackedSigns}</span>`;
+    return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">${stackedSigns}</span>`;
 }
 
 // 2. Fonction de recherche et de Traduction
