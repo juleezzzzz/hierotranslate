@@ -322,17 +322,17 @@ function createStackedHieroglyphs(hieroglyphString) {
         return signs[0];
     }
 
-    // Plusieurs signes: les empiler verticalement très proches
-    const stackedSigns = signs.map((sign) => {
+    // Plusieurs signes: les empiler verticalement, bien centrés proportionnellement
+    const stackedSigns = signs.map((sign, index) => {
         // Si c'est le trait Z1 (𓏺), l'afficher avec un style plus épais
         const isZ1 = sign === '𓏺';
         const style = isZ1
             ? 'transform: scaleX(1.3); font-weight: bold;'
             : '';
-        return `<span style="display: block; line-height: 0.6; text-align: center; ${style}">${sign}</span>`;
+        return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.85; text-align: center; ${style}">${sign}</span>`;
     }).join('');
 
-    return `<span style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle;">${stackedSigns}</span>`;
+    return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">${stackedSigns}</span>`;
 }
 
 // 2. Fonction de recherche et de Traduction
