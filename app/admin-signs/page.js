@@ -264,7 +264,14 @@ export default function AdminSignsPage() {
         try {
             const method = editingId ? 'PUT' : 'POST';
             const body = editingId
-                ? { id: editingId, ...formData, code: formData.transliteration.toUpperCase() }
+                ? {
+                    id: editingId,
+                    code: formData.transliteration.toUpperCase(),
+                    transliteration: formData.transliteration,
+                    character: formData.hieroglyphs,
+                    description: formData.french,
+                    descriptif: formData.notes
+                }
                 : { ...formData, code: formData.transliteration.toUpperCase(), character: formData.hieroglyphs, description: formData.french };
 
             const res = await fetch('/api/admin/signs', {
