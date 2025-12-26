@@ -38,7 +38,7 @@ export default function AdminSignsPage() {
     // Pour les lettres avec majuscules: minuscule = signe habituel, majuscule = signe alternatif
     const keyboardMap = {
         'a': '𓋹', // ankh - vie (minuscule)
-        'A': '𓄿', // G1 - vautour égyptien (majuscule) - translittération: ꜣ
+        'A': '𓄿', // G1 - vautour égyptien (majuscule) - translittération: ȝ
         '-': '𓏺', // Z1 - trait vertical (déterminatif)
         'z': '𓏤', // Z2 - trait horizontal
         'e': '𓏭', // triple trait
@@ -537,7 +537,7 @@ export default function AdminSignsPage() {
                 {/* Form Fields */}
                 <form onSubmit={handleSubmit} style={styles.formGrid}>
                     <div style={styles.formGroup}>
-                        <label>Translittération (ex: nfr, ḥtp, sꜣ)</label>
+                        <label>Translittération (ex: nfr, ḥtp, sȝ)</label>
                         <input
                             type="text"
                             value={formData.transliteration}
@@ -548,7 +548,7 @@ export default function AdminSignsPage() {
                         />
                         {/* Clavier de translittération */}
                         <div style={styles.translitKeyboard}>
-                            {['ꜣ', 'j', 'y', 'ꜥ', 'w', 'b', 'p', 'f', 'm', 'n', 'r', 'h', 'ḥ', 'ḫ', 'ẖ', 's', 'š', 'q', 'k', 'g', 't', 'ṯ', 'd', 'ḏ'].map(char => (
+                            {['ȝ', 'j', 'y', 'ʿ', 'w', 'b', 'p', 'f', 'm', 'n', 'r', 'h', 'ḥ', 'ḫ', 'ẖ', 's', 'š', 'q', 'k', 'g', 't', 'ṯ', 'd', 'ḏ'].map(char => (
                                 <button
                                     key={char}
                                     type="button"

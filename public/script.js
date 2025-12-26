@@ -208,10 +208,10 @@ function copyToClipboard(elementId, button) {
 
 // Définition des touches du clavier (avec la bonne translittération pour une meilleure compatibilité)
 const transliterationKeys = [
-    { value: 'ꜣ', code: 'ꜣ', tooltip: 'Aleph - coup de glotte' },
+    { value: 'ȝ', code: 'ȝ', tooltip: 'Aleph - coup de glotte' },
     { value: 'j', code: 'j', tooltip: 'Yod - semi-voyelle' },
     { value: 'y', code: 'y', tooltip: 'Double roseau' },
-    { value: 'ꜥ', code: 'ꜥ', tooltip: 'Ayin - gutturale' },
+    { value: 'ʿ', code: 'ʿ', tooltip: 'Ayin - gutturale' },
     { value: 'w', code: 'w', tooltip: 'Caille - semi-voyelle' },
     { value: 'b', code: 'b', tooltip: 'Jambe' },
     { value: 'p', code: 'p', tooltip: 'Natte' },
@@ -1639,7 +1639,7 @@ function switchQuizMode(mode) {
     if (mode === 'translit') {
         if (signPrompt) signPrompt.textContent = 'Quelle est la translittération de ce signe ?';
         if (translatePrompt) translatePrompt.textContent = 'Écrivez la translittération :';
-        if (translateInput) translateInput.placeholder = 'Ex: ꜥnḫ, nfr, pr...';
+        if (translateInput) translateInput.placeholder = 'Ex: ʿnḫ, nfr, pr...';
     } else {
         if (signPrompt) signPrompt.textContent = 'Quelle est la description de ce signe ?';
         if (translatePrompt) translatePrompt.textContent = 'Quelle est la description de ce signe ?';
@@ -2116,7 +2116,7 @@ const famousTexts = {
     tutankhamun: {
         title: 'Cartouche de Toutânkhamon',
         hieros: '𓇋𓏠𓈖 𓏏𓅱𓏏 𓋹𓈖𓐍 𓇋𓏠𓈖',
-        translation: 'Toutânkhamon = "Image vivante d\'Amon" (twt-ꜥnḫ-jmn)'
+        translation: 'Toutânkhamon = "Image vivante d\'Amon" (twt-ʿnḫ-jmn)'
     }
 };
 
