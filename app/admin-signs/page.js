@@ -544,7 +544,21 @@ export default function AdminSignsPage() {
                             onChange={(e) => setFormData({ ...formData, transliteration: e.target.value })}
                             style={styles.input}
                             placeholder="nfr"
+                            id="translit-input"
                         />
+                        {/* Clavier de translittération */}
+                        <div style={styles.translitKeyboard}>
+                            {['ꜣ', 'j', 'y', 'ꜥ', 'w', 'b', 'p', 'f', 'm', 'n', 'r', 'h', 'ḥ', 'ḫ', 'ẖ', 's', 'š', 'q', 'k', 'g', 't', 'ṯ', 'd', 'ḏ'].map(char => (
+                                <button
+                                    key={char}
+                                    type="button"
+                                    onClick={() => setFormData({ ...formData, transliteration: formData.transliteration + char })}
+                                    style={styles.translitKey}
+                                >
+                                    {char}
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
                     <div style={styles.formGroup}>
@@ -695,5 +709,7 @@ const styles = {
     keyLabel: { color: '#888', fontSize: '10px', fontWeight: 'bold' },
     keyHiero: { color: 'white', fontSize: '18px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', marginTop: '2px' },
     keyHieroDual: { display: 'flex', gap: '4px', marginTop: '2px' },
-    keyHieroAlt: { color: '#9b59b6', fontSize: '14px', fontFamily: 'Noto Sans Egyptian Hieroglyphs' }
+    keyHieroAlt: { color: '#9b59b6', fontSize: '14px', fontFamily: 'Noto Sans Egyptian Hieroglyphs' },
+    translitKeyboard: { display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '8px', padding: '10px', background: '#f0f4f8', borderRadius: '8px', border: '1px solid #ddd' },
+    translitKey: { padding: '8px 12px', fontSize: '16px', fontFamily: 'Gentium Plus, serif', background: 'white', border: '1px solid #ccc', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s', minWidth: '36px' }
 };
