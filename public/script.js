@@ -415,10 +415,10 @@ mainInput.addEventListener('input', function () {
         return;
     }
 
-    // Debounce
+    // Debounce rapide
     debounceTimeout = setTimeout(() => {
         fetchPropositions(term);
-    }, 300);
+    }, 100);
 });
 
 function fetchPropositions(term) {
