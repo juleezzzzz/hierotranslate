@@ -220,30 +220,23 @@ export default function AdminSignsPage() {
 
     const updateHieroglyphsField = (groups) => {
         const hieroglyphs = groups.map(g => {
-            if (g.pyramid && g.signs.length === 3) {
-                // Format pyramide: signe1⌂signe2signe3
-                return g.signs[0] + '⌂' + g.signs[1] + g.signs[2];
-            }
-            if (g.stacked && g.signs.length > 1) {
-                // Format empilé vertical: signes joints avec | pour empilement
+            if (g.pyramid && g.signs.length >= 2) {
+                // Format pyramide (empilement vertical): marqueur | entre les signes
                 return g.signs.join('|');
             }
-            // Signe simple: retourner tel quel
+            // Signes normaux: retourner tel quel (côte à côte)
             return g.signs.join('');
-        }).join(' '); // Espace entre les groupes pour affichage côte à côte
+        }).join(''); // PAS d'espace - les signes sont côte à côte par défaut
         setFormData(prev => ({ ...prev, hieroglyphs }));
     };
 
     const getComposerPreview = () => {
         return composerGroups.map(g => {
-            if (g.pyramid && g.signs.length === 3) {
-                return g.signs[0] + '⌂' + g.signs[1] + g.signs[2];
-            }
-            if (g.stacked && g.signs.length > 1) {
+            if (g.pyramid && g.signs.length >= 2) {
                 return g.signs.join('|');
             }
             return g.signs.join('');
-        }).join(' '); // Espace entre les groupes
+        }).join(''); // PAS d'espace
     };
 
     // Keyboard handler for hieroglyph input
