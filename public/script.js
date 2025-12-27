@@ -296,9 +296,16 @@ transliterationKeys.forEach(key => {
 // === FONCTION D'AFFICHAGE HIÉROGLYPHES STYLE VÉGA ===
 // Affiche les signes empilés très proches, sans cadre
 // Supporte le layout pyramide avec le marqueur ⌂ (ex: "𓈐⌂𓏏𓏤" = 𓈐 en haut, 𓏏𓏤 en bas)
+// Les espaces séparent les groupes côte à côte
 function createStackedHieroglyphs(hieroglyphString) {
     if (!hieroglyphString || hieroglyphString.length === 0) {
         return hieroglyphString;
+    }
+
+    // Vérifier si contient des espaces (groupes côte à côte)
+    if (hieroglyphString.includes(' ')) {
+        const groups = hieroglyphString.split(' ').filter(g => g.length > 0);
+        return groups.map(group => createStackedHieroglyphs(group)).join(' ');
     }
 
     // Vérifier si c'est un layout pyramide (marqueur ⌂)

@@ -224,8 +224,13 @@ export default function AdminSignsPage() {
                 // Format pyramide: signe1⌂signe2signe3
                 return g.signs[0] + '⌂' + g.signs[1] + g.signs[2];
             }
+            if (g.stacked) {
+                // Format empilé: signes joints (seront empilés à l'affichage)
+                return g.signs.join('');
+            }
+            // Signe simple: retourner tel quel
             return g.signs.join('');
-        }).join('');
+        }).join(' '); // Espace entre les groupes pour affichage côte à côte
         setFormData(prev => ({ ...prev, hieroglyphs }));
     };
 
@@ -235,7 +240,7 @@ export default function AdminSignsPage() {
                 return g.signs[0] + '⌂' + g.signs[1] + g.signs[2];
             }
             return g.signs.join('');
-        }).join('');
+        }).join(' '); // Espace entre les groupes
     };
 
     // Keyboard handler for hieroglyph input
