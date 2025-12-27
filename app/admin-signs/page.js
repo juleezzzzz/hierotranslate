@@ -224,9 +224,9 @@ export default function AdminSignsPage() {
                 // Format pyramide: signe1⌂signe2signe3
                 return g.signs[0] + '⌂' + g.signs[1] + g.signs[2];
             }
-            if (g.stacked) {
-                // Format empilé: signes joints (seront empilés à l'affichage)
-                return g.signs.join('');
+            if (g.stacked && g.signs.length > 1) {
+                // Format empilé vertical: signes joints avec | pour empilement
+                return g.signs.join('|');
             }
             // Signe simple: retourner tel quel
             return g.signs.join('');
@@ -238,6 +238,9 @@ export default function AdminSignsPage() {
         return composerGroups.map(g => {
             if (g.pyramid && g.signs.length === 3) {
                 return g.signs[0] + '⌂' + g.signs[1] + g.signs[2];
+            }
+            if (g.stacked && g.signs.length > 1) {
+                return g.signs.join('|');
             }
             return g.signs.join('');
         }).join(' '); // Espace entre les groupes

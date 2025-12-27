@@ -296,9 +296,10 @@ transliterationKeys.forEach(key => {
 
 
 // === FONCTION D'AFFICHAGE HIÉROGLYPHES STYLE VÉGA ===
-// Affiche les signes empilés très proches, sans cadre
-// Supporte le layout pyramide avec le marqueur ⌂ (ex: "𓈐⌂𓏏𓏤" = 𓈐 en haut, 𓏏𓏤 en bas)
-// Les espaces séparent les groupes côte à côte
+// Affiche les signes avec différents layouts:
+// - Espaces = groupes côte à côte
+// - Marqueur | = empilement vertical (Empiler)
+// - Marqueur ⌂ = pyramide (1 haut, 2 bas)
 function createStackedHieroglyphs(hieroglyphString) {
     if (!hieroglyphString || hieroglyphString.length === 0) {
         return hieroglyphString;
@@ -308,6 +309,20 @@ function createStackedHieroglyphs(hieroglyphString) {
     if (hieroglyphString.includes(' ')) {
         const groups = hieroglyphString.split(' ').filter(g => g.length > 0);
         return groups.map(group => createStackedHieroglyphs(group)).join(' ');
+    }
+
+    // Vérifier si c'est un empilement vertical (marqueur |)
+    if (hieroglyphString.includes('|')) {
+        const signs = hieroglyphString.split('|');
+        const stackedSigns = signs.map(sign => {
+            return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.5; text-align: center;">${sign}</span>`;
+        }).join('');
+
+        // Centrage vertical proportionnel
+        const halfOffset = (signs.length - 1) * 0.25;
+        const offset = halfOffset > 0 ? `margin-top: -${halfOffset}em;` : '';
+
+        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle; ${offset}">${stackedSigns}</span>`;
     }
 
     // Vérifier si c'est un layout pyramide (marqueur ⌂)
@@ -324,16 +339,8 @@ function createStackedHieroglyphs(hieroglyphString) {
         </span>`;
     }
 
-    // Séparer chaque caractère Unicode
-    const signs = [...hieroglyphString];
-
-    if (signs.length === 1) {
-        return signs[0];
-    }
-
-    // Plusieurs signes: les afficher côte à côte (pas empilés)
-    // L'empilement ne se fait QUE avec le marqueur pyramide ⌂
-    return signs.join('');
+    // Pas de marqueur = afficher tel quel (côte à côte)
+    return hieroglyphString;
 }
 
 // 2. Fonction de recherche et de Traduction
