@@ -322,14 +322,14 @@ function createStackedHieroglyphs(hieroglyphString) {
         return signs[0];
     }
 
-    // Plusieurs signes: les empiler verticalement, bien centrés proportionnellement
+    // Plusieurs signes: les empiler verticalement, bien centrés et rapprochés
     const stackedSigns = signs.map((sign, index) => {
         // Si c'est le trait Z1 (𓏺), l'afficher avec un style plus épais
         const isZ1 = sign === '𓏺';
         const style = isZ1
             ? 'transform: scaleX(1.3); font-weight: bold;'
             : '';
-        return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.9; text-align: center; ${style}">${sign}</span>`;
+        return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.65; text-align: center; ${style}">${sign}</span>`;
     }).join('');
 
     return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">${stackedSigns}</span>`;
