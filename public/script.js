@@ -332,8 +332,11 @@ function createStackedHieroglyphs(hieroglyphString) {
         return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.5; text-align: center; ${style}">${sign}</span>`;
     }).join('');
 
-    // Calculer l'offset vertical pour centrer proportionnellement
-    const offset = signs.length > 1 ? `transform: translateY(${(signs.length - 1) * 0.15}em);` : '';
+    // Centrage vertical parfait: décaler vers le haut pour que le milieu soit aligné
+    // Pour 2 signes: décaler de 0.25em (moitié d'un signe)
+    // Pour 3 signes: décaler de 0.5em (un signe entier vers le haut)
+    const halfOffset = (signs.length - 1) * 0.25;
+    const offset = halfOffset > 0 ? `margin-top: -${halfOffset}em;` : '';
 
     return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle; ${offset}">${stackedSigns}</span>`;
 }
