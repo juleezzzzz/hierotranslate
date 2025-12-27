@@ -220,8 +220,8 @@ export default function AdminSignsPage() {
 
     const updateHieroglyphsField = (groups) => {
         const hieroglyphs = groups.map(g => {
-            if (g.pyramid && g.signs.length >= 2) {
-                // Format pyramide (empilement vertical): marqueur | entre les signes
+            // Si empilé (Empiler) ou pyramide (Pyramide) → marqueur | entre les signes
+            if ((g.stacked || g.pyramid) && g.signs.length >= 2) {
                 return g.signs.join('|');
             }
             // Signes normaux: retourner tel quel (côte à côte)
@@ -232,7 +232,7 @@ export default function AdminSignsPage() {
 
     const getComposerPreview = () => {
         return composerGroups.map(g => {
-            if (g.pyramid && g.signs.length >= 2) {
+            if ((g.stacked || g.pyramid) && g.signs.length >= 2) {
                 return g.signs.join('|');
             }
             return g.signs.join('');
