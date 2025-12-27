@@ -1407,12 +1407,15 @@ function renderHistory() {
         div.className = 'history-item';
         div.onclick = () => restoreHistoryItem(item);
 
+        // Utiliser createStackedHieroglyphs pour afficher les hiéroglyphes empilés
+        const stackedHiero = createStackedHieroglyphs(item.hiero || '');
+
         div.innerHTML = `
             <span class="h-french">${item.french}</span>
             <span class="h-sep">-</span>
             <span class="h-translit">${item.translit}</span>
             <span class="h-sep">-</span>
-            <span class="h-hiero">${item.hiero}</span>
+            <span class="h-hiero">${stackedHiero}</span>
         `;
         historyList.appendChild(div);
     });
