@@ -1514,7 +1514,10 @@ function loadUserFavorites() {
 }
 
 function loadUserHistory() {
-    if (!authToken) return;
+    if (!authToken) {
+        renderHistory(); // Afficher l'historique local si pas connecté
+        return;
+    }
 
     fetch('/api/user/history', {
         headers: getAuthHeaders()
@@ -1522,17 +1525,28 @@ function loadUserHistory() {
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                // Mettre à jour l'historique local
-                if (data.history) {
-                    updateLocalHistory(data.history);
+                // Mettre à jour l'historique local avec les données du serveur
+                if (data.history && data.history.length > 0) {
+                    // Convertir format serveur vers format local et sauvegarder
+                    const localFormat = data.history.map(item => ({
+                        french: item.french || item.query || '',
+                        translit: item.transliteration || '',
+                        hiero: item.hieroglyphs || ''
+                    }));
+                    saveHistory(localFormat);
                 }
                 // Mettre à jour les stats
                 if (data.stats) {
                     updateUserStats(data.stats);
                 }
             }
+            // Toujours afficher l'historique
+            renderHistory();
         })
-        .catch(err => console.error('Erreur chargement historique:', err));
+        .catch(err => {
+            console.error('Erreur chargement historique:', err);
+            renderHistory(); // Afficher l'historique local en cas d'erreur
+        });
 }
 
 function updateLocalFavorites(serverFavorites) {
