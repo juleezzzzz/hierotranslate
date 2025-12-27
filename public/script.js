@@ -329,7 +329,7 @@ function createStackedHieroglyphs(hieroglyphString) {
         const style = isZ1
             ? 'transform: scaleX(1.3); font-weight: bold;'
             : '';
-        return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.65; text-align: center; ${style}">${sign}</span>`;
+        return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.5; text-align: center; ${style}">${sign}</span>`;
     }).join('');
 
     return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">${stackedSigns}</span>`;
