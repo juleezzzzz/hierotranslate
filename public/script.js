@@ -1430,7 +1430,8 @@ function clearHistory() {
 }
 
 function restoreHistoryItem(item) {
-    document.getElementById('result-hiero').textContent = `Hiéroglyphes: ${item.hiero} (${item.translit})`;
+    const stackedHiero = createStackedHieroglyphs(item.hiero || '');
+    document.getElementById('result-hiero').innerHTML = `Hiéroglyphes: ${stackedHiero} (${item.translit})`;
     document.getElementById('result-french').textContent = `Traduction: ${item.french} `;
 }
 
