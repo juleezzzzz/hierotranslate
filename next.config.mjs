@@ -1,11 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Rediriger la racine vers index.html statique
+  // Rediriger vers les routes API et pages statiques
   async rewrites() {
     return [
       {
         source: '/',
         destination: '/index.html',
+      },
+      {
+        source: '/sitemap.xml',
+        destination: '/api/sitemap',
       },
     ];
   },
