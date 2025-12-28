@@ -1,0 +1,33 @@
+{
+    "name": "Hierotranslate",
+    "short_name": "Hierotranslate",
+    "description": "Dictionnaire de l'Égyptien Ancien - Traduisez hiéroglyphes, translittération et français",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a1a1a",
+    "theme_color": "#d4a84b",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/favicon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/favicon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "education",
+        "reference",
+        "utilities"
+    ],
+    "lang": "fr",
+    "dir": "ltr",
+    "scope": "/",
+    "prefer_related_applications": false
+}
