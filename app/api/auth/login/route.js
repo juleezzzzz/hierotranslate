@@ -2,8 +2,15 @@ import { NextResponse } from 'next/server';
 import clientPromise from '../../../../lib/mongodb';
 import bcrypt from 'bcryptjs';
 import { generateToken } from '../../../../lib/auth';
+import { checkRateLimit, rateLimitResponse } from '../../../../lib/rate-limit';
 
 export async function POST(request) {
+    // Rate limiting strict pour protection anti-brute-force
+    const rateCheck = checkRateLimit(request, 'login');
+    if (!rateCheck.success) {
+        return rateLimitResponse(rateCheck);
+    }
+
     try {
         const { identifier, password } = await request.json();
 

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import clientPromise from '../../../lib/mongodb';
+import { checkRateLimit, rateLimitResponse, sanitizeSearchTerm } from '../../../lib/rate-limit';
 
 // Charger les données Gardiner depuis le fichier JSON
 function loadGardinerData() {
@@ -50,8 +51,14 @@ function hasValidTransliteration(sign) {
 }
 
 export async function GET(request) {
+    // Rate limiting
+    const rateCheck = checkRateLimit(request, 'search');
+    if (!rateCheck.success) {
+        return rateLimitResponse(rateCheck);
+    }
+
     const { searchParams } = new URL(request.url);
-    const term = searchParams.get('term')?.toLowerCase().trim() || '';
+    const term = sanitizeSearchTerm(searchParams.get('term') || '');
 
     if (!term) {
         return NextResponse.json({ success: false, message: 'Terme de recherche manquant.' }, { status: 400 });

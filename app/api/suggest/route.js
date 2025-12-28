@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import clientPromise from '../../../lib/mongodb';
+import { checkRateLimit, rateLimitResponse, sanitizeSearchTerm } from '../../../lib/rate-limit';
 
 function loadGardinerData() {
     try {
@@ -48,8 +49,19 @@ function hasValidTransliteration(sign) {
 }
 
 export async function GET(request) {
+    // Rate limiting
+    const rateCheck = checkRateLimit(request, 'search');
+    if (!rateCheck.success) {
+        return rateLimitResponse(rateCheck);
+    }
+
     const { searchParams } = new URL(request.url);
-    const term = searchParams.get('term')?.toLowerCase().trim() || '';
+    const term = sanitizeSearchTerm(searchParams.get('term') || '');
+
+    // Vérifier que le terme n'est pas vide
+    if (!term) {
+        return NextResponse.json({ success: true, data: [] });
+    }
 
     try {
         // Charger depuis les deux sources
