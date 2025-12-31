@@ -36,6 +36,35 @@ function updateThemeIcon(theme) {
 // Initialiser le thème au chargement
 initTheme();
 
+// === SESSION HEARTBEAT (Suivi temps réel des visiteurs) ===
+function startSessionHeartbeat() {
+    // Ping immédiat au chargement
+    pingSession();
+
+    // Puis toutes les 30 secondes
+    setInterval(pingSession, 30000);
+}
+
+function pingSession() {
+    // Envoie un ping avec le token d'auth si connecté
+    const token = localStorage.getItem('authToken');
+    const headers = {};
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    fetch('/api/session/ping', {
+        method: 'POST',
+        credentials: 'include',
+        headers: headers
+    }).catch(() => {
+        // Ignorer les erreurs silencieusement
+    });
+}
+
+// Démarrer le heartbeat
+startSessionHeartbeat();
+
 // === ONBOARDING SYSTÈME ===
 const onboardingOverlay = document.getElementById('onboarding-overlay');
 

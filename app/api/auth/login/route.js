@@ -57,6 +57,14 @@ export async function POST(request) {
             );
         }
 
+        // Track login event
+        const loginEvents = db.collection('login_events');
+        await loginEvents.insertOne({
+            userId: user._id,
+            loggedAt: new Date(),
+            userAgent: request.headers.get('user-agent') || 'unknown'
+        });
+
         // Generate token
         const token = generateToken(user._id.toString(), user.email);
 

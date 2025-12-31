@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Télécharger le Logo - Hierotranslate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            border: 1px solid rgba(212, 168, 75, 0.3);
+        }
+
+        h1 {
+            color: #d4a84b;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .logo-preview {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .logo-preview img {
+            max-width: 100%;
+            height: auto;
+            max-height: 300px;
+        }
+
+        .download-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .download-btn.png {
+            background: linear-gradient(135deg, #d4a84b, #b8963f);
+            color: #1a1a2e;
+        }
+
+        .download-btn.pdf {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #d4a84b;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📜 Logo Hierotranslate</h1>
+
+        <div class="logo-preview">
+            <img src="/logo.png" alt="Logo Hierotranslate" id="logo-img">
+        </div>
+
+        <div class="download-buttons">
+            <a href="/logo.png" download="hierotranslate-logo.png" class="download-btn png">
+                📥 Télécharger PNG
+            </a>
+            <button onclick="downloadAsPDF()" class="download-btn pdf">
+                📄 Télécharger PDF
+            </button>
+        </div>
+
+        <a href="/" class="back-link">← Retour au site</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        async function downloadAsPDF() {
+            const { jsPDF } = window.jspdf;
+
+            const img = document.getElementById('logo-img');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Attendre que l'image soit chargée
+            await new Promise((resolve) => {
+                if (img.complete) resolve();
+                else img.onload = resolve;
+            });
+
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            ctx.drawImage(img, 0, 0);
+
+            const imgData = canvas.toDataURL('image/png');
+
+            // Créer le PDF (format carré pour le logo)
+            const pdf = new jsPDF({
+                orientation: canvas.width > canvas.height ? 'landscape' : 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Calculer les dimensions pour centrer l'image
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+
+            const imgWidth = 150; // mm
+            const imgHeight = (canvas.height / canvas.width) * imgWidth;
+
+            const x = (pageWidth - imgWidth) / 2;
+            const y = (pageHeight - imgHeight) / 2;
+
+            pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+            pdf.save('hierotranslate-logo.pdf');
+        }
+    </script>
+</body>
+
+</html>
