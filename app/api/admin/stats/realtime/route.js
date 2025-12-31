@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import clientPromise from '../../../../../lib/mongodb';
+import clientPromise from '@/lib/mongodb';
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Chamalo77850!';
 
