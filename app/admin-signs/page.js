@@ -220,8 +220,13 @@ export default function AdminSignsPage() {
 
     const updateHieroglyphsField = (groups) => {
         const hieroglyphs = groups.map(g => {
-            // Si empilé (Empiler) ou pyramide (Pyramide) → marqueur | entre les signes
-            if ((g.stacked || g.pyramid) && g.signs.length >= 2) {
+            // Pyramide: utiliser le marqueur ⌂ (1 signe en haut, 2 en bas côte à côte)
+            if (g.pyramid && g.signs.length >= 2) {
+                // Premier signe + ⌂ + les autres signes
+                return g.signs[0] + '⌂' + g.signs.slice(1).join('');
+            }
+            // Empilement vertical: utiliser le marqueur | entre les signes
+            if (g.stacked && g.signs.length >= 2) {
                 return g.signs.join('|');
             }
             // Signes normaux: retourner tel quel (côte à côte)
@@ -232,7 +237,10 @@ export default function AdminSignsPage() {
 
     const getComposerPreview = () => {
         return composerGroups.map(g => {
-            if ((g.stacked || g.pyramid) && g.signs.length >= 2) {
+            if (g.pyramid && g.signs.length >= 2) {
+                return g.signs[0] + '⌂' + g.signs.slice(1).join('');
+            }
+            if (g.stacked && g.signs.length >= 2) {
                 return g.signs.join('|');
             }
             return g.signs.join('');
