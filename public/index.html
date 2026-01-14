@@ -32,6 +32,59 @@
         content="Dictionnaire égyptien ancien : hiéroglyphes, translittération, français. Liste Gardiner complète.">
     <meta name="twitter:image" content="https://hierotranslate.com/favicon.png">
 
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "@id": "https://hierotranslate.com/#website",
+                "url": "https://hierotranslate.com/",
+                "name": "Hierotranslate",
+                "description": "Dictionnaire de l'égyptien ancien : traduction hiéroglyphes ↔ translittération ↔ français",
+                "inLanguage": "fr-FR",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://hierotranslate.com/?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                }
+            },
+            {
+                "@type": "WebApplication",
+                "@id": "https://hierotranslate.com/#app",
+                "name": "Hierotranslate",
+                "url": "https://hierotranslate.com/",
+                "applicationCategory": "EducationalApplication",
+                "operatingSystem": "Web Browser",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "EUR"
+                },
+                "featureList": [
+                    "Traduction hiéroglyphes vers français",
+                    "Translittération égyptienne",
+                    "Liste complète des signes Gardiner",
+                    "Exercices interactifs d'apprentissage"
+                ]
+            },
+            {
+                "@type": "Organization",
+                "@id": "https://hierotranslate.com/#organization",
+                "name": "Hierotranslate",
+                "url": "https://hierotranslate.com/",
+                "logo": "https://hierotranslate.com/favicon.png",
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "email": "hierotranslate@gmail.com",
+                    "contactType": "customer service"
+                }
+            }
+        ]
+    }
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
