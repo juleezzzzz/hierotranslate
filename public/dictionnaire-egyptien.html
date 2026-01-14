@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionnaire Égyptien Ancien — Traduction Hiéroglyphes Français | Hierotranslate</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="canonical" href="https://hierotranslate.com/dictionnaire-egyptien">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Dictionnaire de l'égyptien ancien gratuit. Traduction hiéroglyphes ↔ français ↔ translittération. Recherchez des mots égyptiens et leur signification.">
+    <meta name="keywords"
+        content="dictionnaire égyptien ancien, traduction hiéroglyphes français, dictionnaire hiéroglyphes, translittération égyptien, traducteur hiéroglyphes, dictionnaire égyptologie, vocabulaire égyptien ancien, lexique hiéroglyphes">
+    <meta name="author" content="Jules Charcosset">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Dictionnaire Égyptien Ancien — Traduction Hiéroglyphes">
+    <meta property="og:description"
+        content="Traduisez hiéroglyphes, translittération et français. Dictionnaire gratuit de l'égyptien ancien.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:url" content="https://hierotranslate.com/dictionnaire-egyptien">
+    <meta property="og:image" content="https://hierotranslate.com/favicon.png">
+    <meta property="og:site_name" content="Hierotranslate">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dictionnaire Égyptien Ancien">
+    <meta name="twitter:description" content="Traduction hiéroglyphes ↔ français ↔ translittération.">
+    <meta name="twitter:image" content="https://hierotranslate.com/favicon.png">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Dictionnaire de l'Égyptien Ancien",
+        "alternateName": ["Dictionnaire hiéroglyphes", "Traducteur égyptien ancien"],
+        "description": "Dictionnaire en ligne gratuit pour traduire entre hiéroglyphes égyptiens, translittération égyptologique et français.",
+        "url": "https://hierotranslate.com/dictionnaire-egyptien",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Jules Charcosset"
+        },
+        "featureList": [
+            "Traduction hiéroglyphes vers français",
+            "Traduction français vers hiéroglyphes", 
+            "Translittération égyptologique",
+            "Clavier de caractères spéciaux",
+            "Historique de recherche",
+            "Favoris personnalisés"
+        ],
+        "screenshot": "https://hierotranslate.com/favicon.png",
+        "about": {
+            "@type": "Thing",
+            "name": "Langue égyptienne ancienne",
+            "sameAs": "https://fr.wikipedia.org/wiki/%C3%89gyptien_ancien"
+        }
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            color: #f0e6d3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #d4a84b;
+            margin-bottom: 20px;
+        }
+
+        .hieroglyph-sample {
+            font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
+            font-size: 3rem;
+            margin: 30px 0;
+            letter-spacing: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #c9b896;
+        }
+
+        .translation-example {
+            background: rgba(212, 168, 75, 0.1);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .translation-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .translation-item {
+            text-align: center;
+        }
+
+        .translation-item .label {
+            display: block;
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .translation-item .value {
+            font-size: 1.5rem;
+        }
+
+        .translation-item .hiero {
+            font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
+            font-size: 2.5rem;
+        }
+
+        .arrow {
+            color: #d4a84b;
+            font-size: 1.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .feature {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .feature h3 {
+            color: #d4a84b;
+            margin-bottom: 8px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #d4a84b 0%, #c9973a 100%);
+            color: #1a1a2e;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 168, 75, 0.3);
+        }
+
+        .examples {
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .examples h3 {
+            color: #d4a84b;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .example-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .example-item {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .example-item .hiero {
+            font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📖 Dictionnaire Égyptien Ancien</h1>
+
+        <p>
+            Le <strong>dictionnaire de l'égyptien ancien</strong> le plus complet en français.
+            Traduisez entre <strong>hiéroglyphes</strong>, <strong>translittération</strong> et
+            <strong>français</strong>.
+        </p>
+
+        <div class="translation-example">
+            <div class="translation-row">
+                <div class="translation-item">
+                    <span class="label">Hiéroglyphes</span>
+                    <span class="value hiero">𓂋𓏤𓆑</span>
+                </div>
+                <span class="arrow">↔</span>
+                <div class="translation-item">
+                    <span class="label">Translittération</span>
+                    <span class="value">nfr</span>
+                </div>
+                <span class="arrow">↔</span>
+                <div class="translation-item">
+                    <span class="label">Français</span>
+                    <span class="value">beau, bon</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>Recherche intelligente</h3>
+                <p>Recherchez par mot français ou translittération</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⌨️</div>
+                <h3>Clavier spécial</h3>
+                <p>Caractères égyptologiques : ȝ, ḥ, ḫ, š, ṯ, ḏ...</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📚</div>
+                <h3>Base complète</h3>
+                <p>Des milliers de mots et 1070 signes Gardiner</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⭐</div>
+                <h3>Favoris</h3>
+                <p>Sauvegardez vos mots préférés</p>
+            </div>
+        </div>
+
+        <div class="examples">
+            <h3>Exemples de mots</h3>
+            <div class="example-list">
+                <div class="example-item"><span class="hiero">𓇳</span> rꜥ = soleil</div>
+                <div class="example-item"><span class="hiero">𓉐</span> pr = maison</div>
+                <div class="example-item"><span class="hiero">𓈖</span> mw = eau</div>
+                <div class="example-item"><span class="hiero">𓋹</span> ꜥnḫ = vie</div>
+                <div class="example-item"><span class="hiero">𓊹</span> nṯr = dieu</div>
+                <div class="example-item"><span class="hiero">𓎟</span> nb = maître</div>
+            </div>
+        </div>
+
+        <a href="/" class="cta-button">Ouvrir le Dictionnaire →</a>
+    </div>
+</body>
+
+</html>

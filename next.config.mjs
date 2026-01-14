@@ -8,6 +8,18 @@ const nextConfig = {
         destination: '/index.html',
       },
       {
+        source: '/liste-gardiner',
+        destination: '/liste-gardiner.html',
+      },
+      {
+        source: '/dictionnaire-egyptien',
+        destination: '/dictionnaire-egyptien.html',
+      },
+      {
+        source: '/exercices-egyptien',
+        destination: '/exercices-egyptien.html',
+      },
+      {
         source: '/sitemap.xml',
         destination: '/api/sitemap',
       },

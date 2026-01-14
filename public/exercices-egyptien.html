@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices Hiéroglyphes — Apprendre l'Égyptien Ancien | Hierotranslate</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="canonical" href="https://hierotranslate.com/exercices-egyptien">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Exercices interactifs pour apprendre l'égyptien ancien. Quiz sur les hiéroglyphes, translittération et signes Gardiner. Testez vos connaissances en égyptologie.">
+    <meta name="keywords"
+        content="exercices hiéroglyphes, apprendre égyptien ancien, quiz égyptologie, exercices translittération, apprendre hiéroglyphes, cours égyptien ancien, quiz hiéroglyphes, formation égyptologie">
+    <meta name="author" content="Jules Charcosset">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Exercices Hiéroglyphes — Apprendre l'Égyptien Ancien">
+    <meta property="og:description"
+        content="Quiz et exercices interactifs pour apprendre les hiéroglyphes et la translittération égyptienne.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:url" content="https://hierotranslate.com/exercices-egyptien">
+    <meta property="og:image" content="https://hierotranslate.com/favicon.png">
+    <meta property="og:site_name" content="Hierotranslate">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Exercices Hiéroglyphes — Quiz Égyptologie">
+    <meta name="twitter:description" content="Apprenez l'égyptien ancien avec des exercices interactifs.">
+    <meta name="twitter:image" content="https://hierotranslate.com/favicon.png">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "Exercices d'Égyptien Ancien",
+        "description": "Exercices interactifs pour apprendre l'égyptien ancien : quiz sur les hiéroglyphes, translittération et signes Gardiner.",
+        "provider": {
+            "@type": "Organization",
+            "name": "Hierotranslate",
+            "url": "https://hierotranslate.com"
+        },
+        "educationalLevel": "Beginner to Intermediate",
+        "inLanguage": "fr",
+        "isAccessibleForFree": true,
+        "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "online",
+            "instructor": {
+                "@type": "Person",
+                "name": "Jules Charcosset"
+            }
+        },
+        "about": [
+            {
+                "@type": "Thing",
+                "name": "Hiéroglyphes égyptiens"
+            },
+            {
+                "@type": "Thing",
+                "name": "Égyptologie"
+            }
+        ],
+        "teaches": ["Lecture des hiéroglyphes", "Translittération égyptienne", "Signes Gardiner"]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            color: #f0e6d3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #d4a84b;
+            margin-bottom: 20px;
+        }
+
+        .hieroglyph-sample {
+            font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
+            font-size: 3rem;
+            margin: 30px 0;
+            letter-spacing: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #c9b896;
+        }
+
+        .exercise-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .exercise-card {
+            background: rgba(212, 168, 75, 0.1);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .exercise-card h3 {
+            color: #d4a84b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .exercise-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .exercise-card li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .exercise-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #d4a84b 0%, #c9973a 100%);
+            color: #1a1a2e;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 168, 75, 0.3);
+        }
+
+        .benefits {
+            margin: 40px 0;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .benefits h2 {
+            color: #d4a84b;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📚 Exercices d'Égyptien Ancien</h1>
+        <p class="hieroglyph-sample">𓂀 𓏏 𓎛 𓇋 𓆑</p>
+
+        <p>
+            Apprenez l'<strong>égyptien ancien</strong> avec nos exercices interactifs.
+            Testez vos connaissances sur les <strong>hiéroglyphes</strong> et la <strong>translittération</strong>.
+        </p>
+
+        <div class="exercise-types">
+            <div class="exercise-card">
+                <h3>🎯 Identifier le signe</h3>
+                <p>Reconnaissez les hiéroglyphes et trouvez leur translittération ou description.</p>
+                <ul>
+                    <li>Mode translittération</li>
+                    <li>Mode description</li>
+                    <li>Questions à choix multiples</li>
+                </ul>
+            </div>
+            <div class="exercise-card">
+                <h3>✍️ Traduire le signe</h3>
+                <p>Écrivez la translittération correcte des hiéroglyphes présentés.</p>
+                <ul>
+                    <li>Clavier de translittération intégré</li>
+                    <li>Caractères spéciaux (ȝ, ḥ, ḫ, š...)</li>
+                    <li>Correction instantanée</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="benefits">
+            <h2>Pourquoi s'exercer ?</h2>
+            <p>
+                La lecture des hiéroglyphes nécessite de la pratique. Nos exercices vous permettent de :
+            </p>
+            <ul style="text-align: left; margin-top: 15px; list-style-position: inside;">
+                <li>Mémoriser les 1070 signes Gardiner progressivement</li>
+                <li>Maîtriser l'alphabet de translittération égyptologique</li>
+                <li>Suivre votre progression avec un système de score</li>
+                <li>Comparer vos résultats sur le classement</li>
+            </ul>
+        </div>
+
+        <a href="/#exercice" class="cta-button">Commencer les Exercices →</a>
+    </div>
+</body>
+
+</html>
