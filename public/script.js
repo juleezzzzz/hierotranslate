@@ -413,7 +413,7 @@ function performTranslation() {
                 // Succès : affiche les données reçues avec hiéroglyphes empilés verticalement
                 const hieroglyphs = data.data.hieroglyphes || '';
                 const stackedHiero = createStackedHieroglyphs(hieroglyphs);
-                resultHiero.innerHTML = `Hiéroglyphes: ${stackedHiero} (${data.data.translitteration})`;
+                resultHiero.innerHTML = `<span class="hiero-result-sign">${stackedHiero}</span> <span class="translit-result" style="font-family: 'Gentium Plus', serif;">(${data.data.translitteration})</span>`;
                 resultFrench.textContent = `Traduction: ${data.data.francais} `;
 
                 // Ajouter à l'historique
