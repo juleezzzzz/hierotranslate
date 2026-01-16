@@ -360,7 +360,7 @@ function createStackedHieroglyphs(hieroglyphString) {
         const stackedSigns = signs.map((sign, index) => {
             // Le premier signe n'a pas de marge, les suivants sont rapprochés
             const marginTop = index > 0 ? 'margin-top: -0.1em;' : '';
-            return `<span style="display: flex; justify-content: center; align-items: center; font-size: 1.2em; line-height: 0.9; text-align: center; ${marginTop}">${sign}</span>`;
+            return `<span style="display: flex; justify-content: center; align-items: center; font-size: 1.05em; line-height: 0.9; text-align: center; ${marginTop}">${sign}</span>`;
         }).join('');
 
         // Centrage vertical parfait
