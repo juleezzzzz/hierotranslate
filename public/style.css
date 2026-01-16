@@ -372,6 +372,10 @@ p {
     color: #2b2b2b;
     margin-bottom: 0.75rem;
     word-break: break-word;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    flex-wrap: wrap;
 }
 
 .french-result {
