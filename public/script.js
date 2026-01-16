@@ -350,8 +350,9 @@ function createStackedHieroglyphs(hieroglyphString) {
     // Vérifier si contient des espaces (groupes côte à côte)
     if (hieroglyphString.includes(' ')) {
         const groups = hieroglyphString.split(' ').filter(g => g.length > 0);
-        const groupsHtml = groups.map(group => `<span style="display: inline-block; vertical-align: middle;">${createStackedHieroglyphs(group)}</span>`).join(' ');
-        return `<span style="display: inline-flex; align-items: center; gap: 0.2em;">${groupsHtml}</span>`;
+        // Aligner les groupes sur la ligne de base (bas)
+        const groupsHtml = groups.map(group => `<span style="display: inline-block; vertical-align: bottom;">${createStackedHieroglyphs(group)}</span>`).join(' ');
+        return `<span style="display: inline-flex; align-items: flex-end; gap: 0.2em;">${groupsHtml}</span>`;
     }
 
     // Vérifier si c'est un empilement vertical (marqueur |)
@@ -364,8 +365,8 @@ function createStackedHieroglyphs(hieroglyphString) {
             return `<span style="display: flex; justify-content: center; align-items: center; font-size: 0.75em; line-height: 0.9; text-align: center; ${marginTop}">${sign}</span>`;
         }).join('');
 
-        // Centrage vertical parfait
-        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">${stackedSigns}</span>`;
+        // Alignement vertical bas (baseline)
+        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; vertical-align: bottom;">${stackedSigns}</span>`;
     }
 
     // Vérifier si c'est un layout pyramide (marqueur ⌂)
