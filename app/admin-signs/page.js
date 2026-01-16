@@ -219,32 +219,59 @@ export default function AdminSignsPage() {
     };
 
     const updateHieroglyphsField = (groups) => {
-        const hieroglyphs = groups.map(g => {
+        // Générer les représentations de chaque groupe
+        const groupRepresentations = groups.map(g => {
             // Pyramide: utiliser le marqueur ⌂ (1 signe en haut, 2 en bas côte à côte)
             if (g.pyramid && g.signs.length >= 2) {
-                // Premier signe + ⌂ + les autres signes
-                return g.signs[0] + '⌂' + g.signs.slice(1).join('');
+                return { text: g.signs[0] + '⌂' + g.signs.slice(1).join(''), isComplex: true };
             }
             // Empilement vertical: utiliser le marqueur | entre les signes
             if (g.stacked && g.signs.length >= 2) {
-                return g.signs.join('|');
+                return { text: g.signs.join('|'), isComplex: true };
             }
             // Signes normaux: retourner tel quel (côte à côte)
-            return g.signs.join('');
-        }).join(''); // PAS d'espace - les signes sont côte à côte par défaut
+            return { text: g.signs.join(''), isComplex: false };
+        });
+
+        // Joindre les groupes avec un espace si un groupe complexe (stacked/pyramid) est adjacent à un autre groupe
+        let hieroglyphs = '';
+        for (let i = 0; i < groupRepresentations.length; i++) {
+            hieroglyphs += groupRepresentations[i].text;
+            // Ajouter un espace si le groupe actuel ou le suivant est complexe
+            if (i < groupRepresentations.length - 1) {
+                const currentIsComplex = groupRepresentations[i].isComplex;
+                const nextIsComplex = groupRepresentations[i + 1].isComplex;
+                if (currentIsComplex || nextIsComplex) {
+                    hieroglyphs += ' ';
+                }
+            }
+        }
         setFormData(prev => ({ ...prev, hieroglyphs }));
     };
 
     const getComposerPreview = () => {
-        return composerGroups.map(g => {
+        const groupRepresentations = composerGroups.map(g => {
             if (g.pyramid && g.signs.length >= 2) {
-                return g.signs[0] + '⌂' + g.signs.slice(1).join('');
+                return { text: g.signs[0] + '⌂' + g.signs.slice(1).join(''), isComplex: true };
             }
             if (g.stacked && g.signs.length >= 2) {
-                return g.signs.join('|');
+                return { text: g.signs.join('|'), isComplex: true };
             }
-            return g.signs.join('');
-        }).join(''); // PAS d'espace
+            return { text: g.signs.join(''), isComplex: false };
+        });
+
+        let result = '';
+        for (let i = 0; i < groupRepresentations.length; i++) {
+            result += groupRepresentations[i].text;
+            if (i < groupRepresentations.length - 1) {
+                const currentIsComplex = groupRepresentations[i].isComplex;
+                const nextIsComplex = groupRepresentations[i + 1].isComplex;
+                if (currentIsComplex || nextIsComplex) {
+                    result += ' ';
+                }
+            }
+        }
+        return result;
     };
 
     // Keyboard handler for hieroglyph input
