@@ -350,7 +350,8 @@ function createStackedHieroglyphs(hieroglyphString) {
     // Vérifier si contient des espaces (groupes côte à côte)
     if (hieroglyphString.includes(' ')) {
         const groups = hieroglyphString.split(' ').filter(g => g.length > 0);
-        return groups.map(group => createStackedHieroglyphs(group)).join(' ');
+        const groupsHtml = groups.map(group => `<span style="display: inline-block; vertical-align: bottom;">${createStackedHieroglyphs(group)}</span>`).join(' ');
+        return `<span style="display: inline-flex; align-items: flex-end; gap: 0.2em;">${groupsHtml}</span>`;
     }
 
     // Vérifier si c'est un empilement vertical (marqueur |)
