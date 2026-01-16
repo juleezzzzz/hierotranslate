@@ -356,15 +356,13 @@ function createStackedHieroglyphs(hieroglyphString) {
     // Vérifier si c'est un empilement vertical (marqueur |)
     if (hieroglyphString.includes('|')) {
         const signs = hieroglyphString.split('|');
+        // Réduire la taille des signes empilés (0.75em) et serrer l'espacement
         const stackedSigns = signs.map(sign => {
-            return `<span style="display: flex; justify-content: center; align-items: center; line-height: 0.5; text-align: center;">${sign}</span>`;
+            return `<span style="display: flex; justify-content: center; align-items: center; font-size: 0.75em; line-height: 0.9; text-align: center;">${sign}</span>`;
         }).join('');
 
-        // Centrage vertical proportionnel
-        const halfOffset = (signs.length - 1) * 0.25;
-        const offset = halfOffset > 0 ? `margin-top: -${halfOffset}em;` : '';
-
-        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle; ${offset}">${stackedSigns}</span>`;
+        // Centrage vertical pour aligner le groupe empilé avec un signe seul à côté
+        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle; margin-top: -0.1em;">${stackedSigns}</span>`;
     }
 
     // Vérifier si c'est un layout pyramide (marqueur ⌂)
