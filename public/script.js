@@ -363,8 +363,8 @@ function createStackedHieroglyphs(hieroglyphString) {
             return `<span style="display: flex; justify-content: center; align-items: center; font-size: 0.75em; line-height: 0.9; text-align: center; ${marginTop}">${sign}</span>`;
         }).join('');
 
-        // Centrage vertical parfait
-        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">${stackedSigns}</span>`;
+        // Centrage vertical parfait avec transform
+        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle; position: relative; top: 50%; transform: translateY(-50%);">${stackedSigns}</span>`;
     }
 
     // Vérifier si c'est un layout pyramide (marqueur ⌂)
