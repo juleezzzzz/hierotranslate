@@ -358,8 +358,8 @@ function createStackedHieroglyphs(hieroglyphString) {
         const signs = hieroglyphString.split('|');
         // Réduire la taille des signes empilés (0.75em) et serrer l'espacement
         const stackedSigns = signs.map((sign, index) => {
-            // Le premier signe n'a pas de marge, les suivants ont un petit espace
-            const marginTop = index > 0 ? 'margin-top: 0.05em;' : '';
+            // Le premier signe n'a pas de marge, les suivants ont un léger rapprochement
+            const marginTop = index > 0 ? 'margin-top: -0.05em;' : '';
             return `<span style="display: flex; justify-content: center; align-items: center; font-size: 0.75em; line-height: 0.8; text-align: center; ${marginTop}">${sign}</span>`;
         }).join('');
 
