@@ -365,8 +365,8 @@ function createStackedHieroglyphs(hieroglyphString) {
             return `<span style="display: flex; justify-content: center; align-items: center; font-size: 0.75em; line-height: 0.9; text-align: center; ${marginTop}">${sign}</span>`;
         }).join('');
 
-        // Alignement vertical bas (baseline)
-        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; vertical-align: bottom;">${stackedSigns}</span>`;
+        // Centrage vertical parfait pour l'empilement lui-même
+        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">${stackedSigns}</span>`;
     }
 
     // Vérifier si c'est un layout pyramide (marqueur ⌂)
@@ -377,7 +377,7 @@ function createStackedHieroglyphs(hieroglyphString) {
 
         return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
             <span style="font-size: 1em; line-height: 1;">${topSign}</span>
-            <span style="display: inline-flex; justify-content: center; align-items: flex-start; gap: 0.1em; line-height: 1; margin-top: -0.15em;">
+            <span style="display: inline-flex; justify-content: center; align-items: flex-end; gap: 0.1em; line-height: 1; margin-top: -0.15em;">
                 ${bottomSigns.map(s => `<span style="display: inline-flex; align-items: flex-end;">${s}</span>`).join('')}
             </span>
         </span>`;
