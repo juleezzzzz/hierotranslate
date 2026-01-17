@@ -364,25 +364,17 @@ function createStackedHieroglyphs(hieroglyphString) {
 
             // On affiche en mode Flex "Side-by-Side" amélioré
             return `<span style="display: inline-flex; align-items: flex-end; gap: 0.15em; vertical-align: bottom;">
-                <!-- Jambe (Taille normale car référence) -->
+                <!-- Jambe (Signe 1) -->
                 <span style="font-size: 1em; line-height: 1;">${leg}</span>
                 
-                <!-- Mèche (Taille normale) -->
-                <span style="font-size: 1em; line-height: 1;">${wick}</span>
+                <!-- Mèche (Signe 2) - Augmenté à 1.5 -->
+                <span style="font-size: 1.5em; line-height: 1;">${wick}</span>
                 
-                <!-- Verrou (et autres éléments sauf le dernier) en pile ou côte à côte ? -->
-                <!-- Pour l'instant on garde le verrou vertical par rapport aux autres -->
-                <span style="font-size: 1em; line-height: 1;">${bolt}</span>
+                <!-- Verrou (Signe 3) - Augmenté à 1.5 -->
+                <span style="font-size: 1.5em; line-height: 1;">${bolt}</span>
 
-                <!-- Le veau (Dernier signe) - AGRANDI pour matcher la hauteur de la jambe -->
-                <!-- On suppose que le dernier signe est le veau déterminatif -->
-                ${others.map((s, index) => {
-                // Si c'est le tout dernier, on l'agrandit
-                if (index === others.length - 1) {
-                    return `<span style="font-size: 1.5em; line-height: 1; margin-bottom: 0;">${s}</span>`;
-                }
-                return `<span style="font-size: 1em;">${s}</span>`;
-            }).join('')}
+                <!-- Autres (Signe 4+) - Augmentés à 1.5 -->
+                ${others.map(s => `<span style="font-size: 1.5em; line-height: 1;">${s}</span>`).join('')}
             </span>`;
         }
     }
