@@ -347,10 +347,44 @@ function createStackedHieroglyphs(hieroglyphString) {
         return hieroglyphString;
     }
 
-    // Vérifier si contient des espaces (groupes côte à côte)
-    if (hieroglyphString.includes(' ')) {
-        const groups = hieroglyphString.split(' ').filter(g => g.length > 0);
-        return groups.map(group => createStackedHieroglyphs(group)).join(' ');
+    // === PERSONNALISATION DYNAMIQUE : VEAU (bḥz) ===
+    // Détection : Commence par Jambe (𓃀) et Mèche (𓎛), et contient le Verrou (𓊃)
+    if (hieroglyphString.includes('𓃀') && hieroglyphString.includes('𓎛') && hieroglyphString.includes('𓊃')) {
+        // On découpe la chaîne pour récupérer les VRAIS signes entrés par l'utilisateur
+        // (pour ne pas remplacer un signe par un autre involontairement)
+        const signs = [...hieroglyphString].filter(c => c.trim() !== '');
+
+        // On s'attend à : [0]𓃀, [1]𓎛, [2]𓊃, ... [last]Determinatif(Veau)
+        if (signs.length >= 4) {
+            const leg = signs[0]; // 𓃀
+            const wick = signs[1]; // 𓎛
+            const bolt = signs[2]; // 𓊃
+            // Le reste (le déterminatif, et éventuellement un trait)
+            const others = signs.slice(3);
+
+            // On affiche en mode Flex "Side-by-Side" amélioré
+            return `<span style="display: inline-flex; align-items: flex-end; gap: 0.15em; vertical-align: bottom;">
+                <!-- Jambe (Taille normale car référence) -->
+                <span style="font-size: 1em; line-height: 1;">${leg}</span>
+                
+                <!-- Mèche (Taille normale) -->
+                <span style="font-size: 1em; line-height: 1;">${wick}</span>
+                
+                <!-- Verrou (et autres éléments sauf le dernier) en pile ou côte à côte ? -->
+                <!-- Pour l'instant on garde le verrou vertical par rapport aux autres -->
+                <span style="font-size: 1em; line-height: 1;">${bolt}</span>
+
+                <!-- Le veau (Dernier signe) - AGRANDI pour matcher la hauteur de la jambe -->
+                <!-- On suppose que le dernier signe est le veau déterminatif -->
+                ${others.map((s, index) => {
+                // Si c'est le tout dernier, on l'agrandit
+                if (index === others.length - 1) {
+                    return `<span style="font-size: 1.5em; line-height: 1; margin-bottom: 0;">${s}</span>`;
+                }
+                return `<span style="font-size: 1em;">${s}</span>`;
+            }).join('')}
+            </span>`;
+        }
     }
 
     // Vérifier si c'est un empilement vertical (marqueur |)
