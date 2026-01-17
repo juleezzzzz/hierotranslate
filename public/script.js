@@ -368,6 +368,8 @@ function createStackedHieroglyphs(hieroglyphString) {
     }
 
     // Vérifier si c'est un layout pyramide (marqueur ⌂)
+    // 🔒 LOGIQUE VÉROUILLÉE : Alignement spécifique pour T/Z.
+    // NE PAS MODIFIER SANS AUTORISATION EXPLICITE (Mot clé : "change t et z")
     if (hieroglyphString.includes('⌂')) {
         const parts = hieroglyphString.split('⌂');
         const topSign = parts[0];
