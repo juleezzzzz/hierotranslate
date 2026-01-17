@@ -375,6 +375,17 @@ function createStackedHieroglyphs(hieroglyphString) {
         const topSign = parts[0];
         const bottomSigns = [...parts[1]]; // Séparer les signes du bas
 
+        // CAS SPÉCIFIQUE SÉCURISÉ : Uniquement pour tȝ (𓈇 + 𓏤)
+        // On aligne par le bas spécifiquement pour ce couple, sans toucher aux autres.
+        if (parts[1] === '𓈇𓏤') {
+            return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
+                <span style="font-size: 1em; line-height: 1;">${topSign}</span>
+                <span style="display: inline-flex; justify-content: center; align-items: flex-end; gap: 0.2em; font-size: 0.9em; line-height: 1; margin-top: 0;">
+                    ${bottomSigns.map(s => `<span style="display: inline-flex; align-items: flex-end; margin-top: -0.2em;">${s}</span>`).join('')}
+                </span>
+            </span>`;
+        }
+
         // CAS PAR DÉFAUT (T/Z et autres) - LOGIQUE VÉROUILLÉE
         return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
             <span style="font-size: 1em; line-height: 1;">${topSign}</span>
