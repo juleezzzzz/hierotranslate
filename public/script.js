@@ -337,6 +337,54 @@ transliterationKeys.forEach(key => {
 });
 
 
+// === PARSEUR DE PERSONNALISATION ===
+// Détecte la syntaxe : Signe((s=1.5,x=0.1,y=-0.2))
+function parseHieroglyphString(str) {
+    if (!str) return [];
+
+    // Regex pour capturer un signe (surrogate pairs inclus) suivi optionnellement de ((paramètres))
+    // \P{M}\p{M}* match un graphème de base et ses accents, mais ici on simplifie pour les hiéroglyphes (surrogates) ou char normal
+    // On cherche : (Un ou deux char pour le signe) suivi de ( ((...)) optionnel )
+
+    const regex = /(?:[\uD800-\uDBFF][\uDC00-\uDFFF]|[^()])(?:\(\(.*?\)\))?/g;
+    const matches = str.match(regex) || [];
+
+    return matches.map(token => {
+        let char = token;
+        let style = '';
+        let scale = 1;
+
+        // Vérifier si présence de paramètres ((...))
+        if (token.includes('((') && token.endsWith('))')) {
+            const parts = token.split('((');
+            char = parts[0];
+            const paramsStr = parts[1].slice(0, -2); // retirer ))
+
+            // Parser les params s=1.2,x=0.1...
+            const params = {};
+            paramsStr.split(',').forEach(p => {
+                const [key, val] = p.split('=');
+                if (key && val) params[key.trim()] = parseFloat(val);
+            });
+
+            // Générer le style CSS
+            if (params.s && !isNaN(params.s)) {
+                style += `font-size: ${params.s}em; `;
+                scale = params.s;
+            }
+            if (params.x && !isNaN(params.x)) {
+                style += `margin-left: ${params.x}em; margin-right: ${params.x}em; `;
+            }
+            if (params.y && !isNaN(params.y)) {
+                // margin-top natif
+                style += `margin-top: ${params.y}em; `;
+            }
+        }
+
+        return { char, style, scale };
+    });
+}
+
 // === FONCTION D'AFFICHAGE HIÉROGLYPHES STYLE VÉGA ===
 // Affiche les signes avec différents layouts:
 // - Espaces = groupes côte à côte
@@ -349,18 +397,31 @@ function createStackedHieroglyphs(hieroglyphString) {
 
     // Vérifier si contient des espaces (groupes côte à côte)
     if (hieroglyphString.includes(' ')) {
-        const groups = hieroglyphString.split(' ').filter(g => g.length > 0);
-        return groups.map(group => createStackedHieroglyphs(group)).join(' ');
+        const groups = hieroglyphString.split(' ');
+        // Recursion pour chaque groupe
+        const groupsHtml = groups.map(group => `<span style="display: inline-flex; align-items: flex-end; vertical-align: bottom; line-height: 1;">${createStackedHieroglyphs(group)}</span>`).join(' ');
+
+        // Conteneur Flex global
+        return `<span style="display: inline-flex; align-items: flex-end; gap: 0.2em;">${groupsHtml}</span>`;
     }
 
     // Vérifier si c'est un empilement vertical (marqueur |)
     if (hieroglyphString.includes('|')) {
         const signs = hieroglyphString.split('|');
         // Réduire la taille des signes empilés (0.75em) et serrer l'espacement
-        const stackedSigns = signs.map((sign, index) => {
+        const stackedSigns = signs.map((signStr, index) => {
+            // Parser le signe pour récupérer style persos
+            const parsed = parseHieroglyphString(signStr)[0] || { char: signStr, style: '', scale: 1 };
+
             // Le premier signe n'a pas de marge, les suivants sont rapprochés
-            const marginTop = index > 0 ? 'margin-top: -0.1em;' : '';
-            return `<span style="display: flex; justify-content: center; align-items: center; font-size: 0.75em; line-height: 0.9; text-align: center; ${marginTop}">${sign}</span>`;
+            // On combine la custom style avec le style par défaut de la pile
+            const marginTopDefault = index > 0 ? 'margin-top: -0.1em;' : '';
+            // Si custom scale, on l'applique relative à la taille de pile (0.75em) -> un peu complexe, 
+            // simplifions : on applique le fontsize custom s'il existe, sinon 0.75em.
+            const fontSize = parsed.style.includes('font-size') ? parsed.style : 'font-size: 0.75em;';
+            const extraStyle = parsed.style.replace(/font-size:[^;]+;/g, ''); // retirer font-size du style extra pour pas conflicter
+
+            return `<span style="display: flex; justify-content: center; align-items: center; ${fontSize} line-height: 0.9; text-align: center; ${marginTopDefault} ${extraStyle}">${parsed.char}</span>`;
         }).join('');
 
         // Centrage vertical (comme avant)
@@ -372,32 +433,60 @@ function createStackedHieroglyphs(hieroglyphString) {
     // NE PAS MODIFIER SANS AUTORISATION EXPLICITE (Mot clé : "change t et z")
     if (hieroglyphString.includes('⌂')) {
         const parts = hieroglyphString.split('⌂');
-        const topSign = parts[0];
-        const bottomSigns = [...parts[1]]; // Séparer les signes du bas
+        const topSignStr = parts[0];
+
+        // Parser le signe du haut
+        const topParsed = parseHieroglyphString(topSignStr)[0] || { char: topSignStr, style: '' };
+
+        // Pour les signes du bas, on doit parser la chaîne complète des params
+        // Attention : parts[1] contient potentiellement plusieurs signes avec params : 𓃀((s=1))𓎛
+        // On ne peut pas juste faire [...parts[1]], il faut utiliser notre parseur global sur parts[1]
+        const bottomParsedList = parseHieroglyphString(parts[1]);
 
         // CAS SPÉCIFIQUE SÉCURISÉ : Uniquement pour tȝ (𓈇 + 𓏤)
         // On aligne par le bas spécifiquement pour ce couple, mais avec les marges asymétriques
         // pour remonter le Z (droite) comme dans l'ancien script.
-        if (parts[1] === '𓈇𓏤') {
+        if (parts[1] === '𓈇𓏤') { // Note: si params custom ajoutés, ce check échouera (ce qui est voulu, le custom prend le dessus)
             return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
-                <span style="font-size: 1em; line-height: 1;">${topSign}</span>
+                <span style="font-size: 1em; line-height: 1;">${topSignStr}</span>
                 <span style="display: inline-flex; justify-content: center; align-items: flex-end; gap: 0.2em; font-size: 0.9em; line-height: 1; margin-top: 0;">
-                    ${bottomSigns.map((s, i) => `<span style="display: inline-flex; align-items: flex-end;${i === 0 ? ' margin-top: -0.2em;' : ' margin-top: -0.25em;'}">${s}</span>`).join('')}
+                    ${[...parts[1]].map((s, i) => `<span style="display: inline-flex; align-items: flex-end;${i === 0 ? ' margin-top: -0.2em;' : ' margin-top: -0.25em;'}">${s}</span>`).join('')}
                 </span>
             </span>`;
         }
 
         // CAS PAR DÉFAUT (T/Z et autres) - LOGIQUE VÉROUILLÉE
         return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
-            <span style="font-size: 1em; line-height: 1;">${topSign}</span>
+            <span style="font-size: 1em; line-height: 1; ${topParsed.style}">${topParsed.char}</span>
             <span style="display: inline-flex; justify-content: center; align-items: flex-start; gap: 0.2em; font-size: 0.9em; line-height: 1; margin-top: 0;">
-                ${bottomSigns.map((s, i) => `<span style="display: inline-flex; align-items: flex-end;${i === 0 ? ' margin-top: -0.2em;' : ' margin-top: -0.35em;'}">${s}</span>`).join('')}
+                ${bottomParsedList.map((p, i) => {
+            // Maintien de la logique 'locked' (-0.2/-0.35) SAUF si override par custom Y
+            // Si custom Y défini, on n'applique pas la marge par défaut
+            const defaultMargin = (i === 0 ? 'margin-top: -0.2em;' : 'margin-top: -0.35em;');
+            const finalStyle = p.style.includes('margin-top') ? p.style : (defaultMargin + p.style);
+
+            return `<span style="display: inline-flex; align-items: flex-end; ${finalStyle}">${p.char}</span>`;
+        }).join('')}
             </span>
         </span>`;
     }
 
-    // Pas de marqueur = afficher tel quel (côte à côte)
-    return hieroglyphString;
+    // LISTE SIMPLE (côte à côte sans espaces) ou Signe tout seul
+    // Il faut utiliser le parseur pour séparer correctement les signes+params
+    const parsedSigns = parseHieroglyphString(hieroglyphString);
+
+    // Si un seul signe, on le rend direct
+    if (parsedSigns.length === 1) {
+        const p = parsedSigns[0];
+        return `<span style="display: inline-block; font-size: 1em; line-height: 1; ${p.style}">${p.char}</span>`;
+    }
+
+    // Si plusieurs signes collés (ex: veau 𓃀𓎛𓊃...), on les affiche en flex align-bottom
+    return `<span style="display: inline-flex; align-items: flex-end; gap: 0.1em; vertical-align: bottom;">
+        ${parsedSigns.map(p =>
+        `<span style="font-size: 1em; line-height: 1; ${p.style}">${p.char}</span>`
+    ).join('')}
+    </span>`;
 }
 
 // 2. Fonction de recherche et de Traduction

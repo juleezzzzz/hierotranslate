@@ -327,6 +327,64 @@ export default function AdminSignsPage() {
         updateHieroglyphsField(newGroups);
     };
 
+    // === CUSTOMIZATION HELPERS ===
+    const cleanSign = (str) => str ? str.replace(/\(\(.*?\)\)/g, '') : '';
+
+    const parseSignParams = (str) => {
+        const params = { s: 1, x: 0, y: 0 };
+        if (!str || !str.includes('((')) return params;
+
+        const match = str.match(/\(\((.*?)\)\)/);
+        if (!match) return params;
+
+        const parts = match[1].split(',');
+        parts.forEach(p => {
+            const [k, v] = p.split('=');
+            if (k && v) params[k.trim()] = parseFloat(v);
+        });
+        return params;
+    };
+
+    const updateSignParams = (str, newParams) => {
+        const rawSign = cleanSign(str);
+        // Filtre les params par défaut (s=1, x=0, y=0) pour ne pas polluer si inutile
+        const activeParams = [];
+        if (newParams.s !== 1) activeParams.push(`s=${newParams.s}`);
+        if (newParams.x !== 0) activeParams.push(`x=${newParams.x}`);
+        if (newParams.y !== 0) activeParams.push(`y=${newParams.y}`);
+
+        if (activeParams.length === 0) return rawSign;
+        return `${rawSign}((${activeParams.join(',')}))`;
+    };
+
+    // State pour la personnalisation
+    const [activeSignIdx, setActiveSignIdx] = useState(0);
+
+    const handleCustomizationChange = (param, value) => {
+        if (selectedGroups.length !== 1) return;
+
+        const groupId = selectedGroups[0];
+        const groupIndex = composerGroups.findIndex(g => g.id === groupId);
+        if (groupIndex === -1) return;
+
+        const group = composerGroups[groupIndex];
+        const currentSign = group.signs[activeSignIdx];
+        if (!currentSign) return;
+
+        const currentParams = parseSignParams(currentSign);
+        const newParams = { ...currentParams, [param]: parseFloat(value) };
+
+        const newSignStr = updateSignParams(currentSign, newParams);
+        const newSigns = [...group.signs];
+        newSigns[activeSignIdx] = newSignStr;
+
+        const newGroups = [...composerGroups];
+        newGroups[groupIndex] = { ...group, signs: newSigns };
+
+        setComposerGroups(newGroups);
+        updateHieroglyphsField(newGroups);
+    };
+
     // Form functions
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -444,6 +502,16 @@ export default function AdminSignsPage() {
         );
     }
 
+    // Récupérer les infos du groupe sélectionné pour le panneau custom
+    const selectedGroupData = selectedGroups.length === 1
+        ? composerGroups.find(g => g.id === selectedGroups[0])
+        : null;
+
+    const currentSignParams = selectedGroupData && selectedGroupData.signs[activeSignIdx]
+        ? parseSignParams(selectedGroupData.signs[activeSignIdx])
+        : { s: 1, x: 0, y: 0 };
+
+
     return (
         <div style={styles.container}>
             <header style={styles.header}>
@@ -476,7 +544,7 @@ export default function AdminSignsPage() {
                                     composerGroups.map(group => (
                                         <div
                                             key={group.id}
-                                            onClick={() => toggleGroupSelection(group.id)}
+                                            onClick={() => { toggleGroupSelection(group.id); setActiveSignIdx(0); }}
                                             style={{
                                                 ...styles.composerGroup,
                                                 ...(selectedGroups.includes(group.id) ? styles.selectedGroup : {}),
@@ -486,18 +554,18 @@ export default function AdminSignsPage() {
                                         >
                                             {group.pyramid ? (
                                                 <div style={styles.pyramidLayout}>
-                                                    <div style={styles.pyramidTop}>{group.signs[0]}</div>
+                                                    <div style={styles.pyramidTop}>{cleanSign(group.signs[0])}</div>
                                                     <div style={styles.pyramidBottom}>
-                                                        <span style={styles.pyramidBottomSign}>{group.signs[1]}</span>
-                                                        <span style={styles.pyramidBottomSign}>{group.signs[2]}</span>
+                                                        <span style={styles.pyramidBottomSign}>{cleanSign(group.signs[1])}</span>
+                                                        <span style={styles.pyramidBottomSign}>{cleanSign(group.signs[2])}</span>
                                                     </div>
                                                 </div>
                                             ) : group.stacked ? (
                                                 <div style={styles.stackedSigns}>
-                                                    {group.signs.map((s, i) => <div key={i} style={styles.stackedSign}>{s}</div>)}
+                                                    {group.signs.map((s, i) => <div key={i} style={styles.stackedSign}>{cleanSign(s)}</div>)}
                                                 </div>
                                             ) : (
-                                                <span style={styles.composerSign}>{group.signs[0]}</span>
+                                                <span style={styles.composerSign}>{cleanSign(group.signs[0])}</span>
                                             )}
                                         </div>
                                     ))
@@ -595,6 +663,74 @@ export default function AdminSignsPage() {
 
                         {/* Sign Picker */}
                         <div style={styles.composerRight}>
+
+                            {/* CUSTOMIZATION PANEL */}
+                            {selectedGroupData && (
+                                <div style={{ marginBottom: '20px', padding: '15px', background: '#e3f2fd', borderRadius: '8px', border: '2px solid #2196f3' }}>
+                                    <h4 style={{ margin: '0 0 10px 0', color: '#1565c0', display: 'flex', justifyContent: 'space-between' }}>
+                                        <span>🛠 Personnalisation</span>
+                                        <span style={{ fontSize: '0.8em', background: '#fff', padding: '2px 5px', borderRadius: '4px' }}>
+                                            {cleanSign(selectedGroupData.signs[activeSignIdx])}
+                                        </span>
+                                    </h4>
+
+                                    {/* Onglets choix du signe si plusieurs */}
+                                    {selectedGroupData.signs.length > 1 && (
+                                        <div style={{ display: 'flex', gap: '5px', marginBottom: '10px' }}>
+                                            {selectedGroupData.signs.map((s, i) => (
+                                                <button
+                                                    key={i}
+                                                    onClick={() => setActiveSignIdx(i)}
+                                                    style={{
+                                                        flex: 1,
+                                                        padding: '5px',
+                                                        border: '1px solid #90caf9',
+                                                        background: activeSignIdx === i ? '#2196f3' : 'white',
+                                                        color: activeSignIdx === i ? 'white' : 'black',
+                                                        cursor: 'pointer',
+                                                        fontFamily: 'Noto Sans Egyptian Hieroglyphs',
+                                                        borderRadius: '4px'
+                                                    }}
+                                                >
+                                                    {cleanSign(s)}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Sliders */}
+                                    <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 40px', gap: '10px', alignItems: 'center', marginBottom: '8px' }}>
+                                        <label style={{ fontSize: '12px' }}>Taille</label>
+                                        <input
+                                            type="range" min="0.5" max="2.5" step="0.1"
+                                            value={currentSignParams.s}
+                                            onChange={(e) => handleCustomizationChange('s', e.target.value)}
+                                        />
+                                        <span style={{ fontSize: '11px' }}>{currentSignParams.s}x</span>
+                                    </div>
+
+                                    <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 40px', gap: '10px', alignItems: 'center', marginBottom: '8px' }}>
+                                        <label style={{ fontSize: '12px' }}>Pos. X</label>
+                                        <input
+                                            type="range" min="-1" max="1" step="0.05"
+                                            value={currentSignParams.x}
+                                            onChange={(e) => handleCustomizationChange('x', e.target.value)}
+                                        />
+                                        <span style={{ fontSize: '11px' }}>{currentSignParams.x}</span>
+                                    </div>
+
+                                    <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 40px', gap: '10px', alignItems: 'center' }}>
+                                        <label style={{ fontSize: '12px' }}>Pos. Y</label>
+                                        <input
+                                            type="range" min="-1" max="1" step="0.05"
+                                            value={currentSignParams.y}
+                                            onChange={(e) => handleCustomizationChange('y', e.target.value)}
+                                        />
+                                        <span style={{ fontSize: '11px' }}>{currentSignParams.y}</span>
+                                    </div>
+                                </div>
+                            )}
+
                             <p style={styles.composerLabel}>Sélecteur de signes Gardiner</p>
 
                             <div style={styles.categoryTabs}>
