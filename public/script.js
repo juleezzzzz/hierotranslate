@@ -350,9 +350,7 @@ function createStackedHieroglyphs(hieroglyphString) {
     // Vérifier si contient des espaces (groupes côte à côte)
     if (hieroglyphString.includes(' ')) {
         const groups = hieroglyphString.split(' ').filter(g => g.length > 0);
-        // Aligner les groupes sur la ligne de base (bas) sans interligne excessif
-        const groupsHtml = groups.map(group => `<span style="display: inline-flex; align-items: flex-end; vertical-align: bottom; line-height: 1;">${createStackedHieroglyphs(group)}</span>`).join(' ');
-        return `<span style="display: inline-flex; align-items: flex-end; gap: 0.2em;">${groupsHtml}</span>`;
+        return groups.map(group => createStackedHieroglyphs(group)).join(' ');
     }
 
     // Vérifier si c'est un empilement vertical (marqueur |)
@@ -365,8 +363,8 @@ function createStackedHieroglyphs(hieroglyphString) {
             return `<span style="display: flex; justify-content: center; align-items: center; font-size: 0.75em; line-height: 0.9; text-align: center; ${marginTop}">${sign}</span>`;
         }).join('');
 
-        // Alignement vertical bas (baseline)
-        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; vertical-align: bottom;">${stackedSigns}</span>`;
+        // Centrage vertical (comme avant)
+        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">${stackedSigns}</span>`;
     }
 
     // Vérifier si c'est un layout pyramide (marqueur ⌂)
@@ -375,7 +373,7 @@ function createStackedHieroglyphs(hieroglyphString) {
         const topSign = parts[0];
         const bottomSigns = Array.from(parts[1]); // Séparer les signes du bas (Array.from gère les surrogate pairs Unicode)
 
-        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; vertical-align: bottom;">
+        return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
             <span style="font-size: 1em; line-height: 1;">${topSign}</span>
             <span style="display: inline-flex; justify-content: center; align-items: baseline; gap: 0.1em; line-height: 1; margin-top: -0.15em;">
                 ${bottomSigns.map(s => `<span style="font-size: inherit;">${s}</span>`).join('')}
