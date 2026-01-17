@@ -377,8 +377,8 @@ function createStackedHieroglyphs(hieroglyphString) {
 
         return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; vertical-align: bottom;">
             <span style="font-size: 1em; line-height: 1;">${topSign}</span>
-            <span style="display: inline-flex; justify-content: center; align-items: flex-end; gap: 0.1em; line-height: 1; margin-top: -0.15em;">
-                ${bottomSigns.map(s => `<span style="display: inline-flex; align-items: flex-end;">${s}</span>`).join('')}
+            <span style="display: inline-flex; justify-content: center; align-items: baseline; gap: 0.1em; line-height: 1; margin-top: -0.15em;">
+                ${bottomSigns.map(s => `<span style="display: inline-flex; align-items: baseline;">${s}</span>`).join('')}
             </span>
         </span>`;
     }
