@@ -347,6 +347,32 @@ function createStackedHieroglyphs(hieroglyphString) {
         return hieroglyphString;
     }
 
+    // === PERSONNALISATION SPÉCIFIQUE : VEAU (bḥz) ===
+    // Détection des signes : Jambe (𓃀), Mèche (𓎛), Verrou (𓊃)
+    if (hieroglyphString.includes('𓃀') && hieroglyphString.includes('𓎛') && hieroglyphString.includes('𓊃')) {
+        // On extrait le veau (n'importe quel déterminatif bovin qui pourrait traîner)
+        // ou on le force s'il n'est pas détecté mais que c'est le mot veau.
+        // Structure de l'image :
+        // 1. Jambe 𓃀 (Vertical)
+        // 2. Mèche 𓎛 (Vertical)
+        // 3. Verrou 𓊃 (Horizontal) sur un trait 
+        // 4. Veau 𓃓 (TRES GROS)
+
+        return `<span style="display: inline-flex; align-items: flex-end; gap: 0.1em; vertical-align: bottom;">
+            <!-- Jambe -->
+            <span style="font-size: 1em; line-height: 1;">𓃀</span>
+            <!-- Mèche -->
+            <span style="font-size: 1em; line-height: 1;">𓎛</span>
+            <!-- Pile : Verrou sur Trait -->
+            <span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                <span style="font-size: 0.8em; line-height: 0.8;">𓊃</span>
+                <span style="font-size: 0.8em; line-height: 0.8;">𓏤</span>
+            </span>
+            <!-- Veau (GROS) -->
+            <span style="font-size: 2.3em; line-height: 1; margin-bottom: -0.1em; margin-left: 0.1em;">𓃓</span>
+        </span>`;
+    }
+
     // Vérifier si contient des espaces (groupes côte à côte)
     if (hieroglyphString.includes(' ')) {
         const groups = hieroglyphString.split(' ').filter(g => g.length > 0);
