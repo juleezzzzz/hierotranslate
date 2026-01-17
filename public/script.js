@@ -371,7 +371,7 @@ function createStackedHieroglyphs(hieroglyphString) {
     if (hieroglyphString.includes('⌂')) {
         const parts = hieroglyphString.split('⌂');
         const topSign = parts[0];
-        const bottomSigns = Array.from(parts[1]); // Séparer les signes du bas (Array.from gère les surrogate pairs Unicode)
+        const bottomSigns = [...parts[1]]; // Séparer les signes du bas
 
         return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
             <span style="font-size: 1em; line-height: 1;">${topSign}</span>
