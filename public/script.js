@@ -373,29 +373,32 @@ function createStackedHieroglyphs(hieroglyphString) {
                 // Le reste après le trait (donc à partir de l'index 4)
                 const others = signs.slice(4);
 
-                middleSection = `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; margin-bottom: 0.1em;">
-                    <span style="font-size: 1.2em; line-height: 0.8;">${bolt}</span>
-                    <span style="font-size: 1.2em; line-height: 0.8;">${stroke}</span>
+                // On ajuste pour que le haut du verrou (z) arrive au même niveau que le haut de la jambe et la mèche
+                // tout en gardant le tout aligné en bas.
+                middleSection = `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: space-between; height: 1.25em; margin-bottom: 0;">
+                    <span style="font-size: 1.1em; line-height: 0.8; margin-top: -0.1em;">${bolt}</span>
+                    <span style="font-size: 1.1em; line-height: 0.8; margin-bottom: 0;">${stroke}</span>
                 </span>`;
 
-                endSection = others.map(s => `<span style="font-size: 1.2em; line-height: 1;">${s}</span>`).join('');
+                endSection = others.map(s => `<span style="font-size: 1.3em; line-height: 1;">${s}</span>`).join('');
             } else {
-                // Pas assez de signes pour empiler (cas rare ou atypique), on affiche juste à la suite
+                // Pas assez de signes pour empiler
                 middleSection = `<span style="font-size: 1.2em; line-height: 1;">${signs[2]}</span>`;
                 endSection = signs.slice(3).map(s => `<span style="font-size: 1.2em; line-height: 1;">${s}</span>`).join('');
             }
 
+            // Conteneur principal: on force 'flex-end' pour la baseline, mais on ajuste les tailles pour que le haut corresponde.
             return `<span style="display: inline-flex; align-items: flex-end; gap: 0.15em; vertical-align: bottom;">
                 <!-- Jambe (Signe 1) - Reste à 1em -->
                 <span style="font-size: 1em; line-height: 1;">${leg}</span>
                 
-                <!-- Mèche (Signe 2) - Augmenté à 1.2 -->
+                <!-- Mèche (Signe 2) - Ajusté pour matcher la hauteur visuelle -->
                 <span style="font-size: 1.2em; line-height: 1;">${wick}</span>
                 
                 <!-- Empilement 3+4 (Verrou + Trait) -->
                 ${middleSection}
 
-                <!-- Autres (Veau) - Augmentés à 1.2 -->
+                <!-- Autres (Veau) - Un peu plus gros pour l'impact visuel -->
                 ${endSection}
             </span>`;
         }
