@@ -356,25 +356,47 @@ function createStackedHieroglyphs(hieroglyphString) {
 
         // On s'attend à : [0]𓃀, [1]𓎛, [2]𓊃, ... [last]Determinatif(Veau)
         if (signs.length >= 4) {
-            const leg = signs[0]; // 𓃀
-            const wick = signs[1]; // 𓎛
-            const bolt = signs[2]; // 𓊃
-            // Le reste (le déterminatif, et éventuellement un trait)
-            const others = signs.slice(3);
+            // Analyse pour empilement (b-h-z-trait-veau)
+            // On a besoin de min 4 signes pour empiler z+trait (0, 1, 2+3, 4+)
+            const stackBoltAndStroke = signs.length >= 4;
 
-            // On affiche en mode Flex "Side-by-Side" amélioré
+            const leg = signs[0];
+            const wick = signs[1];
+
+            // Si on peut empiler
+            let middleSection = '';
+            let endSection = '';
+
+            if (stackBoltAndStroke) {
+                const bolt = signs[2];
+                const stroke = signs[3];
+                // Le reste après le trait (donc à partir de l'index 4)
+                const others = signs.slice(4);
+
+                middleSection = `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; margin-bottom: 0.1em;">
+                    <span style="font-size: 1.2em; line-height: 0.8;">${bolt}</span>
+                    <span style="font-size: 1.2em; line-height: 0.8;">${stroke}</span>
+                </span>`;
+
+                endSection = others.map(s => `<span style="font-size: 1.2em; line-height: 1;">${s}</span>`).join('');
+            } else {
+                // Pas assez de signes pour empiler (cas rare ou atypique), on affiche juste à la suite
+                middleSection = `<span style="font-size: 1.2em; line-height: 1;">${signs[2]}</span>`;
+                endSection = signs.slice(3).map(s => `<span style="font-size: 1.2em; line-height: 1;">${s}</span>`).join('');
+            }
+
             return `<span style="display: inline-flex; align-items: flex-end; gap: 0.15em; vertical-align: bottom;">
-                <!-- Jambe (Signe 1) -->
+                <!-- Jambe (Signe 1) - Reste à 1em -->
                 <span style="font-size: 1em; line-height: 1;">${leg}</span>
                 
-                <!-- Mèche (Signe 2) - Augmenté à 1.5 -->
-                <span style="font-size: 1.5em; line-height: 1;">${wick}</span>
+                <!-- Mèche (Signe 2) - Augmenté à 1.2 -->
+                <span style="font-size: 1.2em; line-height: 1;">${wick}</span>
                 
-                <!-- Verrou (Signe 3) - Augmenté à 1.5 -->
-                <span style="font-size: 1.5em; line-height: 1;">${bolt}</span>
+                <!-- Empilement 3+4 (Verrou + Trait) -->
+                ${middleSection}
 
-                <!-- Autres (Signe 4+) - Augmentés à 1.5 -->
-                ${others.map(s => `<span style="font-size: 1.5em; line-height: 1;">${s}</span>`).join('')}
+                <!-- Autres (Veau) - Augmentés à 1.2 -->
+                ${endSection}
             </span>`;
         }
     }
