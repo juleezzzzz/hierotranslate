@@ -89,9 +89,12 @@ export default function AdminSignsPage() {
 
     const loadSigns = async () => {
         try {
-            const res = await fetch('/gardiner_signs.json');
+            // Fetch from API with category filter
+            const res = await fetch(`/api/admin/gardiner?category=${activeCategory}`);
             const data = await res.json();
-            setSigns(data);
+            if (data.success) {
+                setSigns(data.signs);
+            }
         } catch (err) {
             console.error('Erreur chargement signes:', err);
         }
@@ -469,13 +472,14 @@ export default function AdminSignsPage() {
         }
     };
 
-    const filteredSigns = signs.filter(s => {
-        const code = (s.code || '').toUpperCase();
-        if (activeCategory === 'Aa') {
-            return code.startsWith('AA');
+    // Reload signs when category changes
+    useEffect(() => {
+        if (isAuthenticated) {
+            loadSigns();
         }
-        return code.startsWith(activeCategory) && !code.startsWith('AA');
-    });
+    }, [activeCategory]);
+
+    const filteredSigns = signs;
 
     useEffect(() => {
         const savedPwd = localStorage.getItem('adminPassword');
@@ -666,67 +670,172 @@ export default function AdminSignsPage() {
 
                             {/* CUSTOMIZATION PANEL */}
                             {selectedGroupData && (
-                                <div style={{ marginBottom: '20px', padding: '15px', background: '#e3f2fd', borderRadius: '8px', border: '2px solid #2196f3' }}>
-                                    <h4 style={{ margin: '0 0 10px 0', color: '#1565c0', display: 'flex', justifyContent: 'space-between' }}>
-                                        <span>🛠 Personnalisation</span>
-                                        <span style={{ fontSize: '0.8em', background: '#fff', padding: '2px 5px', borderRadius: '4px' }}>
-                                            {cleanSign(selectedGroupData.signs[activeSignIdx])}
-                                        </span>
-                                    </h4>
+                                <div style={{ marginBottom: '20px', padding: '0', background: 'white', borderRadius: '12px', border: '1px solid #e0e0e0', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
+                                    <div style={{ padding: '15px', background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%)', color: 'white', borderBottom: '1px solid #eee' }}>
+                                        <h4 style={{ margin: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <span>🛠 Studio de Design</span>
+                                            <span style={{ fontSize: '0.8em', background: 'rgba(255,255,255,0.2)', padding: '2px 8px', borderRadius: '12px' }}>
+                                                {selectedGroupData.stacked ? 'Empilement' : selectedGroupData.pyramid ? 'Pyramide' : 'Signe Simple'}
+                                            </span>
+                                        </h4>
+                                    </div>
 
-                                    {/* Onglets choix du signe si plusieurs */}
-                                    {selectedGroupData.signs.length > 1 && (
-                                        <div style={{ display: 'flex', gap: '5px', marginBottom: '10px' }}>
-                                            {selectedGroupData.signs.map((s, i) => (
-                                                <button
-                                                    key={i}
-                                                    onClick={() => setActiveSignIdx(i)}
-                                                    style={{
-                                                        flex: 1,
-                                                        padding: '5px',
-                                                        border: '1px solid #90caf9',
-                                                        background: activeSignIdx === i ? '#2196f3' : 'white',
-                                                        color: activeSignIdx === i ? 'white' : 'black',
-                                                        cursor: 'pointer',
-                                                        fontFamily: 'Noto Sans Egyptian Hieroglyphs',
-                                                        borderRadius: '4px'
-                                                    }}
-                                                >
-                                                    {cleanSign(s)}
-                                                </button>
-                                            ))}
+                                    <div style={{ padding: '15px' }}>
+                                        {/* MACRO CONTROLS (GROUP SPACING) */}
+                                        {(selectedGroupData.stacked || selectedGroupData.pyramid) && (
+                                            <div style={{ marginBottom: '20px', paddingBottom: '15px', borderBottom: '1px dashed #eee' }}>
+                                                <p style={{ margin: '0 0 10px 0', fontSize: '12px', fontWeight: 'bold', color: '#888', textTransform: 'uppercase' }}>
+                                                    Espacement Global (Groupe)
+                                                </p>
+
+                                                {selectedGroupData.stacked && (
+                                                    <div style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: '10px', alignItems: 'center' }}>
+                                                        <label style={{ fontSize: '13px', color: '#555' }}>↕️ Vertical</label>
+                                                        <input
+                                                            type="range" min="-0.5" max="0.5" step="0.05"
+                                                            defaultValue="0"
+                                                            onChange={(e) => {
+                                                                const val = parseFloat(e.target.value);
+                                                                // Appliquer à tous les signes sauf le premier (simule un gap)
+                                                                if (selectedGroups.length !== 1) return;
+                                                                const groupId = selectedGroups[0];
+                                                                const groupIndex = composerGroups.findIndex(g => g.id === groupId);
+                                                                if (groupIndex === -1) return;
+
+                                                                const group = composerGroups[groupIndex];
+                                                                const newSigns = group.signs.map((s, i) => {
+                                                                    if (i === 0) return s; // Ne pas toucher le premier
+                                                                    const params = parseSignParams(s);
+                                                                    // On écrase Y pour le rendre relatif au slider (simplification UX)
+                                                                    // Idéalement on ajouterait au delta, mais pour l'instant un set direct est plus clair
+                                                                    // Valeur par défaut logic script.js est -0.1. 
+                                                                    // Donc si slider = 0 -> y = -0.1. 
+                                                                    // Slider -0.2 -> y = -0.3 (plus serré)
+                                                                    const baseOffset = -0.1;
+                                                                    params.y = parseFloat((baseOffset + val).toFixed(2));
+                                                                    return updateSignParams(s, params);
+                                                                });
+
+                                                                const newGroups = [...composerGroups];
+                                                                newGroups[groupIndex] = { ...group, signs: newSigns };
+                                                                setComposerGroups(newGroups);
+                                                                updateHieroglyphsField(newGroups);
+                                                            }}
+                                                        />
+                                                    </div>
+                                                )}
+
+                                                {selectedGroupData.pyramid && (
+                                                    <div style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: '10px', alignItems: 'center' }}>
+                                                        <label style={{ fontSize: '13px', color: '#555' }}>↔️ Horizontal</label>
+                                                        <input
+                                                            type="range" min="-0.3" max="0.3" step="0.05"
+                                                            defaultValue="0"
+                                                            onChange={(e) => {
+                                                                const val = parseFloat(e.target.value);
+                                                                // Appliquer aux signes du bas (index 1 et 2)
+                                                                if (selectedGroups.length !== 1) return;
+                                                                const groupId = selectedGroups[0];
+                                                                const groupIndex = composerGroups.findIndex(g => g.id === groupId);
+                                                                if (groupIndex === -1) return;
+
+                                                                const group = composerGroups[groupIndex];
+                                                                const newSigns = group.signs.map((s, i) => {
+                                                                    if (i === 0) return s; // Haut
+                                                                    const params = parseSignParams(s);
+                                                                    // Rapprocher : signe 1 (gauche) va à droite (+x), signe 2 (droite) va à gauche (-x)
+                                                                    // Ou plus simple: réduire les marges latérales
+                                                                    // Script.js utilise gap:0.2em. 
+                                                                    // Si on veut réduire, on met margin-right négatif sur le 1er ? 
+                                                                    // Essayons d'appliquer une marge X symétrique inverse.
+                                                                    if (i === 1) params.x = val; // Vers droite
+                                                                    if (i === 2) params.x = -val; // Vers gauche
+                                                                    return updateSignParams(s, params);
+                                                                });
+
+                                                                const newGroups = [...composerGroups];
+                                                                newGroups[groupIndex] = { ...group, signs: newSigns };
+                                                                setComposerGroups(newGroups);
+                                                                updateHieroglyphsField(newGroups);
+                                                            }}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
+
+                                        {/* INDIVIDUAL CONTROLS */}
+                                        <p style={{ margin: '0 0 10px 0', fontSize: '12px', fontWeight: 'bold', color: '#888', textTransform: 'uppercase' }}>
+                                            Ajustement Précis (Signe par signe)
+                                        </p>
+
+                                        {/* Selecteur de signe */}
+                                        {selectedGroupData.signs.length > 1 && (
+                                            <div style={{ display: 'flex', gap: '5px', marginBottom: '15px' }}>
+                                                {selectedGroupData.signs.map((s, i) => (
+                                                    <button
+                                                        key={i}
+                                                        onClick={() => setActiveSignIdx(i)}
+                                                        style={{
+                                                            flex: 1,
+                                                            padding: '8px',
+                                                            border: activeSignIdx === i ? '2px solid #1e3a5f' : '1px solid #ddd',
+                                                            background: activeSignIdx === i ? '#e3f2fd' : 'white',
+                                                            color: activeSignIdx === i ? '#1e3a5f' : '#666',
+                                                            cursor: 'pointer',
+                                                            fontFamily: 'Noto Sans Egyptian Hieroglyphs',
+                                                            fontSize: '20px',
+                                                            borderRadius: '8px',
+                                                            transition: 'all 0.2s'
+                                                        }}
+                                                    >
+                                                        {cleanSign(s)}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        <div style={{ background: '#f9f9f9', padding: '10px', borderRadius: '8px' }}>
+                                            <div style={{ marginBottom: '10px' }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+                                                    <label style={{ fontSize: '12px', fontWeight: 'bold' }}>Taille (Zoom)</label>
+                                                    <span style={{ fontSize: '12px', color: '#666' }}>{currentSignParams.s}x</span>
+                                                </div>
+                                                <input
+                                                    type="range" min="0.5" max="3.0" step="0.1"
+                                                    value={currentSignParams.s}
+                                                    onChange={(e) => handleCustomizationChange('s', e.target.value)}
+                                                    style={{ width: '100%' }}
+                                                />
+                                            </div>
+
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                                                <div>
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+                                                        <label style={{ fontSize: '12px', fontWeight: 'bold' }}>↔️ Position X</label>
+                                                        <span style={{ fontSize: '12px', color: '#666' }}>{currentSignParams.x}em</span>
+                                                    </div>
+                                                    <input
+                                                        type="range" min="-1" max="1" step="0.05"
+                                                        value={currentSignParams.x}
+                                                        onChange={(e) => handleCustomizationChange('x', e.target.value)}
+                                                        style={{ width: '100%' }}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+                                                        <label style={{ fontSize: '12px', fontWeight: 'bold' }}>↕️ Position Y</label>
+                                                        <span style={{ fontSize: '12px', color: '#666' }}>{currentSignParams.y}em</span>
+                                                    </div>
+                                                    <input
+                                                        type="range" min="-1" max="1" step="0.05"
+                                                        value={currentSignParams.y}
+                                                        onChange={(e) => handleCustomizationChange('y', e.target.value)}
+                                                        style={{ width: '100%' }}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
-                                    )}
-
-                                    {/* Sliders */}
-                                    <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 40px', gap: '10px', alignItems: 'center', marginBottom: '8px' }}>
-                                        <label style={{ fontSize: '12px' }}>Taille</label>
-                                        <input
-                                            type="range" min="0.5" max="2.5" step="0.1"
-                                            value={currentSignParams.s}
-                                            onChange={(e) => handleCustomizationChange('s', e.target.value)}
-                                        />
-                                        <span style={{ fontSize: '11px' }}>{currentSignParams.s}x</span>
-                                    </div>
-
-                                    <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 40px', gap: '10px', alignItems: 'center', marginBottom: '8px' }}>
-                                        <label style={{ fontSize: '12px' }}>Pos. X</label>
-                                        <input
-                                            type="range" min="-1" max="1" step="0.05"
-                                            value={currentSignParams.x}
-                                            onChange={(e) => handleCustomizationChange('x', e.target.value)}
-                                        />
-                                        <span style={{ fontSize: '11px' }}>{currentSignParams.x}</span>
-                                    </div>
-
-                                    <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 40px', gap: '10px', alignItems: 'center' }}>
-                                        <label style={{ fontSize: '12px' }}>Pos. Y</label>
-                                        <input
-                                            type="range" min="-1" max="1" step="0.05"
-                                            value={currentSignParams.y}
-                                            onChange={(e) => handleCustomizationChange('y', e.target.value)}
-                                        />
-                                        <span style={{ fontSize: '11px' }}>{currentSignParams.y}</span>
                                     </div>
                                 </div>
                             )}

@@ -1,50 +1,14 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 import clientPromise from '../../../lib/mongodb';
 import { checkRateLimit, rateLimitResponse, sanitizeSearchTerm } from '../../../lib/rate-limit';
 
-function loadGardinerData() {
-    try {
-        const filePath = path.join(process.cwd(), 'public', 'gardiner_signs.json');
-        const data = fs.readFileSync(filePath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error('Erreur chargement JSON:', error);
-        return [];
-    }
-}
-
-async function loadMongoData() {
-    try {
-        const client = await clientPromise;
-        if (!client) return [];
-
-        const db = client.db('hierotranslate');
-        const signs = await db.collection('signs').find({}).toArray();
-        return signs;
-    } catch (error) {
-        console.error('Erreur chargement MongoDB:', error);
-        return [];
-    }
-}
-
-// Vérifie si une translittération est valide (pas juste un code Gardiner comme A1, B2, etc.)
+// Verification Helper
 function hasValidTransliteration(sign) {
     const translit = sign.transliteration || '';
-
-    // Si pas de translittération, exclure
-    if (!translit || translit.trim() === '') {
-        return false;
-    }
-
+    if (!translit || translit.trim() === '') return false;
     // Exclure si c'est juste un code Gardiner (lettre(s) + chiffre(s))
-    // Exemples à exclure: A1, A2, Aa1, B12, C3A, etc.
     const gardinerCodePattern = /^[A-Za-z]{1,2}\d+[A-Za-z]?$/;
-    if (gardinerCodePattern.test(translit.trim())) {
-        return false;
-    }
-
+    if (gardinerCodePattern.test(translit.trim())) return false;
     return true;
 }
 
@@ -64,28 +28,48 @@ export async function GET(request) {
     }
 
     try {
-        // Charger depuis les deux sources
-        const jsonSigns = loadGardinerData();
-        const mongoSigns = await loadMongoData();
+        const client = await clientPromise;
+        if (!client) return NextResponse.json({ success: true, data: [] });
+        const db = client.db('hierotranslate');
 
-        // Combiner les deux sources (MongoDB en premier pour priorité)
-        const allSigns = [...mongoSigns, ...jsonSigns];
+        // Charger depuis les deux sources MONGODB
+        // 1. Dictionnaire (signs)
+        const dictionarySigns = await db.collection('signs').find({
+            $or: [
+                { transliteration: { $regex: term, $options: 'i' } },
+                { description: { $regex: term, $options: 'i' } }
+            ]
+        }).limit(20).toArray();
 
-        // Filtrer: 
-        // 1. Doit avoir une translittération valide (pas juste code Gardiner)
-        // 2. Doit correspondre au terme de recherche
-        const results = allSigns.filter(s => {
-            // D'abord vérifier si a une translittération valide
-            if (!hasValidTransliteration(s)) {
-                return false;
+        // 2. Gardiner (gardiner_signs)
+        // Attention: gardiner_signs can be huge, we rely on DB query regex
+        const gardinerSigns = await db.collection('gardiner_signs').find({
+            $or: [
+                { transliteration: { $regex: term, $options: 'i' } },
+                { description: { $regex: term, $options: 'i' } }
+            ]
+        }).limit(20).toArray();
+
+        // Combiner (Dictionnaire en priorité)
+        const allSigns = [...dictionarySigns, ...gardinerSigns];
+
+        // Filtrer et formatter
+        // Note: Regex Mongo match already filtered by term, but we double check logic if needed
+        // and apply valid translit filter
+        const results = allSigns.filter(s => hasValidTransliteration(s));
+
+        // Remove duplicates if any (based on translit + sign)
+        const seen = new Set();
+        const uniqueResults = [];
+        for (const s of results) {
+            const key = `${s.transliteration}-${s.sign || s.character}`;
+            if (!seen.has(key)) {
+                seen.add(key);
+                uniqueResults.push(s);
             }
+        }
 
-            const translit = (s.transliteration || '').toLowerCase();
-            const desc = (s.description || '').toLowerCase();
-            return translit.startsWith(term) || desc.includes(term);
-        }).slice(0, 10); // Limiter à 10 résultats
-
-        const suggestions = results.map(s => ({
+        const suggestions = uniqueResults.slice(0, 10).map(s => ({
             translitteration: s.transliteration,
             hieroglyphes: s.sign || s.character,
             francais: s.description || ''

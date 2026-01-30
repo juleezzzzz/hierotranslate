@@ -28,11 +28,31 @@ export default function AdminGardinerPage() {
 
     const loadSigns = async () => {
         try {
-            const res = await fetch('/gardiner_signs.json');
+            // Fetch from API instead of local JSON
+            // We ask for a large limit to get all signs, or we could handle pagination
+            // For now, let's assume we want to load them all or search. 
+            // The API returns { success: true, signs: [...] }
+            const res = await fetch('/api/admin/gardiner');
             const data = await res.json();
-            setSigns(data);
+
+            if (data.success) {
+                setSigns(data.signs);
+            } else {
+                setError('Erreur chargement signes: ' + data.error);
+                // Fallback to local JSON if DB fails (optional, but good for dev)
+                console.log('Falling back to local JSON...');
+                try {
+                    const localRes = await fetch('/gardiner_signs.json');
+                    const localData = await localRes.json();
+                    setSigns(localData);
+                    setError('Mode hors ligne (fichier local utilisé)');
+                } catch (e) {
+                    console.error('Local fallback failed', e);
+                }
+            }
         } catch (err) {
             console.error('Erreur chargement:', err);
+            setError('Erreur connexion serveur');
         }
     };
 
@@ -41,6 +61,7 @@ export default function AdminGardinerPage() {
         if (savedPwd === ADMIN_PASSWORD) {
             setIsAuthenticated(true);
             loadSigns();
+            setPassword(savedPwd); // Restore password for API calls
         }
     }, []);
 
@@ -53,20 +74,150 @@ export default function AdminGardinerPage() {
     const handleSave = async () => {
         if (!editingSign) return;
 
-        // Mettre à jour le signe dans la liste locale
-        const updatedSigns = signs.map(s =>
-            s.code === editingSign.code ? editingSign : s
-        );
-        setSigns(updatedSigns);
-        setEditingSign(null);
-        setMessage('✅ Modification enregistrée localement. Téléchargez le JSON pour sauvegarder.');
+        try {
+            // Determine if it's an update (has _id/id) or new
+            // The API handles _id vs id. Our component uses 'editingSign'.
+            const method = editingSign.id || editingSign._id ? 'PUT' : 'POST';
 
-        // Restaurer la position de scroll après fermeture du modal
-        setTimeout(() => {
-            window.scrollTo(0, scrollPosition);
-        }, 50);
+            const res = await fetch('/api/admin/gardiner', {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-admin-password': password || localStorage.getItem('adminPassword')
+                },
+                body: JSON.stringify({
+                    id: editingSign.id || editingSign._id, // Needed for PUT
+                    ...editingSign
+                })
+            });
 
-        setTimeout(() => setMessage(''), 3000);
+            const data = await res.json();
+
+            if (data.success) {
+                // Update local list
+                const updatedSigns = signs.map(s =>
+                    (s.code === editingSign.code) ? { ...editingSign, ...data.sign } : s
+                );
+
+                // If it was a new sign (not in map), add it
+                if (!signs.find(s => s.code === editingSign.code)) {
+                    updatedSigns.push({ ...editingSign, ...data.sign });
+                }
+
+                setSigns(updatedSigns);
+                setEditingSign(null);
+                setMessage('✅ Modification enregistrée dans la base de données !');
+
+                // Restaurer la position de scroll après fermeture du modal
+                setTimeout(() => {
+                    window.scrollTo(0, scrollPosition);
+                }, 50);
+
+                setTimeout(() => setMessage(''), 3000);
+            } else if (res.status === 503) {
+                // Mode hors ligne
+                const updatedSigns = signs.map(s =>
+                    (s.code === editingSign.code) ? editingSign : s
+                );
+                if (!signs.find(s => s.code === editingSign.code)) {
+                    updatedSigns.push(editingSign);
+                }
+                setSigns(updatedSigns);
+                setEditingSign(null);
+                setMessage('⚠️ Mode hors ligne : Modification enregistrée LOCALEMENT. Téléchargez le JSON pour sauvegarder.');
+
+                setTimeout(() => {
+                    window.scrollTo(0, scrollPosition);
+                }, 50);
+                setTimeout(() => setMessage(''), 5000);
+            } else {
+                setError(data.error || 'Erreur sauvegarde');
+            }
+        } catch (err) {
+            setError('Erreur serveur lors de la sauvegarde');
+            console.error(err);
+        }
+    };
+
+    const handleDelete = async (sign) => {
+        if (!confirm(`Supprimer définitivement ${sign.code} ?`)) return;
+
+        try {
+            const res = await fetch('/api/admin/gardiner', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-admin-password': password || localStorage.getItem('adminPassword')
+                },
+                body: JSON.stringify({ id: sign.id || sign._id })
+            });
+            const data = await res.json();
+            if (data.success) {
+                setSigns(signs.filter(s => s.code !== sign.code));
+                setMessage('✅ Signe supprimé');
+                setTimeout(() => setMessage(''), 3000);
+            } else if (res.status === 503) {
+                setSigns(signs.filter(s => s.code !== sign.code));
+                setMessage('⚠️ Mode hors ligne : Signe supprimé LOCALEMENT.');
+                setTimeout(() => setMessage(''), 3000);
+            } else {
+                setError(data.error);
+            }
+        } catch (err) {
+            setError('Erreur suppression');
+        }
+    };
+
+    const handleImportFile = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!confirm(`⚠️ ATTENTION : Vous allez écraser la base de données LIVE avec le contenu de "${file.name}".\n\nCette action est irréversible. Êtes-vous sûr ?`)) {
+            e.target.value = ''; // Reset input
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            try {
+                const signsData = JSON.parse(event.target.result);
+
+                if (!Array.isArray(signsData) || signsData.length === 0) {
+                    alert('Erreur : Le fichier doit contenir un tableau de signes valide.');
+                    return;
+                }
+
+                setMessage('⏳ Importation en cours... (Cela peut prendre quelques secondes)');
+
+                const res = await fetch('/api/admin/gardiner/init', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-admin-password': password || localStorage.getItem('adminPassword')
+                    },
+                    body: JSON.stringify({
+                        force: true,
+                        signs: signsData
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    setMessage(`✅ ${data.message} La page va se recharger.`);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    setError('Erreur import : ' + data.error);
+                }
+            } catch (err) {
+                console.error(err);
+                setError('Erreur : Fichier JSON invalide');
+            }
+            e.target.value = ''; // Reset input
+        };
+        reader.readAsText(file);
     };
 
     const handleDownloadJSON = () => {
@@ -75,7 +226,7 @@ export default function AdminGardinerPage() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'gardiner_signs.json';
+        a.download = 'gardiner_signs_backup.json';
         a.click();
     };
 
@@ -153,12 +304,25 @@ export default function AdminGardinerPage() {
     return (
         <div style={styles.container}>
             <header style={styles.header}>
-                <h1>📜 Liste des Signes Gardiner</h1>
+                <h1>📜 Base de Données Gardiner (Live)</h1>
                 <div style={styles.headerActions}>
                     <a href="/admin-signs" style={styles.linkBtn}>📝 Admin Dictionnaire</a>
                     <button onClick={handleDownloadJSON} style={styles.downloadBtn}>
-                        📥 Télécharger JSON
+                        📥 Backup JSON
                     </button>
+                    <button onClick={handleDownloadJSON} style={styles.downloadBtn}>
+                        📥 Backup JSON
+                    </button>
+                    <button onClick={() => document.getElementById('importFile').click()} style={{ ...styles.downloadBtn, background: '#e67e22', marginLeft: '10px' }}>
+                        📤 Importer Fichier (Live)
+                    </button>
+                    <input
+                        type="file"
+                        id="importFile"
+                        accept=".json"
+                        style={{ display: 'none' }}
+                        onChange={handleImportFile}
+                    />
                     <button onClick={() => { localStorage.removeItem('adminPassword'); setIsAuthenticated(false); }} style={styles.logoutBtn}>
                         Déconnexion
                     </button>
@@ -166,6 +330,7 @@ export default function AdminGardinerPage() {
             </header>
 
             {message && <div style={styles.message}>{message}</div>}
+            {error && <div style={{ ...styles.message, background: '#f8d7da', borderColor: '#f5c6cb', color: '#721c24' }}>{error}</div>}
 
             <div style={styles.infoBox}>
                 <p><strong>📌 Instructions :</strong></p>
@@ -263,6 +428,9 @@ export default function AdminGardinerPage() {
                         <span style={styles.colAction}>
                             <button onClick={() => handleEdit(sign)} style={styles.editBtn}>
                                 ✏️
+                            </button>
+                            <button onClick={() => handleDelete(sign)} style={{ ...styles.editBtn, background: '#e74c3c', marginLeft: '5px' }}>
+                                🗑️
                             </button>
                         </span>
                     </div>

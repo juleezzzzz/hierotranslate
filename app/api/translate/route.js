@@ -1,52 +1,14 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 import clientPromise from '../../../lib/mongodb';
 import { checkRateLimit, rateLimitResponse, sanitizeSearchTerm } from '../../../lib/rate-limit';
 
-// Charger les données Gardiner depuis le fichier JSON
-function loadGardinerData() {
-    try {
-        const filePath = path.join(process.cwd(), 'public', 'gardiner_signs.json');
-        const data = fs.readFileSync(filePath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error('Erreur chargement JSON:', error);
-        return [];
-    }
-}
-
-// Charger les données depuis MongoDB
-async function loadMongoData() {
-    try {
-        const client = await clientPromise;
-        if (!client) return [];
-
-        const db = client.db('hierotranslate');
-        const signs = await db.collection('signs').find({}).toArray();
-        return signs;
-    } catch (error) {
-        console.error('Erreur chargement MongoDB:', error);
-        return [];
-    }
-}
-
-// Vérifie si une translittération est valide (pas juste un code Gardiner comme A1, B2, etc.)
+// Vérifie si une translittération est valide
 function hasValidTransliteration(sign) {
     const translit = sign.transliteration || '';
-
-    // Si pas de translittération, exclure
-    if (!translit || translit.trim() === '') {
-        return false;
-    }
-
+    if (!translit || translit.trim() === '') return false;
     // Exclure si c'est juste un code Gardiner (lettre(s) + chiffre(s))
-    // Exemples à exclure: A1, A2, Aa1, B12, C3A, etc.
     const gardinerCodePattern = /^[A-Za-z]{1,2}\d+[A-Za-z]?$/;
-    if (gardinerCodePattern.test(translit.trim())) {
-        return false;
-    }
-
+    if (gardinerCodePattern.test(translit.trim())) return false;
     return true;
 }
 
@@ -65,14 +27,35 @@ export async function GET(request) {
     }
 
     try {
-        // Charger depuis les deux sources
-        const jsonSigns = loadGardinerData();
-        const mongoSigns = await loadMongoData();
+        const client = await clientPromise;
+        if (!client) throw new Error('DB connection failed');
+        const db = client.db('hierotranslate');
+
+        // Note: For translation we usually want EXACT match first
+
+        // 1. Dictionnaire (signs)
+        // We fetch exact matches and partial matches
+        const dictionarySigns = await db.collection('signs').find({
+            $or: [
+                { transliteration: { $regex: term, $options: 'i' } },
+                { description: { $regex: term, $options: 'i' } }
+            ]
+        }).toArray();
+
+        // 2. Gardiner (gardiner_signs)
+        const gardinerSigns = await db.collection('gardiner_signs').find({
+            $or: [
+                { transliteration: { $regex: term, $options: 'i' } },
+                { description: { $regex: term, $options: 'i' } }
+            ]
+        }).toArray();
 
         // Priorité: MongoDB d'abord (pour les ajouts manuels), puis JSON
-        const allSigns = [...mongoSigns, ...jsonSigns];
+        // (now both are MongoDB, but Dictionnaire overrides Gardiner)
+        const allSigns = [...dictionarySigns, ...gardinerSigns];
 
         // Filtrer pour garder seulement les signes avec translittération valide
+        // (Unless the user really searched for something weird, but let's stick to old logic)
         const validSigns = allSigns.filter(s => hasValidTransliteration(s));
 
         // Recherche par translittération exacte

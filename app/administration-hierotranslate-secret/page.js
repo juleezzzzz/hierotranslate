@@ -10,65 +10,145 @@ export default function AdminPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [editingSign, setEditingSign] = useState(null);
     const [message, setMessage] = useState('');
+    const [isCreating, setIsCreating] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     // Mot de passe admin - à changer !
     const ADMIN_PASSWORD = 'Chamalo77850!';
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            loadSigns();
+        }
+    }, [isAuthenticated]);
+
+    // Debounce search
+    useEffect(() => {
+        if (!isAuthenticated) return;
+        const timer = setTimeout(() => {
+            loadSigns();
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [searchTerm]);
+
 
     const handleLogin = (e) => {
         e.preventDefault();
         if (password === ADMIN_PASSWORD) {
             setIsAuthenticated(true);
             setError('');
-            loadSigns();
         } else {
             setError('Mot de passe incorrect');
         }
     };
 
     const loadSigns = async () => {
+        setIsLoading(true);
         try {
-            const res = await fetch('/gardiner_signs.json');
+            // Fetch from API (disable cache to ensure fresh data after edits)
+            const res = await fetch(`/api/admin/gardiner?search=${encodeURIComponent(searchTerm)}`, {
+                cache: 'no-store',
+                headers: { 'Pragma': 'no-cache', 'Cache-Control': 'no-cache' }
+            });
             const data = await res.json();
-            setSigns(data);
+            if (data.success) {
+                setSigns(data.signs);
+            }
         } catch (err) {
             console.error('Erreur chargement:', err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const initializeDatabase = async () => {
+        if (!confirm('Voulez-vous initialiser la base de données avec le fichier JSON public ? Cela ne doit être fait qu\'une seule fois.')) return;
+
+        try {
+            setMessage('Initialisation en cours...');
+            const res = await fetch('/api/admin/gardiner/init', {
+                method: 'POST',
+                headers: { 'x-admin-password': password }
+            });
+            const data = await res.json();
+            if (data.success) {
+                setMessage(data.message);
+                loadSigns();
+            } else {
+                setMessage('Erreur: ' + data.error);
+            }
+        } catch (err) {
+            setMessage('Erreur serveur');
         }
     };
 
     const handleEdit = (sign) => {
         setEditingSign({ ...sign });
+        setIsCreating(false);
+    };
+
+    const handleCreate = () => {
+        setEditingSign({ code: '', sign: '', transliteration: '', description: '', descriptif: '' });
+        setIsCreating(true);
     };
 
     const handleSave = async () => {
         if (!editingSign) return;
+        if (!editingSign.code) {
+            alert('Le code est requis');
+            return;
+        }
 
-        // Mettre à jour le signe dans la liste locale
-        const updatedSigns = signs.map(s =>
-            s.code === editingSign.code ? editingSign : s
-        );
-        setSigns(updatedSigns);
-        setEditingSign(null);
-        setMessage('⚠️ Modification locale uniquement. Pour sauvegarder définitivement, téléchargez le fichier JSON et remplacez-le dans le projet.');
+        try {
+            const endpoint = '/api/admin/gardiner';
+            const method = isCreating ? 'POST' : 'PUT';
 
-        setTimeout(() => setMessage(''), 5000);
+            const res = await fetch(endpoint, {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-admin-password': password
+                },
+                body: JSON.stringify(editingSign)
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                setMessage(isCreating ? 'Signe créé !' : 'Signe mis à jour !');
+                setEditingSign(null);
+                loadSigns();
+                setTimeout(() => setMessage(''), 3000);
+            } else {
+                alert('Erreur: ' + data.error);
+            }
+        } catch (err) {
+            alert('Erreur serveur');
+        }
     };
 
-    const handleDownloadJSON = () => {
-        const dataStr = JSON.stringify(signs, null, 2);
-        const blob = new Blob([dataStr], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'gardiner_signs.json';
-        a.click();
-    };
+    const handleDelete = async (id, code) => {
+        if (!confirm(`Supprimer le signe ${code} ?`)) return;
 
-    const filteredSigns = signs.filter(s => {
-        const search = searchTerm.toLowerCase();
-        return s.code?.toLowerCase().includes(search) ||
-            s.description?.toLowerCase().includes(search) ||
-            s.transliteration?.toLowerCase().includes(search);
-    });
+        try {
+            const res = await fetch('/api/admin/gardiner', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-admin-password': password
+                },
+                body: JSON.stringify({ id })
+            });
+
+            if (res.ok) {
+                setMessage('Signe supprimé');
+                loadSigns();
+                setTimeout(() => setMessage(''), 3000);
+            }
+        } catch (err) {
+            alert('Erreur suppression');
+        }
+    };
 
     if (!isAuthenticated) {
         return (
@@ -98,10 +178,10 @@ export default function AdminPage() {
     return (
         <div style={styles.container}>
             <header style={styles.header}>
-                <h1>🔧 Administration Gardiner</h1>
+                <h1>🔧 Administration Gardiner (Base de Données)</h1>
                 <div style={styles.headerActions}>
-                    <button onClick={handleDownloadJSON} style={styles.downloadBtn}>
-                        📥 Télécharger JSON
+                    <button onClick={handleCreate} style={styles.createBtn}>
+                        ➕ Ajouter un signe
                     </button>
                     <button onClick={() => setIsAuthenticated(false)} style={styles.logoutBtn}>
                         Déconnexion
@@ -119,24 +199,33 @@ export default function AdminPage() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     style={styles.searchInput}
                 />
-                <span style={styles.count}>{filteredSigns.length} signes</span>
+                <span style={styles.count}>{signs.length} résultats</span>
             </div>
+
+            {signs.length === 0 && !isLoading && searchTerm === '' && (
+                <div style={{ textAlign: 'center', padding: '20px' }}>
+                    <p>La base de données semble vide.</p>
+                    <button onClick={initializeDatabase} style={styles.initBtn}>
+                        🚀 Initialiser depuis le fichier JSON public
+                    </button>
+                </div>
+            )}
 
             {editingSign && (
                 <div style={styles.editModal}>
                     <div style={styles.editContent}>
-                        <h2>Modifier {editingSign.code}</h2>
-                        <div style={styles.signPreview}>{editingSign.sign}</div>
+                        <h2>{isCreating ? 'Ajouter un signe' : `Modifier ${editingSign.code}`}</h2>
+                        <div style={styles.signPreview}>{editingSign.sign || '?'}</div>
 
                         <label style={styles.label}>Code</label>
                         <input
                             value={editingSign.code || ''}
                             onChange={(e) => setEditingSign({ ...editingSign, code: e.target.value })}
                             style={styles.editInput}
-                            disabled
+                            disabled={!isCreating}
                         />
 
-                        <label style={styles.label}>Signe</label>
+                        <label style={styles.label}>Signe (Laissez vide pour copier Coller)</label>
                         <input
                             value={editingSign.sign || ''}
                             onChange={(e) => setEditingSign({ ...editingSign, sign: e.target.value })}
@@ -185,26 +274,24 @@ export default function AdminPage() {
                     <span style={styles.colAction}>Action</span>
                 </div>
 
-                {filteredSigns.slice(0, 100).map((sign, i) => (
-                    <div key={sign.code || i} style={styles.tableRow}>
+                {signs.map((sign, i) => (
+                    <div key={sign.id || i} style={styles.tableRow}>
                         <span style={styles.colSign}>{sign.sign}</span>
                         <span style={styles.colCode}>{sign.code}</span>
                         <span style={styles.colTranslit}>{sign.transliteration || '-'}</span>
                         <span style={styles.colDesc}>{sign.description || '-'}</span>
                         <span style={styles.colAction}>
-                            <button onClick={() => handleEdit(sign)} style={styles.editBtn}>
+                            <button onClick={() => handleEdit(sign)} style={styles.editBtn} title="Modifier">
                                 ✏️
+                            </button>
+                            <button onClick={() => handleDelete(sign.id, sign.code)} style={styles.deleteBtn} title="Supprimer">
+                                🗑️
                             </button>
                         </span>
                     </div>
                 ))}
             </div>
-
-            {filteredSigns.length > 100 && (
-                <p style={styles.moreInfo}>
-                    Affichage limité à 100 signes. Utilisez la recherche pour trouver un signe spécifique.
-                </p>
-            )}
+            {isLoading && <p style={{ textAlign: 'center', padding: '20px' }}>Chargement...</p>}
         </div>
     );
 }
@@ -279,15 +366,6 @@ const styles = {
         display: 'flex',
         gap: '1rem',
     },
-    downloadBtn: {
-        padding: '0.75rem 1.5rem',
-        background: '#27ae60',
-        color: 'white',
-        border: 'none',
-        borderRadius: '6px',
-        cursor: 'pointer',
-        fontWeight: '600',
-    },
     logoutBtn: {
         padding: '0.75rem 1.5rem',
         background: '#e74c3c',
@@ -327,7 +405,7 @@ const styles = {
     },
     tableHeader: {
         display: 'grid',
-        gridTemplateColumns: '80px 100px 120px 1fr 80px',
+        gridTemplateColumns: '80px 100px 120px 1fr 100px',
         padding: '1rem',
         background: '#2b2b2b',
         color: 'white',
@@ -335,7 +413,7 @@ const styles = {
     },
     tableRow: {
         display: 'grid',
-        gridTemplateColumns: '80px 100px 120px 1fr 80px',
+        gridTemplateColumns: '80px 100px 120px 1fr 100px',
         padding: '0.75rem 1rem',
         borderBottom: '1px solid #eee',
         alignItems: 'center',
@@ -344,13 +422,22 @@ const styles = {
     colCode: {},
     colTranslit: { fontFamily: 'Gentium Plus, serif' },
     colDesc: { fontSize: '0.9rem', color: '#555' },
-    colAction: {},
+    colAction: { display: 'flex', gap: '5px' },
     editBtn: {
         padding: '0.5rem',
-        background: 'transparent',
+        background: '#3498db',
+        color: 'white',
         border: 'none',
+        borderRadius: '4px',
         cursor: 'pointer',
-        fontSize: '1.2rem',
+    },
+    deleteBtn: {
+        padding: '0.5rem',
+        background: '#e74c3c',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
     },
     editModal: {
         position: 'fixed',
@@ -426,9 +513,24 @@ const styles = {
         cursor: 'pointer',
         fontWeight: '600',
     },
-    moreInfo: {
-        textAlign: 'center',
-        color: '#888',
-        padding: '1rem',
+    createBtn: {
+        padding: '0.75rem 1.5rem',
+        background: '#27ae60',
+        color: 'white',
+        border: 'none',
+        borderRadius: '6px',
+        cursor: 'pointer',
+        fontWeight: '600',
     },
+    initBtn: {
+        marginTop: '20px',
+        padding: '15px 30px',
+        background: '#e67e22',
+        color: 'white',
+        border: 'none',
+        borderRadius: '8px',
+        fontSize: '1.2rem',
+        cursor: 'pointer',
+        boxShadow: '0 4px 15px rgba(230, 126, 34, 0.4)'
+    }
 };
