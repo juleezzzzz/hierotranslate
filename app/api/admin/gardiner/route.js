@@ -40,7 +40,7 @@ export async function GET(request) {
             }
         }
 
-        const limit = search || category ? 500 : 1000;
+        const limit = search || category ? 500 : 1200;
 
         const signs = await collection.find(query).sort({ code: 1 }).limit(limit).toArray();
 
