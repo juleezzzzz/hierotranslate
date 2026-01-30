@@ -665,14 +665,18 @@ function loadGardinerSigns() {
         filterGardinerSigns(query);
     });
 
-    fetch('/gardiner_signs.json')
+    fetch('/api/admin/gardiner')
         .then(response => {
-            if (!response.ok) throw new Error("Fichier introuvable");
+            if (!response.ok) throw new Error("Erreur API");
             return response.json();
         })
         .then(data => {
-            renderGardinerSigns(data);
-            signsLoaded = true;
+            if (data.success && data.signs) {
+                renderGardinerSigns(data.signs);
+                signsLoaded = true;
+            } else {
+                throw new Error("Format de réponse invalide");
+            }
         })
         .catch(err => {
             console.error(err);
