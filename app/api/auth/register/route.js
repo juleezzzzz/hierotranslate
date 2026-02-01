@@ -58,6 +58,16 @@ export async function POST(request) {
         // Generate verification token
         const verificationToken = generateVerificationToken(email.toLowerCase());
 
+        // Assign random default avatar
+        const defaultAvatars = [
+            '/avatars/avatar_1.png',
+            '/avatars/avatar_2.png',
+            '/avatars/avatar_3.png',
+            '/avatars/avatar_4.png',
+            '/avatars/avatar_5.png'
+        ];
+        const randomAvatar = defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
+
         // Create user
         const newUser = {
             username,
@@ -65,7 +75,7 @@ export async function POST(request) {
             password: hashedPassword,
             emailVerified: false,
             verificationToken,
-            profilePicture: null,
+            profilePicture: randomAvatar,
             favorites: [],
             searchHistory: [],
             stats: {
@@ -95,7 +105,7 @@ export async function POST(request) {
                 username,
                 email: email.toLowerCase(),
                 emailVerified: false,
-                profilePicture: null,
+                profilePicture: randomAvatar,
                 stats: newUser.stats
             }
         });

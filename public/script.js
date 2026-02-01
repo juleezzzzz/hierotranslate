@@ -26,15 +26,29 @@ function toggleTheme() {
     updateThemeIcon(newTheme);
 }
 
+
+
 function updateThemeIcon(theme) {
-    const icon = document.querySelector('.theme-icon');
-    if (icon) {
-        icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+    const iconBtn = document.getElementById('theme-btn');
+    if (iconBtn) {
+        // SVG Icon for Sun (Light Mode)
+        const sunIcon = `<svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>`;
+
+        // SVG Icon for Moon (Dark Mode)
+        const moonIcon = `<svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
+        iconBtn.innerHTML = theme === 'dark' ? moonIcon : sunIcon;
     }
 }
 
 // Initialiser le thème au chargement
 initTheme();
+
+// Listen for theme button click
+const themeBtn = document.getElementById('theme-btn');
+if (themeBtn) {
+    themeBtn.addEventListener('click', toggleTheme);
+}
 
 // === SESSION HEARTBEAT (Suivi temps réel des visiteurs) ===
 function startSessionHeartbeat() {
@@ -225,23 +239,84 @@ function sortGardinerSigns() {
     }
 }
 
+// === SECTION DÉCOUVERTE (LE SAVIEZ-VOUS) ===
+const discoveryFacts = [
+    { text: "Le signe du scarabée 𓆣 (kheper) signifie 'devenir' ou 'se transformer'.", sign: "𓆣" },
+    { text: "Le hiéroglyphe 𓏤 (trait vertical) indique souvent que le signe précédent est un idéogramme.", sign: "𓏤" },
+    { text: "Les hiéroglyphes peuvent se lire de gauche à droite ou de droite à gauche, selon le regard des êtres animés.", sign: "𓃰" },
+    { text: "Le signe 𓋹 (ankh) est le symbole de la 'vie'.", sign: "𓋹" },
+    { text: "Le signe 𓄤 (nefer) signifie 'beau', 'bon' ou 'parfait'.", sign: "𓄤" },
+    { text: "Le cartouche 𓍷 entoure toujours les noms royaux.", sign: "𓍷" },
+    { text: "L'abeille 𓆤 est le symbole de la Basse-Égypte.", sign: "𓆤" },
+    { text: "Le papyrus 𓇅 est le symbole de la Haute-Égypte.", sign: "𓇅" }
+];
+
+function initDiscovery() {
+    const content = document.getElementById('discovery-content');
+    if (!content) return;
+
+    // Pick random fact based on day to keep it stable for the day
+    const today = new Date();
+    const seed = today.getFullYear() * 1000 + (today.getMonth() + 1) * 31 + today.getDate();
+    const index = seed % discoveryFacts.length;
+    const fact = discoveryFacts[index];
+
+    content.innerHTML = `
+        <p class="discovery-text">"${fact.text}"</p>
+    `;
+
+    // Update background sign if possible (optional visual touch)
+    const card = document.getElementById('discovery-card');
+    if (card) {
+        // We use CSS ::before content, so we can't easily change it via inline style without CSS vars.
+        // But for now the default Ankh is fine, or we can set a CSS var.
+        card.style.setProperty('--discovery-sign', `"${fact.sign}"`);
+    }
+}
+
+// Call discovery init logic
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDiscovery);
+} else {
+    initDiscovery();
+}
+
 // === COPIER DANS LE PRESSE-PAPIERS ===
-function copyToClipboard(elementId, button) {
-    const element = document.getElementById(elementId);
-    const text = element.textContent;
+function copyToClipboard(button, type) {
+    let text = '';
+
+    if (type === 'hiero') {
+        text = document.getElementById('result-hiero').innerText; // Use innerText to get text content of stacked signs correctly? No, stacked signs are HTML.
+        // Wait, copying stacked signs as text might result in garbage or just the characters.
+        // Let's get the raw hieroglyphs from history if possible, or just textContent.
+        // Actually, result-hiero contains HTML. textContent will give the chars linearly which is good.
+        text = document.getElementById('result-hiero').textContent;
+    } else if (type === 'french') {
+        text = document.getElementById('result-french').textContent.replace('Traduction: ', '').trim();
+    } else if (type === 'url') {
+        // Logic for share button if it used this function, but share uses shareResult()
+    } else {
+        // Fallback for passing element ID directly
+        const el = document.getElementById(button); // 'button' here is the id string in old calls
+        if (el) text = el.textContent;
+    }
 
     if (!text || text.trim() === '') return;
 
     navigator.clipboard.writeText(text).then(() => {
         // Feedback visuel
         button.classList.add('copied');
-        const icon = button.querySelector('.copy-icon');
-        const originalText = icon.textContent;
-        icon.textContent = '✓';
+        const iconContainer = button.querySelector('.copy-icon'); // It's a span now
+        if (iconContainer) {
+            // We keep the SVG but maybe add a checkmark class or replace SVG temporarily?
+            // CSS handles .copied .copy-icon::after { content: '✓'; } so we don't need to change innerHTML!
+            // Just adding the class 'copied' is enough for the CSS we wrote.
+            // But wait, the CSS was: ".copy-btn.copied .copy-icon::after { content: ' ✓'; }"
+            // This overlays the checkmark.
+        }
 
         setTimeout(() => {
             button.classList.remove('copied');
-            icon.textContent = originalText;
         }, 1500);
     }).catch(err => {
         console.error('Erreur de copie:', err);
@@ -1078,6 +1153,61 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
         });
 });
 
+// --- MOT DE PASSE OUBLIÉ ---
+function showForgotPasswordForm(event) {
+    if (event) event.preventDefault();
+    document.getElementById('login-form-container').classList.add('hidden');
+    document.getElementById('register-form-container').classList.add('hidden');
+    document.getElementById('forgot-password-container').classList.remove('hidden');
+    document.querySelectorAll('.auth-tab').forEach(btn => btn.classList.remove('active'));
+}
+
+function showLoginForm(event) {
+    if (event) event.preventDefault();
+    document.getElementById('forgot-password-container').classList.add('hidden');
+    document.getElementById('register-form-container').classList.add('hidden');
+    document.getElementById('login-form-container').classList.remove('hidden');
+    document.querySelector('.auth-tab[onclick="switchAuthTab(\'login\')"]').classList.add('active');
+}
+
+document.getElementById('forgot-password-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const email = document.getElementById('forgot-email').value;
+    const errorDiv = document.getElementById('forgot-error');
+    const successDiv = document.getElementById('forgot-success');
+    const submitBtn = this.querySelector('button[type="submit"]');
+
+    errorDiv.classList.add('hidden');
+    successDiv.classList.add('hidden');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi en cours...';
+
+    fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                successDiv.textContent = 'Si un compte existe avec cet email, un lien de réinitialisation a été envoyé.';
+                successDiv.classList.remove('hidden');
+                this.reset();
+            } else {
+                errorDiv.textContent = data.error || 'Erreur lors de l\'envoi';
+                errorDiv.classList.remove('hidden');
+            }
+        })
+        .catch(err => {
+            errorDiv.textContent = 'Erreur de connexion au serveur';
+            errorDiv.classList.remove('hidden');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Envoyer le lien';
+        });
+});
+
 // --- REGISTER ---
 document.getElementById('register-form').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -1219,39 +1349,79 @@ function saveInlineEdit() {
     let data = {};
 
     if (currentEditField === 'username') {
-        data.username = document.getElementById('inline-edit-username').value;
+        data.username = document.getElementById('inline-edit-username').value.trim();
+        if (!data.username) {
+            errorDiv.textContent = 'L\'identifiant ne peut pas être vide';
+            errorDiv.classList.remove('hidden');
+            return;
+        }
     } else if (currentEditField === 'email') {
-        data.email = document.getElementById('inline-edit-email').value;
+        data.email = document.getElementById('inline-edit-email').value.trim();
+        if (!data.email) {
+            errorDiv.textContent = 'L\'email ne peut pas être vide';
+            errorDiv.classList.remove('hidden');
+            return;
+        }
     } else if (currentEditField === 'password') {
-        data.current_password = document.getElementById('inline-edit-password-current').value;
-        data.password = document.getElementById('inline-edit-password-new').value;
+        const currentPassword = document.getElementById('inline-edit-password-current').value;
+        const newPassword = document.getElementById('inline-edit-password-new').value;
+        if (!currentPassword) {
+            errorDiv.textContent = 'Veuillez entrer votre mot de passe actuel';
+            errorDiv.classList.remove('hidden');
+            return;
+        }
+        if (!newPassword || newPassword.length < 6) {
+            errorDiv.textContent = 'Le nouveau mot de passe doit contenir au moins 6 caractères';
+            errorDiv.classList.remove('hidden');
+            return;
+        }
+        data.currentPassword = currentPassword;
+        data.newPassword = newPassword;
     }
 
-    fetch('/api/auth/update', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+    // Show loading state
+    const saveBtn = document.querySelector('.edit-save-btn');
+    const originalText = saveBtn.textContent;
+    saveBtn.textContent = 'Enregistrement...';
+    saveBtn.disabled = true;
+
+    fetch('/api/auth/profile', {
+        method: 'PUT',
+        headers: getAuthHeaders(),
         body: JSON.stringify(data)
     })
         .then(res => res.json())
         .then(response => {
             if (response.success) {
                 // Update local user data
-                if (data.username) currentUser.username = data.username;
-                if (data.email) currentUser.email = data.email;
-
+                if (response.user) {
+                    currentUser = response.user;
+                }
                 // Update UI
                 updateAuthUI(true);
                 hideEditPanel();
+
+                // Clear password fields
+                if (currentEditField === 'password') {
+                    document.getElementById('inline-edit-password-current').value = '';
+                    document.getElementById('inline-edit-password-new').value = '';
+                }
             } else {
-                errorDiv.textContent = response.message || 'Erreur lors de la mise à jour';
+                errorDiv.textContent = response.error || 'Erreur lors de la mise à jour';
                 errorDiv.classList.remove('hidden');
             }
         })
         .catch(err => {
+            console.error('Update error:', err);
             errorDiv.textContent = 'Erreur de connexion au serveur';
             errorDiv.classList.remove('hidden');
+        })
+        .finally(() => {
+            saveBtn.textContent = originalText;
+            saveBtn.disabled = false;
         });
 }
+
 
 // Toggle password visibility
 function togglePasswordVisibility(inputId, button) {
@@ -2406,3 +2576,730 @@ function getExtensionCode() {
 
 // Initialiser cartouche depuis URL si présent
 loadCartoucheFromUrl();
+
+// === FORUM DE DISCUSSION ===
+let currentTopicId = null;
+let forumTopics = [];
+
+// Hook showSection pour charger le forum
+const forumShowSection = window.showSection;
+window.showSection = function (sectionId) {
+    forumShowSection(sectionId);
+
+    if (sectionId === 'discussion') {
+        loadForumTopics();
+    }
+};
+
+// Charger les sujets du forum
+async function loadForumTopics() {
+    const topicsList = document.getElementById('forum-topics-list');
+    const emptyState = document.getElementById('forum-empty');
+    const loginHint = document.getElementById('forum-login-hint');
+    const newTopicBtn = document.getElementById('new-topic-btn');
+
+    // Afficher/masquer bouton nouveau sujet selon connexion
+    const token = localStorage.getItem('authToken');
+    if (token) {
+        newTopicBtn.classList.remove('hidden');
+        loginHint.classList.add('hidden');
+    } else {
+        newTopicBtn.classList.add('hidden');
+        loginHint.classList.remove('hidden');
+    }
+
+    try {
+        const response = await fetch('/api/forum/topics');
+        const data = await response.json();
+
+        if (data.success && data.topics.length > 0) {
+            forumTopics = data.topics;
+            topicsList.innerHTML = '';
+            emptyState.classList.add('hidden');
+
+            data.topics.forEach(topic => {
+                const div = document.createElement('div');
+                div.className = 'forum-topic-item';
+                div.dataset.date = topic.createdAt;
+                div.dataset.likes = topic.likesCount || 0;
+                div.onclick = (e) => {
+                    // Ne pas naviguer si on clique sur le bouton like
+                    if (e.target.closest('.forum-like-btn')) return;
+                    viewTopic(topic.id);
+                };
+
+                const date = new Date(topic.createdAt).toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                });
+
+                div.innerHTML = `
+                    <div class="forum-topic-item-header">
+                        <h3 class="forum-topic-item-title">${escapeHtml(topic.title)}</h3>
+                    </div>
+                    <p class="forum-topic-item-preview">${escapeHtml(topic.content)}</p>
+                    <div class="forum-topic-item-footer">
+                        <div class="forum-topic-item-author">
+                            <img src="${topic.authorPicture || ''}" alt="" class="forum-avatar ${!topic.authorPicture ? 'fallback' : ''}" onerror="this.classList.add('fallback')">
+                            <span>${escapeHtml(topic.authorName)}</span>
+                        </div>
+                        <div class="forum-topic-item-meta">
+                            <button class="forum-like-btn" data-topic-id="${topic.id}" onclick="toggleLike(event, '${topic.id}')">
+                                <span class="like-icon">♡</span>
+                                <span class="like-count">${topic.likesCount || 0}</span>
+                            </button>
+                            <span>💬 ${topic.repliesCount}</span>
+                            <span>${date}</span>
+                        </div>
+                    </div>
+                `;
+
+                topicsList.appendChild(div);
+            });
+        } else {
+            topicsList.innerHTML = '';
+            emptyState.classList.remove('hidden');
+        }
+    } catch (error) {
+        console.error('Erreur chargement forum:', error);
+        topicsList.innerHTML = '<p class="forum-loading">Erreur de chargement</p>';
+    }
+}
+
+// Échapper le HTML pour éviter XSS
+function escapeHtml(str) {
+    if (!str) return '';
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+// Afficher le formulaire nouveau sujet
+function showNewTopicForm() {
+    document.getElementById('forum-list-view').classList.add('hidden');
+    document.getElementById('forum-new-topic-view').classList.remove('hidden');
+    document.getElementById('forum-topic-view').classList.add('hidden');
+}
+
+// Masquer le formulaire nouveau sujet
+function hideNewTopicForm() {
+    document.getElementById('forum-list-view').classList.remove('hidden');
+    document.getElementById('forum-new-topic-view').classList.add('hidden');
+    document.getElementById('new-topic-form').reset();
+    document.getElementById('topic-form-error').classList.add('hidden');
+}
+
+// Soumettre un nouveau sujet
+async function submitNewTopic(event) {
+    event.preventDefault();
+
+    const title = document.getElementById('topic-title').value.trim();
+    const content = document.getElementById('topic-content').value.trim();
+    const errorEl = document.getElementById('topic-form-error');
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+        errorEl.textContent = 'Veuillez vous connecter pour publier';
+        errorEl.classList.remove('hidden');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/forum/topics', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ title, content })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            hideNewTopicForm();
+            loadForumTopics();
+        } else {
+            errorEl.textContent = data.error || 'Erreur lors de la publication';
+            errorEl.classList.remove('hidden');
+        }
+    } catch (error) {
+        console.error('Erreur création sujet:', error);
+        errorEl.textContent = 'Erreur de connexion';
+        errorEl.classList.remove('hidden');
+    }
+}
+
+// Voir un sujet
+async function viewTopic(topicId) {
+    currentTopicId = topicId;
+
+    document.getElementById('forum-list-view').classList.add('hidden');
+    document.getElementById('forum-new-topic-view').classList.add('hidden');
+    document.getElementById('forum-topic-view').classList.remove('hidden');
+
+    const token = localStorage.getItem('authToken');
+    const userId = getCurrentUserId();
+
+    // Afficher/masquer formulaire réponse selon connexion
+    if (token) {
+        document.getElementById('forum-reply-form').classList.remove('hidden');
+        document.getElementById('forum-reply-login-hint').classList.add('hidden');
+    } else {
+        document.getElementById('forum-reply-form').classList.add('hidden');
+        document.getElementById('forum-reply-login-hint').classList.remove('hidden');
+    }
+
+    try {
+        const response = await fetch(`/api/forum/topics/${topicId}`);
+        const data = await response.json();
+
+        if (data.success) {
+            const topic = data.topic;
+            const replies = data.replies;
+
+            // Afficher le sujet
+            document.getElementById('topic-author-pic').src = topic.authorPicture || '';
+            document.getElementById('topic-author-pic').classList.toggle('fallback', !topic.authorPicture);
+            document.getElementById('topic-author-name').textContent = topic.authorName;
+            document.getElementById('topic-date').textContent = new Date(topic.createdAt).toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('topic-detail-title').textContent = topic.title;
+            document.getElementById('topic-detail-content').textContent = topic.content;
+
+            // Bouton supprimer (si auteur)
+            const deleteBtn = document.getElementById('topic-delete-btn');
+            if (userId && topic.authorId === userId) {
+                deleteBtn.classList.remove('hidden');
+            } else {
+                deleteBtn.classList.add('hidden');
+            }
+
+            // Afficher les réponses
+            document.getElementById('replies-count').textContent = `(${replies.length})`;
+            const repliesList = document.getElementById('forum-replies-list');
+            const repliesEmpty = document.getElementById('forum-replies-empty');
+
+            if (replies.length > 0) {
+                repliesList.innerHTML = '';
+                repliesEmpty.classList.add('hidden');
+
+                replies.forEach(reply => {
+                    const div = document.createElement('div');
+                    div.className = 'forum-reply-item';
+                    div.innerHTML = `
+                        <div class="forum-reply-header">
+                            <div class="forum-author">
+                                <img src="${reply.authorPicture || ''}" alt="" class="forum-avatar ${!reply.authorPicture ? 'fallback' : ''}" onerror="this.classList.add('fallback')">
+                                <span class="forum-author-name">${escapeHtml(reply.authorName)}</span>
+                            </div>
+                            <span class="forum-date">${new Date(reply.createdAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                        </div>
+                        <div class="forum-reply-content">${escapeHtml(reply.content)}</div>
+                    `;
+                    repliesList.appendChild(div);
+                });
+            } else {
+                repliesList.innerHTML = '';
+                repliesEmpty.classList.remove('hidden');
+            }
+        }
+    } catch (error) {
+        console.error('Erreur chargement sujet:', error);
+    }
+}
+
+// Retour à la liste du forum
+function backToForumList() {
+    document.getElementById('forum-topic-view').classList.add('hidden');
+    document.getElementById('forum-list-view').classList.remove('hidden');
+    document.getElementById('reply-content').value = '';
+    currentTopicId = null;
+    loadForumTopics();
+}
+
+// Afficher la liste du forum (pour le bouton retour principal)
+function showForumList() {
+    document.getElementById('forum-topic-view').classList.add('hidden');
+    document.getElementById('forum-new-topic-view').classList.add('hidden');
+    document.getElementById('forum-list-view').classList.remove('hidden');
+    currentTopicId = null;
+}
+
+// Soumettre une réponse
+async function submitReply() {
+    const content = document.getElementById('reply-content').value.trim();
+    const errorEl = document.getElementById('reply-form-error');
+    const token = localStorage.getItem('authToken');
+
+    if (!content) return;
+
+    if (!token) {
+        errorEl.textContent = 'Veuillez vous connecter pour répondre';
+        errorEl.classList.remove('hidden');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/forum/replies', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ topicId: currentTopicId, content })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            document.getElementById('reply-content').value = '';
+            errorEl.classList.add('hidden');
+            viewTopic(currentTopicId); // Rafraîchir
+        } else {
+            errorEl.textContent = data.error || 'Erreur';
+            errorEl.classList.remove('hidden');
+        }
+    } catch (error) {
+        console.error('Erreur réponse:', error);
+        errorEl.textContent = 'Erreur de connexion';
+        errorEl.classList.remove('hidden');
+    }
+}
+
+// Supprimer un sujet
+async function deleteTopic() {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce sujet ?')) return;
+
+    const token = localStorage.getItem('authToken');
+
+    try {
+        const response = await fetch(`/api/forum/topics/${currentTopicId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            backToForumList();
+        } else {
+            alert(data.error || 'Erreur lors de la suppression');
+        }
+    } catch (error) {
+        console.error('Erreur suppression:', error);
+        alert('Erreur de connexion');
+    }
+}
+
+// Récupérer l'ID utilisateur actuel (depuis le token JWT)
+function getCurrentUserId() {
+    const token = localStorage.getItem('authToken');
+    if (!token) return null;
+
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.userId;
+    } catch {
+        return null;
+    }
+}
+
+// Filtrer les sujets du forum par recherche
+function filterForumTopics(query) {
+    const q = query.toLowerCase().trim();
+    const items = document.querySelectorAll('.forum-topic-item');
+
+    items.forEach(item => {
+        const title = item.querySelector('.forum-topic-item-title')?.textContent.toLowerCase() || '';
+        const preview = item.querySelector('.forum-topic-item-preview')?.textContent.toLowerCase() || '';
+        const matches = title.includes(q) || preview.includes(q);
+        item.style.display = matches ? '' : 'none';
+    });
+}
+
+// Trier les sujets par récent ou populaire
+let forumSortOrder = 'recent';
+
+function sortForumBy(order) {
+    forumSortOrder = order;
+
+    // Update tabs
+    document.querySelectorAll('.forum-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.sort === order);
+    });
+
+    // Sort topics in DOM
+    const list = document.getElementById('forum-topics-list');
+    const items = Array.from(list.querySelectorAll('.forum-topic-item'));
+
+    items.sort((a, b) => {
+        if (order === 'popular') {
+            const aLikes = parseInt(a.dataset.likes || '0');
+            const bLikes = parseInt(b.dataset.likes || '0');
+            return bLikes - aLikes;
+        } else {
+            // recent
+            const aDate = new Date(a.dataset.date || 0);
+            const bDate = new Date(b.dataset.date || 0);
+            return bDate - aDate;
+        }
+    });
+
+    items.forEach(item => list.appendChild(item));
+}
+
+// Toggle like sur un sujet
+async function toggleLike(event, topicId) {
+    event.stopPropagation();
+
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        alert('Connectez-vous pour aimer un sujet');
+        return;
+    }
+
+    const btn = event.target.closest('.forum-like-btn');
+    if (!btn) return;
+
+    try {
+        const response = await fetch('/api/forum/likes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ topicId })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Mettre à jour l'UI
+            const icon = btn.querySelector('.like-icon');
+            const count = btn.querySelector('.like-count');
+
+            icon.textContent = data.liked ? '♥' : '♡';
+            btn.classList.toggle('liked', data.liked);
+            count.textContent = data.likesCount;
+
+            // Mettre à jour data-likes pour le tri
+            const topicItem = btn.closest('.forum-topic-item');
+            if (topicItem) {
+                topicItem.dataset.likes = data.likesCount;
+            }
+        }
+    } catch (error) {
+        console.error('Erreur like:', error);
+    }
+}
+
+// === TRADUCTION DE PRÉNOMS (PHONÉTIQUE) ===
+const hieroAlphabet = {
+    'A': '𓄿', // Vautour (Aleph)
+    'B': '𓃀', // Jambe
+    'C': '𓎡', // Corbeille (K) - ou S selon contexte
+    'D': '𓂧', // Main
+    'E': '𓇋', // Roseau (I/E)
+    'F': '𓆑', // Vipère
+    'G': '𓎼', // Support de jarre
+    'H': '𓉔', // Maison (H)
+    'I': '𓇋', // Roseau
+    'J': '𓆓', // Cobra (Dj)
+    'K': '𓎡', // Corbeille
+    'L': '𓃭', // Lion (L - Ptolémaïque)
+    'M': '𓅓', // Hibou
+    'N': '𓈖', // Eau
+    'O': '𓍯', // Caille (W/O)
+    'P': '𓊪', // Natte/Tabouret
+    'Q': '𓈎', // Pente
+    'R': '𓂋', // Bouche
+    'S': '𓋴', // Linge plié (S)
+    'T': '𓏏', // Pain
+    'U': '𓅱', // Caille (W/U)
+    'V': '𓆑', // Vipère (F)
+    'W': '𓅱', // Caille
+    'X': '𓎡𓋴', // K+S
+    'Y': '𓇌', // Double roseau
+    'Z': '𓊃', // Verrou (Z)
+    ' ': ' ',
+    '-': '-'
+};
+
+function translateName() {
+    const input = document.getElementById('prenom-input');
+    const resultContainer = document.getElementById('cartouche-container');
+    const cartoucheResult = document.getElementById('cartouche-result');
+    const cartoucheText = document.getElementById('cartouche-text');
+
+    if (!input || !resultContainer || !cartoucheResult) return;
+
+    const name = input.value.trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    if (name.length === 0) {
+        resultContainer.classList.add('hidden');
+        return;
+    }
+
+    let hieroName = '';
+    let i = 0;
+    while (i < name.length) {
+        let char = name[i];
+        if (hieroAlphabet[char]) {
+            // Petite variation pour les noms : on les met en colonne parfois ? 
+            // Pour l'instant simple ligne.
+            hieroName += `<span class="name-sign">${hieroAlphabet[char]}</span>`;
+        }
+        i++;
+    }
+
+    // Structure du cartouche : Début (Corde arrondie) - Contenu - Fin (Barre verticale)
+    // On utilisera le CSS pour faire le contour
+    cartoucheResult.innerHTML = hieroName;
+
+    cartoucheText.textContent = input.value.trim();
+    resultContainer.classList.remove('hidden');
+}
+
+// Event listener pour la touche Entrée sur l'input prénom
+const prenomInput = document.getElementById('prenom-input');
+if (prenomInput) {
+    prenomInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            translateName();
+        }
+    });
+}
+
+// === GESTION DE LA PROPOSITION DE CONTRIBUTIONS ===
+const proposalOverlay = document.getElementById('proposal-overlay');
+let proposalKeyboardCloned = false;
+
+function openProposalOverlay() {
+    if (proposalOverlay) {
+        proposalOverlay.classList.remove('hidden');
+        proposalOverlay.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+
+        // Clone keyboard if not already done
+        if (!proposalKeyboardCloned) {
+            setupProposalKeyboard();
+            proposalKeyboardCloned = true;
+        }
+    }
+}
+
+function closeProposalOverlay() {
+    if (proposalOverlay) {
+        proposalOverlay.classList.remove('visible');
+        proposalOverlay.classList.add('hidden');
+        document.body.style.overflow = '';
+
+        // Reset form
+        document.getElementById('proposal-form').reset();
+        document.getElementById('proposal-success').classList.add('hidden');
+        document.getElementById('proposal-error').classList.add('hidden');
+    }
+}
+
+function setupProposalKeyboard() {
+    const container = document.getElementById('prop-keyboard-container');
+    const input = document.getElementById('prop-hiero');
+
+    if (!container || !input) return;
+
+    // ALWAYS VISIBLE: We do not hide it anymore based on user feedback.
+    container.classList.add('visible');
+
+    // Clear container to avoid duplicates if rerun
+    container.innerHTML = '';
+
+    // Recreate keys logic for this specific input
+    if (typeof transliterationKeys !== 'undefined') {
+        transliterationKeys.forEach(key => {
+            const button = document.createElement('button');
+            button.textContent = key.value;
+            button.className = 'hiero-key';
+            button.type = 'button';
+
+            button.onclick = (e) => {
+                e.stopPropagation();
+                if (key.code === 'enter') return;
+
+                input.value += key.code;
+                input.focus();
+            };
+
+            container.appendChild(button);
+        });
+
+        // ADD BACKSPACE BUTTON
+        const backspaceBtn = document.createElement('button');
+        backspaceBtn.innerHTML = '⌫';
+        backspaceBtn.className = 'hiero-key backspace-key';
+        backspaceBtn.type = 'button';
+        backspaceBtn.title = 'Effacer';
+        backspaceBtn.onclick = (e) => {
+            e.stopPropagation();
+            input.value = input.value.slice(0, -1);
+            input.focus();
+        };
+        container.appendChild(backspaceBtn);
+    }
+}
+
+// Side Panel Logic
+let sidePanelLoaded = false;
+let sidePanelSigns = [];
+let filteredPanelSigns = [];
+
+function toggleSignsPanel() {
+    // UPDATED: Now targets the internal panel #proposal-left-panel
+    const panel = document.getElementById('proposal-left-panel');
+    if (!panel) return;
+
+    if (panel.classList.contains('hidden')) {
+        panel.classList.remove('hidden');
+        if (!sidePanelLoaded) {
+            loadSidePanelSigns();
+        }
+    } else {
+        panel.classList.add('hidden');
+    }
+}
+
+function loadSidePanelSigns() {
+    const grid = document.getElementById('side-panel-grid');
+    grid.innerHTML = '<div class="panel-loading">Chargement des signes...</div>';
+
+    // We can reuse the API call
+    fetch('/api/admin/gardiner')
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.signs) {
+                // Reuse sort function if available, else just use raw
+                // Assume sortGardinerSigns exists or just use data.signs
+                sidePanelSigns = (typeof sortGardinerSigns === 'function') ? sortGardinerSigns(data.signs) : data.signs;
+                filteredPanelSigns = sidePanelSigns;
+                renderSidePanelSigns();
+                sidePanelLoaded = true;
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            grid.innerHTML = '<div class="panel-loading error">Erreur de chargement</div>';
+        });
+}
+
+function renderSidePanelSigns() {
+    const grid = document.getElementById('side-panel-grid');
+    grid.innerHTML = '';
+
+    // Render ALL signs as requested. 
+    // Browser can handle ~1000 simple div elements.
+    const subset = filteredPanelSigns;
+
+    if (subset.length === 0) {
+        grid.innerHTML = '<div class="panel-loading">Aucun signe trouvé</div>';
+        return;
+    }
+
+    // Optimization: Use DocumentFragment for faster insertion
+    const fragment = document.createDocumentFragment();
+
+    subset.forEach(sign => {
+        const item = document.createElement('div');
+        item.className = 'panel-sign-item';
+        item.textContent = sign.sign; // The character
+        item.title = `${sign.code} - ${sign.description}`;
+        item.onclick = () => addSignToProposal(sign.sign);
+        fragment.appendChild(item);
+    });
+
+    grid.appendChild(fragment);
+}
+
+function filterSidePanelSigns(query) {
+    query = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const category = document.getElementById('side-panel-category-select').value;
+
+    filteredPanelSigns = sidePanelSigns.filter(s => {
+        const matchQuery = s.code.toLowerCase().includes(query) ||
+            (s.description && s.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(query));
+        const matchCat = category ? s.code.startsWith(category) : true;
+        return matchQuery && matchCat;
+    });
+    renderSidePanelSigns();
+}
+
+function filterSidePanelCategory(cat) {
+    const query = document.getElementById('side-panel-search-input').value; // Keep current search text
+    filterSidePanelSigns(query);
+}
+
+function addSignToProposal(char) {
+    const input = document.getElementById('prop-hiero');
+    input.value += char;
+    // Don't close panel, user might want to add more
+}
+
+async function submitProposal(event) {
+    event.preventDefault();
+
+    const hiero = document.getElementById('prop-hiero').value.trim();
+    const translit = document.getElementById('prop-translit').value.trim();
+    const french = document.getElementById('prop-french').value.trim();
+    const notes = document.getElementById('prop-notes').value.trim();
+    const errorMsg = document.getElementById('proposal-error');
+    const successMsg = document.getElementById('proposal-success');
+
+    // Basic validation
+    if (!hiero && !translit && !french) {
+        errorMsg.textContent = "Veuillez remplir au moins un champ principal.";
+        errorMsg.classList.remove('hidden');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/proposals', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                hieroglyphs: hiero,
+                transliteration: translit,
+                french: french,
+                notes: notes
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            successMsg.classList.remove('hidden');
+            errorMsg.classList.add('hidden');
+            document.getElementById('proposal-form').reset();
+
+            // Close after 2 seconds
+            setTimeout(() => {
+                closeProposalOverlay();
+            }, 2000);
+        } else {
+            throw new Error(data.error || 'Erreur inconnue');
+        }
+    } catch (err) {
+        console.error(err);
+        errorMsg.textContent = "Erreur lors de l'envoi. Veuillez réessayer.";
+        errorMsg.classList.remove('hidden');
+    }
+}

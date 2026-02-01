@@ -180,6 +180,9 @@ export default function AdminPage() {
             <header style={styles.header}>
                 <h1>🔧 Administration Gardiner (Base de Données)</h1>
                 <div style={styles.headerActions}>
+                    <a href="/admin-proposals" style={{ ...styles.createBtn, background: '#8e44ad', textDecoration: 'none' }}>
+                        📫 Voir les Propositions
+                    </a>
                     <button onClick={handleCreate} style={styles.createBtn}>
                         ➕ Ajouter un signe
                     </button>

@@ -156,26 +156,130 @@
             <div class="overlay-body">
                 <section class="about-section">
                     <h3>À propos</h3>
-                    <p>Hierotranslate est votre compagnon pour l'exploration de l'égyptien ancien.</p>
-                    <ul class="features-list">
-                        <li>Traduction translittération ↔ hiéroglyphes ↔ français</li>
-                        <li>Liste complète des signes Gardiner avec détails</li>
-                        <li>Historique personnalisé de vos recherches</li>
-                        <li>Exercices d'apprentissage interactifs</li>
-                        <li>Forum de discussion entre passionnés</li>
-                        <li>Sources et bibliographie égyptologique</li>
-                    </ul>
+                    <p>Hierotranslate est un dictionnaire interactif dédié à l'Égyptien Ancien.</p>
+                    <p style="margin-top: 1rem;">Notre but est simple : rendre les hiéroglyphes accessibles à tous grâce
+                        à des outils modernes de traduction et d'apprentissage.</p>
                 </section>
 
                 <section class="about-section">
                     <h3>Contact</h3>
                     <p>Pour toute question ou suggestion :</p>
-                    <p class="contact-email">hierotranslate@gmail.com</p>
+                    <p class="contact-email"><a href="mailto:hierotranslate@gmail.com">hierotranslate@gmail.com</a></p>
+                    <p class="contact-email"><a href="https://www.instagram.com/hierotranslate"
+                            target="_blank">Instagram : @hierotranslate</a></p>
+                    <p class="contact-email"><a href="https://www.tiktok.com/@juleezzzzzzz" target="_blank">TikTok :
+                            @juleezzzzzzz</a></p>
                 </section>
             </div>
 
             <div class="overlay-footer">
-                <p>© 2024 Hierotranslate</p>
+                <p>© 2025 Hierotranslate</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay "Contribuer / Proposition" -->
+    <div id="proposal-overlay" class="overlay hidden">
+        <div class="overlay-content proposal-content-wrapper">
+            <button class="overlay-close" onclick="closeProposalOverlay()">&times;</button>
+
+            <div class="proposal-flex-container">
+                <!-- PANNEAU GAUCHE : SÉLECTEUR DE SIGNES (Caché par défaut) -->
+                <div id="proposal-left-panel" class="proposal-left-panel hidden">
+                    <div class="left-panel-header">
+                        <h3>Choisir un signe</h3>
+                        <button class="small-close-btn" onclick="toggleSignsPanel()">✕</button>
+                    </div>
+                    <div class="side-panel-search">
+                        <input type="text" id="side-panel-search-input" placeholder="Rechercher (ex: homme, A1...)"
+                            oninput="filterSidePanelSigns(this.value)">
+                    </div>
+                    <div class="side-panel-categories">
+                        <select id="side-panel-category-select" onchange="filterSidePanelCategory(this.value)">
+                            <option value="">Toutes catégories</option>
+                            <option value="A">A - Homme</option>
+                            <option value="B">B - Femme</option>
+                            <option value="C">C - Divinités</option>
+                            <option value="D">D - Corps humain</option>
+                            <option value="E">E - Mammifères</option>
+                            <option value="F">F - Parties mammal.</option>
+                            <option value="G">G - Oiseaux</option>
+                            <option value="H">H - Parties oiseaux</option>
+                            <option value="I">I - Reptiles</option>
+                            <option value="K">K - Poissons</option>
+                            <option value="L">L - Invertébrés</option>
+                            <option value="M">M - Plantes</option>
+                            <option value="N">N - Ciel/Terre/Eau</option>
+                            <option value="O">O - Bâtiments</option>
+                            <option value="P">P - Bateaux</option>
+                            <option value="Q">Q - Mobilier</option>
+                            <option value="R">R - Culte</option>
+                            <option value="S">S - Couronnes</option>
+                            <option value="T">T - Guerre/Chasse</option>
+                            <option value="U">U - Agriculture</option>
+                            <option value="V">V - Cordes</option>
+                            <option value="W">W - Vases</option>
+                            <option value="X">X - Pains</option>
+                            <option value="Y">Y - Écriture/Jeux</option>
+                            <option value="Z">Z - Traits</option>
+                            <option value="Aa">Aa - Non classés</option>
+                        </select>
+                    </div>
+                    <div id="side-panel-grid" class="side-panel-grid">
+                        <div class="panel-loading">Chargement...</div>
+                    </div>
+                </div>
+
+                <!-- PANNEAU DROIT : FORMULAIRE -->
+                <div class="proposal-right-panel">
+                    <div class="overlay-header">
+                        <h1>Contribuer</h1>
+                        <p class="tagline">Proposez un nouveau mot ou signe</p>
+                    </div>
+                    <div class="overlay-body">
+                        <p class="proposal-intro">Aidez-nous à enrichir le dictionnaire ! Votre proposition sera
+                            vérifiée avant
+                            d'être ajoutée.</p>
+                        <form id="proposal-form" onsubmit="submitProposal(event)">
+                            <div class="form-group">
+                                <label for="prop-hiero">Hiéroglyphes</label>
+
+                                <div class="hiero-input-group">
+                                    <input type="text" id="prop-hiero"
+                                        placeholder="Utilisez le clavier ou collez des signes">
+                                </div>
+
+                                <div class="hiero-tools">
+                                    <button type="button" class="list-signs-btn" onclick="toggleSignsPanel()">
+                                        <span class="btn-icon">📜</span> Liste des signes
+                                    </button>
+                                </div>
+
+                                <!-- Reusing the keyboard logic needs a specific container or we clone it via JS -->
+                                <!-- Moved below per user request -->
+                            </div>
+                            <div class="form-group">
+                                <label for="prop-translit">Translittération</label>
+                                <input type="text" id="prop-translit" placeholder="ex: nfr" required>
+                                <div id="prop-keyboard-container" class="proposal-keyboard-container"
+                                    style="margin-top: 10px;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="prop-french">Traduction française</label>
+                                <input type="text" id="prop-french" placeholder="ex: beau, bon, parfait" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="prop-notes">Notes (facultatif)</label>
+                                <textarea id="prop-notes" placeholder="Source, contexte, etc." rows="2"></textarea>
+                            </div>
+                            <div class="form-error hidden" id="proposal-error"></div>
+                            <div class="form-success hidden" id="proposal-success">Merci ! Votre proposition a été
+                                envoyée.
+                            </div>
+                            <button type="submit" class="auth-submit-btn">Envoyer la proposition</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -204,6 +308,27 @@
                     </div>
                     <div class="form-error hidden" id="login-error"></div>
                     <button type="submit" class="auth-submit-btn">Se connecter</button>
+                    <div class="forgot-password-link">
+                        <a href="#" onclick="showForgotPasswordForm(event)">Mot de passe oublié ?</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Formulaire Mot de passe oublié -->
+            <div id="forgot-password-container" class="auth-form-container hidden">
+                <h2>Mot de passe oublié</h2>
+                <p class="forgot-password-desc">Entrez votre email pour recevoir un lien de réinitialisation</p>
+                <form id="forgot-password-form">
+                    <div class="form-group">
+                        <label for="forgot-email">Email</label>
+                        <input type="email" id="forgot-email" required placeholder="votre@email.com">
+                    </div>
+                    <div class="form-error hidden" id="forgot-error"></div>
+                    <div class="form-success hidden" id="forgot-success"></div>
+                    <button type="submit" class="auth-submit-btn">Envoyer le lien</button>
+                    <div class="forgot-password-link">
+                        <a href="#" onclick="showLoginForm(event)">← Retour à la connexion</a>
+                    </div>
                 </form>
             </div>
 
@@ -306,10 +431,12 @@
             <a href="#liste-signes" class="nav-link">Liste des signes</a>
             <a href="#discussion" class="nav-link">Discussion</a>
             <a href="#exercice" class="nav-link">Exercices</a>
-            <a href="#sources" class="nav-link">Sources</a>
-            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="Changer de thème"
-                aria-label="Basculer entre thème clair et sombre">
-                <span class="theme-icon">☀️</span>
+            <a href="#prenom" class="nav-link">Prénom</a>
+            <button id="theme-btn" class="theme-switch" aria-label="Changer de thème">
+                <div class="switch-handle">
+                    <span class="switch-icon sun">☀</span>
+                    <span class="switch-icon moon">☾</span>
+                </div>
             </button>
             <div class="auth-container">
                 <button id="auth-btn" class="nav-btn-auth" onclick="handleAuthClick()"
@@ -420,7 +547,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </nav>
 
     <!-- Contenu principal -->
@@ -465,10 +591,11 @@
                     <div class="result-content">
                         <div class="result-row">
                             <p class="hiero-result" id="result-hiero"></p>
-                            <button class="copy-btn" onclick="copyToClipboard('result-hiero', this)"
-                                title="Copier les hiéroglyphes"
-                                aria-label="Copier les hiéroglyphes dans le presse-papier">
-                                <span class="copy-icon">📋</span>
+                            <button class="copy-btn" onclick="copyToClipboard(this, 'hiero')" aria-label="Copier">
+                                <span class="copy-icon"><svg class="icon-svg" viewBox="0 0 24 24">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg></span>
                             </button>
                         </div>
                         <div class="result-row">
@@ -478,15 +605,25 @@
                                 <span class="copy-icon">📋</span>
                             </button>
                         </div>
-                        <button class="favorite-btn" onclick="toggleFavorite()" title="Ajouter aux favoris"
-                            id="result-favorite" aria-label="Ajouter ou retirer des favoris">
-                            <span class="favorite-icon">☆</span>
-                            <span class="favorite-text">Ajouter aux favoris</span>
+                        <button id="favorite-btn" class="favorite-btn" onclick="toggleFavorite()">
+                            <svg class="icon-svg" viewBox="0 0 24 24">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <span>Favoris</span>
                         </button>
-                        <button class="share-btn-small" onclick="shareResult()" title="Partager ce résultat"
-                            aria-label="Copier le lien de partage">
-                            🔗
-                        </button>
+
+                    </div>
+                </article>
+
+                <!-- Discovery Card -->
+                <article class="result-card discovery-card" id="discovery-card">
+                    <div class="discovery-header">
+                        <h3>𓋹 Le saviez-vous ?</h3>
+                    </div>
+                    <div class="discovery-content" id="discovery-content">
+                        <p class="discovery-text">Chargement...</p>
                     </div>
                 </article>
 
@@ -494,8 +631,14 @@
                 <article class="history-card">
                     <div class="history-header">
                         <h2>Historique</h2>
-                        <button class="clear-history-btn" onclick="clearHistory()"
-                            title="Effacer l'historique">🗑️</button>
+                        <button class="clear-history-btn" onclick="clearHistory()">
+                            <svg class="icon-svg" viewBox="0 0 24 24">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path
+                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                </path>
+                            </svg>
+                        </button>
                     </div>
                     <div id="history-list" class="history-list">
                         <!-- Les items d'historique seront injectés ici par JS -->
@@ -576,16 +719,109 @@
     </section>
 
     <section id="discussion" class="page-section hidden">
-        <a href="#" class="back-link-fixed" onclick="hideSection('discussion')">← Retour</a>
-        <article class="translator-card placeholder-section">
-            <div class="placeholder-icon">💬</div>
-            <h1>Espace de discussion</h1>
-            <p>Forum d'échange autour de l'égyptien ancien.</p>
-            <div class="coming-soon-badge">Bientôt disponible</div>
-            <p class="placeholder-desc">Cet espace permettra bientôt aux passionnés d'égyptologie d'échanger, poser des
-                questions et partager leurs découvertes sur les hiéroglyphes.</p>
+        <a href="#" class="back-link-fixed" onclick="hideSection('discussion'); showForumList();">← Retour</a>
+        <article class="translator-card forum-container">
+            <!-- Vue Liste des sujets -->
+            <div id="forum-list-view">
+                <div class="forum-toolbar">
+                    <div class="forum-search-wrapper">
+                        <span class="forum-search-icon">🔍</span>
+                        <input type="text" id="forum-search" class="forum-search-input"
+                            placeholder="Rechercher un sujet ou poser une question..."
+                            oninput="filterForumTopics(this.value)">
+                    </div>
+                    <button id="new-topic-btn" class="forum-create-btn hidden" onclick="showNewTopicForm()">
+                        Créer un sujet
+                    </button>
+                </div>
+
+                <div class="forum-tabs">
+                    <button class="forum-tab active" data-sort="recent" onclick="sortForumBy('recent')">
+                        Récents
+                    </button>
+                    <button class="forum-tab" data-sort="popular" onclick="sortForumBy('popular')">
+                        Populaires
+                    </button>
+                </div>
+
+                <div id="forum-topics-list" class="forum-topics-list">
+                    <div class="forum-loading">Chargement...</div>
+                </div>
+
+                <div id="forum-empty" class="forum-empty hidden">
+                    <p>Aucun sujet pour le moment</p>
+                    <p class="forum-empty-hint">Soyez le premier à lancer une discussion</p>
+                </div>
+
+                <div id="forum-login-hint" class="forum-login-hint hidden">
+                    <a href="#" onclick="openAuthOverlay()">Connectez-vous</a> pour participer
+                </div>
+            </div>
+
+
+            <!-- Vue Nouveau sujet -->
+            <div id="forum-new-topic-view" class="forum-form-view hidden">
+                <button class="forum-back-btn" onclick="hideNewTopicForm()">← Retour à la liste</button>
+                <h2>Créer un nouveau sujet</h2>
+                <form id="new-topic-form" onsubmit="submitNewTopic(event)">
+                    <div class="form-group">
+                        <label for="topic-title">Titre du sujet</label>
+                        <input type="text" id="topic-title" required placeholder="Ex: Question sur la traduction de..."
+                            minlength="3" maxlength="150">
+                    </div>
+                    <div class="form-group">
+                        <label for="topic-content">Votre message</label>
+                        <textarea id="topic-content" required
+                            placeholder="Décrivez votre question ou partagez vos découvertes..." minlength="10"
+                            rows="6"></textarea>
+                    </div>
+                    <div class="form-error hidden" id="topic-form-error"></div>
+                    <button type="submit" class="forum-submit-btn">Publier le sujet</button>
+                </form>
+            </div>
+
+            <!-- Vue Détail d'un sujet -->
+            <div id="forum-topic-view" class="forum-topic-view hidden">
+                <button class="forum-back-btn" onclick="backToForumList()">← Retour à la liste</button>
+
+                <div class="forum-topic-detail">
+                    <div class="forum-topic-header">
+                        <div class="forum-author">
+                            <img id="topic-author-pic" src="" alt="" class="forum-avatar">
+                            <span id="topic-author-name" class="forum-author-name"></span>
+                        </div>
+                        <span id="topic-date" class="forum-date"></span>
+                    </div>
+                    <h2 id="topic-detail-title" class="forum-topic-title"></h2>
+                    <div id="topic-detail-content" class="forum-topic-content"></div>
+                    <button id="topic-delete-btn" class="forum-delete-btn hidden" onclick="deleteTopic()">🗑️
+                        Supprimer</button>
+                </div>
+
+                <div class="forum-replies-section">
+                    <h3>Réponses <span id="replies-count">(0)</span></h3>
+                    <div id="forum-replies-list" class="forum-replies-list">
+                        <!-- Réponses injectées par JS -->
+                    </div>
+                    <div id="forum-replies-empty" class="forum-replies-empty hidden">
+                        <p>Aucune réponse pour le moment.</p>
+                    </div>
+                </div>
+
+                <div id="forum-reply-form" class="forum-reply-form hidden">
+                    <h4>Votre réponse</h4>
+                    <textarea id="reply-content" placeholder="Écrivez votre réponse..." rows="3"></textarea>
+                    <div class="form-error hidden" id="reply-form-error"></div>
+                    <button onclick="submitReply()" class="forum-reply-btn">Répondre</button>
+                </div>
+
+                <div id="forum-reply-login-hint" class="forum-login-hint hidden">
+                    <p>💡 <a href="#" onclick="openAuthOverlay()">Connectez-vous</a> pour répondre</p>
+                </div>
+            </div>
         </article>
     </section>
+
 
     <section id="exercice" class="page-section hidden">
         <a href="#" class="back-link-fixed" onclick="hideSection('exercice')">← Retour</a>
@@ -687,11 +923,30 @@
         </div>
     </section>
 
-    <section id="discussion" class="page-section hidden">
-        <article class="translator-card">
-            <h1>Espace de discussion</h1>
-            <p>Forum d'échange autour de l'égyptien ancien.</p>
-            <a href="#" class="back-link" onclick="hideSection('discussion')">← Retour</a>
+
+
+
+    <section id="prenom" class="page-section hidden">
+        <a href="#" class="back-link-fixed" onclick="hideSection('prenom')">← Retour</a>
+        <article class="translator-card prenom-card">
+            <h1>Écrivez votre prénom en Hiéroglyphes</h1>
+            <p class="subtitle">Entrez votre prénom pour le voir inscrit dans un cartouche royal.</p>
+
+            <div class="prenom-input-area">
+                <input type="text" id="prenom-input" placeholder="Ex: Jules, Marie, Thomas..." maxlength="20">
+                <button class="prenom-btn" onclick="translateName()">Traduire</button>
+            </div>
+
+            <div id="cartouche-container" class="cartouche-container hidden">
+                <div class="cartouche" id="cartouche-result">
+                    <!-- Les hiéroglyphes seront injectés ici -->
+                </div>
+                <p class="cartouche-name" id="cartouche-text"></p>
+            </div>
+
+            <div class="prenom-notes">
+                <p>Note : Il s'agit d'une transcription phonétique lettre par lettre.</p>
+            </div>
         </article>
     </section>
 
@@ -703,8 +958,19 @@
         </article>
     </section>
 
-    <!-- Crédit -->
-    <footer class="site-credit">Created by Jules Charcosset</footer>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-decoration"></div>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#sources" onclick="showSection('sources'); return false;">Sources</a> •
+                <a href="#" onclick="openOverlay('about'); return false;">À propos</a> •
+                <a href="mailto:hierotranslate@gmail.com">Contact</a> •
+                <a href="#" onclick="openProposalOverlay(); return false;">Contribuer</a>
+            </div>
+            <p class="footer-copyright">© 2026 Hierotranslate • created by jules charcosset</p>
+        </div>
+    </footer>
 
     <script src="script.js?v=28"></script>
 </body>
