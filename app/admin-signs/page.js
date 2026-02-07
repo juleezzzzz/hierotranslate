@@ -33,6 +33,11 @@ export default function AdminSignsPage() {
     // Keyboard focus state
     const [keyboardActive, setKeyboardActive] = useState(false);
 
+    // Drag and drop state
+    const [draggedSign, setDraggedSign] = useState(null); // Signe en cours de glissement
+    const [draggedGroupId, setDraggedGroupId] = useState(null); // Groupe en cours de réorganisation
+    const [dropTargetIndex, setDropTargetIndex] = useState(null); // Index cible pour le dépôt
+
     // Keyboard mapping - tu peux personnaliser ces touches!
     // Format: { 'touche clavier': 'hiéroglyphe' }
     // Pour les lettres avec majuscules: minuscule = signe habituel, majuscule = signe alternatif
@@ -246,6 +251,89 @@ export default function AdminSignsPage() {
         setComposerGroups([]);
         setSelectedGroups([]);
         setFormData({ ...formData, hieroglyphs: '' });
+    };
+
+    // === DRAG AND DROP HANDLERS ===
+
+    // Quand on commence à glisser un signe du picker
+    const handleSignDragStart = (sign, code, e) => {
+        setDraggedSign({ sign, code });
+        e.dataTransfer.effectAllowed = 'copy';
+        e.dataTransfer.setData('text/plain', sign);
+    };
+
+    // Quand on commence à glisser un groupe pour le réorganiser
+    const handleGroupDragStart = (groupId, e) => {
+        setDraggedGroupId(groupId);
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', groupId.toString());
+    };
+
+    // Quand on survole la zone de composition
+    const handleDragOver = (e, index = null) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = draggedGroupId ? 'move' : 'copy';
+        if (index !== null) {
+            setDropTargetIndex(index);
+        }
+    };
+
+    // Quand on quitte la zone de dépôt
+    const handleDragLeave = () => {
+        setDropTargetIndex(null);
+    };
+
+    // Quand on dépose un signe ou groupe
+    const handleDrop = (e, targetIndex = null) => {
+        e.preventDefault();
+
+        // Cas 1: On dépose un nouveau signe depuis le picker
+        if (draggedSign) {
+            const newGroup = {
+                id: Date.now(),
+                signs: [draggedSign.sign],
+                code: draggedSign.code
+            };
+
+            let updatedGroups;
+            if (targetIndex !== null && targetIndex < composerGroups.length) {
+                // Insérer à la position spécifiée
+                updatedGroups = [...composerGroups];
+                updatedGroups.splice(targetIndex, 0, newGroup);
+            } else {
+                // Ajouter à la fin
+                updatedGroups = [...composerGroups, newGroup];
+            }
+
+            setComposerGroups(updatedGroups);
+            updateHieroglyphsField(updatedGroups);
+        }
+
+        // Cas 2: On réorganise un groupe existant
+        if (draggedGroupId && targetIndex !== null) {
+            const currentIndex = composerGroups.findIndex(g => g.id === draggedGroupId);
+            if (currentIndex !== -1 && currentIndex !== targetIndex) {
+                const updatedGroups = [...composerGroups];
+                const [movedGroup] = updatedGroups.splice(currentIndex, 1);
+                const adjustedIndex = targetIndex > currentIndex ? targetIndex - 1 : targetIndex;
+                updatedGroups.splice(adjustedIndex, 0, movedGroup);
+
+                setComposerGroups(updatedGroups);
+                updateHieroglyphsField(updatedGroups);
+            }
+        }
+
+        // Nettoyer l'état de glissement
+        setDraggedSign(null);
+        setDraggedGroupId(null);
+        setDropTargetIndex(null);
+    };
+
+    // Fin du glissement (nettoyage)
+    const handleDragEnd = () => {
+        setDraggedSign(null);
+        setDraggedGroupId(null);
+        setDropTargetIndex(null);
     };
 
     const updateHieroglyphsField = (groups) => {
@@ -574,42 +662,69 @@ export default function AdminSignsPage() {
                     <div style={styles.composerLayout}>
                         {/* Composer Area */}
                         <div style={styles.composerLeft}>
-                            <p style={styles.composerLabel}>Zone de composition (cliquez pour sélectionner, puis empiler)</p>
-                            <div style={styles.composerArea}>
+                            <p style={styles.composerLabel}>Zone de composition (glissez-déposez ou cliquez pour sélectionner)</p>
+                            <div
+                                style={{
+                                    ...styles.composerArea,
+                                    ...(draggedSign || draggedGroupId ? styles.composerAreaDragOver : {})
+                                }}
+                                onDragOver={(e) => handleDragOver(e, composerGroups.length)}
+                                onDragLeave={handleDragLeave}
+                                onDrop={(e) => handleDrop(e, composerGroups.length)}
+                            >
                                 {composerGroups.length === 0 ? (
-                                    <span style={styles.placeholder}>Cliquez sur un signe à droite pour l'ajouter...</span>
+                                    <span style={styles.placeholder}>
+                                        {draggedSign ? '📥 Déposez ici...' : 'Glissez un signe ici ou cliquez à droite'}
+                                    </span>
                                 ) : (
-                                    composerGroups.map(group => (
-                                        <div
-                                            key={group.id}
-                                            onClick={() => { toggleGroupSelection(group.id); setActiveSignIdx(0); }}
-                                            style={{
-                                                ...styles.composerGroup,
-                                                ...(selectedGroups.includes(group.id) ? styles.selectedGroup : {}),
-                                                ...(group.stacked ? styles.stackedGroup : {}),
-                                                ...(group.pyramid ? styles.pyramidGroup : {}),
-                                                ...(group.horizontal ? styles.horizontalGroup : {})
-                                            }}
-                                        >
-                                            {group.pyramid ? (
-                                                <div style={styles.pyramidLayout}>
-                                                    <div style={styles.pyramidTop}>{cleanSign(group.signs[0])}</div>
-                                                    <div style={styles.pyramidBottom}>
-                                                        <span style={styles.pyramidBottomSign}>{cleanSign(group.signs[1])}</span>
-                                                        <span style={styles.pyramidBottomSign}>{cleanSign(group.signs[2])}</span>
+                                    composerGroups.map((group, index) => (
+                                        <div key={group.id} style={styles.groupWrapper}>
+                                            {/* Zone de dépôt AVANT ce groupe */}
+                                            <div
+                                                style={{
+                                                    ...styles.dropIndicator,
+                                                    ...(dropTargetIndex === index ? styles.dropIndicatorActive : {})
+                                                }}
+                                                onDragOver={(e) => handleDragOver(e, index)}
+                                                onDrop={(e) => handleDrop(e, index)}
+                                            />
+
+                                            {/* Le groupe lui-même */}
+                                            <div
+                                                draggable
+                                                onDragStart={(e) => handleGroupDragStart(group.id, e)}
+                                                onDragEnd={handleDragEnd}
+                                                onClick={() => { toggleGroupSelection(group.id); setActiveSignIdx(0); }}
+                                                style={{
+                                                    ...styles.composerGroup,
+                                                    ...(selectedGroups.includes(group.id) ? styles.selectedGroup : {}),
+                                                    ...(group.stacked ? styles.stackedGroup : {}),
+                                                    ...(group.pyramid ? styles.pyramidGroup : {}),
+                                                    ...(group.horizontal ? styles.horizontalGroup : {}),
+                                                    ...(draggedGroupId === group.id ? styles.draggingGroup : {}),
+                                                    cursor: 'grab'
+                                                }}
+                                            >
+                                                {group.pyramid ? (
+                                                    <div style={styles.pyramidLayout}>
+                                                        <div style={styles.pyramidTop}>{cleanSign(group.signs[0])}</div>
+                                                        <div style={styles.pyramidBottom}>
+                                                            <span style={styles.pyramidBottomSign}>{cleanSign(group.signs[1])}</span>
+                                                            <span style={styles.pyramidBottomSign}>{cleanSign(group.signs[2])}</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ) : group.stacked ? (
-                                                <div style={styles.stackedSigns}>
-                                                    {group.signs.map((s, i) => <div key={i} style={styles.stackedSign}>{cleanSign(s)}</div>)}
-                                                </div>
-                                            ) : group.horizontal ? (
-                                                <div style={styles.horizontalSigns}>
-                                                    {group.signs.map((s, i) => <span key={i} style={styles.horizontalSign}>{cleanSign(s)}</span>)}
-                                                </div>
-                                            ) : (
-                                                <span style={styles.composerSign}>{cleanSign(group.signs[0])}</span>
-                                            )}
+                                                ) : group.stacked ? (
+                                                    <div style={styles.stackedSigns}>
+                                                        {group.signs.map((s, i) => <div key={i} style={styles.stackedSign}>{cleanSign(s)}</div>)}
+                                                    </div>
+                                                ) : group.horizontal ? (
+                                                    <div style={styles.horizontalSigns}>
+                                                        {group.signs.map((s, i) => <span key={i} style={styles.horizontalSign}>{cleanSign(s)}</span>)}
+                                                    </div>
+                                                ) : (
+                                                    <span style={styles.composerSign}>{cleanSign(group.signs[0])}</span>
+                                                )}
+                                            </div>
                                         </div>
                                     ))
                                 )}
@@ -899,8 +1014,11 @@ export default function AdminSignsPage() {
                                     <div
                                         key={sign.code || i}
                                         onClick={() => addToComposer(sign)}
-                                        style={styles.signItem}
-                                        title={sign.description}
+                                        draggable
+                                        onDragStart={(e) => handleSignDragStart(sign.sign || sign.character, sign.code, e)}
+                                        onDragEnd={handleDragEnd}
+                                        style={{ ...styles.signItem, cursor: 'grab' }}
+                                        title={`${sign.description} - Glissez pour ajouter`}
                                     >
                                         <span style={styles.signChar}>{sign.sign || sign.character}</span>
                                         <span style={styles.signCode}>{sign.code}</span>
@@ -1031,8 +1149,13 @@ const styles = {
     composerLeft: {},
     composerRight: {},
     composerLabel: { fontWeight: 'bold', marginBottom: '10px', color: '#555' },
-    composerArea: { minHeight: '100px', border: '2px dashed #ddd', borderRadius: '8px', padding: '15px', display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center', background: '#fafafa' },
+    composerArea: { minHeight: '100px', border: '2px dashed #ddd', borderRadius: '8px', padding: '15px', display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center', background: '#fafafa', transition: 'all 0.2s' },
+    composerAreaDragOver: { borderColor: '#27ae60', background: '#e8f5e9', borderStyle: 'solid' },
     placeholder: { color: '#999', fontStyle: 'italic' },
+    groupWrapper: { display: 'flex', alignItems: 'center' },
+    dropIndicator: { width: '4px', height: '50px', background: 'transparent', borderRadius: '2px', marginRight: '5px', transition: 'all 0.2s' },
+    dropIndicatorActive: { background: '#27ae60', boxShadow: '0 0 10px rgba(39, 174, 96, 0.5)' },
+    draggingGroup: { opacity: 0.5, transform: 'scale(0.95)' },
     composerGroup: { padding: '10px', border: '2px solid #ddd', borderRadius: '8px', cursor: 'pointer', background: 'white', transition: 'all 0.2s' },
     selectedGroup: { borderColor: '#9b59b6', background: '#f3e5f5' },
     stackedGroup: { background: '#e3f2fd' },
