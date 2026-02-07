@@ -483,14 +483,31 @@ function createStackedHieroglyphs(hieroglyphString) {
     // Vérifier si c'est un empilement vertical (marqueur |)
     if (hieroglyphString.includes('|')) {
         const signs = hieroglyphString.split('|');
+
+        // Vérifier si le signe "pr" (𓉐) est dans l'empilement
+        const hasPrSign = signs.some(s => s.includes('𓉐'));
+
         // Réduire la taille des signes empilés (0.75em) et serrer l'espacement
         const stackedSigns = signs.map((signStr, index) => {
             // Parser le signe pour récupérer style persos
             const parsed = parseHieroglyphString(signStr)[0] || { char: signStr, style: '', scale: 1 };
 
             // Le premier signe n'a pas de marge, les suivants sont rapprochés
-            // On combine la custom style avec le style par défaut de la pile
-            const marginTopDefault = index > 0 ? 'margin-top: -0.1em;' : '';
+            // SAUF si le signe suivant est "pr" (𓉐) : on ajoute plus d'espace
+            let marginTopDefault = '';
+            if (index > 0) {
+                // Si le signe précédent contient "pr", ajouter plus d'espace
+                if (signs[index - 1].includes('𓉐')) {
+                    marginTopDefault = 'margin-top: 0.1em;'; // Plus d'espace au-dessus de pr
+                } else {
+                    marginTopDefault = 'margin-top: -0.1em;';
+                }
+            }
+            // Si ce signe est au-dessus de "pr" (donc index+1 contient pr), ajouter de l'espace en bas
+            if (index < signs.length - 1 && signs[index + 1].includes('𓉐')) {
+                marginTopDefault = 'margin-top: -0.05em; margin-bottom: 0.15em;'; // Légèrement descendu avec espace en bas
+            }
+
             // Si custom scale, on l'applique relative à la taille de pile (0.75em) -> un peu complexe, 
             // simplifions : on applique le fontsize custom s'il existe, sinon 0.75em.
             const fontSize = parsed.style.includes('font-size') ? parsed.style : 'font-size: 0.75em;';
