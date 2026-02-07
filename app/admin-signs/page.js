@@ -159,6 +159,33 @@ export default function AdminSignsPage() {
         updateHieroglyphsField(remainingGroups);
     };
 
+    // Groupement horizontal: signes côte à côte comme une seule unité
+    const groupHorizontalSelected = () => {
+        if (selectedGroups.length < 2) {
+            setMessage('Sélectionnez au moins 2 groupes pour grouper horizontalement');
+            setTimeout(() => setMessage(''), 3000);
+            return;
+        }
+
+        const selectedGroupsData = composerGroups.filter(g => selectedGroups.includes(g.id));
+        const remainingGroups = composerGroups.filter(g => !selectedGroups.includes(g.id));
+
+        const allSigns = selectedGroupsData.flatMap(g => g.signs);
+        const horizontalGroup = {
+            id: Date.now(),
+            signs: allSigns,
+            horizontal: true, // layout horizontal groupé
+            codes: selectedGroupsData.map(g => g.code).join(':')
+        };
+
+        const firstIndex = composerGroups.findIndex(g => selectedGroups.includes(g.id));
+        remainingGroups.splice(firstIndex, 0, horizontalGroup);
+
+        setComposerGroups(remainingGroups);
+        setSelectedGroups([]);
+        updateHieroglyphsField(remainingGroups);
+    };
+
     // Pyramide: 1 signe en haut, 2 signes en bas côte à côte
     const pyramidSelected = () => {
         if (selectedGroups.length !== 3) {
@@ -232,6 +259,10 @@ export default function AdminSignsPage() {
             if (g.stacked && g.signs.length >= 2) {
                 return { text: g.signs.join('|'), isComplex: true };
             }
+            // Groupement horizontal: signes côte à côte sans séparateur mais comme groupe
+            if (g.horizontal && g.signs.length >= 2) {
+                return { text: g.signs.join(''), isComplex: true };
+            }
             // Signes normaux: retourner tel quel (côte à côte)
             return { text: g.signs.join(''), isComplex: false };
         });
@@ -259,6 +290,9 @@ export default function AdminSignsPage() {
             }
             if (g.stacked && g.signs.length >= 2) {
                 return { text: g.signs.join('|'), isComplex: true };
+            }
+            if (g.horizontal && g.signs.length >= 2) {
+                return { text: g.signs.join(''), isComplex: true };
             }
             return { text: g.signs.join(''), isComplex: false };
         });
@@ -553,7 +587,8 @@ export default function AdminSignsPage() {
                                                 ...styles.composerGroup,
                                                 ...(selectedGroups.includes(group.id) ? styles.selectedGroup : {}),
                                                 ...(group.stacked ? styles.stackedGroup : {}),
-                                                ...(group.pyramid ? styles.pyramidGroup : {})
+                                                ...(group.pyramid ? styles.pyramidGroup : {}),
+                                                ...(group.horizontal ? styles.horizontalGroup : {})
                                             }}
                                         >
                                             {group.pyramid ? (
@@ -567,6 +602,10 @@ export default function AdminSignsPage() {
                                             ) : group.stacked ? (
                                                 <div style={styles.stackedSigns}>
                                                     {group.signs.map((s, i) => <div key={i} style={styles.stackedSign}>{cleanSign(s)}</div>)}
+                                                </div>
+                                            ) : group.horizontal ? (
+                                                <div style={styles.horizontalSigns}>
+                                                    {group.signs.map((s, i) => <span key={i} style={styles.horizontalSign}>{cleanSign(s)}</span>)}
                                                 </div>
                                             ) : (
                                                 <span style={styles.composerSign}>{cleanSign(group.signs[0])}</span>
@@ -599,8 +638,9 @@ export default function AdminSignsPage() {
                             <div style={styles.composerControls}>
                                 <button onClick={addZ1Stroke} style={styles.ctrlBtnZ1}>𓏺 Ajouter Z1</button>
                                 <button onClick={stackSelected} style={styles.ctrlBtn} disabled={selectedGroups.length < 2}>⬆️ Empiler</button>
+                                <button onClick={groupHorizontalSelected} style={styles.ctrlBtnHorizontal} disabled={selectedGroups.length < 2}>↔️ Grouper</button>
                                 <button onClick={pyramidSelected} style={styles.ctrlBtnPyramid} disabled={selectedGroups.length !== 3}>🔺 Pyramide</button>
-                                <button onClick={unstackSelected} style={styles.ctrlBtn} disabled={selectedGroups.length !== 1}>↔️ Désempiler</button>
+                                <button onClick={unstackSelected} style={styles.ctrlBtn} disabled={selectedGroups.length !== 1}>🔓 Dégrouper</button>
                                 <button onClick={deleteSelected} style={styles.ctrlBtnDanger} disabled={selectedGroups.length === 0}>🗑️ Supprimer</button>
                                 <button onClick={clearComposer} style={styles.ctrlBtnWarning}>🔄 Tout effacer</button>
                             </div>
@@ -1004,6 +1044,11 @@ const styles = {
     ctrlBtnDanger: { padding: '8px 15px', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' },
     ctrlBtnWarning: { padding: '8px 15px', background: '#f39c12', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' },
     ctrlBtnZ1: { padding: '8px 15px', background: '#9b59b6', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontFamily: 'Noto Sans Egyptian Hieroglyphs', fontSize: '16px' },
+    ctrlBtnHorizontal: { padding: '8px 15px', background: '#27ae60', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' },
+    ctrlBtnPyramid: { padding: '8px 15px', background: '#e67e22', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' },
+    horizontalGroup: { background: '#e8f5e9', border: '2px solid #27ae60' },
+    horizontalSigns: { display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '2px' },
+    horizontalSign: { fontSize: '28px', fontFamily: 'Noto Sans Egyptian Hieroglyphs' },
     keyboardSection: { marginTop: '20px', padding: '15px', background: '#e8f5e9', borderRadius: '8px', border: '2px solid #4CAF50' },
     keyboardLabel: { fontWeight: 'bold', marginBottom: '10px', color: '#2e7d32' },
     keyboardInput: { width: '100%', padding: '15px', fontSize: '24px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', border: '2px solid #4CAF50', borderRadius: '8px', background: 'white', textAlign: 'center', cursor: 'text', caretColor: 'transparent' },
