@@ -7,6 +7,15 @@ import { ObjectId } from 'mongodb';
 // Configuration
 const DAILY_SEARCH_LIMIT = 15;
 
+// Normaliser le texte : enlever les accents et mettre en minuscules
+function normalizeText(text) {
+    if (!text) return '';
+    return text
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') // Enlever les accents
+        .toLowerCase();
+}
+
 // Vérifie si une translittération est valide
 function hasValidTransliteration(sign) {
     const translit = sign.transliteration || '';
@@ -38,6 +47,9 @@ export async function GET(request) {
     if (!term) {
         return NextResponse.json({ success: false, message: 'Terme de recherche manquant.' }, { status: 400 });
     }
+
+    // Normaliser le terme de recherche (sans accents, minuscules)
+    const normalizedTerm = normalizeText(term);
 
     try {
         const client = await clientPromise;
@@ -97,26 +109,27 @@ export async function GET(request) {
             }
         }
 
-        // Charger uniquement depuis le dictionnaire (signs)
-        // Les signes Gardiner ne sont plus inclus pour ne pas polluer les résultats
-        const dictionarySigns = await db.collection('signs').find({
-            $or: [
-                { transliteration: { $regex: term, $options: 'i' } },
-                { description: { $regex: term, $options: 'i' } }
-            ]
-        }).toArray();
+        // Charger tous les signes du dictionnaire pour filtrer avec normalisation
+        const dictionarySigns = await db.collection('signs').find({}).limit(1000).toArray();
 
-        const validSigns = dictionarySigns.filter(s => hasValidTransliteration(s));
+        // Filtrer avec normalisation (insensible aux accents et à la casse)
+        const matchingSigns = dictionarySigns.filter(s => {
+            const normalizedTranslit = normalizeText(s.transliteration);
+            const normalizedDesc = normalizeText(s.description);
+            return normalizedTranslit.includes(normalizedTerm) || normalizedDesc.includes(normalizedTerm);
+        });
 
-        // Recherche par translittération exacte
+        const validSigns = matchingSigns.filter(s => hasValidTransliteration(s));
+
+        // Recherche par translittération exacte (normalisée)
         let result = validSigns.find(s =>
-            s.transliteration?.toLowerCase() === term
+            normalizeText(s.transliteration) === normalizedTerm
         );
 
-        // Si pas trouvé, recherche par description
+        // Si pas trouvé, recherche par description (normalisée)
         if (!result) {
             result = validSigns.find(s =>
-                s.description?.toLowerCase().includes(term)
+                normalizeText(s.description).includes(normalizedTerm)
             );
         }
 

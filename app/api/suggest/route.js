@@ -2,6 +2,15 @@ import { NextResponse } from 'next/server';
 import clientPromise from '../../../lib/mongodb';
 import { checkRateLimit, rateLimitResponse, sanitizeSearchTerm } from '../../../lib/rate-limit';
 
+// Normaliser le texte : enlever les accents et mettre en minuscules
+function normalizeText(text) {
+    if (!text) return '';
+    return text
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') // Enlever les accents
+        .toLowerCase();
+}
+
 // Verification Helper
 function hasValidTransliteration(sign) {
     const translit = sign.transliteration || '';
@@ -27,22 +36,27 @@ export async function GET(request) {
         return NextResponse.json({ success: true, data: [] });
     }
 
+    // Normaliser le terme de recherche (sans accents, minuscules)
+    const normalizedTerm = normalizeText(term);
+
     try {
         const client = await clientPromise;
         if (!client) return NextResponse.json({ success: true, data: [] });
         const db = client.db('hierotranslate');
 
-        // Charger uniquement depuis le dictionnaire (signs)
-        // Les signes Gardiner ne sont plus inclus pour ne pas polluer les résultats
-        const dictionarySigns = await db.collection('signs').find({
-            $or: [
-                { transliteration: { $regex: term, $options: 'i' } },
-                { description: { $regex: term, $options: 'i' } }
-            ]
-        }).limit(20).toArray();
+        // Charger tous les signes du dictionnaire
+        // On charge plus de résultats pour filtrer après normalisation
+        const dictionarySigns = await db.collection('signs').find({}).limit(500).toArray();
+
+        // Filtrer avec normalisation (insensible aux accents et à la casse)
+        const matchingSigns = dictionarySigns.filter(s => {
+            const normalizedTranslit = normalizeText(s.transliteration);
+            const normalizedDesc = normalizeText(s.description);
+            return normalizedTranslit.includes(normalizedTerm) || normalizedDesc.includes(normalizedTerm);
+        });
 
         // Filtrer et formatter
-        const results = dictionarySigns.filter(s => hasValidTransliteration(s));
+        const results = matchingSigns.filter(s => hasValidTransliteration(s));
 
         // Remove duplicates if any (based on translit + sign + description)
         // This allows entries with same transliteration but different meanings to appear
