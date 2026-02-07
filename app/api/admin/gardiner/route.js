@@ -67,11 +67,8 @@ export async function POST(request) {
 
         const db = client.db('hierotranslate');
 
-        // Check duplication
-        const exists = await db.collection('gardiner_signs').findOne({ code: body.code });
-        if (exists) {
-            return NextResponse.json({ success: false, error: 'Ce code existe déjà' }, { status: 400 });
-        }
+        // Duplicate check removed - allows multiple entries with same transliteration
+        // This is intentional: same word can be written with different hieroglyphs
 
         const newSign = {
             code: body.code,

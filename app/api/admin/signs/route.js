@@ -85,11 +85,8 @@ export async function POST(request) {
 
         const db = client.db('hierotranslate');
 
-        // Check if code already exists
-        const existing = await db.collection('signs').findOne({ code: code.toUpperCase() });
-        if (existing) {
-            return NextResponse.json({ success: false, error: 'Ce code existe déjà' }, { status: 400 });
-        }
+        // Duplicate check removed - allows multiple entries with same transliteration
+        // This is intentional: same word can be written with different hieroglyphs
 
         const newSign = {
             code: code.toUpperCase(),
