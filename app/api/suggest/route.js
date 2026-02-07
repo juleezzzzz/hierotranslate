@@ -58,11 +58,12 @@ export async function GET(request) {
         // and apply valid translit filter
         const results = allSigns.filter(s => hasValidTransliteration(s));
 
-        // Remove duplicates if any (based on translit + sign)
+        // Remove duplicates if any (based on translit + sign + description)
+        // This allows entries with same transliteration but different meanings to appear
         const seen = new Set();
         const uniqueResults = [];
         for (const s of results) {
-            const key = `${s.transliteration}-${s.sign || s.character}`;
+            const key = `${s.transliteration}-${s.sign || s.character}-${s.description || ''}`;
             if (!seen.has(key)) {
                 seen.add(key);
                 uniqueResults.push(s);
