@@ -32,8 +32,8 @@ export async function GET(request) {
         if (!client) return NextResponse.json({ success: true, data: [] });
         const db = client.db('hierotranslate');
 
-        // Charger depuis les deux sources MONGODB
-        // 1. Dictionnaire (signs)
+        // Charger uniquement depuis le dictionnaire (signs)
+        // Les signes Gardiner ne sont plus inclus pour ne pas polluer les résultats
         const dictionarySigns = await db.collection('signs').find({
             $or: [
                 { transliteration: { $regex: term, $options: 'i' } },
@@ -41,22 +41,8 @@ export async function GET(request) {
             ]
         }).limit(20).toArray();
 
-        // 2. Gardiner (gardiner_signs)
-        // Attention: gardiner_signs can be huge, we rely on DB query regex
-        const gardinerSigns = await db.collection('gardiner_signs').find({
-            $or: [
-                { transliteration: { $regex: term, $options: 'i' } },
-                { description: { $regex: term, $options: 'i' } }
-            ]
-        }).limit(20).toArray();
-
-        // Combiner (Dictionnaire en priorité)
-        const allSigns = [...dictionarySigns, ...gardinerSigns];
-
         // Filtrer et formatter
-        // Note: Regex Mongo match already filtered by term, but we double check logic if needed
-        // and apply valid translit filter
-        const results = allSigns.filter(s => hasValidTransliteration(s));
+        const results = dictionarySigns.filter(s => hasValidTransliteration(s));
 
         // Remove duplicates if any (based on translit + sign + description)
         // This allows entries with same transliteration but different meanings to appear
