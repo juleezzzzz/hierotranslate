@@ -583,11 +583,31 @@ function performTranslation() {
     resultHiero.textContent = "";
     resultFrench.textContent = "";
 
+    // Build headers with auth token if available
+    const headers = {};
+    if (authToken) {
+        headers['Authorization'] = `Bearer ${authToken}`;
+    }
+
     // Requête AJAX vers l'adresse /api/translate
-    fetch(`/api/translate?term=${encodeURIComponent(searchTerm)}`)
+    fetch(`/api/translate?term=${encodeURIComponent(searchTerm)}`, { headers })
         .then(response => response.json())
         .then(data => {
             hideSearchLoader();
+
+            // Update remaining searches display
+            if (data.remainingSearches !== undefined) {
+                updateRemainingSearches(data.remainingSearches, data.dailyLimit, data.isPremium);
+            }
+
+            // Check if user hit limit
+            if (data.limited) {
+                showLimitModal();
+                resultHiero.textContent = "Limite de recherches atteinte";
+                resultFrench.textContent = "Passez Premium pour des recherches illimitées !";
+                return;
+            }
+
             if (data.success) {
                 // Succès : affiche les données reçues avec hiéroglyphes empilés verticalement
                 const hieroglyphs = data.data.hieroglyphes || '';
@@ -614,8 +634,49 @@ function performTranslation() {
             hideSearchLoader();
             console.error('Erreur de connexion:', error);
             resultHiero.textContent = "Erreur de connexion au serveur.";
-            resultFrench.textContent = "Le script app.py est-il démarré dans le Terminal ?";
+            resultFrench.textContent = "Vérifiez votre connexion internet.";
         });
+}
+
+// === PREMIUM / SEARCH LIMITS ===
+
+function updateRemainingSearches(remaining, limit, isPremium) {
+    const counter = document.getElementById('search-remaining-counter');
+    if (!counter) return;
+
+    if (isPremium || remaining === -1) {
+        counter.innerHTML = '<span class="premium-badge">⭐ Premium</span> Recherches illimitées';
+        counter.classList.add('premium');
+    } else {
+        counter.textContent = `${remaining}/${limit} recherches restantes`;
+        counter.classList.remove('premium');
+
+        if (remaining <= 3) {
+            counter.classList.add('warning');
+        } else {
+            counter.classList.remove('warning');
+        }
+    }
+}
+
+function showLimitModal() {
+    const modal = document.getElementById('limit-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('visible');
+    }
+}
+
+function closeLimitModal() {
+    const modal = document.getElementById('limit-modal');
+    if (modal) {
+        modal.classList.remove('visible');
+        modal.classList.add('hidden');
+    }
+}
+
+function goToPremium() {
+    window.location.href = '/premium.html';
 }
 
 // 3. Permettre la recherche en appuyant sur Entrée
@@ -679,10 +740,20 @@ function renderPropositions(items) {
         `;
 
         div.onclick = () => {
-            // Au clic, on remplit la barre et on lance la recherche
+            // Au clic, on affiche DIRECTEMENT l'item sélectionné (pas de re-recherche)
             mainInput.value = item.translitteration;
-            performTranslation();
             propositionsContainer.classList.add('hidden');
+
+            // Afficher directement les données de l'item cliqué
+            const stackedHiero = createStackedHieroglyphs(item.hieroglyphes || '');
+            resultHiero.innerHTML = `<span class="hiero-result-sign">${stackedHiero}</span> <span class="translit-result" style="font-family: 'Gentium Plus', serif;">(${item.translitteration})</span>`;
+            resultFrench.textContent = `Traduction: ${item.francais}`;
+
+            // Ajouter à l'historique
+            addToHistory(item.francais, item.translitteration, item.hieroglyphes);
+
+            // Vérifier si c'est un favori
+            checkIfFavorite(`Hiéroglyphes: ${item.hieroglyphes} (${item.translitteration})`);
         };
 
         propositionsContainer.appendChild(div);
@@ -1065,6 +1136,10 @@ function updateAuthUI(isLoggedIn) {
         document.getElementById('dropdown-username').textContent = currentUser.username;
         document.getElementById('dropdown-email').textContent = currentUser.email;
 
+        // Dropdown header name
+        const headerName = document.getElementById('dropdown-header-name');
+        if (headerName) headerName.textContent = currentUser.username;
+
         // Populate Form Inputs for Edit Modals (optional, can be done on open)
         document.getElementById('edit-username-input').value = currentUser.username;
         document.getElementById('edit-email-input').value = currentUser.email;
@@ -1079,12 +1154,36 @@ function updateAuthUI(isLoggedIn) {
             profilePic.classList.add('fallback');
         }
 
+        // Premium Badge
+        const premiumBadge = document.getElementById('dropdown-premium-badge');
+        if (premiumBadge) {
+            if (currentUser.isPremium) {
+                premiumBadge.classList.remove('hidden');
+            } else {
+                premiumBadge.classList.add('hidden');
+            }
+        }
+
+        // Initialize search counter
+        const dailyLimit = currentUser.dailySearchLimit || 15;
+        const dailyCount = currentUser.dailySearchCount || 0;
+        const remaining = currentUser.isPremium ? -1 : Math.max(0, dailyLimit - dailyCount);
+        updateRemainingSearches(remaining, dailyLimit, currentUser.isPremium);
+
     } else {
         authBtn.textContent = 'Connexion';
         authBtn.classList.remove('logged-in');
 
         // Ensure dropdown is closed
         if (accountDropdown) accountDropdown.classList.add('hidden');
+
+        // Hide premium badge
+        const premiumBadge = document.getElementById('dropdown-premium-badge');
+        if (premiumBadge) premiumBadge.classList.add('hidden');
+
+        // Clear search counter
+        const counter = document.getElementById('search-remaining-counter');
+        if (counter) counter.textContent = '';
     }
 }
 
