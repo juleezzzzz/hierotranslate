@@ -43,6 +43,9 @@ export default function AdminSignsPage() {
     const [positionedSigns, setPositionedSigns] = useState([]);
     const [draggingPositionIndex, setDraggingPositionIndex] = useState(null);
 
+    // Interactive preview drag state
+    const [draggingPreviewIndex, setDraggingPreviewIndex] = useState(null);
+
     // Keyboard mapping - tu peux personnaliser ces touches!
     // Format: { 'touche clavier': 'hiéroglyphe' }
     // Pour les lettres avec majuscules: minuscule = signe habituel, majuscule = signe alternatif
@@ -420,6 +423,60 @@ export default function AdminSignsPage() {
     const cancelPositioning = () => {
         setPositioningMode(false);
         setPositionedSigns([]);
+    };
+
+    // ============ INTERACTIVE PREVIEW DRAG FUNCTIONS ============
+
+    const handlePreviewMouseDown = (index, e) => {
+        e.preventDefault();
+        setDraggingPreviewIndex(index);
+    };
+
+    const handlePreviewMouseMove = (e) => {
+        if (draggingPreviewIndex === null) return;
+
+        const container = e.currentTarget;
+        const rect = container.getBoundingClientRect();
+        const x = Math.max(10, Math.min(rect.width - 50, e.clientX - rect.left));
+        const y = Math.max(10, Math.min(rect.height - 50, e.clientY - rect.top));
+
+        setComposerGroups(prev => prev.map((group, i) =>
+            i === draggingPreviewIndex
+                ? { ...group, posX: x, posY: y }
+                : group
+        ));
+    };
+
+    const handlePreviewMouseUp = () => {
+        setDraggingPreviewIndex(null);
+    };
+
+    const applyPreviewPositions = () => {
+        // Convertir les positions en paramètres CSS relatifs
+        const baseX = 50;
+        const baseY = 60;
+        const scale = 50; // pixels per em
+
+        const positionStr = composerGroups.map(group => {
+            const x = group.posX ?? baseX;
+            const y = group.posY ?? baseY;
+            const xOffset = ((x - baseX) / scale).toFixed(2);
+            const yOffset = ((y - baseY) / scale).toFixed(2);
+            const chars = group.signs.map(s => s.replace(/\(\([^)]+\)\)/g, '')).join('');
+            return `${chars}((x=${xOffset},y=${yOffset}))`;
+        }).join('');
+
+        setFormData(prev => ({ ...prev, hieroglyphs: positionStr }));
+        setMessage('Positions appliquées ! Sauvegardez maintenant.');
+    };
+
+    const resetPreviewPositions = () => {
+        setComposerGroups(prev => prev.map((group, i) => ({
+            ...group,
+            posX: 50 + i * 60,
+            posY: 60
+        })));
+        setMessage('Positions réinitialisées');
     };
 
     const updateHieroglyphsField = (groups) => {
@@ -868,47 +925,47 @@ export default function AdminSignsPage() {
                                 <button onClick={clearComposer} style={styles.ctrlBtnWarning}>🔄 Tout effacer</button>
                             </div>
 
+
                             <div style={styles.preview}>
-                                <strong>Prévisualisation (rendu identique au site public) :</strong>
-                                <div style={styles.realisticPreview}>
-                                    {composerGroups.map((group, gi) => {
-                                        if (group.pyramid) {
-                                            // Pyramid layout - exactly like public site
-                                            return (
-                                                <span key={gi} style={styles.realisticPyramid}>
-                                                    <span style={styles.realisticPyramidTop}>{cleanSign(group.signs[0])}</span>
-                                                    <span style={styles.realisticPyramidBottom}>
-                                                        <span style={styles.realisticPyramidBottomSign}>{cleanSign(group.signs[1])}</span>
-                                                        <span style={styles.realisticPyramidBottomSign}>{cleanSign(group.signs[2])}</span>
-                                                    </span>
-                                                </span>
-                                            );
-                                        } else if (group.stacked) {
-                                            // Stacked layout - compact vertical like public site
-                                            return (
-                                                <span key={gi} style={styles.realisticStacked}>
-                                                    {group.signs.map((s, i) => (
-                                                        <span key={i} style={{
-                                                            ...styles.realisticStackedSign,
-                                                            marginTop: i > 0 ? '-0.15em' : '0'
-                                                        }}>{cleanSign(s)}</span>
-                                                    ))}
-                                                </span>
-                                            );
-                                        } else if (group.horizontal) {
-                                            // Horizontal group
-                                            return (
-                                                <span key={gi} style={styles.realisticHorizontal}>
-                                                    {group.signs.map((s, i) => (
-                                                        <span key={i} style={styles.realisticHorizontalSign}>{cleanSign(s)}</span>
-                                                    ))}
-                                                </span>
-                                            );
-                                        } else {
-                                            // Single sign
-                                            return <span key={gi} style={styles.realisticSingle}>{cleanSign(group.signs[0])}</span>;
-                                        }
-                                    })}
+                                <strong>Prévisualisation interactive (cliquez et déplacez les signes) :</strong>
+                                <div
+                                    style={styles.interactivePreview}
+                                    onMouseMove={handlePreviewMouseMove}
+                                    onMouseUp={handlePreviewMouseUp}
+                                    onMouseLeave={handlePreviewMouseUp}
+                                >
+                                    {composerGroups.map((group, gi) => (
+                                        <div
+                                            key={group.id}
+                                            style={{
+                                                position: 'absolute',
+                                                left: group.posX ?? (50 + gi * 60),
+                                                top: group.posY ?? 60,
+                                                cursor: draggingPreviewIndex === gi ? 'grabbing' : 'grab',
+                                                fontSize: '3rem',
+                                                fontFamily: "'Noto Sans Egyptian Hieroglyphs', serif",
+                                                color: '#2c1810',
+                                                userSelect: 'none',
+                                                background: draggingPreviewIndex === gi ? 'rgba(255, 228, 181, 0.6)' : 'transparent',
+                                                borderRadius: '8px',
+                                                padding: '5px',
+                                                transition: draggingPreviewIndex === gi ? 'none' : 'background 0.15s'
+                                            }}
+                                            onMouseDown={(e) => handlePreviewMouseDown(gi, e)}
+                                        >
+                                            {group.signs.map((s, si) => (
+                                                <span key={si}>{cleanSign(s)}</span>
+                                            ))}
+                                        </div>
+                                    ))}
+                                </div>
+                                <div style={styles.previewButtons}>
+                                    <button onClick={applyPreviewPositions} style={styles.applyPreviewBtn}>
+                                        ✅ Appliquer les positions
+                                    </button>
+                                    <button onClick={resetPreviewPositions} style={styles.resetPreviewBtn}>
+                                        🔄 Réinitialiser
+                                    </button>
                                 </div>
                             </div>
 
@@ -1448,5 +1505,41 @@ const styles = {
     realisticPyramid: { display: 'inline-flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', verticalAlign: 'middle' },
     realisticPyramidTop: { fontSize: '1em', lineHeight: 1 },
     realisticPyramidBottom: { display: 'inline-flex', justifyContent: 'center', alignItems: 'flex-end', gap: '0.1em', fontSize: '0.85em', lineHeight: 1, marginTop: '-0.1em' },
-    realisticPyramidBottomSign: { display: 'inline-flex', alignItems: 'flex-end' }
+    realisticPyramidBottomSign: { display: 'inline-flex', alignItems: 'flex-end' },
+
+    // Interactive Preview Styles
+    interactivePreview: {
+        position: 'relative',
+        width: '100%',
+        height: '180px',
+        marginTop: '15px',
+        padding: '20px',
+        background: '#f5f0e6',
+        borderRadius: '12px',
+        border: '2px dashed #d4c9a0',
+        overflow: 'hidden'
+    },
+    previewButtons: {
+        display: 'flex',
+        gap: '10px',
+        marginTop: '10px',
+        justifyContent: 'center'
+    },
+    applyPreviewBtn: {
+        padding: '10px 20px',
+        background: '#27ae60',
+        color: 'white',
+        border: 'none',
+        borderRadius: '8px',
+        cursor: 'pointer',
+        fontWeight: 'bold'
+    },
+    resetPreviewBtn: {
+        padding: '10px 20px',
+        background: '#95a5a6',
+        color: 'white',
+        border: 'none',
+        borderRadius: '8px',
+        cursor: 'pointer'
+    }
 };
