@@ -497,7 +497,7 @@ function createStackedHieroglyphs(hieroglyphString) {
             // Layout spécial: n aligné en haut à gauche du signe principal, t à droite
             return `<span style="display: inline-flex; align-items: flex-start; vertical-align: middle;">
                 <span style="display: inline-flex; flex-direction: column; align-items: center; margin-right: -0.1em;">
-                    <span style="font-size: 0.55em; line-height: 1; margin-bottom: 1.5em; transform: translateY(-1.5em); display: inline-block;">𓈖</span>
+                    <span style="font-size: 0.55em; line-height: 1; margin-bottom: 2.0em; transform: translateY(-2.2em); display: inline-block;">𓈖</span>
                 </span>
                 <span style="font-size: 1em; line-height: 1;">${mainSign}</span>
                 <span style="font-size: 0.6em; line-height: 1; align-self: flex-end; margin-left: 0.05em;">𓏏</span>
@@ -583,7 +583,7 @@ function createStackedHieroglyphs(hieroglyphString) {
                 const nParsed = bottomParsedList.find(p => p.char.includes('𓈖')) || { style: '' };
                 const customTransform = nParsed.style.match(/transform:\s*([^;]+)/);
                 // Si custom transform, on l'utilise. Sinon on garde notre fix (-1.5em).
-                const transform = customTransform ? customTransform[0] : 'transform: translateY(-1.5em)';
+                const transform = customTransform ? customTransform[0] : 'transform: translateY(-2.2em)';
                 // Autres styles
                 const otherStyle = nParsed.style.replace(/transform:[^;]+;?/g, '');
 
