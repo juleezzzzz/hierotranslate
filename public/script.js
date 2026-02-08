@@ -484,19 +484,23 @@ function createStackedHieroglyphs(hieroglyphString) {
     if (hieroglyphString.includes('|')) {
         const signs = hieroglyphString.split('|');
 
-        // CAS SPÉCIFIQUE : ḥnt - n au-dessus de ḥ, t à droite
-        const hasHSign = signs.some(s => s.includes('𓉔'));
+        // CAS SPÉCIFIQUE : ḥnt ou signe similaire - n au-dessus, t à droite
+        // Inclut 𓉔 (cour) et 𓌨 (piège/passoir)
+        const hasHSign = signs.some(s => s.includes('𓉔') || s.includes('𓌨'));
         const hasNSign = signs.some(s => s.includes('𓈖'));
         const hasTSign = signs.some(s => s.includes('𓏏'));
 
-        if (hasHSign && hasNSign && hasTSign) {
-            // Layout spécial ḥnt: n en haut, ḥ-t en bas
-            return `<span style="display: inline-flex; flex-direction: column; align-items: flex-start; justify-content: center; vertical-align: middle;">
-                <span style="font-size: 0.5em; line-height: 1; margin-left: 0.2em; margin-bottom: 0.2em;">𓈖</span>
-                <span style="display: inline-flex; align-items: flex-end; gap: 0.05em;">
-                    <span style="font-size: 1em; line-height: 1;">𓉔</span>
-                    <span style="font-size: 0.65em; line-height: 1; margin-bottom: 0.15em;">𓏏</span>
+        // Trouver le signe principal (𓉔 ou 𓌨)
+        const mainSign = signs.find(s => s.includes('𓉔')) ? '𓉔' : signs.find(s => s.includes('𓌨')) ? '𓌨' : null;
+
+        if (hasHSign && hasNSign && hasTSign && mainSign) {
+            // Layout spécial: n aligné en haut à gauche du signe principal, t à droite
+            return `<span style="display: inline-flex; align-items: flex-start; vertical-align: middle;">
+                <span style="display: inline-flex; flex-direction: column; align-items: center; margin-right: -0.1em;">
+                    <span style="font-size: 0.55em; line-height: 1; margin-bottom: -0.1em;">𓈖</span>
                 </span>
+                <span style="font-size: 1em; line-height: 1;">${mainSign}</span>
+                <span style="font-size: 0.6em; line-height: 1; align-self: flex-end; margin-left: 0.05em;">𓏏</span>
             </span>`;
         }
 
