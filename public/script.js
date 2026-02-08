@@ -555,7 +555,7 @@ function createStackedHieroglyphs(hieroglyphString) {
         if (topSignStr.includes('𓉔') || topParsed.char.includes('𓉔')) {
             return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
                 <span style="font-size: 1em; line-height: 1; ${topParsed.style}">${topParsed.char}</span>
-                <span style="display: inline-flex; justify-content: center; align-items: flex-end; gap: 0.15em; font-size: 0.85em; line-height: 1; margin-top: 0.1em;">
+                <span style="display: inline-flex; justify-content: center; align-items: flex-end; gap: 0.15em; font-size: 0.85em; line-height: 1; margin-top: -0.25em;">
                     ${bottomParsedList.map((p, i) => {
                 // Les signes du bas sont alignés en bas avec espacement ajusté
                 return `<span style="display: inline-flex; align-items: flex-end; ${p.style}">${p.char}</span>`;
