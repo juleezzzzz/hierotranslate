@@ -382,8 +382,8 @@ export default function AdminSignsPage() {
 
         const canvas = e.currentTarget;
         const rect = canvas.getBoundingClientRect();
-        const x = Math.max(20, Math.min(380, e.clientX - rect.left));
-        const y = Math.max(20, Math.min(280, e.clientY - rect.top));
+        const x = Math.max(30, Math.min(rect.width - 30, e.clientX - rect.left));
+        const y = Math.max(30, Math.min(rect.height - 30, e.clientY - rect.top));
 
         const newSigns = [...positionedSigns];
         newSigns[draggingPositionIndex] = { ...newSigns[draggingPositionIndex], x, y };
@@ -404,17 +404,17 @@ export default function AdminSignsPage() {
         const scale = 100; // pixels per em
 
         // Créer une chaîne de positionnement personnalisée
-        // Format: chaque signe avec son offset relatif
+        // Format: char((x=offset,y=offset)) - virgule comme séparateur
         const positionStr = positionedSigns.map(s => {
             const xOffset = ((s.x - centerX) / scale).toFixed(2);
             const yOffset = ((s.y - centerY) / scale).toFixed(2);
-            return `${s.char}((x=${xOffset}|y=${yOffset}))`;
+            return `${s.char}((x=${xOffset},y=${yOffset}))`;
         }).join('');
 
         // Mettre à jour le champ hieroglyphs avec les positions
         setFormData(prev => ({ ...prev, hieroglyphs: positionStr }));
         setPositioningMode(false);
-        setMessage('Positions appliquées ! Vérifiez le champ "Hiéroglyphes".');
+        setMessage('Positions appliquées ! Vérifiez le champ "Hiéroglyphes" et sauvegardez.');
     };
 
     const cancelPositioning = () => {
@@ -1407,10 +1407,10 @@ const styles = {
     // Visual Positioning Styles
     ctrlBtnPosition: { padding: '8px 15px', background: '#8e44ad', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' },
     modalOverlay: { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 },
-    positioningModal: { background: 'white', borderRadius: '16px', padding: '25px', maxWidth: '500px', width: '90%', boxShadow: '0 10px 40px rgba(0,0,0,0.3)' },
+    positioningModal: { background: 'white', borderRadius: '16px', padding: '30px', maxWidth: '700px', width: '95%', boxShadow: '0 10px 40px rgba(0,0,0,0.3)' },
     modalTitle: { margin: 0, marginBottom: '5px', color: '#2c3e50', textAlign: 'center' },
     modalSubtitle: { margin: 0, marginBottom: '20px', color: '#7f8c8d', textAlign: 'center', fontSize: '14px' },
-    positioningCanvas: { width: '100%', height: '300px', background: '#fffef9', border: '2px solid #d4c9b5', borderRadius: '12px', position: 'relative', overflow: 'hidden' },
+    positioningCanvas: { width: '100%', height: '450px', background: '#fffef9', border: '2px solid #d4c9b5', borderRadius: '12px', position: 'relative', overflow: 'hidden' },
     canvasGridH: { position: 'absolute', left: 0, right: 0, top: '50%', height: '1px', background: 'rgba(184, 134, 11, 0.3)', pointerEvents: 'none' },
     canvasGridV: { position: 'absolute', top: 0, bottom: 0, left: '50%', width: '1px', background: 'rgba(184, 134, 11, 0.3)', pointerEvents: 'none' },
     modalActions: { display: 'flex', gap: '15px', justifyContent: 'center', marginTop: '20px' },
