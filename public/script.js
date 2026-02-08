@@ -552,7 +552,7 @@ function createStackedHieroglyphs(hieroglyphString) {
 
         // CAS SPÉCIFIQUE : Signe ḥ (𓉔 - cour) en haut avec n et t en bas
         // Alignement spécial pour que n soit bien centré et t aligné correctement
-        if (topParsed.char === '𓉔') {
+        if (topSignStr.includes('𓉔') || topParsed.char.includes('𓉔')) {
             return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
                 <span style="font-size: 1em; line-height: 1; ${topParsed.style}">${topParsed.char}</span>
                 <span style="display: inline-flex; justify-content: center; align-items: flex-end; gap: 0.15em; font-size: 0.85em; line-height: 1; margin-top: 0.1em;">
