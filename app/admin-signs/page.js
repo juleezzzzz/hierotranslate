@@ -657,48 +657,25 @@ export default function AdminSignsPage() {
         // Populate the composer with existing hieroglyphs
         const hieroglyphStr = trans.character || '';
         if (hieroglyphStr) {
-            // Parse the hieroglyph string to create composer groups
-            // Handle spaces (separate groups), | (stacked), ⌂ (pyramid)
+            // Simply extract all hieroglyphs from the string
+            // Hieroglyphs are in Unicode range U+13000–U+1342F
             const groups = [];
+            const allChars = Array.from(hieroglyphStr);
 
-            // Split by spaces first for separate word groups
-            const wordGroups = hieroglyphStr.split(' ').filter(s => s.length > 0);
-
-            wordGroups.forEach(wordGroup => {
-                if (wordGroup.includes('⌂')) {
-                    // Pyramid layout
-                    const parts = wordGroup.split('⌂');
-                    const topSign = parts[0];
-                    const bottomPart = parts[1] || '';
-                    // Filter only hieroglyphs from bottom part
-                    const bottomSigns = Array.from(bottomPart).filter(c => c.match(/[\u{13000}-\u{1342F}]/u));
+            allChars.forEach(char => {
+                // Only keep actual hieroglyphs
+                if (char.match(/[\u{13000}-\u{1342F}]/u)) {
                     groups.push({
                         id: Date.now() + Math.random(),
-                        signs: [topSign, ...bottomSigns],
-                        pyramid: true
-                    });
-                } else if (wordGroup.includes('|')) {
-                    // Stacked layout
-                    const stackedSigns = wordGroup.split('|').filter(s => s.length > 0);
-                    groups.push({
-                        id: Date.now() + Math.random(),
-                        signs: stackedSigns,
-                        stacked: true
-                    });
-                } else {
-                    // Single signs - filter only hieroglyphs
-                    const hieroglyphs = Array.from(wordGroup).filter(c => c.match(/[\u{13000}-\u{1342F}]/u));
-                    hieroglyphs.forEach(char => {
-                        groups.push({
-                            id: Date.now() + Math.random(),
-                            signs: [char]
-                        });
+                        signs: [char]
                     });
                 }
             });
 
             setComposerGroups(groups);
             setSelectedGroups([]);
+        } else {
+            setComposerGroups([]);
         }
 
         setMessage(`Modification de "${trans.transliteration || trans.code}" - Les signes ont été chargés dans le compositeur`);
