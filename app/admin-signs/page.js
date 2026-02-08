@@ -669,11 +669,13 @@ export default function AdminSignsPage() {
                     // Pyramid layout
                     const parts = wordGroup.split('⌂');
                     const topSign = parts[0];
-                    const bottomSigns = parts[1] || '';
+                    const bottomPart = parts[1] || '';
+                    // Filter only hieroglyphs from bottom part
+                    const bottomSigns = Array.from(bottomPart).filter(c => c.match(/[\u{13000}-\u{1342F}]/u));
                     groups.push({
                         id: Date.now() + Math.random(),
-                        signs: [topSign, ...Array.from(bottomSigns)],
-                        type: 'pyramid'
+                        signs: [topSign, ...bottomSigns],
+                        pyramid: true
                     });
                 } else if (wordGroup.includes('|')) {
                     // Stacked layout
@@ -681,20 +683,16 @@ export default function AdminSignsPage() {
                     groups.push({
                         id: Date.now() + Math.random(),
                         signs: stackedSigns,
-                        type: 'stacked'
+                        stacked: true
                     });
                 } else {
-                    // Single signs or horizontal group
-                    // Parse Unicode hieroglyphs (they are multi-byte)
-                    const chars = Array.from(wordGroup);
-                    chars.forEach(char => {
-                        if (char.match(/[\u{13000}-\u{1342F}]/u)) {
-                            groups.push({
-                                id: Date.now() + Math.random(),
-                                signs: [char],
-                                type: 'single'
-                            });
-                        }
+                    // Single signs - filter only hieroglyphs
+                    const hieroglyphs = Array.from(wordGroup).filter(c => c.match(/[\u{13000}-\u{1342F}]/u));
+                    hieroglyphs.forEach(char => {
+                        groups.push({
+                            id: Date.now() + Math.random(),
+                            signs: [char]
+                        });
                     });
                 }
             });
