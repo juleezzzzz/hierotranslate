@@ -38,6 +38,11 @@ export default function AdminSignsPage() {
     const [draggedGroupId, setDraggedGroupId] = useState(null); // Groupe en cours de réorganisation
     const [dropTargetIndex, setDropTargetIndex] = useState(null); // Index cible pour le dépôt
 
+    // Visual positioning mode state
+    const [positioningMode, setPositioningMode] = useState(false);
+    const [positionedSigns, setPositionedSigns] = useState([]);
+    const [draggingPositionIndex, setDraggingPositionIndex] = useState(null);
+
     // Keyboard mapping - tu peux personnaliser ces touches!
     // Format: { 'touche clavier': 'hiéroglyphe' }
     // Pour les lettres avec majuscules: minuscule = signe habituel, majuscule = signe alternatif
@@ -334,6 +339,87 @@ export default function AdminSignsPage() {
         setDraggedSign(null);
         setDraggedGroupId(null);
         setDropTargetIndex(null);
+    };
+
+    // ============ VISUAL POSITIONING FUNCTIONS ============
+
+    // Ouvrir l'éditeur de positionnement avec les signes actuels
+    const openPositioningMode = () => {
+        // Extraire tous les signes du compositeur
+        const allSigns = [];
+        const canvasWidth = 400;
+        const canvasHeight = 300;
+        const centerX = canvasWidth / 2;
+        const centerY = canvasHeight / 2;
+
+        composerGroups.forEach((group, groupIndex) => {
+            group.signs.forEach((sign, signIndex) => {
+                // Positionner initialement en grille
+                const offsetX = (groupIndex - composerGroups.length / 2) * 50;
+                const offsetY = signIndex * 40;
+                allSigns.push({
+                    char: sign.replace(/\(\([^)]+\)\)/g, ''), // Enlever les paramètres
+                    x: centerX + offsetX,
+                    y: centerY + offsetY,
+                    groupId: group.id,
+                    signIndex
+                });
+            });
+        });
+
+        setPositionedSigns(allSigns);
+        setPositioningMode(true);
+    };
+
+    // Glissement dans le canvas de positionnement
+    const handlePositionMouseDown = (index, e) => {
+        e.preventDefault();
+        setDraggingPositionIndex(index);
+    };
+
+    const handlePositionMouseMove = (e) => {
+        if (draggingPositionIndex === null) return;
+
+        const canvas = e.currentTarget;
+        const rect = canvas.getBoundingClientRect();
+        const x = Math.max(20, Math.min(380, e.clientX - rect.left));
+        const y = Math.max(20, Math.min(280, e.clientY - rect.top));
+
+        const newSigns = [...positionedSigns];
+        newSigns[draggingPositionIndex] = { ...newSigns[draggingPositionIndex], x, y };
+        setPositionedSigns(newSigns);
+    };
+
+    const handlePositionMouseUp = () => {
+        setDraggingPositionIndex(null);
+    };
+
+    // Appliquer les positions et fermer
+    const applyPositions = () => {
+        // Convertir les positions en paramètres de style
+        const canvasWidth = 400;
+        const canvasHeight = 300;
+        const centerX = canvasWidth / 2;
+        const centerY = canvasHeight / 2;
+        const scale = 100; // pixels per em
+
+        // Créer une chaîne de positionnement personnalisée
+        // Format: chaque signe avec son offset relatif
+        const positionStr = positionedSigns.map(s => {
+            const xOffset = ((s.x - centerX) / scale).toFixed(2);
+            const yOffset = ((s.y - centerY) / scale).toFixed(2);
+            return `${s.char}((x=${xOffset}|y=${yOffset}))`;
+        }).join('');
+
+        // Mettre à jour le champ hieroglyphs avec les positions
+        setFormData(prev => ({ ...prev, hieroglyphs: positionStr }));
+        setPositioningMode(false);
+        setMessage('Positions appliquées ! Vérifiez le champ "Hiéroglyphes".');
+    };
+
+    const cancelPositioning = () => {
+        setPositioningMode(false);
+        setPositionedSigns([]);
     };
 
     const updateHieroglyphsField = (groups) => {
@@ -756,6 +842,7 @@ export default function AdminSignsPage() {
                                 <button onClick={groupHorizontalSelected} style={styles.ctrlBtnHorizontal} disabled={selectedGroups.length < 2}>↔️ Grouper</button>
                                 <button onClick={pyramidSelected} style={styles.ctrlBtnPyramid} disabled={selectedGroups.length !== 3}>🔺 Pyramide</button>
                                 <button onClick={unstackSelected} style={styles.ctrlBtn} disabled={selectedGroups.length !== 1}>🔓 Dégrouper</button>
+                                <button onClick={openPositioningMode} style={styles.ctrlBtnPosition} disabled={composerGroups.length === 0}>📐 Positionner</button>
                                 <button onClick={deleteSelected} style={styles.ctrlBtnDanger} disabled={selectedGroups.length === 0}>🗑️ Supprimer</button>
                                 <button onClick={clearComposer} style={styles.ctrlBtnWarning}>🔄 Tout effacer</button>
                             </div>
@@ -1128,6 +1215,60 @@ export default function AdminSignsPage() {
             <footer style={styles.footer}>
                 <a href="/admin-hierotranslate-secret" style={styles.link}>👥 Admin Utilisateurs</a>
             </footer>
+
+            {/* Visual Positioning Modal */}
+            {positioningMode && (
+                <div style={styles.modalOverlay}>
+                    <div style={styles.positioningModal}>
+                        <h2 style={styles.modalTitle}>📐 Positionnement Visuel des Hiéroglyphes</h2>
+                        <p style={styles.modalSubtitle}>Glissez chaque signe pour le positionner précisément</p>
+
+                        <div
+                            style={styles.positioningCanvas}
+                            onMouseMove={handlePositionMouseMove}
+                            onMouseUp={handlePositionMouseUp}
+                            onMouseLeave={handlePositionMouseUp}
+                        >
+                            {/* Grid lines */}
+                            <div style={styles.canvasGridH}></div>
+                            <div style={styles.canvasGridV}></div>
+
+                            {/* Draggable signs */}
+                            {positionedSigns.map((sign, index) => (
+                                <div
+                                    key={index}
+                                    style={{
+                                        position: 'absolute',
+                                        left: sign.x - 25,
+                                        top: sign.y - 25,
+                                        width: '50px',
+                                        height: '50px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontSize: '2rem',
+                                        background: draggingPositionIndex === index ? '#ffe4b5' : '#fff8dc',
+                                        border: '2px solid #b8860b',
+                                        borderRadius: '8px',
+                                        cursor: draggingPositionIndex === index ? 'grabbing' : 'grab',
+                                        userSelect: 'none',
+                                        fontFamily: "'Noto Sans Egyptian Hieroglyphs', serif",
+                                        boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+                                    }}
+                                    onMouseDown={(e) => handlePositionMouseDown(index, e)}
+                                >
+                                    {sign.char}
+                                </div>
+                            ))}
+                        </div>
+
+                        <div style={styles.modalActions}>
+                            <button onClick={applyPositions} style={styles.applyBtn}>✅ Appliquer</button>
+                            <button onClick={cancelPositioning} style={styles.cancelModalBtn}>❌ Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
@@ -1222,5 +1363,18 @@ const styles = {
     pyramidLayout: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
     pyramidTop: { fontSize: '24px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', lineHeight: 1 },
     pyramidBottom: { display: 'flex', gap: '2px' },
-    pyramidBottomSign: { fontSize: '20px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', lineHeight: 1 }
+    pyramidBottomSign: { fontSize: '20px', fontFamily: 'Noto Sans Egyptian Hieroglyphs', lineHeight: 1 },
+
+    // Visual Positioning Styles
+    ctrlBtnPosition: { padding: '8px 15px', background: '#8e44ad', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' },
+    modalOverlay: { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 },
+    positioningModal: { background: 'white', borderRadius: '16px', padding: '25px', maxWidth: '500px', width: '90%', boxShadow: '0 10px 40px rgba(0,0,0,0.3)' },
+    modalTitle: { margin: 0, marginBottom: '5px', color: '#2c3e50', textAlign: 'center' },
+    modalSubtitle: { margin: 0, marginBottom: '20px', color: '#7f8c8d', textAlign: 'center', fontSize: '14px' },
+    positioningCanvas: { width: '100%', height: '300px', background: '#fffef9', border: '2px solid #d4c9b5', borderRadius: '12px', position: 'relative', overflow: 'hidden' },
+    canvasGridH: { position: 'absolute', left: 0, right: 0, top: '50%', height: '1px', background: 'rgba(184, 134, 11, 0.3)', pointerEvents: 'none' },
+    canvasGridV: { position: 'absolute', top: 0, bottom: 0, left: '50%', width: '1px', background: 'rgba(184, 134, 11, 0.3)', pointerEvents: 'none' },
+    modalActions: { display: 'flex', gap: '15px', justifyContent: 'center', marginTop: '20px' },
+    applyBtn: { padding: '12px 25px', background: '#27ae60', color: 'white', border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer', fontWeight: 'bold' },
+    cancelModalBtn: { padding: '12px 25px', background: '#95a5a6', color: 'white', border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer' }
 };
