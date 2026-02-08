@@ -653,7 +653,28 @@ export default function AdminSignsPage() {
             french: trans.description || '',
             notes: trans.descriptif || ''
         });
-        setMessage(`Modification de "${trans.transliteration || trans.code}"`);
+
+        // Charger les hiéroglyphes dans le compositeur
+        const hieroglyphStr = trans.character || '';
+        if (hieroglyphStr) {
+            const groups = [];
+            // Extraire tous les hiéroglyphes Unicode (U+13000-U+1342F)
+            const allChars = Array.from(hieroglyphStr);
+            allChars.forEach(char => {
+                if (char.match(/[\u{13000}-\u{1342F}]/u)) {
+                    groups.push({
+                        id: Date.now() + Math.random(),
+                        signs: [char]
+                    });
+                }
+            });
+            setComposerGroups(groups);
+            setSelectedGroups([]);
+        } else {
+            setComposerGroups([]);
+        }
+
+        setMessage(`Modification de "${trans.transliteration || trans.code}" - Signes chargés dans le compositeur`);
     };
 
     const deleteTranslation = async (id, name) => {
@@ -1278,21 +1299,21 @@ export default function AdminSignsPage() {
                                     key={index}
                                     style={{
                                         position: 'absolute',
-                                        left: sign.x - 25,
-                                        top: sign.y - 25,
-                                        width: '50px',
-                                        height: '50px',
+                                        left: sign.x - 30,
+                                        top: sign.y - 35,
+                                        padding: '5px',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        fontSize: '2rem',
-                                        background: draggingPositionIndex === index ? '#ffe4b5' : '#fff8dc',
-                                        border: '2px solid #b8860b',
+                                        fontSize: '3.5rem',
+                                        background: draggingPositionIndex === index ? 'rgba(255, 228, 181, 0.8)' : 'transparent',
+                                        border: draggingPositionIndex === index ? '2px dashed #b8860b' : '2px dashed transparent',
                                         borderRadius: '8px',
                                         cursor: draggingPositionIndex === index ? 'grabbing' : 'grab',
                                         userSelect: 'none',
                                         fontFamily: "'Noto Sans Egyptian Hieroglyphs', serif",
-                                        boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+                                        color: '#2c1810',
+                                        transition: 'border 0.15s, background 0.15s'
                                     }}
                                     onMouseDown={(e) => handlePositionMouseDown(index, e)}
                                 >
