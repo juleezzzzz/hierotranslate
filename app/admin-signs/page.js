@@ -653,7 +653,57 @@ export default function AdminSignsPage() {
             french: trans.description || '',
             notes: trans.descriptif || ''
         });
-        setMessage(`Modification de "${trans.transliteration || trans.code}"`);
+
+        // Populate the composer with existing hieroglyphs
+        const hieroglyphStr = trans.character || '';
+        if (hieroglyphStr) {
+            // Parse the hieroglyph string to create composer groups
+            // Handle spaces (separate groups), | (stacked), ⌂ (pyramid)
+            const groups = [];
+
+            // Split by spaces first for separate word groups
+            const wordGroups = hieroglyphStr.split(' ').filter(s => s.length > 0);
+
+            wordGroups.forEach(wordGroup => {
+                if (wordGroup.includes('⌂')) {
+                    // Pyramid layout
+                    const parts = wordGroup.split('⌂');
+                    const topSign = parts[0];
+                    const bottomSigns = parts[1] || '';
+                    groups.push({
+                        id: Date.now() + Math.random(),
+                        signs: [topSign, ...Array.from(bottomSigns)],
+                        type: 'pyramid'
+                    });
+                } else if (wordGroup.includes('|')) {
+                    // Stacked layout
+                    const stackedSigns = wordGroup.split('|').filter(s => s.length > 0);
+                    groups.push({
+                        id: Date.now() + Math.random(),
+                        signs: stackedSigns,
+                        type: 'stacked'
+                    });
+                } else {
+                    // Single signs or horizontal group
+                    // Parse Unicode hieroglyphs (they are multi-byte)
+                    const chars = Array.from(wordGroup);
+                    chars.forEach(char => {
+                        if (char.match(/[\u{13000}-\u{1342F}]/u)) {
+                            groups.push({
+                                id: Date.now() + Math.random(),
+                                signs: [char],
+                                type: 'single'
+                            });
+                        }
+                    });
+                }
+            });
+
+            setComposerGroups(groups);
+            setSelectedGroups([]);
+        }
+
+        setMessage(`Modification de "${trans.transliteration || trans.code}" - Les signes ont été chargés dans le compositeur`);
     };
 
     const deleteTranslation = async (id, name) => {
