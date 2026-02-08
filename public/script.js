@@ -582,8 +582,20 @@ function createStackedHieroglyphs(hieroglyphString) {
                 // Récupérer les styles custom du n s'ils existent (ex: position Y du studio)
                 const nParsed = bottomParsedList.find(p => p.char.includes('𓈖')) || { style: '' };
                 const customTransform = nParsed.style.match(/transform:\s*([^;]+)/);
-                // Si custom transform, on l'utilise. Sinon on garde notre fix (-1.5em).
-                const transform = customTransform ? customTransform[0] : 'transform: translateY(-2.2em)';
+
+                let transform = 'transform: translateY(-2.2em)'; // Défaut si aucun paramètre
+
+                if (customTransform) {
+                    // Si paramètre présent (ex: y=0 du studio), on applique un offset de base (-2.2em)
+                    // pour que 0 corresponde à la bonne position visuelle
+                    const match = customTransform[0].match(/translateY\((-?[\d.]+)em\)/);
+                    if (match) {
+                        const val = parseFloat(match[1]);
+                        transform = `transform: translateY(${val - 2.2}em)`;
+                    } else {
+                        transform = customTransform[0]; // Fallback si format inconnu
+                    }
+                }
                 // Autres styles
                 const otherStyle = nParsed.style.replace(/transform:[^;]+;?/g, '');
 
