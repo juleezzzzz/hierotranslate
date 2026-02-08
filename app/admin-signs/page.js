@@ -898,8 +898,47 @@ export default function AdminSignsPage() {
                             </div>
 
                             <div style={styles.preview}>
-                                <strong>Prévisualisation :</strong>
-                                <span style={styles.previewText}>{getComposerPreview() || '—'}</span>
+                                <strong>Prévisualisation (rendu identique au site public) :</strong>
+                                <div style={styles.realisticPreview}>
+                                    {composerGroups.map((group, gi) => {
+                                        if (group.pyramid) {
+                                            // Pyramid layout - exactly like public site
+                                            return (
+                                                <span key={gi} style={styles.realisticPyramid}>
+                                                    <span style={styles.realisticPyramidTop}>{cleanSign(group.signs[0])}</span>
+                                                    <span style={styles.realisticPyramidBottom}>
+                                                        <span style={styles.realisticPyramidBottomSign}>{cleanSign(group.signs[1])}</span>
+                                                        <span style={styles.realisticPyramidBottomSign}>{cleanSign(group.signs[2])}</span>
+                                                    </span>
+                                                </span>
+                                            );
+                                        } else if (group.stacked) {
+                                            // Stacked layout - compact vertical like public site
+                                            return (
+                                                <span key={gi} style={styles.realisticStacked}>
+                                                    {group.signs.map((s, i) => (
+                                                        <span key={i} style={{
+                                                            ...styles.realisticStackedSign,
+                                                            marginTop: i > 0 ? '-0.15em' : '0'
+                                                        }}>{cleanSign(s)}</span>
+                                                    ))}
+                                                </span>
+                                            );
+                                        } else if (group.horizontal) {
+                                            // Horizontal group
+                                            return (
+                                                <span key={gi} style={styles.realisticHorizontal}>
+                                                    {group.signs.map((s, i) => (
+                                                        <span key={i} style={styles.realisticHorizontalSign}>{cleanSign(s)}</span>
+                                                    ))}
+                                                </span>
+                                            );
+                                        } else {
+                                            // Single sign
+                                            return <span key={gi} style={styles.realisticSingle}>{cleanSign(group.signs[0])}</span>;
+                                        }
+                                    })}
+                                </div>
                             </div>
 
                             {/* Visual Keyboard */}
@@ -1426,5 +1465,17 @@ const styles = {
     canvasGridV: { position: 'absolute', top: 0, bottom: 0, left: '50%', width: '1px', background: 'rgba(184, 134, 11, 0.3)', pointerEvents: 'none' },
     modalActions: { display: 'flex', gap: '15px', justifyContent: 'center', marginTop: '20px' },
     applyBtn: { padding: '12px 25px', background: '#27ae60', color: 'white', border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer', fontWeight: 'bold' },
-    cancelModalBtn: { padding: '12px 25px', background: '#95a5a6', color: 'white', border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer' }
+    cancelModalBtn: { padding: '12px 25px', background: '#95a5a6', color: 'white', border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer' },
+
+    // Realistic Preview Styles (matching public site)
+    realisticPreview: { display: 'inline-flex', alignItems: 'flex-end', gap: '0.3em', marginTop: '15px', padding: '20px', background: '#f5f0e6', borderRadius: '12px', minHeight: '80px', fontFamily: "'Noto Sans Egyptian Hieroglyphs', serif", fontSize: '48px', lineHeight: 1 },
+    realisticSingle: { display: 'inline-block' },
+    realisticStacked: { display: 'inline-flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', verticalAlign: 'middle' },
+    realisticStackedSign: { display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '0.75em', lineHeight: '0.9', textAlign: 'center' },
+    realisticHorizontal: { display: 'inline-flex', alignItems: 'flex-end', gap: '0.05em' },
+    realisticHorizontalSign: { display: 'inline-block', fontSize: '0.9em' },
+    realisticPyramid: { display: 'inline-flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', verticalAlign: 'middle' },
+    realisticPyramidTop: { fontSize: '1em', lineHeight: 1 },
+    realisticPyramidBottom: { display: 'inline-flex', justifyContent: 'center', alignItems: 'flex-end', gap: '0.1em', fontSize: '0.85em', lineHeight: 1, marginTop: '-0.1em' },
+    realisticPyramidBottomSign: { display: 'inline-flex', alignItems: 'flex-end' }
 };
