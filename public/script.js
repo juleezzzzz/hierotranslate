@@ -497,7 +497,7 @@ function createStackedHieroglyphs(hieroglyphString) {
             // Layout spécial: n aligné en haut à gauche du signe principal, t à droite
             return `<span style="display: inline-flex; align-items: flex-start; vertical-align: middle;">
                 <span style="display: inline-flex; flex-direction: column; align-items: center; margin-right: -0.1em;">
-                    <span style="font-size: 0.55em; line-height: 1; margin-bottom: 2.0em; transform: translateY(-2.2em); display: inline-block;">𓈖</span>
+                    <span style="font-size: 0.55em; line-height: 1; margin-bottom: 3.5em; transform: translateY(-3.5em); display: inline-block;">𓈖</span>
                 </span>
                 <span style="font-size: 1em; line-height: 1;">${mainSign}</span>
                 <span style="font-size: 0.6em; line-height: 1; align-self: flex-end; margin-left: 0.05em;">𓏏</span>
@@ -583,15 +583,14 @@ function createStackedHieroglyphs(hieroglyphString) {
                 const nParsed = bottomParsedList.find(p => p.char.includes('𓈖')) || { style: '' };
                 const customTransform = nParsed.style.match(/transform:\s*([^;]+)/);
 
-                let transform = 'transform: translateY(-2.2em)'; // Défaut si aucun paramètre
+                let transform = 'transform: translateY(-3.5em)'; // Défaut RADICAL
 
                 if (customTransform) {
-                    // Si paramètre présent (ex: y=0 du studio), on applique un offset de base (-2.2em)
-                    // pour que 0 corresponde à la bonne position visuelle
+                    // Si paramètre présent (ex: y=0 du studio), on applique un offset de base (-3.5em)
                     const match = customTransform[0].match(/translateY\((-?[\d.]+)em\)/);
                     if (match) {
                         const val = parseFloat(match[1]);
-                        transform = `transform: translateY(${val - 2.2}em)`;
+                        transform = `transform: translateY(${val - 3.5}em)`;
                     } else {
                         transform = customTransform[0]; // Fallback si format inconnu
                     }
