@@ -4320,3 +4320,180 @@ p {
     color: var(--text-muted);
     font-style: italic;
 }
+
+/* === PREMIUM FEATURES === */
+
+/* Search Remaining Counter */
+.search-remaining-counter {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.search-remaining-counter.premium {
+    background: linear-gradient(135deg, #fef3c7, #fcd34d);
+    border-color: #d4a84b;
+    color: #92400e;
+    font-weight: 600;
+}
+
+.search-remaining-counter.warning {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    color: #dc2626;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.premium-badge {
+    display: inline-block;
+    padding: 0.15rem 0.4rem;
+    margin-right: 0.3rem;
+    background: linear-gradient(135deg, #d4a84b, #fcd34d);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #92400e;
+}
+
+/* Limit Modal */
+.limit-modal-content {
+    max-width: 420px;
+    text-align: center;
+    padding: 0;
+}
+
+.limit-modal-header {
+    padding: 2rem 2rem 1rem;
+    background: linear-gradient(180deg, #fef3c7 0%, #fdfbf7 100%);
+    border-bottom: 1px solid #e5dbc4;
+}
+
+.limit-emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.limit-modal-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.limit-modal-body {
+    padding: 1.5rem 2rem;
+}
+
+.limit-modal-body p {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.limit-subtext {
+    font-size: 0.95rem !important;
+    color: var(--text-muted) !important;
+}
+
+.limit-features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.limit-features span {
+    background: #ecfdf5;
+    color: #047857;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.limit-modal-footer {
+    padding: 1rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.limit-upgrade-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #d4a84b, #f5c842);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(212, 168, 75, 0.3);
+}
+
+.limit-upgrade-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 168, 75, 0.4);
+}
+
+.limit-wait-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s;
+}
+
+.limit-wait-btn:hover {
+    color: var(--text-secondary);
+}
+
+/* Account Dropdown Premium Badge */
+.account-premium-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fef3c7, #fdf4bf);
+    border: 1px solid #d4a84b;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #92400e;
+}
+
+.account-premium-badge .badge-star {
+    font-size: 1.1rem;
+}
+
+/* === SPECIAL HIEROGLYPH STYLING === */
+/* Make the leg hieroglyph (𓃀) appear thinner - D58 Gardiner sign */
+.hiero-thin-leg {
+    display: inline-block;
+    transform: scaleX(0.7);
+}
