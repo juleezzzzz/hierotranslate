@@ -513,8 +513,8 @@ function createStackedHieroglyphs(hieroglyphString) {
             const fontSize = parsed.style.includes('font-size') ? parsed.style : 'font-size: 0.75em;';
             const extraStyle = parsed.style.replace(/font-size:[^;]+;/g, ''); // retirer font-size du style extra pour pas conflicter
 
-            // Style spécial pour le signe jambe (𓃀) - le rendre plus fin
-            const thinLegStyle = parsed.char === '𓃀' ? 'transform: scaleX(0.7);' : '';
+            // Style spécial pour le signe jambe (𓃀) - le rendre plus fin ET plus petit
+            const thinLegStyle = parsed.char === '𓃀' ? 'transform: scale(0.85) scaleX(0.7);' : '';
 
             return `<span style="display: flex; justify-content: center; align-items: center; ${fontSize} line-height: 0.9; text-align: center; ${marginTopDefault} ${thinLegStyle} ${extraStyle}">${parsed.char}</span>`;
         }).join('');
@@ -579,8 +579,8 @@ function createStackedHieroglyphs(hieroglyphString) {
     // Si plusieurs signes collés (ex: veau 𓃀𓎛𓊃...), on les affiche en flex align-bottom
     return `<span style="display: inline-flex; align-items: flex-end; gap: 0.1em; vertical-align: bottom;">
         ${parsedSigns.map(p => {
-        // Appliquer un style spécial pour le signe jambe (𓃀) - le rendre plus fin
-        const thinLegStyle = p.char === '𓃀' ? 'transform: scaleX(0.7);' : '';
+        // Appliquer un style spécial pour le signe jambe (𓃀) - le rendre plus fin ET plus petit
+        const thinLegStyle = p.char === '𓃀' ? 'transform: scale(0.85) scaleX(0.7);' : '';
         return `<span style="font-size: 1em; line-height: 1; ${thinLegStyle} ${p.style}">${p.char}</span>`;
     }).join('')}
     </span>`;
