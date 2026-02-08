@@ -550,14 +550,30 @@ function createStackedHieroglyphs(hieroglyphString) {
             </span>`;
         }
 
-        // CAS SPÉCIFIQUE : Signe ḥ (𓉔 - cour) en haut avec n et t en bas
-        // Alignement spécial pour que n soit bien centré et t aligné correctement
+        // CAS SPÉCIFIQUE : Signe ḥ (𓉔 - cour) avec n au-dessus et t à droite
+        // Layout: n en haut à gauche, ḥ en bas à gauche, t à droite de ḥ
         if (topSignStr.includes('𓉔') || topParsed.char.includes('𓉔')) {
+            // Si le signe du haut est ḥ et les signes du bas sont n et t
+            // On réorganise: n en haut, ḥ-t en bas
+            const hasNSign = bottomParsedList.some(p => p.char.includes('𓈖'));
+            const hasTSign = bottomParsedList.some(p => p.char.includes('𓏏'));
+
+            if (hasNSign && hasTSign) {
+                // Layout spécial: n au-dessus, ḥ et t côte à côte en dessous
+                return `<span style="display: inline-flex; flex-direction: column; align-items: flex-start; justify-content: center; vertical-align: middle;">
+                    <span style="font-size: 0.6em; line-height: 1; margin-left: 0.3em; margin-bottom: -0.1em;">𓈖</span>
+                    <span style="display: inline-flex; align-items: flex-end; gap: 0.05em;">
+                        <span style="font-size: 1em; line-height: 1; ${topParsed.style}">${topParsed.char}</span>
+                        <span style="font-size: 0.7em; line-height: 1; margin-bottom: 0.1em;">𓏏</span>
+                    </span>
+                </span>`;
+            }
+
+            // Sinon, layout par défaut pour ḥ
             return `<span style="display: inline-flex; flex-direction: column; align-items: center; justify-content: center; vertical-align: middle;">
                 <span style="font-size: 1em; line-height: 1; ${topParsed.style}">${topParsed.char}</span>
                 <span style="display: inline-flex; justify-content: center; align-items: flex-end; gap: 0.15em; font-size: 0.85em; line-height: 1; margin-top: -0.25em;">
                     ${bottomParsedList.map((p, i) => {
-                // Les signes du bas sont alignés en bas avec espacement ajusté
                 return `<span style="display: inline-flex; align-items: flex-end; ${p.style}">${p.char}</span>`;
             }).join('')}
                 </span>
