@@ -484,6 +484,22 @@ function createStackedHieroglyphs(hieroglyphString) {
     if (hieroglyphString.includes('|')) {
         const signs = hieroglyphString.split('|');
 
+        // CAS SPÉCIFIQUE : ḥnt - n au-dessus de ḥ, t à droite
+        const hasHSign = signs.some(s => s.includes('𓉔'));
+        const hasNSign = signs.some(s => s.includes('𓈖'));
+        const hasTSign = signs.some(s => s.includes('𓏏'));
+
+        if (hasHSign && hasNSign && hasTSign) {
+            // Layout spécial ḥnt: n en haut, ḥ-t en bas
+            return `<span style="display: inline-flex; flex-direction: column; align-items: flex-start; justify-content: center; vertical-align: middle;">
+                <span style="font-size: 0.5em; line-height: 1; margin-left: 0.2em; margin-bottom: 0.2em;">𓈖</span>
+                <span style="display: inline-flex; align-items: flex-end; gap: 0.05em;">
+                    <span style="font-size: 1em; line-height: 1;">𓉔</span>
+                    <span style="font-size: 0.65em; line-height: 1; margin-bottom: 0.15em;">𓏏</span>
+                </span>
+            </span>`;
+        }
+
         // Vérifier si le signe "pr" (𓉐) est dans l'empilement
         const hasPrSign = signs.some(s => s.includes('𓉐'));
 
