@@ -653,32 +653,7 @@ export default function AdminSignsPage() {
             french: trans.description || '',
             notes: trans.descriptif || ''
         });
-
-        // Populate the composer with existing hieroglyphs
-        const hieroglyphStr = trans.character || '';
-        if (hieroglyphStr) {
-            // Simply extract all hieroglyphs from the string
-            // Hieroglyphs are in Unicode range U+13000–U+1342F
-            const groups = [];
-            const allChars = Array.from(hieroglyphStr);
-
-            allChars.forEach(char => {
-                // Only keep actual hieroglyphs
-                if (char.match(/[\u{13000}-\u{1342F}]/u)) {
-                    groups.push({
-                        id: Date.now() + Math.random(),
-                        signs: [char]
-                    });
-                }
-            });
-
-            setComposerGroups(groups);
-            setSelectedGroups([]);
-        } else {
-            setComposerGroups([]);
-        }
-
-        setMessage(`Modification de "${trans.transliteration || trans.code}" - Les signes ont été chargés dans le compositeur`);
+        setMessage(`Modification de "${trans.transliteration || trans.code}"`);
     };
 
     const deleteTranslation = async (id, name) => {
