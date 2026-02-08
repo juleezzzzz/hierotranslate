@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function AdminSignsPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -42,6 +42,7 @@ export default function AdminSignsPage() {
     const [positioningMode, setPositioningMode] = useState(false);
     const [positionedSigns, setPositionedSigns] = useState([]);
     const [draggingPositionIndex, setDraggingPositionIndex] = useState(null);
+    const canvasRef = useRef(null);
 
     // Interactive preview drag state
     const [draggingPreviewIndex, setDraggingPreviewIndex] = useState(null);
@@ -400,11 +401,20 @@ export default function AdminSignsPage() {
     // Appliquer les positions et fermer
     const applyPositions = () => {
         // Convertir les positions en paramètres de style
-        const canvasWidth = 400;
-        const canvasHeight = 300;
-        const centerX = canvasWidth / 2;
-        const centerY = canvasHeight / 2;
-        const scale = 100; // pixels per em
+        let centerX = 200; // Default fallback
+        let centerY = 150;
+
+        if (canvasRef.current) {
+            const rect = canvasRef.current.getBoundingClientRect();
+            centerX = rect.width / 2;
+            centerY = rect.height / 2;
+        } else {
+            // Fallback logic if ref is missing (shouldn't happen in full screen mode)
+            centerX = 700 / 2;
+            centerY = 600 / 2;
+        }
+
+        const scale = 100; // pixels per em - adjusted for fine control
 
         // Créer une chaîne de positionnement personnalisée
         // Format: char((x=offset,y=offset)) - virgule comme séparateur
@@ -1333,55 +1343,115 @@ export default function AdminSignsPage() {
                 <a href="/admin-hierotranslate-secret" style={styles.link}>👥 Admin Utilisateurs</a>
             </footer>
 
-            {/* Visual Positioning Modal */}
+            {/* Full Screen Visual Editor (Replacing old modal) */}
             {positioningMode && (
                 <div style={styles.modalOverlay}>
-                    <div style={styles.positioningModal}>
-                        <h2 style={styles.modalTitle}>📐 Positionnement Visuel des Hiéroglyphes</h2>
-                        <p style={styles.modalSubtitle}>Glissez chaque signe pour le positionner précisément</p>
+                    <div style={styles.fullScreenEditor}>
+                        <button onClick={cancelPositioning} style={styles.editorCloseBtn}>✕</button>
 
-                        <div
-                            style={styles.positioningCanvas}
-                            onMouseMove={handlePositionMouseMove}
-                            onMouseUp={handlePositionMouseUp}
-                            onMouseLeave={handlePositionMouseUp}
-                        >
-                            {/* Grid lines */}
-                            <div style={styles.canvasGridH}></div>
-                            <div style={styles.canvasGridV}></div>
+                        {/* LEFT PANEL: INPUTS (Like Search Card) */}
+                        <div style={styles.editorLeftPanel}>
+                            <h2 style={styles.editorTitle}>Éditeur</h2>
 
-                            {/* Draggable signs */}
-                            {positionedSigns.map((sign, index) => (
-                                <div
-                                    key={index}
-                                    style={{
-                                        position: 'absolute',
-                                        left: sign.x - 30,
-                                        top: sign.y - 35,
-                                        padding: '5px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        fontSize: '3.5rem',
-                                        background: draggingPositionIndex === index ? 'rgba(255, 228, 181, 0.8)' : 'transparent',
-                                        border: draggingPositionIndex === index ? '2px dashed #b8860b' : '2px dashed transparent',
-                                        borderRadius: '8px',
-                                        cursor: draggingPositionIndex === index ? 'grabbing' : 'grab',
-                                        userSelect: 'none',
-                                        fontFamily: "'Noto Sans Egyptian Hieroglyphs', serif",
-                                        color: '#2c1810',
-                                        transition: 'border 0.15s, background 0.15s'
-                                    }}
-                                    onMouseDown={(e) => handlePositionMouseDown(index, e)}
-                                >
-                                    {sign.char}
-                                </div>
-                            ))}
+                            {/* Transliteration Input */}
+                            <div>
+                                <label style={styles.editorInputLabel}>Translittération</label>
+                                <input
+                                    type="text"
+                                    value={formData.transliteration}
+                                    onChange={(e) => setFormData({ ...formData, transliteration: e.target.value })}
+                                    style={styles.editorInput}
+                                    placeholder="ex: nfr"
+                                />
+                            </div>
+
+                            {/* French Input */}
+                            <div>
+                                <label style={styles.editorInputLabel}>Français</label>
+                                <input
+                                    type="text"
+                                    value={formData.french}
+                                    onChange={(e) => setFormData({ ...formData, french: e.target.value })}
+                                    style={styles.editorInput}
+                                    placeholder="ex: beau, bon"
+                                />
+                            </div>
+
+                            {/* Code Input */}
+                            <div>
+                                <label style={styles.editorInputLabel}>Code Gardiner</label>
+                                <input
+                                    type="text"
+                                    value={formData.notes}
+                                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                                    style={styles.editorInput}
+                                    placeholder="ex: F35"
+                                />
+                            </div>
+
+                            <div style={{ marginTop: 'auto', padding: '15px', background: '#f5efe3', borderRadius: '8px', fontSize: '0.9rem', color: '#666', lineHeight: '1.5' }}>
+                                <p><strong>Mode Édition Visuelle</strong></p>
+                                <p>Cette vue imite le site public.</p>
+                                <ul style={{ paddingLeft: '20px', marginTop: '5px' }}>
+                                    <li>Modifiez les textes à gauche.</li>
+                                    <li><strong>Glissez les signes à droite</strong> pour ajuster leur position.</li>
+                                    <li>Cliquez sur "Valider" pour sauvegarder.</li>
+                                </ul>
+                            </div>
                         </div>
 
-                        <div style={styles.modalActions}>
-                            <button onClick={applyPositions} style={styles.applyBtn}>✅ Appliquer</button>
-                            <button onClick={cancelPositioning} style={styles.cancelModalBtn}>❌ Annuler</button>
+                        {/* RIGHT PANEL: VISUAL CANVAS (Like Result Card) */}
+                        <div style={styles.editorRightPanel}>
+                            <h2 style={styles.editorTitle}>Rendu Visuel (Site Public)</h2>
+
+                            <div
+                                ref={canvasRef}
+                                style={{
+                                    ...styles.canvasContainer,
+                                    cursor: draggingPositionIndex !== null ? 'grabbing' : 'default'
+                                }}
+                                onMouseMove={handlePositionMouseMove}
+                                onMouseUp={handlePositionMouseUp}
+                                onMouseLeave={handlePositionMouseUp}
+                            >
+                                {/* Grid lines for alignment help */}
+                                <div style={styles.canvasGridH}></div>
+                                <div style={styles.canvasGridV}></div>
+
+                                {/* Draggable signs using positionedSigns state */}
+                                {positionedSigns.map((sign, index) => (
+                                    <div
+                                        key={index}
+                                        style={{
+                                            position: 'absolute',
+                                            left: sign.x - 40, // Centering adjustments for larger font
+                                            top: sign.y - 40,
+                                            padding: '10px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontSize: '4.5rem', // Large realistic size
+                                            background: draggingPositionIndex === index ? 'rgba(184, 134, 11, 0.1)' : 'transparent',
+                                            border: draggingPositionIndex === index ? '2px dashed #b8860b' : '2px dashed transparent', // Only show border when dragging
+                                            borderRadius: '8px',
+                                            cursor: draggingPositionIndex === index ? 'grabbing' : 'grab',
+                                            userSelect: 'none',
+                                            fontFamily: "'Noto Sans Egyptian Hieroglyphs', serif",
+                                            color: '#2c1810',
+                                            zIndex: draggingPositionIndex === index ? 100 : 1,
+                                            transition: draggingPositionIndex === index ? 'none' : 'background 0.2s, border 0.2s'
+                                        }}
+                                        onMouseDown={(e) => handlePositionMouseDown(index, e)}
+                                    >
+                                        {sign.char}
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div style={styles.canvasControls}>
+                                <button onClick={applyPositions} style={styles.applyBtn}>✅ Valider & Enregistrer</button>
+                                <button onClick={cancelPositioning} style={styles.cancelModalBtn}>❌ Annuler</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1534,12 +1604,86 @@ const styles = {
         cursor: 'pointer',
         fontWeight: 'bold'
     },
-    resetPreviewBtn: {
-        padding: '10px 20px',
-        background: '#95a5a6',
-        color: 'white',
-        border: 'none',
+    // Full Screen Editor Styles
+    fullScreenEditor: {
+        display: 'flex',
+        width: '95%',
+        height: '90vh',
+        maxWidth: '1400px',
+        background: '#f5f0e6', // Main site bg
         borderRadius: '8px',
-        cursor: 'pointer'
+        boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
+        overflow: 'hidden',
+        position: 'relative'
+    },
+    editorLeftPanel: {
+        width: '350px',
+        padding: '30px',
+        background: '#fffbf4',
+        borderRight: '1px solid #d4c9b5',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        overflowY: 'auto'
+    },
+    editorRightPanel: {
+        flex: 1,
+        padding: '30px',
+        display: 'flex',
+        flexDirection: 'column',
+        background: '#f5f0e6',
+        position: 'relative'
+    },
+    editorTitle: {
+        fontFamily: "'Cormorant Garamond', serif",
+        fontSize: '1.8rem',
+        color: '#2c2416',
+        marginBottom: '10px',
+        borderBottom: '1px solid #d4c9b5',
+        paddingBottom: '10px'
+    },
+    editorInputLabel: {
+        fontSize: '0.9rem',
+        color: '#6b5d4a',
+        marginBottom: '5px',
+        fontWeight: 'bold'
+    },
+    editorInput: {
+        width: '100%',
+        padding: '12px',
+        fontSize: '1.1rem',
+        border: '1px solid #d4c9b5',
+        borderRadius: '4px',
+        background: '#ebe5d9',
+        color: '#2c2416',
+        fontFamily: "'Source Sans 3', sans-serif"
+    },
+    editorCloseBtn: {
+        position: 'absolute',
+        top: '20px',
+        right: '25px',
+        background: 'none',
+        border: 'none',
+        fontSize: '24px',
+        color: '#8a7b65',
+        cursor: 'pointer',
+        zIndex: 10
+    },
+    canvasContainer: {
+        flex: 1,
+        background: '#fff',
+        border: '2px dashed #d4c9b5',
+        borderRadius: '12px',
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    canvasControls: {
+        display: 'flex',
+        gap: '15px',
+        marginTop: '20px',
+        justifyContent: 'center'
     }
 };
