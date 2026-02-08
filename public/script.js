@@ -497,7 +497,7 @@ function createStackedHieroglyphs(hieroglyphString) {
             // Layout spécial: n aligné en haut à gauche du signe principal, t à droite
             return `<span style="display: inline-flex; align-items: flex-start; vertical-align: middle;">
                 <span style="display: inline-flex; flex-direction: column; align-items: center; margin-right: -0.1em;">
-                    <span style="font-size: 0.55em; line-height: 1; margin-bottom: 1.2em;">𓈖</span>
+                    <span style="font-size: 0.55em; line-height: 1; margin-bottom: 2.5em;">𓈖</span>
                 </span>
                 <span style="font-size: 1em; line-height: 1;">${mainSign}</span>
                 <span style="font-size: 0.6em; line-height: 1; align-self: flex-end; margin-left: 0.05em;">𓏏</span>
@@ -581,7 +581,7 @@ function createStackedHieroglyphs(hieroglyphString) {
             if (hasNSign && hasTSign) {
                 // Layout spécial: n au-dessus, ḥ et t côte à côte en dessous
                 return `<span style="display: inline-flex; flex-direction: column; align-items: flex-start; justify-content: center; vertical-align: middle;">
-                    <span style="font-size: 0.55em; line-height: 1; margin-left: 0.25em; margin-bottom: 1.2em;">𓈖</span>
+                    <span style="font-size: 0.55em; line-height: 1; margin-left: 0.25em; margin-bottom: 2.5em;">𓈖</span>
                     <span style="display: inline-flex; align-items: flex-end; gap: 0.05em;">
                         <span style="font-size: 1em; line-height: 1; ${topParsed.style}">${topParsed.char}</span>
                         <span style="font-size: 0.7em; line-height: 1; margin-bottom: 0.1em;">𓏏</span>
